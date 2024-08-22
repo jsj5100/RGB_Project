@@ -23,7 +23,7 @@
 						<!--begin::Wrapper-->
 						<div class="w-lg-500px p-10">
 							<!--begin::Form-->
-							<form class="form w-100" novalidate="novalidate" id="kt_new_password_form" data-kt-redirect-url="./sign_in.do" action="#">
+							<form class="form w-100" novalidate="novalidate" id="kt_new_password_form" data-kt-redirect-url="./login.do" action="#">
 								<!--begin::Heading-->
 								<div class="text-center mb-10">
 									<!--begin::Title-->
@@ -32,7 +32,7 @@
 									<!--end::Title-->
 									<!--begin::Link-->
 									<div class="text-gray-500 fw-semibold fs-6">비밀번호를 이미 재설정하셨나요 ? 
-									<a href="./sign_in.do" class="link-primary fw-bold">로그인</a></div>
+									<a href="./login.do" class="link-primary fw-bold">로그인</a></div>
 									<!--end::Link-->
 								</div>
 								<!--begin::Heading-->
@@ -75,7 +75,7 @@
 								<div class="fv-row mb-8">
 									<label class="form-check form-check-inline">
 										<input class="form-check-input" type="checkbox" name="toc" value="1" />
-										<span class="form-check-label fw-semibold text-gray-700 fs-6 ms-1">동의합니다 & 
+										<span class="form-check-label fw-semibold text-gray-700 fs-6 ms-1">동의합니다 &amp; 
 										<a href="#" class="ms-1 link-primary">조건 및 약관</a>.</span>
 									</label>
 								</div>
@@ -84,7 +84,7 @@
 								<div class="d-grid mb-10">
 									<button type="button" id="kt_new_password_submit" class="btn btn-primary">
 										<!--begin::Indicator label-->
-										<span class="indicator-label" onclick="location.href='./sing_in.do'">확인</span>
+										<span class="indicator-label" onclick="location.href='./login.do'">확인</span>
 										<!--end::Indicator label-->
 										<!--begin::Indicator progress-->
 										<span class="indicator-progress">잠시만 기대라세요... 
