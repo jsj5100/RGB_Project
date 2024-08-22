@@ -1,8 +1,11 @@
 //fullcalendar
 document.addEventListener('DOMContentLoaded', function() {
 	  var calendarEl = document.getElementById('calendar');
-
+	  var googleAPI_key = 'AIzaSyASz5EnPZfBWfKLT2tCtxvF7M6Gcp7vKJ4';
+	  
 	  var calendar = new FullCalendar.Calendar(calendarEl, {
+		
+		googleCalendarApiKey : googleAPI_key, //구글 캘린더 키 입력
 		locales: 'ko',
 	    initialView: 'dayGridMonth', //처음 로드 될 때 보이는 출력 형태(월)
 	    editable: true,
@@ -13,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	      right: 'dayGridMonth,timeGridWeek,timeGridDay'
 	    },
 	    events: [
-	   
 	      {
 	        title: 'Long Event',
 	        start: '2024-08-07',
@@ -25,6 +27,16 @@ document.addEventListener('DOMContentLoaded', function() {
 	        start: '2024-08-28'
 	      }
 	    ],
+	   eventSources:[
+			{
+				googleCalendarId:'ko.south_korea#holiday@group.v.calendar.google.com',											
+				className:'koHolidays',						
+				color:'#ff0000',
+				textColor:'#FFFFFF',
+				editable: false
+			},
+							
+		]
 	    
 	  });
 
