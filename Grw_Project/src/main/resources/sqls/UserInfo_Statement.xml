@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rgb.grw.dao.UserInfoDaoImpl">
+
+	<select id="login" parameterType="java.util.Map" resultType="UserInfoDto">
+		SELECT EMP_NO, EMP_NAME, EMP_STATE
+			FROM EMP
+			WHERE EMP_NO = #{emp_no, jdbcType=VARCHAR} 
+      		AND EMP_PASSWORD = #{emp_password, jdbcType=VARCHAR}
+	</select>
+
+</mapper>
