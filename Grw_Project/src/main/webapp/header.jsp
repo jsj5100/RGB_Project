@@ -12,7 +12,8 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700">
 
-
+<link href="./assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css">
+<link href="./assets/plugins/custom/leaflet/leaflet.bundle.css" rel="stylesheet" type="text/css">
 <link href="./assets/plugins/custom/datatables/datatables.bundle.css"
 	rel="stylesheet" type="text/css">
 
@@ -39,6 +40,8 @@
 		<div id="kt_app_sidebar" class="app-sidebar" data-kt-drawer="true"
 			data-kt-drawer-name="app-sidebar"
 			data-kt-drawer-activate="{default: true, lg: false}"
+			data-kt-drawer-overlay="true"
+			data-kt-drawer-width="auto"
 			data-kt-drawer-direction="start"
 			data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle" style="">
 			<div class="app-sidebar-primary">
@@ -47,6 +50,7 @@
 					<img alt="Logo" src="assets/media/logos/default-small-dark.svg"
 						class="h-35px">
 				</div>
+				
 				<div
 					class="app-sidebar-menu flex-grow-1 hover-scroll-overlay-y scroll-ms my-7 my-lg-5"
 					id="kt_aside_menu_wrapper" data-kt-scroll="true"
@@ -82,11 +86,26 @@
 							data-kt-menu-placement="right-start"
 							class="menu-item here show py-2">
 							<span class="menu-link menu-center"> <span
-								class="menu-icon me-0"> <img
-									style="width: 30px; height: 30px;"
-									src="./assets/images/calendar.svg">
+								class="menu-icon me-0"> <i class="ki-duotone ki-home fs-2x"></i>
 							</span>
 							</span>
+							<div
+								class="menu-sub menu-sub-dropdown px-2 py-4 w-250px mh-75 overflow-auto"
+								style="">
+								<div class="menu-item">
+									<div class="menu-content">
+										<span class="menu-section fs-5 fw-bolder ps-1 py-1">Home</span>
+									</div>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="#">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">Default</span>
+									</a>
+								</div>
+							</div>
 						</div>
 
 						<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
@@ -97,6 +116,15 @@
 									style="width: 30px; height: 30px;" src="./assets/images/hr.svg">
 							</span>
 							</span>
+							<div
+								class="menu-sub menu-sub-dropdown px-2 py-4 w-250px mh-75 overflow-auto"
+								style="">
+								<div class="menu-item">
+									<div class="menu-content">
+										<span class="menu-section fs-5 fw-bolder ps-1 py-1">Home</span>
+									</div>
+								</div>
+							</div>
 						</div>
 
 					</div>
@@ -673,10 +701,7 @@
 			</div>
 			<!--end::Toolbar container-->
 		</div>
-	</div>
-	<script>
-		var hostUrl = "./assets/";
-	</script>
+	</div> 
 	<!--begin::Global Javascript Bundle(mandatory for all pages)-->
 	<script src="./assets/plugins/global/plugins.bundle.js"></script>
 	<script src="./assets/js/scripts.bundle.js"></script>
