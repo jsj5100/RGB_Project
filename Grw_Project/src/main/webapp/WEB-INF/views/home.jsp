@@ -194,12 +194,12 @@
 							</tbody>
 						</table>
 					</div>
+
 				</div>
 			</div>
 			
 			
 			<!-- 캘린더/게시판 전체 범위 -->
-			
 			<div style="padding-top:10px;" class="row g-5 g-xl-10">
 				<div class="col-xl-6 mb-5 mb-xl-10">
 					<div class="card card-flush overflow-hidden h-md-100">
@@ -228,6 +228,7 @@
 								<a href="#" class="btn btn-sm btn-primary my-1">View All</a>
 							</div>
 						</div>
+
 						
 						<div class="card-body p-0">
 							<!--게시판 테이블 전체 시작-->
