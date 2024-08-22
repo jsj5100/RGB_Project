@@ -17,7 +17,7 @@
 
   #calendar {
     width: 100%; /* 카드의 너비에 맞게 조정 */
-    height: calc(100% - 40px); /* 카드의 높이에 맞게 조정 (예: 헤더나 패딩을 고려) */
+    height: auto; /* 카드의 높이에 맞게 조정 (예: 헤더나 패딩을 고려) */
     box-sizing: border-box; /* 패딩과 테두리도 포함하여 크기 조정 */
   }
 </style>

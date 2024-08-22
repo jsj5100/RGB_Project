@@ -57,7 +57,7 @@
 	                            <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
 	                                <div></div>
 	                                <!--begin::Link-->
-	                                <a href="./reset_password.do" class="link-primary">비밀번호를 잊으셨습니까 ?</a>
+	                                <a href="./passwordFind.do" class="link-primary">비밀번호를 잊으셨습니까 ?</a>
 	                                <!--end::Link-->
 	                            </div>
 	                            <!--end::Wrapper-->
