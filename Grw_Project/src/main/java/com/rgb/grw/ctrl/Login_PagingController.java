@@ -8,28 +8,22 @@ public class Login_PagingController {
 
 	@GetMapping(value = "/home.do")
 	public String test() {
-		
 		return "/home";
 	}
 	
-	@GetMapping(value = "/sign_in.do")
+	@GetMapping(value = "/login.do")
 	public String test2() {
-	    return "login/sign_in";
+	    return "login/login";
 	}
 	
-	@GetMapping(value = "/reset_password.do")
+	@GetMapping(value = "/passwordFind.do")
 	public String tets3() {
-		return "login/reset_password";
+		return "login/find_password";
 	}
 	
-	@GetMapping(value = "/new_password.do")
+	@GetMapping(value = "/passwordChange.do")
 	public String test4() {
 		return "login/new_password";
-	}
-	
-	@GetMapping(value = "/loginForm.do")
-	public String test5() {
-		return "login/loginForm";
 	}
 
 }
