@@ -4,9 +4,11 @@
 
 <typeAliases>
 	<typeAlias type="com.rgb.grw.dto.AnswerBoardDto" alias="AnswerBoardDto"/>
+	<typeAlias type="com.rgb.grw.dto.UserInfoDto" alias="UserInfoDto"/>
 </typeAliases>
 
 <mappers>
 	<mapper resource="sqls/Sqls_Statement.xml"/>
+	<mapper resource="sqls/UserInfo_Statement.xml"/>
 </mappers>
 </configuration>
