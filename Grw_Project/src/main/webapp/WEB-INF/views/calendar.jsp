@@ -7,7 +7,7 @@
 <title>일정관리</title>
 </head>
 
-<%@include file="../../../header.jsp"%>
+<%@include file="./header.jsp"%>
 <body>
 
 	<!-- 컨텐츠 영역 -->
@@ -299,7 +299,7 @@
 </div>	
 	
 </body>
-<%@include file="../../../footer.jsp" %>
+<%@include file="./footer.jsp" %>
 
 <script type="text/javascript">
 $("#kt_calendar_datepicker_start_date").flatpickr({
