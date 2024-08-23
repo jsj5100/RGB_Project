@@ -13,7 +13,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class TierDto {
-    private String tier_no;
-    private String tier_name;
+public class DepDto {
+    private String dep_no;
+    private String dep_name;
+    private String dep_state;
 }

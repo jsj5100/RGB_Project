@@ -1,5 +1,11 @@
+<%@ page import="com.rgb.grw.dto.UserInfoDto" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+   response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+   response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+   response.setDateHeader("Expires", 0); // Proxies.
+%>
 <!DOCTYPE html>
 <!--begin::Head-->
 <html data-bs-theme="light">
@@ -12,8 +18,8 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700">
 
-<link href="./assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css">
 <link href="./assets/plugins/custom/leaflet/leaflet.bundle.css" rel="stylesheet" type="text/css">
+<link href="./assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css">
 <link href="./assets/plugins/custom/datatables/datatables.bundle.css"
 	rel="stylesheet" type="text/css">
 
@@ -24,7 +30,6 @@
 	type="text/css">
 
 <!-- 캘린더 -->
-<link href="./assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css">
 
 
 
@@ -39,7 +44,11 @@
 	data-kt-app-sidebar-stacked="true"
 	data-kt-app-sidebar-secondary-enabled="false"
 	data-kt-app-toolbar-enabled="true" class="app-default">
-
+	
+	<% 
+	UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
+	%>
+	
 	<div>
 		<div id="kt_app_sidebar" class="app-sidebar" data-kt-drawer="true"
 			data-kt-drawer-name="app-sidebar"
@@ -158,6 +167,22 @@
 											<span class="bullet bullet-dot"></span>
 										</span>
 										<span class="menu-title">사원관리</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="./empAttendanceList.do">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">근태관리</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="./empVacationList.do">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">휴가관리</span>
 									</a>
 								</div>
 							</div>
@@ -722,12 +747,30 @@
 							class="path1"></span> <span class="path2"></span> <span
 							class="path3"></span>
 					</i>
-					</a> <a href="apps/user-management/users/list.html"
-						class="btn btn-custom btn-flex btn-sm bg-body fw-bold"> <span
-						class="text-gray-600">New Member</span>
-					</a> <a href="#" class="btn btn-flex btn-sm fw-bold btn-primary"
-						data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">New
-						Campaign</a>
+					</a>
+					<%
+					if (loginDto != null) {
+					%>
+					<!-- 로그인 상태 -->
+					<a href="./loginServlet.do"
+						class="btn btn-custom btn-secondary btn-flex btn-sm fw-bold">
+						<span class="text-gray-600">로그아웃</span>
+					</a> <a href="./myPage.do"
+						class="btn btn-flex btn-sm fw-bold btn-primary"
+						data-bs-toggle="modal"> <%=loginDto.getEmp_name()%>
+					</a>
+					<%
+					} else {
+					%>
+					<!-- 비로그인 상태 -->
+					<a href="./loginServlet.do"
+						class="btn btn-custom btn-secondary btn-flex btn-sm fw-bold">
+						<span class="text-gray-600">로그인</span>
+					</a>
+					<!-- 다른 버튼 추가 -->
+					<%
+					}
+					%>
 					<!--begin::Secondary button-->
 					<!--end::Secondary button-->
 					<!--begin::Primary button-->
@@ -743,18 +786,23 @@
 	<script src="./assets/js/scripts.bundle.js"></script>
 	<!--end::Global Javascript Bundle-->
 	<!--begin::Vendors Javascript(used for this page only)-->
+	<script src="./assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
 	<script src="./assets/plugins/custom/datatables/datatables.bundle.js"></script>
 	<!--end::Vendors Javascript-->
 	<!--begin::Custom Javascript(used for this page only)-->
+	
+<!-- 	<script src="./assets/js/custom/apps/calendar/calendar.js"></script> -->
 	<script src="./assets/js/custom/pages/user-profile/general.js"></script>
 	<script src="./assets/js/widgets.bundle.js"></script>
 	<script src="./assets/js/custom/apps/chat/chat.js"></script>
 	<script src="./assets/js/custom/utilities/modals/create-campaign.js"></script>
 	<script src="./assets/js/custom/utilities/modals/new-card.js"></script>
 	<script src="./assets/js/custom/utilities/modals/users-search.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js"></script>
-	<script src="./assets/plugins/custom/fullcalendar/ko.global.js"></script>
+<!-- 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script> -->
+<!-- 	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js"></script> -->
+<!-- 	<script src="./assets/plugins/custom/fullcalendar/ko.global.js"></script> -->
 	<script src="./assets/js/custom/apps/calendar/cal.js"></script>
+<!-- 	<script src="./assets/js/custom/apps/calendar/calendar.js"></script> -->
+	
 </body>
 </html>
