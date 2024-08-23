@@ -86,7 +86,7 @@
 							data-kt-menu-placement="right-start"
 							class="menu-item here show py-2">
 							<span class="menu-link menu-center"> <span
-								class="menu-icon me-0"> <i class="ki-duotone ki-home fs-2x"></i>
+								class="menu-icon me-0"> <img style="width: 30px; height: 30px;" src="./assets/images/calendar.svg">
 							</span>
 							</span>
 							<div
@@ -94,15 +94,31 @@
 								style="">
 								<div class="menu-item">
 									<div class="menu-content">
-										<span class="menu-section fs-5 fw-bolder ps-1 py-1">Home</span>
+										<span class="menu-section fs-5 fw-bolder ps-1 py-1">일정</span>
 									</div>
 								</div>
 								<div class="menu-item">
-									<a class="menu-link active" href="#">
+									<a class="menu-link active" href="./calendar.do">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
-										<span class="menu-title">Default</span>
+										<span class="menu-title">일정관리</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="./facility.do">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">자산조회</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="./board.do">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">게시판</span>
 									</a>
 								</div>
 							</div>
@@ -121,8 +137,24 @@
 								style="">
 								<div class="menu-item">
 									<div class="menu-content">
-										<span class="menu-section fs-5 fw-bolder ps-1 py-1">Home</span>
+										<span class="menu-section fs-5 fw-bolder ps-1 py-1">인사</span>
 									</div>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="./deptList.do">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">부서관리</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="./empList.do">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">사원관리</span>
+									</a>
 								</div>
 							</div>
 						</div>
