@@ -529,9 +529,9 @@
 										<th class="min-w-125px sorting" tabindex="0"
 											aria-controls="kt_table_users" rowspan="1" colspan="1"
 											aria-label="Joined Date: activate to sort column ascending"
-											style="width: 208.641px;">관리</th>
+											style="width: 208.641px;">재직여부</th>
 										<th class="text-end min-w-100px sorting_disabled" rowspan="1"
-											colspan="1" aria-label="Actions" style="width: 130.359px;">재직여부</th>
+											colspan="1" aria-label="Actions" style="width: 130.359px;">관리</th>
 									</tr>
 								</thead>
 								<tbody class="text-gray-600 fw-semibold">
