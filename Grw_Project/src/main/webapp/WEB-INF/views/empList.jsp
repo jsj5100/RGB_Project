@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<%@include file="/header.jsp"%>
+<%@include file="./header.jsp"%>
 </head>
 
 <body>
@@ -893,5 +893,5 @@
 <script src="./assets/js/custom/utilities/modals/users-search.js"></script>
 <!--end::Custom Javascript-->
 <!--end::Javascript-->
-<%@include file="/footer.jsp"%>
+<%@include file="./footer.jsp"%>
 </html>
