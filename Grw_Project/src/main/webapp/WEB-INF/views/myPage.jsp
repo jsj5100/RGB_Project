@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>내 정보</title>
-<%@include file="../../../header.jsp" %>
+<%@include file="./header.jsp" %>
 </head>
 <body>
 		<div id="kt_app_content" class="app-content flex-column-fluid">
@@ -18,5 +18,5 @@
 		</div>
 	</div>
 </body>
-<%@include file="../../../footer.jsp" %>
+<%@include file="./footer.jsp" %>
 </html>

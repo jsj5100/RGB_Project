@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>근태 페이지</title>
 
-<%@include file="../../../header.jsp" %>
+<%@include file="./header.jsp" %>
 </head>
 
 <body>
@@ -581,5 +581,5 @@
 		<!--end::Javascript-->
 
 
-<%@include file="../../../footer.jsp" %>
+<%@include file="./footer.jsp" %>
 </html>
