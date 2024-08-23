@@ -80,8 +80,32 @@
 								style="">
 								<div class="menu-item">
 									<div class="menu-content">
-										<span class="menu-section fs-5 fw-bolder ps-1 py-1">Home</span>
+										<span class="menu-section fs-5 fw-bolder ps-1 py-1">전자결재</span>
 									</div>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="./TemplateList.do">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">양식관리</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="./writeDocument.do">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">문서작성</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="./draft.do">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">문서함</span>
+									</a>
 								</div>
 							</div>
 						</div>
