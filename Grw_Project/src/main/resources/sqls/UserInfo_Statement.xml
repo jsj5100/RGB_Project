@@ -9,4 +9,5 @@
       		AND EMP_PASSWORD = #{emp_password, jdbcType=VARCHAR}
 	</select>
 
+
 </mapper>
