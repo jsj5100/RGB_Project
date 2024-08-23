@@ -1,6 +1,6 @@
 //fullcalendar
 document.addEventListener('DOMContentLoaded', function() {
-	  var calendarEl = document.getElementById('calendar');
+	  var calendarEl = document.getElementById('kt_calendar_app');
 	  var googleAPI_key = 'AIzaSyASz5EnPZfBWfKLT2tCtxvF7M6Gcp7vKJ4';
 	  
 	  var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -36,10 +36,20 @@ document.addEventListener('DOMContentLoaded', function() {
 				editable: false
 			},
 							
-		]
-	    
+		],
+		eventClick: function(e) {
+                    N({
+                        id: e.event.id,
+                        title: e.event.title,
+                        description: e.event.extendedProps.description,
+                        location: e.event.extendedProps.location,
+                        startStr: e.event.startStr,
+                        endStr: e.event.endStr,
+                        allDay: e.event.allDay
+                    })
+	    }
 	  });
-
 	//달력초기화시 필수
 	 calendar.render();
 	});
+	

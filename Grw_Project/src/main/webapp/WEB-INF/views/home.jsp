@@ -10,6 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 <script src="./assets/plugins/custom/fullcalendar/ko.global.js"></script>
 <script src="./assets/js/custom/apps/calendar/cal.js"></script>
+
 <body>
 	<div style="padding-left:80px; margin-top:10px;" id="kt_app_content" class="app-content flex-column-fluid">
 		<div style="padding-left:80px;" id="kt_app_content_container" class="app-container container-xxl">
@@ -295,7 +296,7 @@
 <!-- 				<div class="card-header border-0 pt-5"> -->
 <!-- 				</div> -->
 						<div class="card-body pt-5" >
-							<div style="height:auto;" id="calendar"></div>
+							<div style="height:auto;" id="kt_calendar_app"></div>
 						</div>
 					</div>
 					<!-- 캘린더 -->
