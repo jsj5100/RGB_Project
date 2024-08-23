@@ -7,23 +7,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Login_PagingController {
 
 	@GetMapping(value = "/home.do")
-	public String test() {
+	public String home() {
 		return "/home";
 	}
 	
-	@GetMapping(value = "/login.do")
-	public String test2() {
-	    return "login/login";
-	}
-	
 	@GetMapping(value = "/passwordFind.do")
-	public String tets3() {
+	public String passwordFind() {
 		return "login/find_password";
 	}
 	
 	@GetMapping(value = "/passwordChange.do")
-	public String test4() {
+	public String passwordChange() {
 		return "login/new_password";
+	}
+	
+	@GetMapping(value = "/myPage.do")
+	public String myPage() {
+		return "/myPage";
+	}
+	
+	@GetMapping(value = "/empAttendanceList.do")
+	public String empAttendanceList() {
+		return "/empAttendanceList";
+	}
+	
+	@GetMapping(value = "/empVacationList.do")
+	public String empVacationList() {
+		return "/empVacationList";
 	}
 
 }

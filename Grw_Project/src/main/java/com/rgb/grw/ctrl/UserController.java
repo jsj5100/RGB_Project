@@ -36,8 +36,8 @@ public class UserController {
 			session.setAttribute("loginDto", loginDto);
 			return "redirect:/home.do"; //성공시 메인페이지
 		} else {
-			request.setAttribute("loginError", "Invalid username or password.");
-			return "login/sign_in"; // 실패시 로그인 페이지
+			request.setAttribute("loginError", "사원번호나 비밀번호가 틀렸습니다.");
+			return "login/login"; // 실패시 로그인 페이지
 		}
 	}
 
@@ -45,6 +45,6 @@ public class UserController {
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return "login/sign_in";
+		return "login/login";
 	}
 }
