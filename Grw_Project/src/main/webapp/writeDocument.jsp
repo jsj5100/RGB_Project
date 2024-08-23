@@ -43,7 +43,9 @@
 						<div class="container">
 								<table>
 									<tr>
-										<td class="border-td" colspan="4"><input type="button" value="양식 선택"></td>
+										<td class="border-td" colspan="4">
+											<input id="selectTemplate" type="button" value="양식 선택">
+										</td>
 									</tr>
 									
 									<tr>
