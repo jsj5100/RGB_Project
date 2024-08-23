@@ -23,6 +23,10 @@
 <link href="./assets/css/style.bundle.css" rel="stylesheet"
 	type="text/css">
 
+<!-- 캘린더 -->
+<link href="./assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css">
+
+
 
 </head>
 
@@ -716,5 +720,9 @@
 	<script src="./assets/js/custom/utilities/modals/create-campaign.js"></script>
 	<script src="./assets/js/custom/utilities/modals/new-card.js"></script>
 	<script src="./assets/js/custom/utilities/modals/users-search.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js"></script>
+	<script src="./assets/plugins/custom/fullcalendar/ko.global.js"></script>
+	<script src="./assets/js/custom/apps/calendar/cal.js"></script>
 </body>
 </html>
