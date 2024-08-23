@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<%@include file="/header.jsp"%>
+<%@include file="./header.jsp"%>
 </head>
 
 <body>
@@ -814,5 +814,5 @@
 	<!--end::Javascript-->
 	
 	
-<%@include file="/footer.jsp"%>
+<%@include file="./footer.jsp"%>
 </html>
