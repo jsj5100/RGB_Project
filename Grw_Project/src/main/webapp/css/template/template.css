@@ -1,0 +1,208 @@
+/* 전반적인 스타일 설정 */
+body {
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+}
+
+/* 테이블 스타일 */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+tr {
+	height: 50px;
+}
+
+td {
+	padding: 12px;
+	border: 1px solid #ddd;
+	text-align: left;
+}
+
+th {
+	background-color: #f4f4f4;
+	padding: 12px;
+	border: 1px solid #ddd;
+}
+
+.border-td {
+	border: 1px solid #ddd;
+}
+
+/* 입력 필드 및 파일 업로드 */
+input[type="text"], input[type="file"] {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+/* 버튼 스타일 */
+.btn {
+	padding: 10px 15px;
+	border: none;
+	border-radius: 4px;
+	color: #fff;
+	cursor: pointer;
+	font-size: 14px;
+	margin: 5px;
+	transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary {
+	background-color: #007bff;
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+}
+
+.btn-primary:focus {
+	box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.5);
+}
+
+/* 제출 버튼을 오른쪽 정렬 */
+.form-actions {
+	margin-top: 20px;
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
+}
+
+/* 에디터 스타일 */
+#editor {
+	border: 1px solid #ccc;
+	padding: 15px;
+	border-radius: 4px;
+	margin-top: 20px;
+}
+
+.container {
+	display: flex;
+	height: 70vh;
+}
+
+.form-list {
+	width: 30%;
+	padding: 20px;
+	border: 1px solid #ccc;
+}
+
+.form-list h2 {
+	margin-top: 0;
+}
+
+.form-list ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+.form-list ul li {
+	margin-bottom: 10px;
+}
+
+.form-list ul li a {
+	text-decoration: none;
+	color: #007bff;
+	font-weight: bold;
+}
+
+.form-list ul li a:hover {
+	text-decoration: underline;
+}
+
+.form-preview {
+	width: 70%;
+	padding: 20px;
+}
+
+.form-preview h2 {
+	margin-top: 0;
+}
+
+#preview-content {
+	border: 1px solid #ddd;
+	padding: 15px;
+	background-color: #fff;
+}
+
+/* 전체 컨테이너 스타일 설정 */
+.container-approvalLine {
+    display: grid;                /* Grid 레이아웃 사용 */
+    grid-template-columns: 1fr;   /* 하나의 열로 구성 */
+    grid-template-rows: auto;     /* 자동 높이 설정 */
+    justify-items: center;        /* 가로 방향으로 중앙 정렬 */
+    max-width: 1200px;            /* 필요에 따라 조정 */
+    margin: 0 auto;               /* 중앙 정렬 */
+    padding: 20px;                /* 패딩 추가 */
+    gap: 20px;                    /* 요소들 사이의 간격 설정 */ 
+}
+
+/* 상단의 div 스타일 */
+.top-div {
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    width: 100%;                  /* 상단 div를 전체 너비로 설정 */
+}
+
+/* 하단의 div들을 Flexbox 레이아웃으로 배치 */
+.bottom-divs {
+    display: flex;
+    gap: 10px;                    /* 요소들 사이의 간격 설정 */
+    width: 100%;                  /* 하단 divs를 전체 너비로 설정 */
+}
+
+/* 왼쪽 div 스타일 */
+.left-div {
+    flex: 0 0 auto;                      /* 남은 공간을 균등하게 차지하도록 설정 */
+    padding: 20px;
+	border: 1px solid #ccc;
+    width: 200px;
+    height: 450px;                /* 높이 고정 */
+}
+
+/* 오른쪽 divs 컨테이너 스타일 */
+.right-divs {
+    flex: 2;                      /* 오른쪽 divs 컨테이너가 왼쪽 div보다 더 많은 공간을 차지하도록 설정 */
+    display: flex;                /* Flexbox 레이아웃을 사용 */
+    flex-direction: row;          /* 자식 요소들을 수평으로 배치 */
+    gap: 10px;                    /* 자식 요소들 사이의 간격 설정 */
+}
+
+/* 오른쪽 div 스타일 */
+.right-div {
+    flex: 1;                      /* 남은 공간을 균등하게 차지하도록 설정 */
+    padding: 20px;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;       /* 자식 요소들을 수직으로 배치 */
+}
+
+.div-header {
+    flex: 0 0 auto;               /* 고정된 크기로 설정 */
+    padding: 10px;                /* 패딩 추가 */
+    font-weight: bold;            /* 글씨 두껍게 설정 */
+    text-align: center;
+}
+
+/* 내용 영역 스타일 */
+.div-content {
+    flex: 1;                      /* 남은 공간을 차지하도록 설정 */  
+    padding: 10px;                /* 패딩 추가 */
+    overflow: auto;               /* 내용이 넘칠 경우 스크롤 가능하게 설정 */
+    border: 1px solid #ccc;
+}
+
+/* center-button 스타일 */
+.center-button {
+    margin-top: 10px;             
+    justify-self: center;         
+    display: flex;                
+    gap: 10px;                   
+}
+
