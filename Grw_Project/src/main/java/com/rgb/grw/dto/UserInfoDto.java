@@ -31,5 +31,7 @@ public class UserInfoDto {
 	private Integer emp_fulloff;
 	private Integer emp_restoff;
 	private Integer emp_useoff; 
+	
+	
 }
 

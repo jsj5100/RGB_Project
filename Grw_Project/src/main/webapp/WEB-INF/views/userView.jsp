@@ -6,17 +6,38 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<%@include file="./header.jsp"%>
+<%@include file="/header.jsp"%>
 </head>
 
 <body>
-    <div class="d-flex flex-column flex-lg-row">
-        <!--begin::Sidebar-->
-        <div class="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
-            <!--begin::Card-->
-            <div class="card mb-5 mb-xl-8">
-                <!--begin::Card body-->
-                <div class="card-body">
+<!--     <div class="d-flex flex-column flex-lg-row"> -->
+<!--         begin::Sidebar -->
+<!--         <div class="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10"> -->
+<!--             begin::Card -->
+<!--             <div class="card mb-5 mb-xl-8"> -->
+<!--                 begin::Card body -->
+                
+<!--                 end::Card body -->
+<!--             </div> -->
+<!--             end::Card -->
+<!--             begin::Connected Accounts -->
+            
+<!--             end::Connected Accounts -->
+<!--         </div> -->
+<!--         end::Sidebar -->
+<!--         begin::Content -->
+        
+<!--         end::Content -->
+<!--     </div> -->
+
+
+<div id="kt_app_content" class="app-content flex-column-fluid"> <!-- box centering -->
+		<!--begin::Content container-->
+		<div id="kt_app_content_container" class="app-container container-xxl">
+			<!--begin::Card-->
+			<div class="card">
+			
+	<div class="card-body">
                     <!--begin::Summary-->
                     <!--begin::User Info-->
                     <div class="d-flex flex-center flex-column py-5">
@@ -26,7 +47,7 @@
                         </div>
                         <!--end::Avatar-->
                         <!--begin::Name-->
-                        <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-3">홍길동</a>
+                        <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-3">아비게일</a>
                         <!--end::Name-->
                         <!--begin::Position-->
                         <div class="mb-9">
@@ -75,10 +96,10 @@
                             <!--begin::Details item-->
                            
                             <!--begin::Details item-->
-                            <div class="fw-bold mt-5">Address</div>
-                            <div class="text-gray-600">101 Collin Street, 
-                            <br>Melbourne 3000 VIC
-                            <br>Australia</div>
+<!--                             <div class="fw-bold mt-5">Address</div> -->
+<!--                             <div class="text-gray-600">101 Collin Street,  -->
+<!--                             <br>Melbourne 3000 VIC -->
+<!--                             <br>Australia</div> -->
                             <!--begin::Details item-->
                             <!--begin::Details item-->
                             <div class="fw-bold mt-5">재직여부</div>
@@ -114,19 +135,11 @@
                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </button>
                     </div>
+                    
                 </div>
-                <!--end::Card body-->
-            </div>
-            <!--end::Card-->
-            <!--begin::Connected Accounts-->
-            
-            <!--end::Connected Accounts-->
-        </div>
-        <!--end::Sidebar-->
-        <!--begin::Content-->
-        
-        <!--end::Content-->
-    </div>
+                </div>
+                </div>
+</div>
 
 
 </body>

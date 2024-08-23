@@ -6,11 +6,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<%@include file="./header.jsp"%>
+<%@include file="/header.jsp"%>
 </head>
 
 <body>
-	<div id="kt_app_content_container" class="app-container container-xxl">
+	<div id="kt_app_content_container" class="app-container container-xxl" style="padding-top: 30px;">
 		<!--begin::Card-->
 		<div class="card">
 			<!--begin::Card header-->
@@ -288,7 +288,7 @@
 								<!--begin::Modal header-->
 								<div class="modal-header" id="kt_modal_add_user_header">
 									<!--begin::Modal title-->
-									<h2 class="fw-bold">사원등록</h2>
+									<h2 class="fw-bold">부서등록</h2>
 									<!--end::Modal title-->
 									<!--begin::Close-->
 									<div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -370,7 +370,7 @@
 												<!--begin::Input-->
 												<input type="text" name="user_name"
 													class="form-control form-control-solid mb-3 mb-lg-0"
-													placeholder="Full name" value="부등/해외영업">
+													placeholder="ex) 기술지원팀" value="">
 												<!--end::Input-->
 												<div
 													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
@@ -385,7 +385,7 @@
 												<!--begin::Input-->
 												<input type="text" name="user_name"
 													class="form-control form-control-solid mb-3 mb-lg-0"
-													placeholder="Full name" value="부등/부서번호">
+													placeholder="ex) HR001" value="">
 												<!--end::Input-->
 												<div
 													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
@@ -400,7 +400,7 @@
 												<!--begin::Input-->
 												<input type="text" name="user_name"
 													class="form-control form-control-solid mb-3 mb-lg-0"
-													placeholder="Full name" value="부등/부서관리자">
+													placeholder="ex) 홍길동" value="">
 												<!--end::Input-->
 												<div
 													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
@@ -814,5 +814,5 @@
 	<!--end::Javascript-->
 	
 	
-<%@include file="./footer.jsp"%>
+<%@include file="/footer.jsp"%>
 </html>
