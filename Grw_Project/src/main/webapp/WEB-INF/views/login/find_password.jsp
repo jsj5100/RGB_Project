@@ -66,7 +66,7 @@
 										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 										<!--end::Indicator progress-->
 									</button>
-									<a href="./login.do" class="btn btn-light">취소</a>
+									<a href="./loginServlet.do" class="btn btn-light">취소</a>
 									<a href="./passwordChange.do" class="btn btn-light">임시 다음페이지</a>
 								</div>
 								<!--end::Actions-->

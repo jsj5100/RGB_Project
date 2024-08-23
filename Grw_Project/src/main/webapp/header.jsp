@@ -1,5 +1,11 @@
+<%@ page import="com.rgb.grw.dto.UserInfoDto" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+   response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+   response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+   response.setDateHeader("Expires", 0); // Proxies.
+%>
 <!DOCTYPE html>
 <!--begin::Head-->
 <html data-bs-theme="light">
@@ -39,7 +45,11 @@
 	data-kt-app-sidebar-stacked="true"
 	data-kt-app-sidebar-secondary-enabled="false"
 	data-kt-app-toolbar-enabled="true" class="app-default">
-
+	
+	<% 
+	UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
+	%>
+	
 	<div>
 		<div id="kt_app_sidebar" class="app-sidebar" data-kt-drawer="true"
 			data-kt-drawer-name="app-sidebar"
@@ -158,6 +168,22 @@
 											<span class="bullet bullet-dot"></span>
 										</span>
 										<span class="menu-title">사원관리</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="./empAttendanceList.do">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">근태관리</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link active" href="./empVacationList.do">
+										<span class="menu-bullet">
+											<span class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">휴가관리</span>
 									</a>
 								</div>
 							</div>
@@ -722,12 +748,30 @@
 							class="path1"></span> <span class="path2"></span> <span
 							class="path3"></span>
 					</i>
-					</a> <a href="apps/user-management/users/list.html"
-						class="btn btn-custom btn-flex btn-sm bg-body fw-bold"> <span
-						class="text-gray-600">New Member</span>
-					</a> <a href="#" class="btn btn-flex btn-sm fw-bold btn-primary"
-						data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">New
-						Campaign</a>
+					</a>
+					<%
+					if (loginDto != null) {
+					%>
+					<!-- 로그인 상태 -->
+					<a href="./loginServlet.do"
+						class="btn btn-custom btn-secondary btn-flex btn-sm fw-bold">
+						<span class="text-gray-600">로그아웃</span>
+					</a> <a href="./myPage.do"
+						class="btn btn-flex btn-sm fw-bold btn-primary"
+						data-bs-toggle="modal"> <%=loginDto.getEmp_name()%>
+					</a>
+					<%
+					} else {
+					%>
+					<!-- 비로그인 상태 -->
+					<a href="./loginServlet.do"
+						class="btn btn-custom btn-secondary btn-flex btn-sm fw-bold">
+						<span class="text-gray-600">로그인</span>
+					</a>
+					<!-- 다른 버튼 추가 -->
+					<%
+					}
+					%>
 					<!--begin::Secondary button-->
 					<!--end::Secondary button-->
 					<!--begin::Primary button-->
