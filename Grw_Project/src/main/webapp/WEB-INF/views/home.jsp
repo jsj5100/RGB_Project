@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html>
-<%@include file="../../../header.jsp"%>
+<%@include file="./header.jsp"%>
 
 <!-- calendar  -->
 <link href="./assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css">
@@ -25,7 +25,7 @@
 						<span class="card-label fw-bold fs-3 mb-1">진행중인 문서 현황</span>
 					</h3>
 					<div class="card-toolbar">
-						<a href="#" class="btn btn-sm btn-primary"> <img
+						<a href="./draft.do" class="btn btn-sm btn-primary"> <img
 							style="width: 30px; padding-right: 5px;"
 							src="./assets/images/document.svg"> 문서함 이동
 						</a>
@@ -272,6 +272,6 @@
 	</div>
 
 </body>
-<%@include file="../../../footer.jsp" %>
+<%@include file="./footer.jsp" %>
 <!--end::Body-->
 </html>
