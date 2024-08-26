@@ -41,7 +41,7 @@
 									<td class="border-td text-center">결재라인 지정</td>
 									<td class="border-td" colspan="3"><input type="text"
 										readonly="readonly" data-bs-toggle="modal"
-										data-bs-target="#locationbtn" placeholder="결재라인을 지정해주세요"></td>
+										data-bs-target="#approvalLineBtn" placeholder="결재라인을 지정해주세요"></td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">참조자</td>
@@ -139,7 +139,7 @@
 		</div>
 		
 		<!-- 결재라인 선택 모달창 -->
-		<div class="modal fade" id="locationbtn" tabindex="-1"
+		<div class="modal fade" id="approvalLineBtn" tabindex="-1"
 			style="display: none;" aria-hidden="true">
 			<!--begin::Modal dialog-->
 			<div class="modal-dialog mw-1000px">
