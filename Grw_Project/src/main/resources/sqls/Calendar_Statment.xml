@@ -2,5 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rgb.grw.dao.CalendarDaoImpl">
 
-	<select id=""></select>
+	<select id="calList" resultType="calendarDto">
+		SELECT ID, GROUPID, TITLE, 
+				WRITER, DESCRIPTION, TO_CHAR("START", 'YYYY-MM-DD"T"HH24:MI:SS') AS "START",
+ 				TO_CHAR("END", 'YYYY-MM-DD"T"HH24:MI:SS') AS "END"
+ 		FROM CALENDAR
+ 		WHERE DELFLAG = 'N'
+	</select>
+	
+	<select id="selectCal">
+		
+	</select>
 </mapper>

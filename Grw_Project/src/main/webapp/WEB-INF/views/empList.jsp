@@ -18,14 +18,15 @@
 			
 <!-- 트리 --><div class="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10" style="padding-left: 30px; padding-right: 10px;">
 			<div class="card">
-			JS트리			<br>
-			JS트리			<br>
-			JS트리			<br>
-			JS트리			<br>
-			JS트리			<br>
-			JS트리			<br>
-			JS트리			<br>
-			JS트리			<br>
+<!-- 			JS트리			<br> -->
+<!-- 			JS트리			<br> -->
+<!-- 			JS트리			<br> -->
+<!-- 			JS트리			<br> -->
+<!-- 			JS트리			<br> -->
+<!-- 			JS트리			<br> -->
+<!-- 			JS트리			<br> -->
+<!-- 			JS트리			<br> -->
+			<div id="tree"></div>
 			
 			</div>
 			
@@ -210,13 +211,19 @@
 										<h2 class="fw-bold">사원등록</h2>
 										<!--end::Modal title-->
 										<!--begin::Close-->
-										<div class="btn btn-icon btn-sm btn-active-icon-primary"
-											data-kt-users-modal-action="close">
-											<i class="ki-duotone ki-cross fs-1"> <span class="path1"></span>
-												<span class="path2"></span>
-											</i>
-										</div>
-										<!--end::Close-->
+<!-- 										<div class="btn btn-icon btn-sm btn-active-icon-primary" -->
+<!-- 											data-kt-users-modal-action="close"> -->
+<!-- 											<i class="ki-duotone ki-cross fs-1"> <span class="path1"></span> -->
+<!-- 												<span class="path2"></span> -->
+<!-- 											</i> -->
+<!-- 										</div> -->
+											<div class="btn btn-icon btn-sm btn-active-icon-primary"
+												data-bs-dismiss="modal" id="kt_modal_add_event_close">
+												<i class="ki-duotone ki-cross fs-1"> <span class="path1"></span>
+													<span class="path2"></span>
+												</i>
+											</div>
+											<!--end::Close-->
 									</div>
 									<!--end::Modal header-->
 									<!--begin::Modal body-->
@@ -531,8 +538,9 @@
 											<!--end::Scroll-->
 											<!--begin::Actions-->
 											<div class="text-center pt-10">
-												<button type="reset" class="btn btn-light me-3"
-													data-kt-users-modal-action="cancel">취소하기</button>
+<!-- 												<button type="reset" class="btn btn-light me-3" -->
+<!-- 													data-kt-users-modal-action="cancel">취소하기</button> -->
+<button type="button" id="kt_modal_add_event_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">취소하기</button>
 												<button type="submit" class="btn btn-primary"
 													data-kt-users-modal-action="submit">
 													<span class="indicator-label">등록하기</span> <span
@@ -653,7 +661,7 @@
 											<!--begin::User details-->
 											<div class="d-flex flex-column">
 												<a href="apps/user-management/users/view.html"
-													class="text-gray-800 text-hover-primary mb-1">1</a> 
+													class="text-gray-800 text-hover-primary mb-1">1</a>
 													<span>　</span>
 											</div> <!--begin::User details-->
 										</td>
@@ -765,7 +773,6 @@
 						<!-- 									<ul class="pagination"> -->
 						<!-- 										<li class="paginate_button page-item previous disabled" -->
 						<!-- 											id="kt_table_users_previous"><a href="#" -->
-						<!-- 											aria-controls="kt_table_users" data-dt-idx="0" tabindex="0" -->
 						<!-- 											class="page-link"><i class="previous"></i></a></li> -->
 						<!-- 										<li class="paginate_button page-item active"><a href="#" -->
 						<!-- 											aria-controls="kt_table_users" data-dt-idx="1" tabindex="0" -->
@@ -893,5 +900,103 @@
 <script src="./assets/js/custom/utilities/modals/users-search.js"></script>
 <!--end::Custom Javascript-->
 <!--end::Javascript-->
+
+
+<!-- Js Tree script -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+
+    <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+   
+    <script type="text/javascript">
+
+    function getJson() {
+    	debugger;
+	$.ajax({
+            type:'get',
+            url:'/treelist.do',
+            dataType:'json',
+            success: function(data) {
+                var company = new Array();
+                        // 데이터 받아옴
+                $.each(data, function(idx, item){
+                        company[idx] = {id:item.id, parent:item.parent_id, text:item.name};
+                });
+
+                        // 트리 생성
+                $('#tree').jstree({
+                    core: {
+                                    data: company    //데이터 연결
+                        },
+                        types: {
+                               'default': {
+                                    'icon': 'jstree-folder'
+                                }
+                        },
+                        plugins: ['wholerow', 'types']
+                 })
+                 .bind('loaded.jstree', function(event, data){
+                        //트리 로딩 롼료 이벤트
+                 })
+                 .bind('select_node.jstree', function(event, data){
+                       //노드 선택 이벤트
+                 })
+
+            },
+            error:function (data) {
+                alert("에러");
+            }
+       });
+    }
+   
+    function testTree() {
+  	
+	   	var company = new Array();
+	       // 데이터 받아옴
+	      
+	    var data =[
+	    	  { "id": "1", "name": "부서명", "parent_id": "#" },
+	    	  { "id": "2", "name": "자식 1.1", "parent_id": "1" },
+	    	  { "id": "3", "name": "자식 1.2", "parent_id": "1" },
+	    	  { "id": "4", "name": "루트 2", "parent_id": "#" },
+	    	  { "id": "5", "name": "자식 2.1", "parent_id": "4" },
+	    	  { "id": "6", "name": "자식 2.2", "parent_id": "4" },
+	    	  { "id": "7", "name": "자식 2.2.1", "parent_id": "6" },
+	    	  { "id": "8", "name": "루트 3", "parent_id": "4" },
+	    	  { "id": "12", "name": "자식 3.1", "parent_id": "8" },
+	    	  { "id": "11", "name": "경영관리", "parent_id": "12" }
+	    	];
+	      
+		$.each(data, function(idx, item){
+		        company[idx] = {id:item.id, parent:item.parent_id, text:item.name};
+		});
+		
+		        // 트리 생성
+		$('#tree').jstree({  
+		    core: {
+		                    data: company    //데이터 연결
+		        },
+		        types: {
+		               'default': {
+		                    'icon': 'jstree-folder'
+		                }
+		        },
+		        plugins: ['wholerow', 'types']
+		 })
+		 .bind('loaded.jstree', function(event, data){
+		        //트리 로딩 롼료 이벤트
+		 })
+		 .bind('select_node.jstree', function(event, data){
+		       //노드 선택 이벤트
+		 })
+    }
+   
+    $(document).ready(function(){
+    	testTree();
+    });
+
+
+    </script>	
+
 <%@include file="./footer.jsp"%>
 </html>

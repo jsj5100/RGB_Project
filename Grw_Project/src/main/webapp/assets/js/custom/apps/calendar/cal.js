@@ -37,16 +37,16 @@ document.addEventListener('DOMContentLoaded', function() {
 			},
 							
 		],
-		eventClick: function(e) {
-                    N({
-                        id: e.event.id,
-                        title: e.event.title,
-                        description: e.event.extendedProps.description,
-                        location: e.event.extendedProps.location,
-                        startStr: e.event.startStr,
-                        endStr: e.event.endStr,
-                        allDay: e.event.allDay
-                    })
+	dateClick:function(info) {
+		var addModal = new bootstrap.Modal(document.getElementById('kt_modal_add_event'));
+                    addModal.show();
+	},	
+	 eventClick: function(info) {
+		var modal = new bootstrap.Modal(document.getElementById('kt_modal_view_event'));
+                    modal.show();
+//	    alert('Event: ' + info.event.title);
+//	    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+//	    alert('View: ' + info.view.type);
 	    }
 	  });
 	//달력초기화시 필수
