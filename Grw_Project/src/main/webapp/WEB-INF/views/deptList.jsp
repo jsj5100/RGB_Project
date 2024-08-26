@@ -53,36 +53,36 @@
 							<!--begin::Content-->
 							<div class="px-7 py-5" data-kt-user-table-filter="form">
 								<!--begin::Input group-->
-								<div class="mb-10">
-									<label class="form-label fs-6 fw-semibold">Role:</label> <select
-										class="form-select form-select-solid fw-bold select2-hidden-accessible"
-										data-kt-select2="true" data-placeholder="Select option"
-										data-allow-clear="true" data-kt-user-table-filter="role"
-										data-hide-search="true" data-select2-id="select2-data-7-fbiw"
-										tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-										<option data-select2-id="select2-data-9-xyqc"></option>
-										<option value="Administrator">Administrator</option>
-										<option value="Analyst">Analyst</option>
-										<option value="Developer">Developer</option>
-										<option value="Support">Support</option>
-										<option value="Trial">Trial</option>
-									</select><span
-										class="select2 select2-container select2-container--bootstrap5"
-										dir="ltr" data-select2-id="select2-data-8-gowx"
-										style="width: 100%;"><span class="selection"><span
-											class="select2-selection select2-selection--single form-select form-select-solid fw-bold"
-											role="combobox" aria-haspopup="true" aria-expanded="false"
-											tabindex="0" aria-disabled="false"
-											aria-labelledby="select2-oe4s-container"
-											aria-controls="select2-oe4s-container"><span
-												class="select2-selection__rendered"
-												id="select2-oe4s-container" role="textbox"
-												aria-readonly="true" title="Select option"><span
-													class="select2-selection__placeholder">Select option</span></span><span
-												class="select2-selection__arrow" role="presentation"><b
-													role="presentation"></b></span></span></span><span class="dropdown-wrapper"
-										aria-hidden="true"></span></span>
-								</div>
+<!-- 								<div class="mb-10"> -->
+<!-- 									<label class="form-label fs-6 fw-semibold">Role:</label> <select -->
+<!-- 										class="form-select form-select-solid fw-bold select2-hidden-accessible" -->
+<!-- 										data-kt-select2="true" data-placeholder="Select option" -->
+<!-- 										data-allow-clear="true" data-kt-user-table-filter="role" -->
+<!-- 										data-hide-search="true" data-select2-id="select2-data-7-fbiw" -->
+<!-- 										tabindex="-1" aria-hidden="true" data-kt-initialized="1"> -->
+<!-- 										<option data-select2-id="select2-data-9-xyqc"></option> -->
+<!-- 										<option value="Administrator">Administrator</option> -->
+<!-- 										<option value="Analyst">Analyst</option> -->
+<!-- 										<option value="Developer">Developer</option> -->
+<!-- 										<option value="Support">Support</option> -->
+<!-- 										<option value="Trial">Trial</option> -->
+<!-- 									</select><span -->
+<!-- 										class="select2 select2-container select2-container--bootstrap5" -->
+<!-- 										dir="ltr" data-select2-id="select2-data-8-gowx" -->
+<!-- 										style="width: 100%;"><span class="selection"><span -->
+<!-- 											class="select2-selection select2-selection--single form-select form-select-solid fw-bold" -->
+<!-- 											role="combobox" aria-haspopup="true" aria-expanded="false" -->
+<!-- 											tabindex="0" aria-disabled="false" -->
+<!-- 											aria-labelledby="select2-oe4s-container" -->
+<!-- 											aria-controls="select2-oe4s-container"><span -->
+<!-- 												class="select2-selection__rendered" -->
+<!-- 												id="select2-oe4s-container" role="textbox" -->
+<!-- 												aria-readonly="true" title="Select option"><span -->
+<!-- 													class="select2-selection__placeholder">Select option</span></span><span -->
+<!-- 												class="select2-selection__arrow" role="presentation"><b -->
+<!-- 													role="presentation"></b></span></span></span><span class="dropdown-wrapper" -->
+<!-- 										aria-hidden="true"></span></span> -->
+<!-- 								</div> -->
 								<!--end::Input group-->
 								<!--begin::Input group-->
 								<div class="mb-10">
@@ -291,12 +291,12 @@
 									<h2 class="fw-bold">부서등록</h2>
 									<!--end::Modal title-->
 									<!--begin::Close-->
-									<div class="btn btn-icon btn-sm btn-active-icon-primary"
-										data-kt-users-modal-action="close">
-										<i class="ki-duotone ki-cross fs-1"> <span class="path1"></span>
-											<span class="path2"></span>
-										</i>
-									</div>
+									<div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal" id="kt_modal_add_event_close">
+				                        <i class="ki-duotone ki-cross fs-1">
+				                            <span class="path1"></span>
+				                            <span class="path2"></span>
+				                        </i>
+				                    </div>
 									<!--end::Close-->
 								</div>
 								<!--end::Modal header-->
@@ -512,8 +512,7 @@
 										<!--end::Scroll-->
 										<!--begin::Actions-->
 										<div class="text-center pt-10">
-											<button type="reset" class="btn btn-light me-3"
-												data-kt-users-modal-action="cancel">취소</button>
+											<button type="button" id="kt_modal_add_event_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">취소</button>
 											<button type="submit" class="btn btn-primary"
 												data-kt-users-modal-action="submit">
 												<span class="indicator-label">등록</span> <span
@@ -551,9 +550,9 @@
 									<th class="w-10px pe-2 sorting_disabled" rowspan="1"
 										colspan="1"
 										aria-label="
-                                
-                                    
-                                
+                               
+                                   
+                               
                             "
 										style="width: 29.8906px;">
 										<div
@@ -611,7 +610,7 @@
 										<!--begin::User details-->
 										<div class="d-flex flex-column">
 											<a href="apps/user-management/users/view.html"
-												class="text-gray-800 text-hover-primary mb-1">1</a> 
+												class="text-gray-800 text-hover-primary mb-1">1</a>
 												<span>　</span>
 										</div> <!--begin::User details-->
 									</td>
