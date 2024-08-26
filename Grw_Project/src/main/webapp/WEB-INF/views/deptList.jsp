@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +17,7 @@
 		<!--begin::Card-->
 		<div class="card">
 			<!--begin::Card header-->
-			<div class="card-header border-0 pt-6">
+			<div class="card-header borde r-0 pt-6">
 				<!--begin::Card title-->
 				<div class="card-title">
 					<!--begin::Search-->
@@ -146,11 +149,10 @@
 					<div class="d-flex justify-content-end align-items-center d-none"
 						data-kt-user-table-toolbar="selected">
 						<div class="fw-bold me-5">
-							<span class="me-2" data-kt-user-table-select="selected_count"></span>Selected
+							<span class="me-2" data-kt-user-table-select="selected_count"></span>선택됨
 						</div>
 						<button type="button" class="btn btn-danger"
-							data-kt-user-table-select="delete_selected">Delete
-							Selected</button>
+							data-kt-user-table-select="delete_selected">선택삭제</button>
 					</div>
 					<!--end::Group actions-->
 					<!--begin::Modal - Adjust Balance-->
@@ -176,101 +178,101 @@
 								</div>
 								<!--end::Modal header-->
 								<!--begin::Modal body-->
-								<div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-									<!--begin::Form-->
-									<form id="kt_modal_export_users_form"
-										class="form fv-plugins-bootstrap5 fv-plugins-framework"
-										action="#">
-										<!--begin::Input group-->
-										<div class="fv-row mb-10">
-											<!--begin::Label-->
-											<label class="fs-6 fw-semibold form-label mb-2">Select
-												Roles:</label>
-											<!--end::Label-->
-											<!--begin::Input-->
-											<select name="role" data-control="select2"
-												data-placeholder="Select a role" data-hide-search="true"
-												class="form-select form-select-solid fw-bold select2-hidden-accessible"
-												data-select2-id="select2-data-13-td38" tabindex="-1"
-												aria-hidden="true" data-kt-initialized="1">
-												<option data-select2-id="select2-data-15-o2cx"></option>
-												<option value="Administrator">Administrator</option>
-												<option value="Analyst">Analyst</option>
-												<option value="Developer">Developer</option>
-												<option value="Support">Support</option>
-												<option value="Trial">Trial</option>
-											</select><span
-												class="select2 select2-container select2-container--bootstrap5"
-												dir="ltr" data-select2-id="select2-data-14-lwiq"
-												style="width: 100%;"><span class="selection"><span
-													class="select2-selection select2-selection--single form-select form-select-solid fw-bold"
-													role="combobox" aria-haspopup="true" aria-expanded="false"
-													tabindex="0" aria-disabled="false"
-													aria-labelledby="select2-role-m6-container"
-													aria-controls="select2-role-m6-container"><span
-														class="select2-selection__rendered"
-														id="select2-role-m6-container" role="textbox"
-														aria-readonly="true" title="Select a role"><span
-															class="select2-selection__placeholder">Select a
-																role</span></span><span class="select2-selection__arrow"
-														role="presentation"><b role="presentation"></b></span></span></span><span
-												class="dropdown-wrapper" aria-hidden="true"></span></span>
-											<!--end::Input-->
-										</div>
-										<!--end::Input group-->
-										<!--begin::Input group-->
-										<div class="fv-row mb-10 fv-plugins-icon-container">
-											<!--begin::Label-->
-											<label class="required fs-6 fw-semibold form-label mb-2">Select
-												Export Format:</label>
-											<!--end::Label-->
-											<!--begin::Input-->
-											<select name="format" data-control="select2"
-												data-placeholder="Select a format" data-hide-search="true"
-												class="form-select form-select-solid fw-bold select2-hidden-accessible"
-												data-select2-id="select2-data-16-liaq" tabindex="-1"
-												aria-hidden="true" data-kt-initialized="1">
-												<option data-select2-id="select2-data-18-l6s8"></option>
-												<option value="excel">Excel</option>
-												<option value="pdf">PDF</option>
-												<option value="cvs">CVS</option>
-												<option value="zip">ZIP</option>
-											</select><span
-												class="select2 select2-container select2-container--bootstrap5"
-												dir="ltr" data-select2-id="select2-data-17-xjoy"
-												style="width: 100%;"><span class="selection"><span
-													class="select2-selection select2-selection--single form-select form-select-solid fw-bold"
-													role="combobox" aria-haspopup="true" aria-expanded="false"
-													tabindex="0" aria-disabled="false"
-													aria-labelledby="select2-format-7j-container"
-													aria-controls="select2-format-7j-container"><span
-														class="select2-selection__rendered"
-														id="select2-format-7j-container" role="textbox"
-														aria-readonly="true" title="Select a format"><span
-															class="select2-selection__placeholder">Select a
-																format</span></span><span class="select2-selection__arrow"
-														role="presentation"><b role="presentation"></b></span></span></span><span
-												class="dropdown-wrapper" aria-hidden="true"></span></span>
-											<!--end::Input-->
-											<div
-												class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-										</div>
-										<!--end::Input group-->
-										<!--begin::Actions-->
-										<div class="text-center">
-											<button type="reset" class="btn btn-light me-3"
-												data-kt-users-modal-action="cancel">Discard</button>
-											<button type="submit" class="btn btn-primary"
-												data-kt-users-modal-action="submit">
-												<span class="indicator-label">Submit</span> <span
-													class="indicator-progress">Please wait... <span
-													class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-											</button>
-										</div>
-										<!--end::Actions-->
-									</form>
-									<!--end::Form-->
-								</div>
+<!-- 								<div class="modal-body scroll-y mx-5 mx-xl-15 my-7"> -->
+<!-- 									begin::Form -->
+<!-- 									<form id="kt_modal_export_users_form" -->
+<!-- 										class="form fv-plugins-bootstrap5 fv-plugins-framework" -->
+<!-- 										action="#"> -->
+<!-- 										begin::Input group -->
+<!-- 										<div class="fv-row mb-10"> -->
+<!-- 											begin::Label -->
+<!-- 											<label class="fs-6 fw-semibold form-label mb-2">Select -->
+<!-- 												Roles:</label> -->
+<!-- 											end::Label -->
+<!-- 											begin::Input -->
+<!-- 											<select name="role" data-control="select2" -->
+<!-- 												data-placeholder="Select a role" data-hide-search="true" -->
+<!-- 												class="form-select form-select-solid fw-bold select2-hidden-accessible" -->
+<!-- 												data-select2-id="select2-data-13-td38" tabindex="-1" -->
+<!-- 												aria-hidden="true" data-kt-initialized="1"> -->
+<!-- 												<option data-select2-id="select2-data-15-o2cx"></option> -->
+<!-- 												<option value="Administrator">Administrator</option> -->
+<!-- 												<option value="Analyst">Analyst</option> -->
+<!-- 												<option value="Developer">Developer</option> -->
+<!-- 												<option value="Support">Support</option> -->
+<!-- 												<option value="Trial">Trial</option> -->
+<!-- 											</select><span -->
+<!-- 												class="select2 select2-container select2-container--bootstrap5" -->
+<!-- 												dir="ltr" data-select2-id="select2-data-14-lwiq" -->
+<!-- 												style="width: 100%;"><span class="selection"><span -->
+<!-- 													class="select2-selection select2-selection--single form-select form-select-solid fw-bold" -->
+<!-- 													role="combobox" aria-haspopup="true" aria-expanded="false" -->
+<!-- 													tabindex="0" aria-disabled="false" -->
+<!-- 													aria-labelledby="select2-role-m6-container" -->
+<!-- 													aria-controls="select2-role-m6-container"><span -->
+<!-- 														class="select2-selection__rendered" -->
+<!-- 														id="select2-role-m6-container" role="textbox" -->
+<!-- 														aria-readonly="true" title="Select a role"><span -->
+<!-- 															class="select2-selection__placeholder">Select a -->
+<!-- 																role</span></span><span class="select2-selection__arrow" -->
+<!-- 														role="presentation"><b role="presentation"></b></span></span></span><span -->
+<!-- 												class="dropdown-wrapper" aria-hidden="true"></span></span> -->
+<!-- 											end::Input -->
+<!-- 										</div> -->
+<!-- 										end::Input group -->
+<!-- 										begin::Input group -->
+<!-- 										<div class="fv-row mb-10 fv-plugins-icon-container"> -->
+<!-- 											begin::Label -->
+<!-- 											<label class="required fs-6 fw-semibold form-label mb-2">Select -->
+<!-- 												Export Format:</label> -->
+<!-- 											end::Label -->
+<!-- 											begin::Input -->
+<!-- 											<select name="format" data-control="select2" -->
+<!-- 												data-placeholder="Select a format" data-hide-search="true" -->
+<!-- 												class="form-select form-select-solid fw-bold select2-hidden-accessible" -->
+<!-- 												data-select2-id="select2-data-16-liaq" tabindex="-1" -->
+<!-- 												aria-hidden="true" data-kt-initialized="1"> -->
+<!-- 												<option data-select2-id="select2-data-18-l6s8"></option> -->
+<!-- 												<option value="excel">Excel</option> -->
+<!-- 												<option value="pdf">PDF</option> -->
+<!-- 												<option value="cvs">CVS</option> -->
+<!-- 												<option value="zip">ZIP</option> -->
+<!-- 											</select><span -->
+<!-- 												class="select2 select2-container select2-container--bootstrap5" -->
+<!-- 												dir="ltr" data-select2-id="select2-data-17-xjoy" -->
+<!-- 												style="width: 100%;"><span class="selection"><span -->
+<!-- 													class="select2-selection select2-selection--single form-select form-select-solid fw-bold" -->
+<!-- 													role="combobox" aria-haspopup="true" aria-expanded="false" -->
+<!-- 													tabindex="0" aria-disabled="false" -->
+<!-- 													aria-labelledby="select2-format-7j-container" -->
+<!-- 													aria-controls="select2-format-7j-container"><span -->
+<!-- 														class="select2-selection__rendered" -->
+<!-- 														id="select2-format-7j-container" role="textbox" -->
+<!-- 														aria-readonly="true" title="Select a format"><span -->
+<!-- 															class="select2-selection__placeholder">Select a -->
+<!-- 																format</span></span><span class="select2-selection__arrow" -->
+<!-- 														role="presentation"><b role="presentation"></b></span></span></span><span -->
+<!-- 												class="dropdown-wrapper" aria-hidden="true"></span></span> -->
+<!-- 											end::Input -->
+<!-- 											<div -->
+<!-- 												class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div> -->
+<!-- 										</div> -->
+<!-- 										end::Input group -->
+<!-- 										begin::Actions -->
+<!-- 										<div class="text-center"> -->
+<!-- 											<button type="reset" class="btn btn-light me-3" -->
+<!-- 												data-kt-users-modal-action="cancel">Discard</button> -->
+<!-- 											<button type="submit" class="btn btn-primary" -->
+<!-- 												data-kt-users-modal-action="submit"> -->
+<!-- 												<span class="indicator-label">Submit</span> <span -->
+<!-- 													class="indicator-progress">Please wait... <span -->
+<!-- 													class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
+<!-- 											</button> -->
+<!-- 										</div> -->
+<!-- 										end::Actions -->
+<!-- 									</form> -->
+<!-- 									end::Form -->
+<!-- 								</div> -->
 								<!--end::Modal body-->
 							</div>
 							<!--end::Modal content-->
@@ -278,6 +280,7 @@
 						<!--end::Modal dialog-->
 					</div>
 					<!--end::Modal - New Card-->
+					
 					<!--begin::Modal - Add task-->
 					<div class="modal fade" id="kt_modal_add_user" tabindex="-1"
 						aria-hidden="true">
@@ -536,24 +539,28 @@
 			</div>
 			<!--end::Card header-->
 			<!--begin::Card body-->
+			
+			
+			
+			
 			<div class="card-body py-4">
 				<!--begin::Table-->
 				<div id="kt_table_users_wrapper"
 					class="dataTables_wrapper dt-bootstrap4 no-footer">
 					<div class="table-responsive">
+						
+						
 						<table
 							class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer"
 							id="kt_table_users">
+
+
 							<thead>
 								<tr
 									class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
 									<th class="w-10px pe-2 sorting_disabled" rowspan="1"
 										colspan="1"
-										aria-label="
-                               
-                                   
-                               
-                            "
+										aria-label=""
 										style="width: 29.8906px;">
 										<div
 											class="form-check form-check-sm form-check-custom form-check-solid me-3">
@@ -588,9 +595,17 @@
 								</tr>
 							</thead>
 							<tbody class="text-gray-600 fw-semibold">
-
-
-
+								
+								<c:forEach var="vo" items="${deptList}" varStatus="vs">
+									<tr>
+										<td><input type="checkbox" name="chkVal"
+											value="${vo.seq}"></td>
+										<td>${vo.dep_name}</td>
+										<td>${vo.dep_no}</td>
+										<td>${vo.}</td>
+										<td>${vo.dep_state}</td>
+									</tr>
+								</c:forEach>
 
 
 								<tr class="odd">
@@ -696,6 +711,7 @@
 								</tr>
 
 							</tbody>
+							
 						</table>
 					</div>
 					<!-- 					<div class="row"> -->

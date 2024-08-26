@@ -15,7 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeptDto {
-
+	public int seq;
 	public String dep_no;
 	public String emp_no;
 	public String dep_name;
