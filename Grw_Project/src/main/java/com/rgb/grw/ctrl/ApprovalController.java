@@ -13,4 +13,9 @@ public class ApprovalController {
 	public String writeDocument() {
 		return "writeDocument";
 	}
+	
+	@GetMapping(value = "/signList.do")
+	public String signList() {
+		return "signList";
+	}
 }
