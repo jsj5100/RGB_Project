@@ -5,10 +5,14 @@
 <typeAliases>
 	<typeAlias type="com.rgb.grw.dto.AnswerBoardDto" alias="AnswerBoardDto"/>
 	<typeAlias type="com.rgb.grw.dto.UserInfoDto" alias="UserInfoDto"/>
+	<typeAlias type="com.rgb.grw.dto.DeptDto" alias="DeptDto"/>
+	<typeAlias type="com.rgb.grw.dto.CalendarDto" alias="CalendarDto"/>
 </typeAliases>
 
 <mappers>
 	<mapper resource="sqls/Sqls_Statement.xml"/>
 	<mapper resource="sqls/UserInfo_Statement.xml"/>
+	<mapper resource="sqls/Dept_Statement.xml"/>
+	<mapper resource="sqls/Calendar_Statment.xml"/>
 </mappers>
 </configuration>

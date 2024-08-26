@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper>
+<mapper namespace="com.rgb.grw.dao.DeptDaoImpl">
 
-
-
+<select id="DeptList" resultType="DeptDto">
+	  		SELECT SEQ, EMP_NO, DEP_NO, DEP_NAME, DEP_STATE
+			FROM DEP
+</select>
 
 </mapper>

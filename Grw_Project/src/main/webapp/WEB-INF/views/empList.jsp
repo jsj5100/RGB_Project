@@ -16,24 +16,21 @@
 			<div class="d-flex flex-column flex-lg-row">
 			<!--begin::Card-->
 			
-<!-- 트리 --><div class="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10" style="padding-left: 30px; padding-right: 10px;">
-			<div class="card">
-<!-- 			JS트리			<br> -->
-<!-- 			JS트리			<br> -->
-<!-- 			JS트리			<br> -->
-<!-- 			JS트리			<br> -->
-<!-- 			JS트리			<br> -->
-<!-- 			JS트리			<br> -->
-<!-- 			JS트리			<br> -->
-<!-- 			JS트리			<br> -->
-			<div id="tree"></div>
-			
-			</div>
-			
-			</div>
-			
-			
-			<div class="card">
+<!-- 트리 -->
+				<div
+					class="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10"
+					style="padding-left: 30px; padding-right: 10px;">
+					
+					<div class="card">
+
+						<div id="tree"></div>
+
+					</div>
+
+				</div>
+
+
+				<div class="card">
 				<!--begin::Card header-->
 				<div class="card-header border-0 pt-6">
 					<!--begin::Card title-->
