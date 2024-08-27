@@ -21,5 +21,10 @@ public class DeptDaoImpl implements IDeptDao {
 	public List<DeptDto> DeptList() {
 		return sessionTemplate.selectList(NS+"DeptList");
 	}
+	
+	@Override
+	public int insertDept(DeptDto dto) {
+		return sessionTemplate.insert(NS+"insertDept");
+	}
 
 }

@@ -306,7 +306,7 @@
 								<!--begin::Modal body-->
 								<div class="modal-body px-5 my-7">
 									<!--begin::Form-->
-									<form id="kt_modal_add_user_form"
+									<form id="kt_modal_add_user_form" name="regDept"
 										class="form fv-plugins-bootstrap5 fv-plugins-framework"
 										action="#">
 										<!--begin::Scroll-->
@@ -396,18 +396,18 @@
 											<!--end::Input group-->
 
 											<!--begin::Input group-->
-											<div class="fv-row mb-7 fv-plugins-icon-container">
-												<!--begin::Label-->
-												<label class="required fw-semibold fs-6 mb-2">부서관리자</label>
-												<!--end::Label-->
-												<!--begin::Input-->
-												<input type="text" name="user_name"
-													class="form-control form-control-solid mb-3 mb-lg-0"
-													placeholder="ex) 홍길동" value="">
-												<!--end::Input-->
-												<div
-													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-											</div>
+<!-- 											<div class="fv-row mb-7 fv-plugins-icon-container"> -->
+<!-- 												begin::Label -->
+<!-- 												<label class="required fw-semibold fs-6 mb-2">부서관리자</label> -->
+<!-- 												end::Label -->
+<!-- 												begin::Input -->
+<!-- 												<input type="text" name="user_name" -->
+<!-- 													class="form-control form-control-solid mb-3 mb-lg-0" -->
+<!-- 													placeholder="ex) 홍길동" value=""> -->
+<!-- 												end::Input -->
+<!-- 												<div -->
+<!-- 													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div> -->
+<!-- 											</div> -->
 											<!--end::Input group-->
 
 
@@ -596,119 +596,157 @@
 							</thead>
 							<tbody class="text-gray-600 fw-semibold">
 								
-								<c:forEach var="vo" items="${deptList}" varStatus="vs">
+								<c:forEach var="vo" items="${DeptList}" varStatus="vs">
 									<tr>
+									
 										<td><input type="checkbox" name="chkVal"
-											value="${vo.seq}"></td>
+											value="${vo.seq}">
+										</td>
+											
+										<td class="d-flex align-items-center">
+											<div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+<!-- 												<a href="apps/user-management/users/view.html"> -->
+<!-- 													<div class="symbol-label fs-3 bg-light-danger text-danger">M</div> -->
+<!-- 												</a> -->
+											</div> 
+											<div class="d-flex flex-column">
+												<a href="apps/user-management/users/view.html"
+													class="text-gray-800 text-hover-primary mb-1">모야</a> 
+													<span>　</span>
+											</div>
+										</td>
+										
 										<td>${vo.dep_name}</td>
 										<td>${vo.dep_no}</td>
-										<td>${vo.}</td>
+										<td>${vo.emp_name}</td>
 										<td>${vo.dep_state}</td>
+										<td class="text-end"><a href="#"
+										class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
+										data-kt-menu-trigger="click"
+										data-kt-menu-placement="bottom-end">설정<i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+										<div
+											class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+											data-kt-menu="true">
+											<div class="menu-item px-3">
+												<a href="apps/user-management/users/view.html"
+													class="menu-link px-3">수정</a>
+										</div>
+
+											<div class="menu-item px-3">
+												<a href="#" class="menu-link px-3"
+													data-kt-users-table-filter="delete_row">삭제</a>
+											</div>
+										</div> 
+										</td>
 									</tr>
 								</c:forEach>
 
 
-								<tr class="odd">
-									<td>
-										<div
-											class="form-check form-check-sm form-check-custom form-check-solid">
-											<input class="form-check-input" type="checkbox" value="1">
-										</div>
-									</td>
-									<td class="d-flex align-items-center">
-										<!--begin:: Avatar --> <!--                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3"> -->
-										<!--                                     <a href="apps/user-management/users/view.html"> -->
-										<!--                                         <div class="symbol-label"> -->
-										<!--                                             <img src="assets/media/avatars/300-6.jpg" alt="Emma Smith" class="w-100"> -->
-										<!--                                         </div> --> <!--                                     </a> -->
-										<!--                                 </div> --> <!--end::Avatar-->
-										<!--begin::User details-->
-										<div class="d-flex flex-column">
-											<a href="apps/user-management/users/view.html"
-												class="text-gray-800 text-hover-primary mb-1">1</a>
-												<span>　</span>
-										</div> <!--begin::User details-->
-									</td>
-									<td>전략지원</td>
-									<td data-order="2024-08-20T15:51:24+09:00">
-										<div class="badge badge-light fw-bold">ST001</div>
-									</td>
 
-									<td>제갈량</td>
+<!-- 								<tr class="odd"> -->
+<!-- 									<td> -->
+<!-- 										<div -->
+<!-- 											class="form-check form-check-sm form-check-custom form-check-solid"> -->
+<!-- 											<input class="form-check-input" type="checkbox" value="1"> -->
+<!-- 										</div> -->
+<!-- 									</td> -->
+<!-- 									<td class="d-flex align-items-center"> -->
+<!-- 										begin:: Avatar                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3"> -->
+<!-- 										                                    <a href="apps/user-management/users/view.html"> -->
+<!-- 										                                        <div class="symbol-label"> -->
+<!-- 										                                            <img src="assets/media/avatars/300-6.jpg" alt="Emma Smith" class="w-100"> -->
+<!-- 										                                        </div>                                     </a> -->
+<!-- 										                                </div> end::Avatar -->
+<!-- 										begin::User details -->
+<!-- 										<div class="d-flex flex-column"> -->
+<!-- 											<a href="apps/user-management/users/view.html" -->
+<!-- 												class="text-gray-800 text-hover-primary mb-1">1</a> -->
+<!-- 												<span>　</span> -->
+<!-- 										</div> begin::User details -->
+<!-- 									</td> -->
+<!-- 									<td>전략지원</td> -->
+<!-- 									<td data-order="2024-08-20T15:51:24+09:00"> -->
+<!-- 										<div class="badge badge-light fw-bold">ST001</div> -->
+<!-- 									</td> -->
+
+<!-- 									<td>제갈량</td> -->
 
 
-									<td data-order="2023-10-25T06:43:00+09:00">Y</td>
-									<td class="text-end"><a href="#"
-										class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
-										data-kt-menu-trigger="click"
-										data-kt-menu-placement="bottom-end">설정<i
-											class="ki-duotone ki-down fs-5 ms-1"></i></a> <!--begin::Menu-->
-										<div
-											class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-											data-kt-menu="true">
-											<!--begin::Menu item-->
-											<div class="menu-item px-3">
-												<a href="apps/user-management/users/view.html"
-													class="menu-link px-3">수정</a>
-											</div>
-											<!--end::Menu item-->
-											<!--begin::Menu item-->
-											<div class="menu-item px-3">
-												<a href="#" class="menu-link px-3"
-													data-kt-users-table-filter="delete_row">삭제</a>
-											</div>
-											<!--end::Menu item-->
-										</div> <!--end::Menu--></td>
-								</tr>
-								<tr class="even">
-									<td>
-										<div
-											class="form-check form-check-sm form-check-custom form-check-solid">
-											<input class="form-check-input" type="checkbox" value="1">
-										</div>
-									</td>
-									<td class="d-flex align-items-center">
-										<!--begin:: Avatar --> <!--                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3"> -->
-										<!--                                     <a href="apps/user-management/users/view.html"> -->
-										<!--                                         <div class="symbol-label fs-3 bg-light-danger text-danger">M</div> -->
-										<!--                                     </a> --> <!--                                 </div> -->
-										<!--end::Avatar--> <!--begin::User details-->
-										<div class="d-flex flex-column">
-											<a href="apps/user-management/users/view.html"
-												class="text-gray-800 text-hover-primary mb-1">2</a> <span>　</span>
-										</div> <!--begin::User details-->
-									</td>
-									<td>해외영업</td>
-									<td data-order="2024-08-21T15:31:24+09:00">
-										<div class="badge badge-light fw-bold">WD001</div>
-									</td>
-									<td>
-										<!-- 										<div class="badge badge-light-success fw-bold">석호필</div> -->
-										<div>석호필</div>
-									</td>
-									<td data-order="2023-07-25T14:40:00+09:00">N</td>
-									<td class="text-end"><a href="#"
-										class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
-										data-kt-menu-trigger="click"
-										data-kt-menu-placement="bottom-end">설정<i
-											class="ki-duotone ki-down fs-5 ms-1"></i></a> <!--begin::Menu-->
-										<div
-											class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-											data-kt-menu="true">
-											<!--begin::Menu item-->
-											<div class="menu-item px-3">
-												<a href="apps/user-management/users/view.html"
-													class="menu-link px-3">수정</a>
-											</div>
-											<!--end::Menu item-->
-											<!--begin::Menu item-->
-											<div class="menu-item px-3">
-												<a href="#" class="menu-link px-3"
-													data-kt-users-table-filter="delete_row">삭제</a>
-											</div>
-											<!--end::Menu item-->
-										</div> <!--end::Menu--></td>
-								</tr>
+<!-- 									<td data-order="2023-10-25T06:43:00+09:00">Y</td> -->
+<!-- 									<td class="text-end"><a href="#" -->
+<!-- 										class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" -->
+<!-- 										data-kt-menu-trigger="click" -->
+<!-- 										data-kt-menu-placement="bottom-end">설정<i -->
+<!-- 											class="ki-duotone ki-down fs-5 ms-1"></i></a> begin::Menu -->
+<!-- 										<div -->
+<!-- 											class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" -->
+<!-- 											data-kt-menu="true"> -->
+<!-- 											begin::Menu item -->
+<!-- 											<div class="menu-item px-3"> -->
+<!-- 												<a href="apps/user-management/users/view.html" -->
+<!-- 													class="menu-link px-3">수정</a> -->
+<!-- 										</div> -->
+<!-- 											end::Menu item -->
+<!-- 											begin::Menu item -->
+
+<!-- 											<div class="menu-item px-3"> -->
+<!-- 												<a href="#" class="menu-link px-3" -->
+<!-- 													data-kt-users-table-filter="delete_row">삭제</a> -->
+<!-- 											</div> -->
+<!-- 											end::Menu item -->
+<!-- 										</div> end::Menu -->
+<!-- 										</td> -->
+<!-- 								</tr> -->
+<!-- 								<tr class="even"> -->
+<!-- 									<td> -->
+<!-- 										<div -->
+<!-- 											class="form-check form-check-sm form-check-custom form-check-solid"> -->
+<!-- 											<input class="form-check-input" type="checkbox" value="1"> -->
+<!-- 										</div> -->
+<!-- 									</td> -->
+<!-- 									<td class="d-flex align-items-center"> -->
+<!-- 										begin:: Avatar                                 <div class="symbol symbol-circle symbol-50px overflow-hidden me-3"> -->
+<!-- 										                                    <a href="apps/user-management/users/view.html"> -->
+<!-- 										                                        <div class="symbol-label fs-3 bg-light-danger text-danger">M</div> -->
+<!-- 										                                    </a>                                 </div> -->
+<!-- 										end::Avatar begin::User details -->
+<!-- 										<div class="d-flex flex-column"> -->
+<!-- 											<a href="apps/user-management/users/view.html" -->
+<!-- 												class="text-gray-800 text-hover-primary mb-1">2</a> <span>　</span> -->
+<!-- 										</div> begin::User details -->
+<!-- 									</td> -->
+<!-- 									<td>해외영업</td> -->
+<!-- 									<td data-order="2024-08-21T15:31:24+09:00"> -->
+<!-- 										<div class="badge badge-light fw-bold">WD001</div> -->
+<!-- 									</td> -->
+<!-- 									<td> -->
+<!-- 																				<div class="badge badge-light-success fw-bold">석호필</div> -->
+<!-- 										<div>석호필</div> -->
+<!-- 									</td> -->
+<!-- 									<td data-order="2023-07-25T14:40:00+09:00">N</td> -->
+<!-- 									<td class="text-end"><a href="#" -->
+<!-- 										class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" -->
+<!-- 										data-kt-menu-trigger="click" -->
+<!-- 										data-kt-menu-placement="bottom-end">설정<i -->
+<!-- 											class="ki-duotone ki-down fs-5 ms-1"></i></a> begin::Menu -->
+<!-- 										<div -->
+<!-- 											class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" -->
+<!-- 											data-kt-menu="true"> -->
+<!-- 											begin::Menu item -->
+<!-- 											<div class="menu-item px-3"> -->
+<!-- 												<a href="apps/user-management/users/view.html" -->
+<!-- 													class="menu-link px-3">수정</a> -->
+<!-- 											</div> -->
+<!-- 											end::Menu item -->
+<!-- 											begin::Menu item -->
+<!-- 											<div class="menu-item px-3"> -->
+<!-- 												<a href="#" class="menu-link px-3" -->
+<!-- 													data-kt-users-table-filter="delete_row">삭제</a> -->
+<!-- 											</div> -->
+<!-- 											end::Menu item -->
+<!-- 										</div> end::Menu
+											</td> -->
+<!-- 								</tr> -->
 
 							</tbody>
 							

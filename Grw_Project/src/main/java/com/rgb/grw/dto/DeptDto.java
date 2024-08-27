@@ -20,4 +20,8 @@ public class DeptDto {
 	public String emp_no;
 	public String dep_name;
 	public String dep_state;
+	
+	public String emp_name;
+	
+	
 }

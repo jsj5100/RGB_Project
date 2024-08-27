@@ -7,4 +7,6 @@ import com.rgb.grw.dto.DeptDto;
 public interface IDeptService {
 
 	public List<DeptDto> DeptList();
+	
+	public int insertDept(DeptDto dto);
 }
