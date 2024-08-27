@@ -2,15 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rgb.grw.dao.CalendarDaoImpl">
 
-	<select id="calList" resultType="calendarDto">
-		SELECT ID, GROUPID, TITLE, 
-				WRITER, DESCRIPTION, TO_CHAR("START", 'YYYY-MM-DD"T"HH24:MI:SS') AS "START",
- 				TO_CHAR("END", 'YYYY-MM-DD"T"HH24:MI:SS') AS "END"
- 		FROM CALENDAR
- 		WHERE DELFLAG = 'N'
-	</select>
-	
-	<select id="selectCal">
-		
+<!-- 모든 일정 조회 -->
+	<select id="selectCal" resultType="calendarDto">
+		SELECT SD_NO , SD_CODE , SD_EMPNO , TO_CHAR(SD_START , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START ,
+						TO_CHAR(SD_END  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_END , SD_WRITER , TO_CHAR(SD_REGDATE  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_REGDATE  , 
+						SD_TITLE , SD_CONTENT , TO_CHAR(SD_EDITOR  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START,
+						SD_DEPNO  , SD_DELFLAG 
+		FROM SCHEDULE s 
+		WHERE SD_DELFLAG = 'N' 
+		AND SD_CODE = 'S00'
+		UNION
+		SELECT SD_NO , SD_CODE , SD_EMPNO , TO_CHAR(SD_START , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START ,
+						TO_CHAR(SD_END  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_END , SD_WRITER , TO_CHAR(SD_REGDATE  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_REGDATE  , 
+						SD_TITLE , SD_CONTENT , TO_CHAR(SD_EDITOR  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START,
+						SD_DEPNO  , SD_DELFLAG 
+		FROM SCHEDULE s 
+		WHERE SD_DELFLAG = 'N' 
+		AND SD_EMPNO = #{empno}
+		UNION
+		SELECT SD_NO , SD_CODE , SD_EMPNO , TO_CHAR(SD_START , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START ,
+						TO_CHAR(SD_END  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_END , SD_WRITER , TO_CHAR(SD_REGDATE  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_REGDATE  , 
+						SD_TITLE , SD_CONTENT , TO_CHAR(SD_EDITOR  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START,
+						SD_DEPNO  , SD_DELFLAG 
+		FROM SCHEDULE s 
+		WHERE  SD_CODE = 'S02' 
+		AND SD_DELFLAG ='N' 
+		AND SD_DEPNO = (
+							SELECT d.DEP_NAME  
+								FROM  SCHEDULE s JOIN DEP d 
+								ON s.SD_EMPNO  = d.EMP_NO 
+								WHERE s.SD_EMPNO = #{empno}
+								GROUP BY DEP_NAME
+		)
 	</select>
 </mapper>
