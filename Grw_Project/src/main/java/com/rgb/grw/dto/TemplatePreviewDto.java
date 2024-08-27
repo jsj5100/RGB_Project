@@ -22,4 +22,8 @@ public class TemplatePreviewDto {
 	private String temp_content;
 	private String temp_regdate;
 	private String temp_editdate;
+	
+	private String emp_name;
+	private String dep_name;
+	
 }

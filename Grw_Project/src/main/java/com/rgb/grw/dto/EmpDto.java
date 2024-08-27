@@ -28,7 +28,10 @@ public class EmpDto {
 	public String emp_restoff;
 	public String emp_useoff;
 	
-	public String dep_name; 		//부서명
+
+	public String dep_name;
+	public String dep_no;
+  public String dep_name; 
 
 	public String tier_name;		 //직위
 	public String auth_name;		 //
