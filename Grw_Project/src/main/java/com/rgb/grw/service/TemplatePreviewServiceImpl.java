@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rgb.grw.dao.TemplatePreviewDaoImpl;
+import com.rgb.grw.dto.DeptDto;
+import com.rgb.grw.dto.EmpDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 
 import lombok.RequiredArgsConstructor;
@@ -21,8 +23,18 @@ public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
 	
 	@Override
 	public List<TemplatePreviewDto> selectTemplate() {
-		log.info("TemplatePreviewServiceImpl");
 		return previewDaoImpl.selectTemplate();
 	}
 
+	@Override
+	public List<DeptDto> jstreeDep() {
+		return previewDaoImpl.jstreeDep();
+	}
+
+	@Override
+	public List<EmpDto> jstreeEmp() {
+		return previewDaoImpl.jstreeEmp();
+	}
+
+	
 }
