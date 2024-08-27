@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -311,9 +310,11 @@
 </body>
 <%@include file="./footer.jsp" %>
 
-<script type="text/javascript">
+<script>
+
+
 $("#kt_calendar_datepicker_start_date").flatpickr({
-    dateFormat: "Y-m-d"
+    dateFormat: "Y-m-d",
 });
 
 $("#kt_calendar_datepicker_start_time").flatpickr({
@@ -331,6 +332,68 @@ $("#kt_calendar_datepicker_end_time").flatpickr({
 	  noCalendar: true,
 	  dateFormat: "H:i",
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('kt_calendar_app');
+    var googleAPI_key = 'AIzaSyASz5EnPZfBWfKLT2tCtxvF7M6Gcp7vKJ4';
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        googleCalendarApiKey: googleAPI_key,
+        locales: 'ko',
+        initialView: 'dayGridMonth',
+        editable: true,
+        selectable: true,
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        eventSources: [
+            {
+                googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
+                className: 'koHolidays',
+                color: '#ff0000',
+                textColor: '#FFFFFF',
+                editable: false
+            }
+        ],
+        events: function(fetchInfo, successCallback, failureCallback) {
+            $.ajax({
+                type: "get",
+                url: "./events/calendar.do",
+                dataType: "json",
+                success: function(data) {
+                    successCallback(data); // FullCalendar에 데이터 제공
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var errorMessage = "An error occurred while fetching events.";
+                    if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
+                        errorMessage = jqXHR.responseJSON.message;
+                    }
+                    alert(errorMessage);
+                    failureCallback(); // FullCalendar에 오류 전달
+                }
+            });
+        },
+        dateClick: function(info) {
+            var addModal = new bootstrap.Modal(document.getElementById('kt_modal_add_event'));
+            addModal.show();
+			
+        },
+        eventClick: function(info) {
+            var modal = new bootstrap.Modal(document.getElementById('kt_modal_view_event'));
+            modal.show();
+        }
+    });
+
+    // 달력 초기화 시 필수
+    calendar.render();
+});
+
+	
+	
 </script>
 
 </html>
