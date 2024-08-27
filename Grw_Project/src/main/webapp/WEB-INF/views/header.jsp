@@ -92,33 +92,122 @@
 										<span class="menu-section fs-5 fw-bolder ps-1 py-1">전자결재</span>
 									</div>
 								</div>
-								<div class="menu-item">
-									<a class="menu-link active" href="./TemplateList.do">
-										<span class="menu-bullet">
-											<span class="bullet bullet-dot"></span>
+								
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<span class="menu-link">
+										<span style="color : #2c9aff;" class="menu-bullet">
+											<span style="color : #2c9aff;" class="bullet bullet-dot"></span>
 										</span>
 										<span class="menu-title">양식관리</span>
-									</a>
+										<span class="menu-arrow"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion" style="display: none; overflow: hidden;">
+										<div class="menu-item">
+											<a class="menu-link" href="./writeTemplate.do">&nbsp;&nbsp;&nbsp;
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">양식 작성/등록</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link" href="./templateList.do">&nbsp;&nbsp;&nbsp;
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">양식리스트 조회</span>
+											</a>
+										</div>
 								</div>
+								</div>
+							<!-- 끝 -->
 								<div class="menu-item">
-									<a class="menu-link active" href="./writeDocument.do">
+									<a class="menu-link" href="./writeDocument.do" target="_blank" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right" data-bs-original-title="Check out over 200 in-house components" data-kt-initialized="1">
 										<span class="menu-bullet">
 											<span class="bullet bullet-dot"></span>
 										</span>
-										<span class="menu-title">문서작성</span>
+											<span class="menu-title">문서작성</span>
 									</a>
 								</div>
-								<div class="menu-item">
-									<a class="menu-link active" href="./draft.do">
-										<span class="menu-bullet">
-											<span class="bullet bullet-dot"></span>
+								<!-- 시작 -->
+								<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<span class="menu-link">
+										<span style="color : #2c9aff;" class="menu-bullet">
+											<span style="color : #2c9aff;" class="bullet bullet-dot"></span>
 										</span>
 										<span class="menu-title">문서함</span>
-									</a>
+										<span class="menu-arrow"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion" style="display: none; overflow: hidden;">
+										<div class="menu-item">
+											<a class="menu-link" href="./draftDocument.do">&nbsp;&nbsp;&nbsp;
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">기안함</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link" href="./progressDocument.do">&nbsp;&nbsp;&nbsp;
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">진행중인 문서함</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link" href="./rejectedDocument.do">&nbsp;&nbsp;&nbsp;
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">반려문서함</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link" href="./referenceDocument.do">&nbsp;&nbsp;&nbsp;
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">참조문서함</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link" href="./completeDocument.do">&nbsp;&nbsp;&nbsp;
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">완료문서함</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link" href="./temporaryDocumentList.do">&nbsp;&nbsp;&nbsp;
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">임시저장 문서함</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link" href="./signDocument.do">&nbsp;&nbsp;&nbsp;
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">결재함</span>
+											</a>
+										</div>
+										<div class="menu-item">
+											<a class="menu-link" href="./recycleBin.do">&nbsp;&nbsp;&nbsp;
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span style="color:red;" class="menu-title">휴지통</span>
+											</a>
+										</div>
 								</div>
-							</div>
+								</div>
+							<!-- 끝 -->
 						</div>
-
+						</div>
 						<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
 							data-kt-menu-placement="right-start"
 							class="menu-item here show py-2">
@@ -126,6 +215,7 @@
 								class="menu-icon me-0"> <img style="width: 30px; height: 30px;" src="./assets/images/calendar.svg">
 							</span>
 							</span>
+							
 							<div
 								class="menu-sub menu-sub-dropdown px-2 py-4 w-250px mh-75 overflow-auto"
 								style="">
@@ -825,7 +915,6 @@
 <!-- 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script> -->
 <!-- 	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js"></script> -->
 <!-- 	<script src="./assets/plugins/custom/fullcalendar/ko.global.js"></script> -->
-	<script src="./assets/js/custom/apps/calendar/cal.js"></script>
 <!-- 	<script src="./assets/js/custom/apps/calendar/calendar.js"></script> -->
 	
 </body>
