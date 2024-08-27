@@ -20,4 +20,6 @@ public class EmpController {
 		log.info("유저상세조회 이동");
 		return "userView";
 	}
+	
+	
 }

@@ -3,8 +3,22 @@
 <mapper namespace="com.rgb.grw.dao.DeptDaoImpl">
 
 <select id="DeptList" resultType="DeptDto">
-	  		SELECT SEQ, EMP_NO, DEP_NO, DEP_NAME, DEP_STATE
-			FROM DEP
+	SELECT D.SEQ, D.EMP_NO, D.DEP_NO,
+     	   D.DEP_NAME, D.DEP_STATE, E.EMP_NAME
+    FROM
+        DEP D
+    JOIN
+        EMP E
+    ON
+        D.EMP_NO = E.EMP_NO
 </select>
+
+<insert id="insertDept" parameterType="map">
+    INSERT INTO DEP (DEP_NO, DEP_NAME)
+    VALUES (#{depNo}, #{depName});
+</insert>
+
+
+
 
 </mapper>
