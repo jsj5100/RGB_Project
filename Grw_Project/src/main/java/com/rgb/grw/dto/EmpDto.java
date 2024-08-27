@@ -31,7 +31,6 @@ public class EmpDto {
 
 	public String dep_name;
 	public String dep_no;
-  public String dep_name; 
 
 	public String tier_name;		 //직위
 	public String auth_name;		 //
