@@ -7,6 +7,7 @@
 	<typeAlias type="com.rgb.grw.dto.UserInfoDto" alias="UserInfoDto"/>
 	<typeAlias type="com.rgb.grw.dto.DeptDto" alias="DeptDto"/>
 	<typeAlias type="com.rgb.grw.dto.CalendarDto" alias="CalendarDto"/>
+	<typeAlias type="com.rgb.grw.dto.TemplatePreviewDto" alias="TemplatePreviewDto"/>
 </typeAliases>
 
 <mappers>
@@ -14,5 +15,6 @@
 	<mapper resource="sqls/UserInfo_Statement.xml"/>
 	<mapper resource="sqls/Dept_Statement.xml"/>
 	<mapper resource="sqls/Calendar_Statment.xml"/>
+	<mapper resource="sqls/Approval_Statement.xml"/>
 </mappers>
 </configuration>

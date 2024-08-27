@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,13 +105,9 @@
 							<div class="form-list">
 								<h2>양식 목록</h2>
 								<ul>
-									<li><a href="#" data-content="Form 1 content goes here...">Form
-											1</a></li>
-									<li><a href="#" data-content="Form 2 content goes here...">Form
-											2</a></li>
-									<li><a href="#" data-content="Form 3 content goes here...">Form
-											3</a></li>
-									<!-- Add more forms here -->
+									<c:forEach var="template" items="${lists}">
+										<li><a id="previewTemlate">${template.temp_title}</a></li>
+									</c:forEach>
 								</ul>
 							</div>
 
@@ -217,7 +214,6 @@
 		.catch( error => {
 		  console.error( error );
 	} );
-	
 	
 </script>
 </html>
