@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <script
 	src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css" />
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -104,10 +105,7 @@
 							<!-- Form List -->
 							<div class="form-list">
 								<h2>양식 목록</h2>
-								<ul>
-									<c:forEach var="template" items="${lists}">
-										<li><a id="previewTemlate">${template.temp_title}</a></li>
-									</c:forEach>
+								<ul id="dataList">
 								</ul>
 							</div>
 

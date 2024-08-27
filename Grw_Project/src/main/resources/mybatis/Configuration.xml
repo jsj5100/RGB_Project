@@ -6,6 +6,7 @@
 	<typeAlias type="com.rgb.grw.dto.AnswerBoardDto" alias="AnswerBoardDto"/>
 	<typeAlias type="com.rgb.grw.dto.UserInfoDto" alias="UserInfoDto"/>
 	<typeAlias type="com.rgb.grw.dto.DeptDto" alias="DeptDto"/>
+	<typeAlias type="com.rgb.grw.dto.EmpDto" alias="EmpDto"/>
 	<typeAlias type="com.rgb.grw.dto.CalendarDto" alias="CalendarDto"/>
 	<typeAlias type="com.rgb.grw.dto.TemplatePreviewDto" alias="TemplatePreviewDto"/>
 </typeAliases>

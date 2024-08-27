@@ -29,6 +29,7 @@ public class EmpDto {
 	public String emp_useoff;
 	
 	public String dep_name;
+	public String dep_no;
 
 	public String tier_name;
 	
