@@ -5,16 +5,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script
-	src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
+<script	src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
 <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css" />
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="./js/templateModal.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css" />
 <link rel="stylesheet" href="./css/template/template.css">
-
+<style type="text/css">
+	 .jstree-checkbox {
+            display: none;
+        }
+        /* 자식 노드에만 체크박스를 표시합니다. */
+        .jstree-node.jstree-open > .jstree-checkbox {
+            display: block;
+        }
+</style>
 <title>전자결재 문서 작성</title>
 </head>
 <%@include file="./header.jsp"%>
@@ -152,7 +155,7 @@
 					<!--begin::Modal body-->
 					<div class="modal-body">
 						<div class="container-approvalLine">
-							<div class="top-div">Top Div - Full Width</div>
+							<div class="top-div">검색기능</div>
 
 							<!-- Bottom Divs -->
 							<div class="bottom-divs">
@@ -161,8 +164,8 @@
 									<div class="div-header">
 										<span>부서명</span>
 									</div>
-									<div class="div-content">
-										<span>아무부서</span>
+									<div class="div-content" style="padding-left: 0px;">
+										<div id="jstree"></div>
 									</div>
 								</div>
 
@@ -172,19 +175,34 @@
 										<div class="div-header">
 											<span>결재자</span>
 									    </div>
-										<div class="div-content">asd</div>
+										<div id="selectedNodeText" class="div-content">
+											<table>
+												<tr>
+													<td>결재자</td>
+													<td>직급</td>
+													<td>소속</td>
+													<td>순서</td>
+												</tr>
+												<tr>
+													<td>김영희</td>
+													<td>사원</td>
+													<td>인사팀</td>
+													<td>본인</td>
+												</tr>
+											</table>
+										</div>
 									</div>
 									<div class="right-div">
 										<div class="div-header	">
 											<span>참조자</span>
 										</div>
-										<div class="div-content">asd</div>
+										<div class="div-content"></div>
 									</div>
 								</div>
 								
 							</div>
 							<div class="center-button">
-									<input type="button" value="결재선 지정" class="btn btn-primary">
+									<input id="approvalLineButton" type="button" value="결재선 지정" class="btn btn-primary">
 									<input type="button" value="참조자 지정" class="btn btn-primary">
 							</div>
 						</div>
@@ -212,6 +230,7 @@
 		.catch( error => {
 		  console.error( error );
 	} );
-	
 </script>
+<script type="text/javascript" src="./js/jstreeApprovalLine.js"></script>
+
 </html>
