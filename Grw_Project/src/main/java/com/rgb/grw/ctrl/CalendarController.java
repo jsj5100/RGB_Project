@@ -1,5 +1,7 @@
 package com.rgb.grw.ctrl;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -10,8 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 public class CalendarController {
 	
 	@GetMapping(value = "/calendar.do")
-	public String calendar() {
+	public String calendar(HttpSession session) {
 		log.info("CalendarController list");
-		return "calendar";
+		if(session.getAttribute("loginDto")==null) {
+			return "redirect:/loginServlet.do";
+		} else {
+			return "calendar";
+		}
 	}
 }
