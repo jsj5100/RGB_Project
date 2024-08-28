@@ -17,9 +17,9 @@ import lombok.ToString;
 @NoArgsConstructor
 public class UserInfoDto {
 
-    private String emp_no;        
-    private String emp_password;  
-    private String emp_phone;     
+	private String emp_no;
+	private String emp_password;
+	private String emp_phone;
 	private String emp_name;
 	private String emp_email;
 	private String emp_gender;
@@ -30,8 +30,9 @@ public class UserInfoDto {
 	private String emp_state;
 	private Integer emp_fulloff;
 	private Integer emp_restoff;
-	private Integer emp_useoff; 
-	
-	
-}
+	private Integer emp_useoff;
+	private Integer dep_no;
+	private Integer auth_no;
+	private Integer tier_no;
 
+}
