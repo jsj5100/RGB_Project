@@ -599,7 +599,7 @@
 											
 											
 											<div class="menu-item px-3">
-												<a href="apps/user-management/users/view.html" class="menu-link px-3">수정</a>
+												<a href="./deptEdit.do" class="menu-link px-3">수정</a>
 											</div>
 
 <!-- 											<div class="menu-item px-3"> -->
