@@ -53,6 +53,11 @@ public class DeptController {
 		}
 	}
 	
+	@GetMapping(value="deptEdit.do")
+	public String deptEdit() {
+		log.info("부서수정 이동");
+		return "deptEdit";
+	}
 
 
 }
