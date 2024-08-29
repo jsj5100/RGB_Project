@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -574,11 +577,7 @@
 										class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
 										<th class="w-10px pe-2 sorting_disabled" rowspan="1"
 											colspan="1"
-											aria-label="
-															
-																
-															
-														"
+											aria-label=" "
 											style="width: 29.8906px;">
 											<div
 												class="form-check form-check-sm form-check-custom form-check-solid me-3">
@@ -619,28 +618,9 @@
 											colspan="1" aria-label="Actions" style="width: 130.359px;">관리</th>
 									</tr>
 								</thead>
+							
 								<tbody class="text-gray-600 fw-semibold">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+									<c:forEach var="vo" items="${EmpList}" varStatus="vs">
 									<tr class="odd">
 										<td>
 											<div
@@ -648,34 +628,38 @@
 												<input class="form-check-input" type="checkbox" value="1">
 											</div>
 										</td>
-										<td class="d-flex align-items-center">
+<!-- 										<td class="d-flex align-items-center"> -->
+										<td>
+										1
 											<!--begin:: Avatar --> <!-- 											<div --> <!-- 												class="symbol symbol-circle symbol-50px overflow-hidden me-3"> -->
 											<!-- 												<a href="apps/user-management/users/view.html"> -->
 											<!-- 													<div class="symbol-label"> --> <!-- 														<img src="assets/media/avatars/300-6.jpg" alt="Emma Smith" -->
 											<!-- 															class="w-100"> --> <!-- 													</div> -->
 											<!-- 												</a> --> <!-- 											</div>  --> <!--end::Avatar-->
 											<!--begin::User details-->
-											<div class="d-flex flex-column">
-												<a href="apps/user-management/users/view.html"
-													class="text-gray-800 text-hover-primary mb-1">1</a>
-													<span>　</span>
-											</div> <!--begin::User details-->
+<!-- 											<div class="d-flex flex-column"> -->
+<!-- 												<a href="apps/user-management/users/view.html" -->
+<!-- 													class="text-gray-800 text-hover-primary mb-1">1</a> -->
+<!-- 													<span>　</span> -->
+<!-- 											</div> begin::User details -->
+
 										</td>
 										
 										<td>
-											<a href="./userView.do">홍길동</a>
+<!-- 											<a href="./userView.do">홍길동</a> -->
+											<a>${vo.emp_name}</a>
 										</td>
 										
 										<td data-order="2024-08-21T11:37:58+09:00">
-											<div class="badge badge-light fw-bold">980101</div>
+											<div class="badge badge-light fw-bold">${vo.emp_no}</div>
 										</td>
 										<td>
-											<div class="badge badge-light-success fw-bold">대표</div>
+											<div class="badge badge-light-success fw-bold">${vo.tier_name}</div>
 
 										</td>
 
-										<td data-order="2023-10-25T06:43:00+09:00">경영관리</td>
-										<td data-order="2023-10-25T06:43:00+09:00">Y</td>
+										<td data-order="2023-10-25T06:43:00+09:00">${vo.dep_name}</td>
+										<td data-order="2023-10-25T06:43:00+09:00">${vo.emp_state}</td>
 
 										<td class="text-end"><a href="#"
 											class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
@@ -692,68 +676,69 @@
 												</div>
 												<!--end::Menu item-->
 												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3"
-														data-kt-users-table-filter="delete_row">삭제</a>
-												</div>
+<!-- 												<div class="menu-item px-3"> -->
+<!-- 													<a href="#" class="menu-link px-3" -->
+<!-- 														data-kt-users-table-filter="delete_row">삭제</a> -->
+<!-- 												</div> -->
 												<!--end::Menu item-->
 											</div> <!--end::Menu--></td>
 
 									</tr>
-									<tr class="even">
-										<td>
-											<div
-												class="form-check form-check-sm form-check-custom form-check-solid">
-												<input class="form-check-input" type="checkbox" value="1">
-											</div>
-										</td>
-										<td class="d-flex align-items-center">
-											<!--begin:: Avatar --> <!-- 											<div --> <!-- 												class="symbol symbol-circle symbol-50px overflow-hidden me-3"> -->
-											<!-- 												<a href="apps/user-management/users/view.html"> -->
-											<!-- 													<div class="symbol-label fs-3 bg-light-danger text-danger">M</div> -->
-											<!-- 												</a> --> <!-- 											</div>  --> <!--end::Avatar-->
-											<!--begin::User details-->
-											<div class="d-flex flex-column">
-												<a href="apps/user-management/users/view.html"
-													class="text-gray-800 text-hover-primary mb-1">2 </a>
-												<!-- <span>melody@altbox.com</span> -->
-											</div> <!--begin::User details-->
-										</td>
+									</c:forEach>
+									
+<!-- 									<tr class="even"> -->
+<!-- 										<td> -->
+<!-- 											<div -->
+<!-- 												class="form-check form-check-sm form-check-custom form-check-solid"> -->
+<!-- 												<input class="form-check-input" type="checkbox" value="1"> -->
+<!-- 											</div> -->
+<!-- 										</td> -->
+<!-- 										<td class="d-flex align-items-center"> -->
+<!-- 											begin:: Avatar 											<div 												class="symbol symbol-circle symbol-50px overflow-hidden me-3"> -->
+<!-- 																							<a href="apps/user-management/users/view.html"> -->
+<!-- 																								<div class="symbol-label fs-3 bg-light-danger text-danger">M</div> -->
+<!-- 																							</a> 											</div>  end::Avatar -->
+<!-- 											begin::User details -->
+<!-- 											<div class="d-flex flex-column"> -->
+<!-- 												<a href="apps/user-management/users/view.html" -->
+<!-- 													class="text-gray-800 text-hover-primary mb-1">2 </a> -->
+<!-- 												<span>melody@altbox.com</span> -->
+<!-- 											</div> begin::User details -->
+<!-- 										</td> -->
 
-										<td>이재용</td>
-										<td data-order="2024-08-22T11:17:58+09:00">
-											<div class="badge badge-light fw-bold">981120</div>
-										</td>
+<!-- 										<td>이재용</td> -->
+<!-- 										<td data-order="2024-08-22T11:17:58+09:00"> -->
+<!-- 											<div class="badge badge-light fw-bold">981120</div> -->
+<!-- 										</td> -->
 
-										<td>
-											<div class="badge badge-light-success fw-bold">부장</div>
-										</td>
+<!-- 										<td> -->
+<!-- 											<div class="badge badge-light-success fw-bold">부장</div> -->
+<!-- 										</td> -->
 
-										<td data-order="2023-07-25T14:40:00+09:00">해외영업</td>
-										<td data-order="2023-07-25T14:40:00+09:00">N</td>
+<!-- 										<td data-order="2023-07-25T14:40:00+09:00">해외영업</td> -->
+<!-- 										<td data-order="2023-07-25T14:40:00+09:00">N</td> -->
 
-										<td class="text-end"><a href="#"
-											class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
-											data-kt-menu-trigger="click"
-											data-kt-menu-placement="bottom-end">설정 <i
-												class="ki-duotone ki-down fs-5 ms-1"></i></a> <!--begin::Menu-->
-											<div
-												class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-												data-kt-menu="true">
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="apps/user-management/users/view.html"
-														class="menu-link px-3">수정</a>
-												</div>
+<!-- 										<td class="text-end"><a href="#" -->
+<!-- 											class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" -->
+<!-- 											data-kt-menu-trigger="click" -->
+<!-- 											data-kt-menu-placement="bottom-end">설정 <i -->
+<!-- 												class="ki-duotone ki-down fs-5 ms-1"></i></a> begin::Menu -->
+<!-- 											<div -->
+<!-- 												class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" -->
+<!-- 												data-kt-menu="true"> -->
+<!-- 												begin::Menu item -->
+<!-- 												<div class="menu-item px-3"> -->
+<!-- 													<a href="apps/user-management/users/view.html" -->
+<!-- 														class="menu-link px-3">수정</a> -->
+<!-- 												</div> -->
+<!-- 												<div class="menu-item px-3"> -->
+<!-- 													<a href="#" class="menu-link px-3" -->
+<!-- 														data-kt-users-table-filter="delete_row">삭제</a> -->
+<!-- 												</div> -->
 												<!--end::Menu item-->
-												<!--begin::Menu item-->
-												<div class="menu-item px-3">
-													<a href="#" class="menu-link px-3"
-														data-kt-users-table-filter="delete_row">삭제</a>
-												</div>
-												<!--end::Menu item-->
-											</div> <!--end::Menu--></td>
-									</tr>
+<!-- 											</div> -->
+<!-- 										</td> -->
+<!-- 									</tr> -->
 
 
 								</tbody>
@@ -898,6 +883,23 @@
 <!--end::Javascript-->
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- Js Tree script -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 
@@ -921,23 +923,14 @@
 
                         // 트리 생성
                 $('#tree').jstree({
-                    core: {
-                                    data: company    //데이터 연결
-                        },
-                        types: {
-                               'default': {
-                                    'icon': 'jstree-folder'
-                                }
-                        },
-                        plugins: ['wholerow', 'types']
-                 })
-                 .bind('loaded.jstree', function(event, data){
+                    core: {data: company}, //데이터연결
+                    types: {'default': {'icon': 'jstree-folder'}},
+                    plugins: ['wholerow', 'types']
+                    }).bind('loaded.jstree', function(event, data){
                         //트리 로딩 롼료 이벤트
+                	}).bind('select_node.jstree', function(event, data){
+                        //노드 선택 이벤트
                  })
-                 .bind('select_node.jstree', function(event, data){
-                       //노드 선택 이벤트
-                 })
-
             },
             error:function (data) {
                 alert("에러");
@@ -969,15 +962,10 @@
 		
 		        // 트리 생성
 		$('#tree').jstree({  
-		    core: {
-		                    data: company    //데이터 연결
+		    core: {data: company    //데이터 연결
 		        },
-		        types: {
-		               'default': {
-		                    'icon': 'jstree-folder'
-		                }
-		        },
-		        plugins: ['wholerow', 'types']
+		   types: {'default': {'icon': 'jstree-folder'}},
+		 plugins: ['wholerow', 'types']
 		 })
 		 .bind('loaded.jstree', function(event, data){
 		        //트리 로딩 롼료 이벤트

@@ -45,76 +45,39 @@
 						<!--begin::Menu 1-->
 						<div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px"
 							data-kt-menu="true">
-							<!--begin::Header-->
 							<div class="px-7 py-5">
 								<div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
 							</div>
-							<!--end::Header-->
-							<!--begin::Separator-->
 							<div class="separator border-gray-200"></div>
-							<!--end::Separator-->
-							<!--begin::Content-->
 							<div class="px-7 py-5" data-kt-user-table-filter="form">
-								<!--begin::Input group-->
+								
 <!-- 								<div class="mb-10"> -->
-<!-- 									<label class="form-label fs-6 fw-semibold">Role:</label> <select -->
+<!-- 									<label class="form-label fs-6 fw-semibold">Two Step -->
+<!-- 										Verification:</label> <select -->
 <!-- 										class="form-select form-select-solid fw-bold select2-hidden-accessible" -->
 <!-- 										data-kt-select2="true" data-placeholder="Select option" -->
-<!-- 										data-allow-clear="true" data-kt-user-table-filter="role" -->
-<!-- 										data-hide-search="true" data-select2-id="select2-data-7-fbiw" -->
+<!-- 										data-allow-clear="true" data-kt-user-table-filter="two-step" -->
+<!-- 										data-hide-search="true" data-select2-id="select2-data-10-sd1q" -->
 <!-- 										tabindex="-1" aria-hidden="true" data-kt-initialized="1"> -->
-<!-- 										<option data-select2-id="select2-data-9-xyqc"></option> -->
-<!-- 										<option value="Administrator">Administrator</option> -->
-<!-- 										<option value="Analyst">Analyst</option> -->
-<!-- 										<option value="Developer">Developer</option> -->
-<!-- 										<option value="Support">Support</option> -->
-<!-- 										<option value="Trial">Trial</option> -->
+<!-- 										<option data-select2-id="select2-data-12-qdl8"></option> -->
+<!-- 										<option value="Enabled">Enabled</option> -->
 <!-- 									</select><span -->
 <!-- 										class="select2 select2-container select2-container--bootstrap5" -->
-<!-- 										dir="ltr" data-select2-id="select2-data-8-gowx" -->
+<!-- 										dir="ltr" data-select2-id="select2-data-11-nyi2" -->
 <!-- 										style="width: 100%;"><span class="selection"><span -->
 <!-- 											class="select2-selection select2-selection--single form-select form-select-solid fw-bold" -->
 <!-- 											role="combobox" aria-haspopup="true" aria-expanded="false" -->
 <!-- 											tabindex="0" aria-disabled="false" -->
-<!-- 											aria-labelledby="select2-oe4s-container" -->
-<!-- 											aria-controls="select2-oe4s-container"><span -->
+<!-- 											aria-labelledby="select2-z1qo-container" -->
+<!-- 											aria-controls="select2-z1qo-container"><span -->
 <!-- 												class="select2-selection__rendered" -->
-<!-- 												id="select2-oe4s-container" role="textbox" -->
+<!-- 												id="select2-z1qo-container" role="textbox" -->
 <!-- 												aria-readonly="true" title="Select option"><span -->
 <!-- 													class="select2-selection__placeholder">Select option</span></span><span -->
 <!-- 												class="select2-selection__arrow" role="presentation"><b -->
 <!-- 													role="presentation"></b></span></span></span><span class="dropdown-wrapper" -->
 <!-- 										aria-hidden="true"></span></span> -->
 <!-- 								</div> -->
-								<!--end::Input group-->
-								<!--begin::Input group-->
-								<div class="mb-10">
-									<label class="form-label fs-6 fw-semibold">Two Step
-										Verification:</label> <select
-										class="form-select form-select-solid fw-bold select2-hidden-accessible"
-										data-kt-select2="true" data-placeholder="Select option"
-										data-allow-clear="true" data-kt-user-table-filter="two-step"
-										data-hide-search="true" data-select2-id="select2-data-10-sd1q"
-										tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-										<option data-select2-id="select2-data-12-qdl8"></option>
-										<option value="Enabled">Enabled</option>
-									</select><span
-										class="select2 select2-container select2-container--bootstrap5"
-										dir="ltr" data-select2-id="select2-data-11-nyi2"
-										style="width: 100%;"><span class="selection"><span
-											class="select2-selection select2-selection--single form-select form-select-solid fw-bold"
-											role="combobox" aria-haspopup="true" aria-expanded="false"
-											tabindex="0" aria-disabled="false"
-											aria-labelledby="select2-z1qo-container"
-											aria-controls="select2-z1qo-container"><span
-												class="select2-selection__rendered"
-												id="select2-z1qo-container" role="textbox"
-												aria-readonly="true" title="Select option"><span
-													class="select2-selection__placeholder">Select option</span></span><span
-												class="select2-selection__arrow" role="presentation"><b
-													role="presentation"></b></span></span></span><span class="dropdown-wrapper"
-										aria-hidden="true"></span></span>
-								</div>
 								<!--end::Input group-->
 								<!--begin::Actions-->
 								<div class="d-flex justify-content-end">
@@ -306,9 +269,10 @@
 								<!--begin::Modal body-->
 								<div class="modal-body px-5 my-7">
 									<!--begin::Form-->
-									<form id="kt_modal_add_user_form" name="regDept"
+									<form id="kt_modal_add_user_form"
+										method="post"
 										class="form fv-plugins-bootstrap5 fv-plugins-framework"
-										action="#">
+										action="./addDept.do"> <!-- changed from # -->
 										<!--begin::Scroll-->
 										<div class="d-flex flex-column scroll-y px-5 px-lg-10"
 											id="kt_modal_add_user_scroll" data-kt-scroll="true"
@@ -393,21 +357,19 @@
 												<div
 													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
 											</div>
+											
+											
 											<!--end::Input group-->
 
 											<!--begin::Input group-->
-<!-- 											<div class="fv-row mb-7 fv-plugins-icon-container"> -->
-<!-- 												begin::Label -->
-<!-- 												<label class="required fw-semibold fs-6 mb-2">부서관리자</label> -->
-<!-- 												end::Label -->
-<!-- 												begin::Input -->
-<!-- 												<input type="text" name="user_name" -->
-<!-- 													class="form-control form-control-solid mb-3 mb-lg-0" -->
-<!-- 													placeholder="ex) 홍길동" value=""> -->
-<!-- 												end::Input -->
-<!-- 												<div -->
-<!-- 													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div> -->
-<!-- 											</div> -->
+											<div class="fv-row mb-7 fv-plugins-icon-container">
+												<label class="required fw-semibold fs-6 mb-2">부서관리자</label>
+												<input type="text" name="user_name"
+													class="form-control form-control-solid mb-3 mb-lg-0"
+													placeholder="ex) 홍길동" value="">
+												<div
+													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+											</div>
 											<!--end::Input group-->
 
 
@@ -594,26 +556,34 @@
 										colspan="1" aria-label="Actions" style="width: 105.062px;">관리</th>
 								</tr>
 							</thead>
+							
 							<tbody class="text-gray-600 fw-semibold">
 								
 								<c:forEach var="vo" items="${DeptList}" varStatus="vs">
 									<tr>
-									
-										<td><input type="checkbox" name="chkVal"
-											value="${vo.seq}">
+										
+										<td>
+<%-- 											<input type="checkbox" name="chkVal" value="${vo.seq}"> --%>
+												<div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+													<input class="form-check-input" type="checkbox"
+														data-kt-check="true"
+														data-kt-check-target="#kt_table_users .form-check-input">
+												</div>
 										</td>
 											
-										<td class="d-flex align-items-center">
-											<div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+										<td>
+<!-- 										<td class="d-flex align-items-center"> -->
+<!-- 											<div class="symbol symbol-circle symbol-50px overflow-hidden me-3"> -->
 <!-- 												<a href="apps/user-management/users/view.html"> -->
 <!-- 													<div class="symbol-label fs-3 bg-light-danger text-danger">M</div> -->
 <!-- 												</a> -->
-											</div> 
-											<div class="d-flex flex-column">
-												<a href="apps/user-management/users/view.html"
-													class="text-gray-800 text-hover-primary mb-1">모야</a> 
-													<span>　</span>
-											</div>
+<!-- 											</div>  -->
+<!-- 											<div class="d-flex flex-column"> -->
+<!-- 												<a href="apps/user-management/users/view.html" -->
+<%-- 													class="text-gray-800 text-hover-primary mb-1">${vo.seq}</a>  --%>
+<!-- 													<span>　</span> -->
+<!-- 											</div> -->
+											${vo.seq}
 										</td>
 										
 										<td>${vo.dep_name}</td>
@@ -624,18 +594,18 @@
 										class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
 										data-kt-menu-trigger="click"
 										data-kt-menu-placement="bottom-end">설정<i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-										<div
-											class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
 											data-kt-menu="true">
+											
+											
 											<div class="menu-item px-3">
-												<a href="apps/user-management/users/view.html"
-													class="menu-link px-3">수정</a>
-										</div>
-
-											<div class="menu-item px-3">
-												<a href="#" class="menu-link px-3"
-													data-kt-users-table-filter="delete_row">삭제</a>
+												<a href="./deptEdit.do" class="menu-link px-3">수정</a>
 											</div>
+
+<!-- 											<div class="menu-item px-3"> -->
+<!-- 												<a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">삭제</a> -->
+<!-- 											</div> -->
+											
 										</div> 
 										</td>
 									</tr>
@@ -794,6 +764,9 @@
 
 
 <!-- Code injected by live-server -->
+
+<!--  
+
 <script>
 	// <![CDATA[  <-- For SVG support
 	if ('WebSocket' in window) {
@@ -842,10 +815,17 @@
 	}
 	// ]]>
 
-	<!--begin::Javascript-->
-	<script>
+	
+	
+	<!--begin::Javascript
+// 	<script> 삭제가능
 		var hostUrl = "assets/";
 	</script>
+	
+	-- 24-08-27 웹소켓 주석처리>
+
+	
+	
 	<!--begin::Global Javascript Bundle(mandatory for all pages)-->
 	<script src="./assets/plugins/global/plugins.bundle.js"></script>
 	<script src="./assets/js/scripts.bundle.js"></script>

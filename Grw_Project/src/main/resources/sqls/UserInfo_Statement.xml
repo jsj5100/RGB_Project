@@ -7,8 +7,8 @@
 			FROM EMP
 			WHERE EMP_NO = #{emp_no, jdbcType=VARCHAR} 
       		AND EMP_PASSWORD = #{emp_password, jdbcType=VARCHAR}
+      		AND EMP_STATE = 'Y'
 	</select>
 
 
 </mapper>
-

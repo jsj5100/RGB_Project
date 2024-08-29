@@ -196,6 +196,8 @@ input[type="text"], input[type="file"] {
     padding: 10px;                /* 패딩 추가 */
     overflow: auto;               /* 내용이 넘칠 경우 스크롤 가능하게 설정 */
     border: 1px solid #ccc;
+    height: 370px;
+    overflow: auto;
 }
 
 /* center-button 스타일 */
