@@ -208,7 +208,7 @@ input[type="text"], input[type="file"] {
     gap: 10px;                   
 }
 
-/* 결재라인 tr 태그*/
+/* 결재라인 header */
 .approval-td-header{
 	padding: 1px;
 	background-color: #ccc;
@@ -217,3 +217,19 @@ input[type="text"], input[type="file"] {
 	vertical-align: middle; 
     height: auto; 
 }
+
+/* 결재라인 body */
+.approval-td-body{
+	padding: 1px;
+	background-color: #E2E2E2;
+	border: 1px solid white;
+	text-align: center;
+	vertical-align: middle; 
+    height: auto; 
+}
+
+.disable_node{
+	 color: grey;
+     pointer-events: none;
+     opacity: 0.5;
+            }
