@@ -1,7 +1,6 @@
 package com.rgb.grw.dto;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.ToString;
 
 @Data

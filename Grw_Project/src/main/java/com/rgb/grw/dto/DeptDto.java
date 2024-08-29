@@ -17,10 +17,10 @@ import lombok.ToString;
 public class DeptDto {
 	public int seq;
 	public String dep_no;
-	public String emp_no;
 	public String dep_name;
 	public String dep_state;
 	
+	public String emp_no;
 	public String emp_name;
 	
 	

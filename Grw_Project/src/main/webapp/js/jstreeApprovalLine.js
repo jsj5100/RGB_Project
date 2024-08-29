@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	// Fetch tree data from the server
-	fetch('http://localhost:8080/Grw_Project/jsTree.do') // 서버에서 트리 데이터를 가져오는 URL
+	fetch('http://localhost:8080/Grw_Project/choiceApprovalLine.do') // 서버에서 트리 데이터를 가져오는 URL
 		.then(response => {
 			if (!response.ok) {
 				throw new Error("네트워크 응답이 올바르지 않습니다.");

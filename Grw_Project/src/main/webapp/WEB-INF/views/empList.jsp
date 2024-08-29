@@ -181,9 +181,9 @@
 													data-kt-users-modal-action="cancel">등록취소</button>
 												<button type="submit" class="btn btn-primary"
 													data-kt-users-modal-action="submit">
-													<span class="indicator-label">등록하기</span> <span
-														class="indicator-progress">등록중... <span
-														class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+													<span class="indicator-label">등록하기</span> 
+													<span class="indicator-progress">등록중... </span>
+													<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
 												</button>
 											</div>
 											<!--end::Actions-->
@@ -671,7 +671,7 @@
 												data-kt-menu="true">
 												<!--begin::Menu item-->
 												<div class="menu-item px-3">
-													<a href="apps/user-management/users/view.html"
+													<a href="./myPage.do"
 														class="menu-link px-3">수정</a>
 												</div>
 												<!--end::Menu item-->
@@ -945,15 +945,15 @@
 	      
 	    var data =[
 	    	  { "id": "1", "name": "부서명", "parent_id": "#" },
-	    	  { "id": "2", "name": "자식 1.1", "parent_id": "1" },
-	    	  { "id": "3", "name": "자식 1.2", "parent_id": "1" },
-	    	  { "id": "4", "name": "루트 2", "parent_id": "#" },
-	    	  { "id": "5", "name": "자식 2.1", "parent_id": "4" },
-	    	  { "id": "6", "name": "자식 2.2", "parent_id": "4" },
-	    	  { "id": "7", "name": "자식 2.2.1", "parent_id": "6" },
-	    	  { "id": "8", "name": "루트 3", "parent_id": "4" },
-	    	  { "id": "12", "name": "자식 3.1", "parent_id": "8" },
-	    	  { "id": "11", "name": "경영관리", "parent_id": "12" }
+	    	  { "id": "2", "name": "인사부", "parent_id": "1" },
+	    	  { "id": "8", "name": "둘리(사원)", "parent_id": "2" },
+	    	  { "id": "9", "name": "또치(사원)", "parent_id": "2" },
+	    	  { "id": "10", "name": "고길동(주임)", "parent_id": "2" },
+	    	  { "id": "4", "name": "경영기획부", "parent_id": "1" },
+	    	  { "id": "5", "name": "재무부", "parent_id": "1" },
+	    	  { "id": "6", "name": "마케팅부", "parent_id": "1" },
+	    	  { "id": "7", "name": "영업부", "parent_id": "1" },
+	    	
 	    	];
 	      
 		$.each(data, function(idx, item){

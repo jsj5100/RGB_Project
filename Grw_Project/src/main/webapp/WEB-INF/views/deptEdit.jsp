@@ -241,6 +241,10 @@
 								</div>
 								<!--end::Content container-->
 							</div>
+							
+							
 </body>
+
+
 <%@include file="./footer.jsp"%>
 </html>

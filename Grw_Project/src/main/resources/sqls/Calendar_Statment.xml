@@ -1,56 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rgb.grw.dao.CalendarDaoImpl">
-
-	<select id="calList" resultType="calendarDto">
-		SELECT ID, GROUPID, TITLE, 
-				WRITER, DESCRIPTION, TO_CHAR("START", 'YYYY-MM-DD"T"HH24:MI:SS') AS "START",
- 				TO_CHAR("END", 'YYYY-MM-DD"T"HH24:MI:SS') AS "END"
- 		FROM CALENDAR
- 		WHERE DELFLAG = 'N'
-	</select>
 	
 	
 	<!-- 모든 일정 조회 -->
 	<select id="selectCal" resultType="calendarDto">
-		SELECT SD_NO , SD_CODE , SD_EMPNO , TO_CHAR(SD_START , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START ,
-						TO_CHAR(SD_END  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_END , SD_WRITER , TO_CHAR(SD_REGDATE  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_REGDATE  , 
-						SD_TITLE , SD_CONTENT , TO_CHAR(SD_EDITOR  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_EDITOR,
-						SD_DEPNO  , SD_DELFLAG , SD_ALLDAY
-		FROM SCHEDULE s 
-		WHERE SD_DELFLAG = 'N' 
-		AND SD_CODE = 'S00'
-		UNION
-		SELECT SD_NO , SD_CODE , SD_EMPNO , TO_CHAR(SD_START , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START ,
-						TO_CHAR(SD_END  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_END , SD_WRITER , TO_CHAR(SD_REGDATE  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_REGDATE  , 
-						SD_TITLE , SD_CONTENT , TO_CHAR(SD_EDITOR  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_EDITOR,
-						SD_DEPNO  , SD_DELFLAG, SD_ALLDAY 
-		FROM SCHEDULE s 
-		WHERE SD_DELFLAG = 'N' 
-		AND SD_EMPNO = #{empno}
-		UNION
-		SELECT SD_NO , SD_CODE , SD_EMPNO , TO_CHAR(SD_START , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START ,
-						TO_CHAR(SD_END  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_END , SD_WRITER , TO_CHAR(SD_REGDATE  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_REGDATE  , 
-						SD_TITLE , SD_CONTENT , TO_CHAR(SD_EDITOR  , 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_EDITOR,
-						SD_DEPNO  , SD_DELFLAG , SD_ALLDAY
-		FROM SCHEDULE s 
-		WHERE  SD_CODE = 'S02' 
-		AND SD_DELFLAG ='N' 
-		AND SD_DEPNO = (
-							SELECT d.DEP_NAME  
-								FROM  SCHEDULE s JOIN DEP d 
-								ON s.SD_EMPNO  = d.EMP_NO 
-								WHERE s.SD_EMPNO = #{empno}
-								GROUP BY DEP_NAME
-		)
+ SELECT 
+    SD_NO, SD_CODE, SD_EMPNO, 
+    TO_CHAR(SD_START, 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START, TO_CHAR(SD_END, 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_END, SD_TITLE,
+    SD_CONTENT, SD_ALLDAY
+FROM 
+    SCHEDULE s
+WHERE 
+    SD_DELFLAG = 'N' 
+    AND SD_START BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+    AND (
+        SD_CODE = 'S00'
+        OR (SD_EMPNO = '000000' AND SD_CODE = 'S01')
+        OR (SD_CODE = 'S02' AND SD_DEPNO = (
+            SELECT e.DEP_NO 
+            FROM EMP e
+            WHERE e.EMP_NO = #{empno}
+        ))
+    )
 		
 	</select>
 	
 	<!-- 일정 상세 조회 -->
-	<select id="getEvent" resultType="calendarDto">
+	<select id="eventDetail" resultType="calendarDto">
 		SELECT *
 			FROM SCHEDULE s 
-			WHERE SD_NO=#{sd_no};
+			WHERE SD_NO = #{sd_no}
 	
 	</select>
 	
@@ -62,13 +42,15 @@
 			SD_WRITER, SD_ALLDAY)
 	VALUES((SELECT NVL(MAX(SD_NO),0)+1 FROM SCHEDULE), #{sd_code}, #{sd_empno}, 
 				TO_TIMESTAMP(#{sd_start}, 'YYYY-MM-DD HH24:MI:SS'),TO_TIMESTAMP(#{sd_end}, 'YYYY-MM-DD HH24:MI:SS'), CURRENT_TIMESTAMP, 
-				#{sd_title}, #{sd_content}, (SELECT d.DEP_NAME  
-												FROM  SCHEDULE s JOIN DEP d 
-												ON s.SD_EMPNO  = d.EMP_NO 
-												WHERE s.SD_EMPNO = #{sd_empno}
-												GROUP BY DEP_NAME)
+				#{sd_title}, #{sd_content}, (SELECT DEP_NO
+												FROM EMP e 
+												WHERE EMP_NO = #{sd_empno}
 			 , #{sd_writer},#{sd_allday})
 		
 	</insert>
 	
+	<update id="delEvent">
+			UPDATE SCHEDULE SET SD_DELFLAG  = 'Y' 
+			WHERE SD_NO = #{sd_no}
+	</update>
 </mapper>

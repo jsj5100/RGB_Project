@@ -583,7 +583,7 @@
 <%-- 													class="text-gray-800 text-hover-primary mb-1">${vo.seq}</a>  --%>
 <!-- 													<span>　</span> -->
 <!-- 											</div> -->
-											${vo.seq}
+											1
 										</td>
 										
 										<td>${vo.dep_name}</td>
