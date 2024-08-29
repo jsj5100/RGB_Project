@@ -24,11 +24,11 @@ public class CalendarService implements ICalendarService {
 	
 	
 	@Override
-	public List<CalendarDto> selectCal(String empno) {
+	public List<CalendarDto> selectCal(Map<String, String> map) {
 		log.info("CalendaerService selectCal");
 //		Map<String, Object> event = new HashMap<String, Object>();
 //		List<Map<String, Object>> eventList = new ArrayList<Map<String,Object>>();
-		return dao.selectCal(empno);
+		return dao.selectCal(map);
 	}
 	
 	@Override
@@ -36,5 +36,9 @@ public class CalendarService implements ICalendarService {
 		log.info("Calendar insertCal");
 		return dao.insertCal(map);
 	}
-
+	
+	@Override
+	public CalendarDto eventDetail(int sd_no) {
+		return dao.eventDetail(sd_no);
+	}
 }

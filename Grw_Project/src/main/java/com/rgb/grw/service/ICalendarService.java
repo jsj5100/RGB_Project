@@ -7,7 +7,9 @@ import com.rgb.grw.dto.CalendarDto;
 
 public interface ICalendarService {
 
-	public List<CalendarDto> selectCal(String empno);
+	public List<CalendarDto> selectCal(Map<String, String> map);
 	
 	public boolean insertCal(Map<String, Object> map);
+	
+	public CalendarDto eventDetail(int sd_no);
 }
