@@ -898,24 +898,24 @@
 	<!--begin::Global Javascript Bundle(mandatory for all pages)-->
 	<script src="./assets/plugins/global/plugins.bundle.js"></script>
 	<script src="./assets/js/scripts.bundle.js"></script>
-	<!--end::Global Javascript Bundle-->
-	<!--begin::Vendors Javascript(used for this page only)-->
+	<script src="./js/jquery-3.6.0.min.js"></script>
+	<script src="./js/jquery-ui.js"></script>
+	<script src="./js/jstree.min.js"></script>
+	<script type="text/javascript" src="./js/templateModal.js"></script>
+<!-- 	<!--end::Global Javascript Bundle--> -->
+<!-- 	<!--begin::Vendors Javascript(used for this page only)--> -->
 	<script src="./assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
 	<script src="./assets/plugins/custom/datatables/datatables.bundle.js"></script>
-	<!--end::Vendors Javascript-->
-	<!--begin::Custom Javascript(used for this page only)-->
+	<!--end::Vendors Javascript -->
+	<!--begin::Custom Javascript(used for this page only) -->
 	
-<!-- 	<script src="./assets/js/custom/apps/calendar/calendar.js"></script> -->
 	<script src="./assets/js/custom/pages/user-profile/general.js"></script>
 	<script src="./assets/js/widgets.bundle.js"></script>
 	<script src="./assets/js/custom/apps/chat/chat.js"></script>
 	<script src="./assets/js/custom/utilities/modals/create-campaign.js"></script>
 	<script src="./assets/js/custom/utilities/modals/new-card.js"></script>
 	<script src="./assets/js/custom/utilities/modals/users-search.js"></script>
-<!-- 	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script> -->
-<!-- 	<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.15/index.global.min.js"></script> -->
-<!-- 	<script src="./assets/plugins/custom/fullcalendar/ko.global.js"></script> -->
-<!-- 	<script src="./assets/js/custom/apps/calendar/calendar.js"></script> -->
+
 	
 </body>
 </html>

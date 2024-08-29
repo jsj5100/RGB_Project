@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,14 +38,14 @@
 	    <div class="modal-dialog modal-dialog-centered mw-650px">
 	        <div class="modal-content">
 	        
-	            <form class="form fv-plugins-bootstrap5 fv-plugins-framework" action="./calendar.do" method="post"  id="kt_modal_add_event_form">
+	            <form class="form fv-plugins-bootstrap5 fv-plugins-framework" action="./addevent/calendar.do" method="post"  id="kt_modal_add_event_form">
 	                <!--begin::Modal header-->
 	                <div class="modal-header">
 	                    <!--begin::Modal title-->
 	                    <h2 class="fw-bold" data-kt-calendar="title">일정 추가</h2>
 	                    <!--end::Modal title-->
 	                    <!--begin::Close-->
-	                    <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal" id="kt_modal_add_event_close">
+	                    <div class="btn btn-icon btn-sm btn-active-icon-primary " data-bs-dismiss="modal" id="kt_modal_add_event_close">
 	                        <i class="ki-duotone ki-cross fs-1">
 	                            <span class="path1"></span>
 	                            <span class="path2"></span>
@@ -63,7 +62,7 @@
 	                        <label class="fs-6 fw-semibold required mb-2">일정 제목</label>
 	                        <!--end::Label-->
 	                        <!--begin::Input-->
-	                        <input type="text" class="form-control form-control-solid" placeholder="" name="calendar_event_name">
+	                        <input type="text" class="form-control form-control-solid" placeholder="제목을 입력해주세요" id="kt_calendar_event_name" name="calendar_event_name" required>
 	                        <!--end::Input-->
 	                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
 	                    </div>
@@ -74,17 +73,24 @@
 	                        <label class="fs-6 fw-semibold mb-2">일정 내용</label>
 	                        <!--end::Label-->
 	                        <!--begin::Input-->
-	                        <input type="text" class="form-control form-control-solid" placeholder="" name="calendar_event_description">
+	                        <input type="text" class="form-control form-control-solid" placeholder="" id="kt_calendar_event_description" name="calendar_event_description">
 	                        <!--end::Input-->
 	                    </div>
 	                    <!--end::Input group-->
 	                    <!--begin::Input group-->
 	                    <div class="fv-row mb-9">
 	                        <!--begin::Label-->
-	                        <label class="fs-6 fw-semibold mb-2">일정 구분(체크박스로 변경예정)</label>
+	                        <label class="fs-6 fw-semibold required mb-2">일정 구분</label>
 	                        <!--end::Label-->
+	                        <!-- 일정구분 셀렉트박스 -->
+	                        <select class="form-control form-control-solid" id="kt_calendar_event_location" name="calendar_event_location" required>
+							  <option value="" disabled selected>선택해주세요</option>
+							  <option value="S00">전사</option>
+							  <option value="S01">개인</option>
+							  <option value="S02">부서</option>
+							</select>
 	                        <!--begin::Input-->
-	                        <input type="text" class="form-control form-control-solid" placeholder="" name="calendar_event_location">
+<!-- 	                        <input type="text" class="form-control form-control-solid" placeholder="" id="kt_calendar_event_location" name="calendar_event_location"> -->
 	                        <!--end::Input-->
 	                    </div>
 	                    <!--end::Input group-->
@@ -162,7 +168,7 @@
 	                    <button type="button" id="kt_modal_add_event_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">취소</button>
 	                    <!--end::Button-->
 	                    <!--begin::Button-->
-	                    <button type="button" id="kt_modal_add_event_submit" class="btn btn-primary">
+	                    <button type="button" id="kt_modal_add_event_submit" class="btn btn-primary" onClick="insertAjax()">
 	                        <span class="indicator-label">등록</span>
 	                        <span class="indicator-progress">Please wait...
 	                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
@@ -311,26 +317,227 @@
 </body>
 <%@include file="./footer.jsp" %>
 
-<script type="text/javascript">
+<script>
+
 $("#kt_calendar_datepicker_start_date").flatpickr({
-    dateFormat: "Y-m-d"
-});
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates, dateStr, instance) {
+    	selectedStartDate1 = dateStr
+    	console.log('선택한 시작 날짜: ', dateStr);
+    }
+  });
 
 $("#kt_calendar_datepicker_start_time").flatpickr({
 	  enableTime: true,
 	  noCalendar: true,
 	  dateFormat: "H:i",
+	  onChange: function(selectedDates, dateStr, instance) {
+	      console.log('선택한 시작 날짜: ', dateStr);
+	    }
 });
 
 $("#kt_calendar_datepicker_end_date").flatpickr({
-    dateFormat: "Y-m-d"
+    dateFormat: "Y-m-d",
+  	 onChange: function(selectedDates, dateStr, instance) {
+	      console.log('선택한 시작 날짜: ', dateStr);
+	    }
 });
 
 $("#kt_calendar_datepicker_end_time").flatpickr({
 	  enableTime: true,
 	  noCalendar: true,
 	  dateFormat: "H:i",
+	  time_24hr: true,
+	  onChange: function(selectedDates, end, instance) {
+	      console.log('선택한 시작 날짜: ', end);
+	    }
 });
+
+var calendar;
+
+function insertAjax() {
+	
+	let start1 = document.getElementById('kt_calendar_datepicker_start_date').value;
+	let start2 = document.getElementById('kt_calendar_datepicker_start_time').value;
+
+	let end1 = document.getElementById('kt_calendar_datepicker_end_date').value;
+	let end2 = document.getElementById('kt_calendar_datepicker_end_time').value;
+	let start, end 
+
+	let title = document.getElementById('kt_calendar_event_name').value;
+	let description = document.getElementById('kt_calendar_event_description').value;
+	
+
+	//일정제목이 비어있는 경우
+	if(title==" "||title=="") {
+		alert('제목을 입력해주세요');
+	}
+	
+	let startDateTime = new Date(start)
+	let endDateTime = new Date(end)
+	//시작시간보다 종료시간이 앞선 경우
+	if(startDateTime>endDateTime) {
+		alert('시간 설정이 잘못되었습니다. 다시 설정해주세요');
+	}
+	
+	let groupId = document.getElementById('kt_calendar_event_location').value;
+// 	console.log(groupId)
+	//그룹id 미설정시
+	if(groupId==""){
+		alert('일정구분해주세요');
+	}
+	
+	let isAllDay = document.getElementById('kt_calendar_datepicker_allday').checked;
+	//allDay 체크여부에따른 설정시 시간
+	if(isAllDay) {
+		start = start1;
+		end = end1;
+	}else {
+		start = start1 + ' ' + start2+':00';
+		end= end1 + ' ' + end2+':00';
+	}
+	
+	if(description=" " || description==null) {
+		description='내용없음';
+	}
+	
+			
+	let data = {
+		start: start,
+		end: end,
+		title: title,
+		description: description,
+		groupId: groupId,
+		allDay: isAllDay
+	};
+	
+	//fetch
+    fetch('./addevent/calendar.do', { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {//성공하면 실행
+    	
+		console.log('Success:', data);
+		let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_add_event'));
+		modal.hide();
+       
+		calendar.refetchEvents()
+    	
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+	
+	
+	
+}
+
+//allDay checkbox 체크여부
+document.getElementById('kt_calendar_datepicker_allday').addEventListener('click', function() {
+    let isAllDay = document.getElementById('kt_calendar_datepicker_allday').checked;
+    console.log(isAllDay);
+    
+    let startTimeInput = document.getElementById('kt_calendar_datepicker_start_time');
+    let endTimeInput = document.getElementById('kt_calendar_datepicker_end_time');
+    let startdate = document.getElementById('kt_calendar_datepicker_start_date').value;
+
+    if (isAllDay) {
+        startTimeInput.disabled = true;
+        endTimeInput.disabled = true;
+        document.getElementById('kt_calendar_datepicker_end_date').value=startdate;
+        startTimeInput.value = '';  
+        endTimeInput.value = '';  
+    } else {
+        startTimeInput.disabled = false;
+        endTimeInput.disabled = false;
+        document.getElementById('kt_calendar_datepicker_end_date').value=' ';
+    }
+});
+
+
+//모달창 닫으면 입력창 초기화
+// var modalReset = document.getElementById('kt_modal_add_event');
+
+// modalReset.addEventListener('hidden.bs.modal', function (){
+// 	document.getElementById('kt_modal_add_event').value = ' ';
+// })
+
+
+
+//풀캘린더 달력
+document.addEventListener('DOMContentLoaded', function () {
+   	var calendarEl = document.getElementById('kt_calendar_app');
+    var googleAPI_key = 'AIzaSyASz5EnPZfBWfKLT2tCtxvF7M6Gcp7vKJ4';
+   
+
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        googleCalendarApiKey: googleAPI_key,
+        locales: 'ko',
+        initialView: 'dayGridMonth',
+        editable: true,
+        selectable: true,
+        headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        eventSources: [
+            {
+                googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
+                className: 'koHolidays',
+                color: '#ff0000',
+                textColor: '#FFFFFF',
+                editable: false
+            }
+        ],
+        events:
+        	function (fetchInfo, successCallback, failureCallback) {
+            $.ajax({
+                type: "get",
+                url: "./events/calendar.do",
+                dataType: "json",
+                success: function(data) {
+                    successCallback(data); // FullCalendar에 데이터 제공
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var errorMessage = "An error occurred while fetching events.";
+                    if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
+                        errorMessage = jqXHR.responseJSON.message;
+                    }
+                    alert(errorMessage);
+                    failureCallback(); // FullCalendar에 오류 전달
+                }
+            });
+        },
+        dateClick: function(info) {
+            var addModal = new bootstrap.Modal(document.getElementById('kt_modal_add_event'));
+            addModal.show();
+            document.getElementById('kt_calendar_event_name').value='';
+            document.getElementById('kt_calendar_event_description').value='';
+            document.getElementById('kt_calendar_event_location').value='';
+            document.getElementById('kt_calendar_datepicker_allday').checked = false;
+            document.getElementById('kt_calendar_datepicker_start_date').value= info.dateStr;
+            document.getElementById('kt_calendar_datepicker_start_time').value='';
+            document.getElementById('kt_calendar_datepicker_end_date').value='';
+            document.getElementById('kt_calendar_datepicker_end_time').value='';
+        },
+        eventClick: function(info) {
+            let modal = new bootstrap.Modal(document.getElementById('kt_modal_view_event'));
+            modal.show();
+        }
+    });
+
+    // 달력 초기화 시 필수
+    calendar.render();
+});
+
+	
+	
 </script>
 
 </html>

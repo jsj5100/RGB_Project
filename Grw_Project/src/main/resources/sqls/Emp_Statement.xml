@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper>
+<mapper namespace="com.rgb.grw.dao.EmpDaoImpl">
 
+
+<select id="EmpList" resultType="EmpDto">
+ SELECT
+    E.EMP_NO,
+    E.EMP_NAME,
+    E.EMP_STATE,
+    D.DEP_NAME,
+    T.TIER_NAME
+FROM
+   
+    EMP E
+    LEFT JOIN DEP D ON E.DEP_NO = D.DEP_NO
+    LEFT JOIN TIER T ON E.TIER_NO = T.TIER_NO
+</select>
 
 
 </mapper>

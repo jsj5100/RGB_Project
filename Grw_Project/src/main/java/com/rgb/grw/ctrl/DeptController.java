@@ -1,13 +1,17 @@
 package com.rgb.grw.ctrl;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.rgb.grw.dto.DeptDto;
 import com.rgb.grw.service.IDeptService;
@@ -36,5 +40,24 @@ public class DeptController {
 		
 	}
 	
+	@PostMapping(value="addDept.do")
+	public String insertDept(DeptDto dto, HttpServletResponse response) throws IOException {
+		log.info("부서등록 완료");
+		int n = 0;
+		if (n == 1) {
+			return "redirect:DeptList.do";
+		}else {
+			response.setContentType("text/html; charset=UTF-8");
+			response.getWriter().print("<script>alert('등록실패'); location.href='./deptList.do';</scrpt>");
+			return null;
+		}
+	}
+	
+	@GetMapping(value="deptEdit.do")
+	public String deptEdit() {
+		log.info("부서수정 이동");
+		return "deptEdit";
+	}
+
 
 }

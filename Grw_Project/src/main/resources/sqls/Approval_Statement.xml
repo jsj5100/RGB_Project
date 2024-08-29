@@ -2,7 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rgb.grw.dao.TemplateDaoImpl">
   	<select id="selectTemplate" resultType="TemplatePreviewDto">
-  		SELECT TEMP_ID, DOC_NO, CTGR_ID, TEMP_TITLE, TEMP_CONTENT, TEMP_REGDATE, TEMP_EDITDATE
+  		SELECT TEMP_ID, TEMP_TITLE, TEMP_CONTENT, TEMP_REGDATE, TEMP_EDITDATE
 			FROM TEMPLATE t
+  	</select>
+  	
+  	<select id="jstreeDep" resultType="DeptDto">
+	  		SELECT *
+				FROM DEP d
+  	</select>
+  	
+  	<select id="jstreeEmp" resultType="EmpDto">
+		SELECT *
+			FROM EMP e
   	</select>
 </mapper>

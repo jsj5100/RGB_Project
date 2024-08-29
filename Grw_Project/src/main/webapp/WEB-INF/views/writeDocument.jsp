@@ -5,20 +5,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script
-	src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="./js/templateModal.js"></script>
+<script	src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css" />
 <link rel="stylesheet" href="./css/template/template.css">
-
+<style type="text/css">
+	 .jstree-checkbox {
+            display: none;
+        }
+        /* 자식 노드에만 체크박스를 표시합니다. */
+        .jstree-node.jstree-open > .jstree-checkbox {
+            display: block;
+        }
+</style>
 <title>전자결재 문서 작성</title>
 </head>
 <%@include file="./header.jsp"%>
 <body>
-	<div style="padding-left: 80px; margin-top: 10px;" id="kt_app_content"
+	<div styl	e="padding-left: 80px; margin-top: 10px;" id="kt_app_content"
 		class="app-content flex-column-fluid">
 		<div style="padding-left: 80px;" id="kt_app_content_container"
 			class="app-container container-xxl">
@@ -104,10 +108,7 @@
 							<!-- Form List -->
 							<div class="form-list">
 								<h2>양식 목록</h2>
-								<ul>
-									<c:forEach var="template" items="${lists}">
-										<li><a id="previewTemlate">${template.temp_title}</a></li>
-									</c:forEach>
+								<ul id="dataList">
 								</ul>
 							</div>
 
@@ -154,7 +155,7 @@
 					<!--begin::Modal body-->
 					<div class="modal-body">
 						<div class="container-approvalLine">
-							<div class="top-div">Top Div - Full Width</div>
+							<div class="top-div">검색기능</div>
 
 							<!-- Bottom Divs -->
 							<div class="bottom-divs">
@@ -163,8 +164,8 @@
 									<div class="div-header">
 										<span>부서명</span>
 									</div>
-									<div class="div-content">
-										<span>아무부서</span>
+									<div class="div-content" style="padding-left: 0px;">
+										<div id="jstree"></div>
 									</div>
 								</div>
 
@@ -174,19 +175,35 @@
 										<div class="div-header">
 											<span>결재자</span>
 									    </div>
-										<div class="div-content">asd</div>
+										<div id="selectedNodeText" class="div-content">
+											<table style="margin-top: 0px;">
+												<tr>
+													<td class="approval-td-header">결재자</td>
+													<td class="approval-td-header">직급</td>
+													<td class="approval-td-header">소속</td>
+													<td class="approval-td-header">순서</td>
+												</tr>
+												<tr>
+													<td class="approval-td">결재자</td>
+													<td class="approval-td">직급</td>
+													<td class="approval-td">소속</td>
+													<td class="approval-td">순서</td>
+												</tr>
+												
+											</table>
+										</div>
 									</div>
 									<div class="right-div">
 										<div class="div-header	">
 											<span>참조자</span>
 										</div>
-										<div class="div-content">asd</div>
+										<div class="div-content"></div>
 									</div>
 								</div>
 								
 							</div>
 							<div class="center-button">
-									<input type="button" value="결재선 지정" class="btn btn-primary">
+									<input id="approvalLineButton" type="button" value="결재선 지정" class="btn btn-primary">
 									<input type="button" value="참조자 지정" class="btn btn-primary">
 							</div>
 						</div>
@@ -214,6 +231,7 @@
 		.catch( error => {
 		  console.error( error );
 	} );
-	
 </script>
+<script type="text/javascript" src="./js/jstreeApprovalLine.js"></script>
+
 </html>
