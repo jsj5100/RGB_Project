@@ -37,4 +37,15 @@ public class CalendarDaoImpl implements ICalendarDao {
 	public CalendarDto eventDetail(int sd_no) {
 		return sqlTemplate.selectOne(NS+"eventDetail", sd_no);
 	}
+	
+	@Override
+	public boolean delEvent(int eventNo) {
+		
+		return sqlTemplate.update(NS+"delEvent",eventNo)>0?true:false;
+	}
+	
+	@Override
+	public boolean modifyEvent(Map<String, Object> map) {
+		return sqlTemplate.update(NS+"modifyEvent", map)>0?true:false;
+	}
 }

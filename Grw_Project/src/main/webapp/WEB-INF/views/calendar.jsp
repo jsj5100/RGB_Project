@@ -9,6 +9,7 @@
 </head>
 
 <%@include file="./header.jsp"%>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <body>
 
 	<!-- 컨텐츠 영역 -->
@@ -38,14 +39,14 @@
 	    <div class="modal-dialog modal-dialog-centered mw-650px">
 	        <div class="modal-content">
 	        
-	            <form class="form fv-plugins-bootstrap5 fv-plugins-framework" action="./addevent/calendar.do" method="post"  id="kt_modal_add_event_form">
+	            <form class="form fv-plugins-bootstrap5 fv-plugins-framework" id="kt_modal_add_event_form">
 	                <!--begin::Modal header-->
 	                <div class="modal-header">
 	                    <!--begin::Modal title-->
-	                    <h2 class="fw-bold" data-kt-calendar="title">일정 추가</h2>
+	                    <h2 class="fw-bold" data-kt-calendar="title" id="kt_modal_head">일정 추가</h2>
 	                    <!--end::Modal title-->
 	                    <!--begin::Close-->
-	                    <div class="btn btn-icon btn-sm btn-active-icon-primary " data-bs-dismiss="modal" id="kt_modal_add_event_close">
+	                    <div class="btn btn-icon btn-sm btn-active-icon-primary " data-bs-dismiss="modal">
 	                        <i class="ki-duotone ki-cross fs-1">
 	                            <span class="path1"></span>
 	                            <span class="path2"></span>
@@ -168,11 +169,11 @@
 	                    <button type="button" id="kt_modal_add_event_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">취소</button>
 	                    <!--end::Button-->
 	                    <!--begin::Button-->
-	                    <button type="button" id="kt_modal_add_event_submit" class="btn btn-primary" onClick="insertAjax()">
+	                    <button type="button" id="kt_modal_add_event_submit" class="btn btn-primary" onClick="insertEvents()">
 	                        <span class="indicator-label">등록</span>
-	                        <span class="indicator-progress">Please wait...
-	                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-	                        </span>
+<!-- 	                        <span class="indicator-progress">Please wait... -->
+<!-- 	                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span> -->
+<!-- 	                        </span> -->
 	                    </button>
 	                    <!--end::Button-->
 	                </div>
@@ -189,9 +190,9 @@
 	        <div class="modal-content">
 	            <!-- 모달 헤더 -->
 	            <div class="modal-header border-0 justify-content-end">
-	                <!-- 일정 수정 아이콘 -->
+	                <!-- 일정 닫기 아이콘 -->
 	                <div class="btn btn-icon btn-sm btn-color-gray-500 btn-active-icon-primary me-2"
-	                     data-bs-toggle="tooltip" data-bs-dismiss="click" id="kt_modal_view_event_edit"
+	                     data-bs-toggle="tooltip" id="kt_modal_view_event_edit" 
 	                     aria-label="Edit Event" data-bs-original-title="Edit Event" data-kt-initialized="1">
 	                    <i class="ki-duotone ki-pencil fs-2">
 	                        <span class="path1"></span>
@@ -202,7 +203,7 @@
 	
 	                <!-- 일정 삭제하기 아이콘 영역 -->
 	                <div class="btn btn-icon btn-sm btn-color-gray-500 btn-active-icon-danger me-2"
-	                     data-bs-toggle="tooltip" data-bs-dismiss="click" id="kt_modal_view_event_delete"
+	                     data-bs-toggle="tooltip" id="kt_modal_view_event_delete"
 	                     aria-label="Delete Event" data-bs-original-title="Delete Event" data-kt-initialized="1">
 	                    <i class="ki-duotone ki-trash fs-2">
 	                        <span class="path1"></span>
@@ -244,14 +245,13 @@
 	                    <div class="mb-9">
 	                        <!-- 이벤트 제목 -->
 	                        <div class="d-flex align-items-center mb-2">
-	                            <span class="fs-3 fw-bold me-3" data-kt-calendar="event_name"></span>
-	                            <span class="badge badge-light-success" data-kt-calendar="all_day">All Day</span>
+	                            <span id="event_detail_title" class="fs-3 fw-bold me-3" data-kt-calendar="event_name"></span>
+	                            <span id="allDayBadge" class="badge badge-light-success d-none" data-kt-calendar="all_day">All Day</span>
 	                        </div>
 	                        <!-- end::Event name -->
 	
 	                        <!-- begin::Event description -->
-	                        <div class="fs-6" data-kt-calendar="event_description">
-	                            Toto lorem ipsum dolor sit incid idunt ut
+	                        <div id="event_detail_description" class="fs-6" data-kt-calendar="event_description">
 	                        </div>
 	                        <!-- end::Event description -->
 	                    </div>
@@ -267,7 +267,7 @@
 	                    <!-- begin::Event start date/time -->
 	                    <div class="fs-6">
 	                        <span class="fw-bold">시작일</span>
-	                        <span data-kt-calendar="event_start_date">1st Aug, 2024</span>
+	                        <span id="event_detail_startdate" data-kt-calendar="event_start_date"></span>
 	                    </div>
 	                    <!-- end::Event start date/time -->
 	                </div>
@@ -282,7 +282,7 @@
 	                    <!-- begin::Event end date/time -->
 	                    <div class="fs-6">
 	                        <span class="fw-bold">종료일</span>
-	                        <span data-kt-calendar="event_end_date">2nd Aug, 2024</span>
+	                        <span id="event_detail_enddate" data-kt-calendar="event_end_date"></span>
 	                    </div>
 	                    <!-- end::Event end date/time -->
 	                </div>
@@ -291,15 +291,17 @@
 	                <!-- begin::Row -->
 	                <div class="d-flex align-items-center">
 	                    <!-- begin::Icon -->
-	                    <i class="ki-duotone ki-geolocation fs-1 text-muted me-5">
-	                        <span class="path1"></span>
-	                        <span class="path2"></span>
-	                    </i>
+	                    <span id="codeBadge" class="bullet bullet-dot h-10px w-10px ms-2 me-7"></span>
+	                    
+<!-- 	                    <i class="ki-duotone ki-geolocation fs-1 text-muted me-5"> -->
+<!-- 	                        <span class="path1"></span> -->
+<!-- 	                        <span class="path2"></span> -->
+<!-- 	                    </i> -->
 	                    <!-- end::Icon -->
 	
 	                    <!-- begin::Event location -->
-	                    <div class="fs-6" data-kt-calendar="event_location">
-	                        Federation Square
+	                     <div class="fs-6">
+	                        <span id="event_detail_location" class="fs-6" data-kt-calendar="event_location"></span>
 	                    </div>
 	                    <!-- end::Event location -->
 	                </div>
@@ -355,7 +357,7 @@ $("#kt_calendar_datepicker_end_time").flatpickr({
 
 var calendar;
 
-function insertAjax() {
+function insertEvents() {
 	
 	let start1 = document.getElementById('kt_calendar_datepicker_start_date').value;
 	let start2 = document.getElementById('kt_calendar_datepicker_start_time').value;
@@ -371,13 +373,7 @@ function insertAjax() {
 	//일정제목이 비어있는 경우
 	if(title==" "||title=="") {
 		alert('제목을 입력해주세요');
-	}
-	
-	let startDateTime = new Date(start)
-	let endDateTime = new Date(end)
-	//시작시간보다 종료시간이 앞선 경우
-	if(startDateTime>endDateTime) {
-		alert('시간 설정이 잘못되었습니다. 다시 설정해주세요');
+		return;
 	}
 	
 	let groupId = document.getElementById('kt_calendar_event_location').value;
@@ -385,9 +381,11 @@ function insertAjax() {
 	//그룹id 미설정시
 	if(groupId==""){
 		alert('일정구분해주세요');
+		return;
 	}
 	
 	let isAllDay = document.getElementById('kt_calendar_datepicker_allday').checked;
+	
 	//allDay 체크여부에따른 설정시 시간
 	if(isAllDay) {
 		start = start1;
@@ -397,6 +395,19 @@ function insertAjax() {
 		end= end1 + ' ' + end2+':00';
 	}
 	
+	let startDateTime = new Date(start)
+	let endDateTime = new Date(end)
+	
+	console.log('Start', start);
+	console.log('End', end);
+	console.log('StartDateTime', startDateTime)
+	console.log('EndDateTime',endDateTime)
+	
+	//시작시간보다 종료시간이 앞선 경우
+	if(startDateTime>=endDateTime) {
+		alert('시간 설정이 잘못되었습니다. 다시 설정해주세요');
+		return;
+	}
 	if(description=" " || description==null) {
 		description='내용없음';
 	}
@@ -433,9 +444,8 @@ function insertAjax() {
         console.error('Error:', error);
     });
 	
-	
-	
 }
+
 
 //allDay checkbox 체크여부
 document.getElementById('kt_calendar_datepicker_allday').addEventListener('click', function() {
@@ -460,26 +470,78 @@ document.getElementById('kt_calendar_datepicker_allday').addEventListener('click
 });
 
 
-//모달창 닫으면 입력창 초기화
-// var modalReset = document.getElementById('kt_modal_add_event');
 
-// modalReset.addEventListener('hidden.bs.modal', function (){
-// 	document.getElementById('kt_modal_add_event').value = ' ';
-// })
+//일정 수정
+function modifyEvent(eventNo) {
+	
+	//기존에 열려있는 모달창 닫기
+	let viewModal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_view_event'));
+    if (viewModal) {
+        viewModal.hide();
+    }
+	
+	let editModal = new bootstrap.Modal(document.getElementById('kt_modal_add_event'));
+	editModal.show();
+ 	
+ 	//상세조회쪽에서 값 가져왔던 fetch문
+ 	fetch('./eventDetail/calendar.do?' + new URLSearchParams({ eventNo: eventNo }))
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`에러났다: ${response.status}`);
+        }
+        return response.text();  // 먼저 텍스트로 응답을 가져옵니다.
+    })
+    .then(text => {
+         console.log("파싱전 data:", text);
+        try {
+            const data = JSON.parse(text);  // 텍스트를 JSON으로 파싱합니다.
+	        console.log("파싱후 text:", data);
+            
+            document.getElementById('kt_modal_head').textContent="일정 수정"
+            document.getElementById('kt_calendar_event_name').value = data.sd_title;
+            document.getElementById('kt_calendar_event_description').value = data.sd_content;
+            document.getElementById('kt_calendar_datepicker_allday').checked = data.sd_allday;
+            
+           	
+            let startDate = new Date(data.sd_start);
+            let endDate = new Date(data.sd_end);
+            document.getElementById('kt_calendar_datepicker_start_date').textContent = startDate.toISOString().split('T')[0];
+            document.getElementById('kt_calendar_datepicker_start_time').textContent = startDate.toTimeString().split(' ')[0].substring(0,5);
+            document.getElementById('kt_calendar_datepicker_end_date').textContent = data.sd_end.split('T')[0];
+            document.getElementById('kt_calendar_datepicker_end_time').textContent = data.sd_end.split('T')[1];
+            
+            
+            let select = document.getElementById('kt_calendar_event_location');
+            
+            for(let i = 1; i < select.options.length; i++) {
+                if(select.options[i].value === data.sd_code) {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+
+        } catch (e) {
+            console.error('JSON Parsing error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+ 	
+ 	
+}
 
 
-
-//풀캘린더 달력
 document.addEventListener('DOMContentLoaded', function () {
-   	var calendarEl = document.getElementById('kt_calendar_app');
+    var calendarEl = document.getElementById('kt_calendar_app');
     var googleAPI_key = 'AIzaSyASz5EnPZfBWfKLT2tCtxvF7M6Gcp7vKJ4';
-   
 
     calendar = new FullCalendar.Calendar(calendarEl, {
         googleCalendarApiKey: googleAPI_key,
         locales: 'ko',
         initialView: 'dayGridMonth',
         editable: true,
+        dayMaxEvents: true,
         selectable: true,
         headerToolbar: {
             left: 'prev,next',
@@ -495,40 +557,133 @@ document.addEventListener('DOMContentLoaded', function () {
                 editable: false
             }
         ],
-        events:
-        	function (fetchInfo, successCallback, failureCallback) {
-            $.ajax({
-                type: "get",
-                url: "./events/calendar.do",
-                dataType: "json",
-                success: function(data) {
-                    successCallback(data); // FullCalendar에 데이터 제공
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    var errorMessage = "An error occurred while fetching events.";
-                    if (jqXHR.responseJSON && jqXHR.responseJSON.message) {
-                        errorMessage = jqXHR.responseJSON.message;
-                    }
-                    alert(errorMessage);
-                    failureCallback(); // FullCalendar에 오류 전달
-                }
+        
+        events: function(fetchInfo, successCallback, failureCallback) {
+            const startDate = fetchInfo.start; // 현재 뷰의 시작 날짜
+            const endDate = fetchInfo.end;
+
+            fetch('./events/calendar.do?' + new URLSearchParams({ 
+                startDate: startDate.toISOString().split('T')[0],
+                endDate: endDate.toISOString().split('T')[0]
+            }))
+            .then(response => response.json())
+            .then(data => {
+                successCallback(data);
+            })
+            .catch(error => {
+                failureCallback();
             });
         },
+        
         dateClick: function(info) {
-            var addModal = new bootstrap.Modal(document.getElementById('kt_modal_add_event'));
+            let addModal = new bootstrap.Modal(document.getElementById('kt_modal_add_event'));
             addModal.show();
-            document.getElementById('kt_calendar_event_name').value='';
-            document.getElementById('kt_calendar_event_description').value='';
-            document.getElementById('kt_calendar_event_location').value='';
+            document.getElementById('kt_calendar_event_name').value = '';
+            document.getElementById('kt_calendar_event_description').value = '';
+            document.getElementById('kt_calendar_event_location').value = '';
             document.getElementById('kt_calendar_datepicker_allday').checked = false;
-            document.getElementById('kt_calendar_datepicker_start_date').value= info.dateStr;
-            document.getElementById('kt_calendar_datepicker_start_time').value='';
-            document.getElementById('kt_calendar_datepicker_end_date').value='';
-            document.getElementById('kt_calendar_datepicker_end_time').value='';
+            document.getElementById('kt_calendar_datepicker_start_date').value = info.dateStr;
+            document.getElementById('kt_calendar_datepicker_start_time').value = '';
+            document.getElementById('kt_calendar_datepicker_end_date').value = info.dateStr;
+            document.getElementById('kt_calendar_datepicker_end_time').value = '';
         },
+        
         eventClick: function(info) {
+            // +more 버튼 눌러서 드롭박스 열린 상태에서 일정 클릭 시 드롭박스 닫기
+            var morePopover = document.querySelector('.fc-popover');
+            if (morePopover) {
+                morePopover.style.display = 'none';
+            }
+            
+            // 상세조회 모달창 열기
             let modal = new bootstrap.Modal(document.getElementById('kt_modal_view_event'));
             modal.show();
+            
+            let eventNo = info.event.id;
+            console.log(eventNo);
+            
+            fetch('./eventDetail/calendar.do?' + new URLSearchParams({ 
+                eventNo: eventNo
+            }))
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`에러났다: ${response.status}`);
+                }
+                return response.text();  // 먼저 텍스트로 응답을 가져옵니다.
+            })
+            .then(text => {
+                try {
+                    const data = JSON.parse(text);  // 텍스트를 JSON으로 파싱합니다.
+                    console.log("Received data:", data);
+                    
+                    let allDayBadge = document.getElementById('allDayBadge');
+                    if (data.sd_allday) {
+                        allDayBadge.classList.remove('d-none');
+                    } else {
+                        allDayBadge.classList.add('d-none');
+                    }
+                    
+                    document.getElementById('event_detail_title').textContent = data.sd_title;
+                    document.getElementById('event_detail_description').innerHTML = data.sd_content;
+                    document.getElementById('event_detail_startdate').textContent = data.sd_start;
+                    document.getElementById('event_detail_enddate').textContent = data.sd_end;
+                    
+                    var element = document.getElementById('codeBadge');
+                    
+                    // 기본 배경 색상 클래스를 제거
+                    element.classList.remove('bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark');
+                    
+                    if (data.sd_code === 'S00') {
+                        document.getElementById('event_detail_location').textContent = '전사';
+                        element.classList.add('bg-dark');
+                    } else if (data.sd_code === 'S01') {
+                        document.getElementById('event_detail_location').textContent = '개인';
+                        element.classList.add('bg-info');
+                    } else {
+                        document.getElementById('event_detail_location').textContent = '부서';
+                        element.classList.add('bg-warning');
+                    }
+                    
+                } catch (e) {
+                    console.error('JSON Parsing error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+            
+            // 일정 삭제
+            document.getElementById('kt_modal_view_event_delete').addEventListener('click', function() {
+                let data = { eventNo: eventNo };
+                console.log(data);
+                fetch('./delEvent/calendar.do', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_view_event'));
+                    modal.hide();
+                    calendar.refetchEvents();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+            
+            // 일정 수정
+            document.getElementById('kt_modal_view_event_edit').addEventListener('click', function() {
+                modifyEvent(info.event.id);
+            });
         }
     });
 
