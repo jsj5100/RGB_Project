@@ -22,7 +22,7 @@
 </head>
 <%@include file="./header.jsp"%>
 <body>
-	<div style="padding-left: 80px; margin-top: 10px;" id="kt_app_content"
+	<div styl	e="padding-left: 80px; margin-top: 10px;" id="kt_app_content"
 		class="app-content flex-column-fluid">
 		<div style="padding-left: 80px;" id="kt_app_content_container"
 			class="app-container container-xxl">
@@ -176,19 +176,20 @@
 											<span>결재자</span>
 									    </div>
 										<div id="selectedNodeText" class="div-content">
-											<table>
+											<table style="margin-top: 0px;">
 												<tr>
-													<td>결재자</td>
-													<td>직급</td>
-													<td>소속</td>
-													<td>순서</td>
+													<td class="approval-td-header">결재자</td>
+													<td class="approval-td-header">직급</td>
+													<td class="approval-td-header">소속</td>
+													<td class="approval-td-header">순서</td>
 												</tr>
 												<tr>
-													<td>김영희</td>
-													<td>사원</td>
-													<td>인사팀</td>
-													<td>본인</td>
+													<td class="approval-td">결재자</td>
+													<td class="approval-td">직급</td>
+													<td class="approval-td">소속</td>
+													<td class="approval-td">순서</td>
 												</tr>
+												
 											</table>
 										</div>
 									</div>

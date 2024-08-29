@@ -208,3 +208,12 @@ input[type="text"], input[type="file"] {
     gap: 10px;                   
 }
 
+/* 결재라인 tr 태그*/
+.approval-td-header{
+	padding: 1px;
+	background-color: #ccc;
+	border: 1px solid white;
+	text-align: center;
+	vertical-align: middle; 
+    height: auto; 
+}
