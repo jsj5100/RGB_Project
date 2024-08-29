@@ -29,7 +29,7 @@ public class ApprovalRestController {
 		return lists;
 	}
 	
-	@GetMapping("/jsTree.do")
+	@GetMapping("/choiceApprovalLine.do")
 	public List<JsTreeResponseDTO> getJsTree(){
 		List<JsTreeResponseDTO> jsTreeList = new ArrayList<JsTreeResponseDTO>();
 		
