@@ -12,4 +12,8 @@ public interface ICalendarService {
 	public boolean insertCal(Map<String, Object> map);
 	
 	public CalendarDto eventDetail(int sd_no);
+	
+	public boolean delEvent(int eventNo);
+	
+	public boolean modifyEvent(Map<String, Object> map);
 }

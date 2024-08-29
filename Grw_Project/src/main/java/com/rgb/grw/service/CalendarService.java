@@ -41,4 +41,15 @@ public class CalendarService implements ICalendarService {
 	public CalendarDto eventDetail(int sd_no) {
 		return dao.eventDetail(sd_no);
 	}
+	
+	@Override
+	public boolean delEvent(int eventNo) {
+		// TODO Auto-generated method stub
+		return dao.delEvent(eventNo);
+	}
+	
+	@Override
+	public boolean modifyEvent(Map<String, Object> map) {
+		return dao.modifyEvent(map);
+	}
 }

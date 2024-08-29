@@ -214,5 +214,11 @@ public class CalendarRestController {
 		return event;
 	}
 
+	@PostMapping(value="/delEvent/calendar.do")
+	public boolean delEvent(@RequestBody Map<String, Integer> map) {
+		int eventNo = map.get("eventNo").intValue();
+		
+		return service.delEvent(eventNo);
+	}
 	
 }
