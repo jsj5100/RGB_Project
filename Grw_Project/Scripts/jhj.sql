@@ -319,3 +319,23 @@ VALUES (
     SYSTIMESTAMP, -- 등록 날짜
     SYSTIMESTAMP  -- 수정 날짜
 );
+
+SELECT EMP_NAME, d.DEP_NAME, t.TIER_NAME
+	FROM EMP e 
+	JOIN DEP d ON e.DEP_NO = d.DEP_NO 
+	JOIN TIER t ON e.TIER_NO = t.TIER_NO;
+	
+INSERT INTO RGB.DOCUMENT
+	(DOC_NO, EMP_NO, STA_CODE, 
+	TEMP_ID, DOCFILE_ID, DOC_REGDATE,
+	DOC_CONTENT, DOC_EXP, CTGR_ID, 
+	DOC_DELFLAG, SIGN_ID, DOC_EVTON, 
+	DOC_EVTOFF)
+VALUES('', '', 1, 
+		'', '', '', 
+		'', '', '',
+		'', '', '', 
+		'');
+
+
+	

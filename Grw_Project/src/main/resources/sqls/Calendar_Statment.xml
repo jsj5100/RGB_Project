@@ -44,7 +44,7 @@ WHERE
 				TO_TIMESTAMP(#{sd_start}, 'YYYY-MM-DD HH24:MI:SS'),TO_TIMESTAMP(#{sd_end}, 'YYYY-MM-DD HH24:MI:SS'), CURRENT_TIMESTAMP, 
 				#{sd_title}, #{sd_content}, (SELECT DEP_NO
 												FROM EMP e 
-												WHERE EMP_NO = #{sd_empno}
+												WHERE EMP_NO = #{sd_empno})
 			 , #{sd_writer},#{sd_allday})
 		
 	</insert>
@@ -53,4 +53,12 @@ WHERE
 			UPDATE SCHEDULE SET SD_DELFLAG  = 'Y' 
 			WHERE SD_NO = #{sd_no}
 	</update>
+	
+	<update id="modifyEvent">
+		UPDATE SCHEDULE SET SD_CODE=#{sd_code} , SD_START=TO_TIMESTAMP(#{sd_start}, 'YYYY-MM-DD HH24:MI:SS') , SD_END =TO_TIMESTAMP(#{sd_end}, 'YYYY-MM-DD HH24:MI:SS'), 
+					SD_TITLE=#{sd_title} , SD_CONTENT=#{sd_content} , SD_EDITOR =#{sd_editor},
+					SD_EDITTIME = CURRENT_TIMESTAMP ,  SD_ALLDAY =#{sd_allday}
+		WHERE SD_NO = #{sd_no}
+	</update>
+	
 </mapper>
