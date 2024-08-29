@@ -30,12 +30,12 @@
 									<td style="width:250px; text-align:center;" class="border-td">
 										<select style="width:200px;">
 											<option style="text-align:center;">공통</option>
-											<option>인사</option>
-											<option>일정</option>
+											<option style="text-align:center;">인사</option>
+											<option style="text-align:center;">일정</option>
 										</select>
 									</td>
 									<td class="border-td text-center">작성일자</td>
-									<td class="border-td"><input type="text" readonly="readonly"></td>
+									<td class="border-td"><input type="text" readonly="readonly" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">제목</td>
@@ -51,10 +51,8 @@
 							<div id="editor"></div>
 
 							<div class="form-actions">
-								<input type="submit" value="작성하기" class="btn btn-primary">
-								<input type="button" value="임시저장" class="btn btn-primary">
-								<input type="button" value="미리보기" class="btn btn-primary">
-								<input type="button" value="취소" class="btn btn-primary">
+								<input type="submit" value="작성" class="btn btn-primary">
+								<input type="button" value="취소" class="btn btn-danger">
 							</div>
 						</div>
 					</form>

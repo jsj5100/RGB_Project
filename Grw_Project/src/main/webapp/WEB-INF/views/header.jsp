@@ -876,7 +876,7 @@
 					<%
 					} else {
 					%>
-					<!-- 비로그인 상태 -->
+					<!--비로그인 상태 -->
 					<a href="./loginServlet.do"
 						class="btn btn-custom btn-secondary btn-flex btn-sm fw-bold">
 						<span class="text-gray-600">로그인</span>
