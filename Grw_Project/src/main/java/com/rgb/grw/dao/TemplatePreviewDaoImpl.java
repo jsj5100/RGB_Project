@@ -11,14 +11,12 @@ import com.rgb.grw.dto.EmpDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Repository
 @RequiredArgsConstructor
-@Slf4j
 public class TemplatePreviewDaoImpl implements ITemplatePreviewDao {
 	
-	private final String NS = "com.rgb.grw.dao.TemplateDaoImpl.";
+	private final String NS = "com.rgb.grw.dao.TemplatePreviewDaoImpl.";
 	
 	@Autowired
 	private final SqlSessionTemplate template;

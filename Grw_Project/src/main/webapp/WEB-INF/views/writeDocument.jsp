@@ -21,7 +21,7 @@
 </head>
 <%@include file="./header.jsp"%>
 <body>
-	<div styl	e="padding-left: 80px; margin-top: 10px;" id="kt_app_content"
+	<div style="padding-left: 80px; margin-top: 10px;" id="kt_app_content"
 		class="app-content flex-column-fluid">
 		<div style="padding-left: 80px;" id="kt_app_content_container"
 			class="app-container container-xxl">

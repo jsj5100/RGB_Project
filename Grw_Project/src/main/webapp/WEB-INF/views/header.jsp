@@ -152,7 +152,15 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-												<span class="menu-title">진행중인 문서함</span>
+												<span class="menu-title" style="position: relative;">
+													진행중인 문서함
+													<!-- if 1이상이면 표시 -->
+													<img src="./assets/images/alerm.svg" style="vertical-align: middle; width:25px; height:25px; margin-left:5px;">
+													<span style="position: absolute; color:#F37F7F; right:56px; font-size: 12px;">1</span>
+												</span>
+													
+													
+												
 											</a>
 										</div>
 										<div class="menu-item">
@@ -902,8 +910,8 @@
 	<script src="./js/jquery-ui.js"></script>
 	<script src="./js/jstree.min.js"></script>
 	<script type="text/javascript" src="./js/templateModal.js"></script>
-<!-- 	<!--end::Global Javascript Bundle--> -->
-<!-- 	<!--begin::Vendors Javascript(used for this page only)--> -->
+		<!--end::Global Javascript Bundle-->
+		<!--begin::Vendors Javascript(used for this page only)-->
 	<script src="./assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
 	<script src="./assets/plugins/custom/datatables/datatables.bundle.js"></script>
 	<!--end::Vendors Javascript -->

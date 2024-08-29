@@ -1,12 +1,30 @@
 package com.rgb.grw.ctrl;
 
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.rgb.grw.dto.TemplatePreviewDto;
+import com.rgb.grw.service.TemplateServiceImpl;
+
 @Controller
 public class TemplateController {
 
+	@Autowired
+	private TemplateServiceImpl templateServiceImpl;
+	
+	@GetMapping(value = "/templateList.do")
+	public String TemplateList(Model model) {
+		List<TemplatePreviewDto> lists = templateServiceImpl.selectTemplateList();
+		model.addAttribute("lists", lists);
+		return "templateList";
+	}
+	
+	
 	@GetMapping(value = "/progressDocument.do")
 	public String ProgressDocumentList(Model model) {
 		return "progressDocument";
@@ -17,10 +35,6 @@ public class TemplateController {
 		return "drafted";
 	}
 	
-	@GetMapping(value = "/templateList.do")
-	public String TemplateList() {
-		return "templateList";
-	}
 	
 	@GetMapping(value = "/rejectedDocument.do")
 	public String RejectedDocumentList() {
@@ -56,8 +70,5 @@ public class TemplateController {
 	public String WriteTemplate() {
 		return "writeTemplate";
 	}
-	
-	
-	
 	
 }
