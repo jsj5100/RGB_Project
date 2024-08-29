@@ -46,23 +46,22 @@
 								<tr>
 									<td>
 										<div class="d-flex align-items-center">
-											<input type="checkbox">
 											<div class="symbol symbol-45px me-5">
 												<img style="margin-left:10px;" src="./assets/images/whiteimg.png">
 											</div>
 											<div class="d-flex justify-content-start flex-column">
-												<p style="text-align:center; margin:0px;"><b>문서번호</b></p>
+												<p style="text-align:center; margin:0px;"><b class="text-gray-800 fw-bold mb-1 fs-6">문서번호</b></p>
 											</div>
 										</div>
 									</td>
 									<td class="text-end">
-										<p style="text-align:center; margin:0px;"><b>문서명</b></p>
+										<p style="text-align:center; margin:0px;"><b class="text-gray-800 fw-bold mb-1 fs-6">문서명</b></p>
 									</td>
 									<td class="text-end">
-										<p style="text-align:center; margin:0px;"><b>기안자</b></p>
+										<p style="text-align:center; margin:0px;"><b class="text-gray-800 fw-bold mb-1 fs-6">기안자</b></p>
 									</td>
 									<td class="text-end">
-										<p style="pointer-events: none; text-align:center;" class="text-gray-800 fw-bold text-hover-primary d-block mb-1 fs-6">
+										<p class="text-gray-800 fw-bold mb-1 fs-6">
 										마감일자
 										</p>
 									</td>
@@ -72,7 +71,6 @@
 								<tr>
 									<td>
 										<div class="d-flex align-items-center">
-											<input type="checkbox">
 											<div class="symbol symbol-45px me-5">
 												<img style="margin-left:10px;" src="assets/media/avatars/300-9.jpg" class="" alt="">
 											</div>

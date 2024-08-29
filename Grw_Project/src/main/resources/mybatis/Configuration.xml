@@ -18,5 +18,6 @@
 	<mapper resource="sqls/Emp_Statement.xml"/>
 	<mapper resource="sqls/Calendar_Statment.xml"/>
 	<mapper resource="sqls/Approval_Statement.xml"/>
+	<mapper resource="sqls/Template_Statement.xml"/>
 </mappers>
 </configuration>

@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,13 +18,19 @@
 </head>
 <%@include file="./header.jsp"%>
 <body>
+<%
+	Date date = new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy.MM.dd");
+	String strDate = simpleDate.format(date);
+
+%>
 <div style="padding-left: 80px; margin-top: 10px;" id="kt_app_content"
 		class="app-content flex-column-fluid">
 		<div style="padding-left: 80px;" id="kt_app_content_container"
 			class="app-container container-xxl">
 			<div class="card">
 				<div class="card-body">
-					<form action="./" method="post">
+					<form action="#" method="post">
 						<div>
 							<table>
 								<tr>
@@ -35,7 +43,7 @@
 										</select>
 									</td>
 									<td class="border-td text-center">작성일자</td>
-									<td class="border-td"><input type="text" readonly="readonly" disabled="disabled"></td>
+									<td class="border-td"><input type="text" readonly="readonly" disabled="disabled" value="<%=strDate%>"></td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">제목</td>
