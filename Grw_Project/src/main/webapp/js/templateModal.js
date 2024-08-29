@@ -8,6 +8,27 @@ window.onload = function() {
 	var currentYear = document.getElementById('currentYear');
 	currentYear.value = `${year}/${month}/${date}`;
 	
+	// Initialize CKEditor 4
+        let editorInstance;
+        CKEDITOR.replace('editor', {
+           	allowedContent: true
+        });
+
+        CKEDITOR.instances.editor.on('instanceReady', function() {
+            editorInstance = CKEDITOR.instances.editor;
+        });
+
+        document.getElementById('template-modal-choice').addEventListener('click', function() {
+            if (editorInstance) {
+                const previewContent = document.getElementById('preview-content').innerHTML;
+                editorInstance.setData(previewContent);
+            } else {
+                console.error('Editor instance not initialized.');
+            }
+        });
+        
+        
+	
 }
 
 //	document.getElementById('selectTemplate').addEventListener('click', function(){
@@ -25,7 +46,7 @@ async function fetchData() {
 			throw new Error('Network response was not ok'); // 응답이 실패하면 에러를 던집니다.
 		}
 		data = await response.json(); // 응답 데이터를 JSON 형식으로 파싱하여 전역 변수에 저장합니다.
-		console.log(data[0].temp_content);
+//		console.log(data[0].temp_content);
 		renderList(); // 데이터를 성공적으로 가져온 후 리스트를 렌더링합니다.
 	} catch (error) {
 		console.error('There was a problem with the fetch operation:', error); // 데이터 가져오기 중 에러가 발생하면 콘솔에 에러를 출력합니다.

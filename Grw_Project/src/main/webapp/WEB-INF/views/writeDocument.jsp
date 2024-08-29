@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script	src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
-<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.0.0/ckeditor5.css" />
+<script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css" />
 <link rel="stylesheet" href="./css/template/template.css">
 <style type="text/css">
@@ -44,13 +43,13 @@
 								</tr>
 								<tr>
 									<td class="border-td text-center">결재라인 지정</td>
-									<td class="border-td" colspan="3"><input type="text"
+									<td class="border-td" colspan="3"><input id="approvalLine-value"  type="text"
 										readonly="readonly" data-bs-toggle="modal"
 										data-bs-target="#approvalLineBtn" placeholder="결재라인을 지정해주세요"></td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">참조자</td>
-									<td class="border-td" colspan="3"><input type="text"
+									<td class="border-td" colspan="3"><input type="text" placeholder="결재라인에서 참조자를 지정해주세요"
 										readonly="readonly"></td>
 								</tr>
 								<tr>
@@ -71,12 +70,11 @@
 									</td>
 								</tr>
 							</table>
-							<div id="editor"></div>
+							<textarea id="editor"></textarea>
 
 							<div class="form-actions">
 								<input type="submit" value="작성하기" class="btn btn-primary">
 								<input type="button" value="임시저장" class="btn btn-primary">
-								<input type="button" value="미리보기" class="btn btn-primary">
 								<input type="button" value="취소" class="btn btn-primary">
 							</div>
 						</div>
@@ -124,7 +122,7 @@
 					<!--end::Modal body-->
 					<!--begin::Modal footer-->
 					<div class="modal-footer d-flex justify-content-end">
-						<button type="button" id="kt_modal_select_location_button"
+						<button type="button" id="template-modal-choice"
 							class="btn btn-primary" data-bs-dismiss="modal">적용</button>
 						<a href="#" class="btn btn-active-light me-5"
 							data-bs-dismiss="modal">취소</a>
@@ -176,7 +174,7 @@
 											<span>결재자</span>
 									    </div>
 										<div id="selectedNodeText" class="div-content">
-											<table style="margin-top: 0px;">
+											<table id="approval-table" style="margin-top: 0px;">
 												<tr>
 													<td class="approval-td-header">결재자</td>
 													<td class="approval-td-header">직급</td>
@@ -184,10 +182,12 @@
 													<td class="approval-td-header">순서</td>
 												</tr>
 												<tr>
-													<td class="approval-td">결재자</td>
-													<td class="approval-td">직급</td>
-													<td class="approval-td">소속</td>
-													<td class="approval-td">순서</td>
+													<td class="approval-td-body">
+														본인
+													</td>
+													<td class="approval-td-body">직급</td>
+													<td class="approval-td-body">소속</td>
+													<td class="approval-td-body">순서</td>
 												</tr>
 												
 											</table>
@@ -211,7 +211,7 @@
 					<!--end::Modal body-->
 					<!--begin::Modal footer-->
 					<div class="modal-footer d-flex justify-content-end">
-						<button type="button" id="kt_modal_select_location_button"
+						<button type="button" id="approvalLine-choice"
 							class="btn btn-primary" data-bs-dismiss="modal">적용</button>
 						<a href="#" class="btn btn-active-light me-5"
 							data-bs-dismiss="modal">취소</a>
@@ -225,13 +225,7 @@
 	</div>
 	<%@include file="./footer.jsp"%>
 </body>
-<script type="text/javascript">
-	ClassicEditor
-		.create( document.querySelector( '#editor' ))
-		.catch( error => {
-		  console.error( error );
-	} );
-</script>
+
 <script type="text/javascript" src="./js/jstreeApprovalLine.js"></script>
 
 </html>
