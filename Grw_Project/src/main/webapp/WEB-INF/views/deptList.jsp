@@ -362,14 +362,14 @@
 											<!--end::Input group-->
 
 											<!--begin::Input group-->
-											<div class="fv-row mb-7 fv-plugins-icon-container">
-												<label class="required fw-semibold fs-6 mb-2">부서관리자</label>
-												<input type="text" name="user_name"
-													class="form-control form-control-solid mb-3 mb-lg-0"
-													placeholder="ex) 홍길동" value="">
-												<div
-													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-											</div>
+<!-- 											<div class="fv-row mb-7 fv-plugins-icon-container"> -->
+<!-- 												<label class="required fw-semibold fs-6 mb-2">부서관리자</label> -->
+<!-- 												<input type="text" name="user_name" -->
+<!-- 													class="form-control form-control-solid mb-3 mb-lg-0" -->
+<!-- 													placeholder="ex) 홍길동" value=""> -->
+<!-- 												<div -->
+<!-- 													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div> -->
+<!-- 											</div> -->
 											<!--end::Input group-->
 
 

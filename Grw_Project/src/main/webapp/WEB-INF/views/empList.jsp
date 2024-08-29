@@ -318,19 +318,44 @@
 												</div>
 												<!--end::Input group-->
 
-												<!--begin::Input group-->
+													<!--begin::Input group-->
+													<div class="fv-row mb-7 fv-plugins-icon-container">
+														<!-- 																									begin::Label -->
+														<label class="required fw-semibold fs-6 mb-2">이메일</label>
+														<!-- 																									end::Label -->
+														<!-- 																									begin::Input -->
+														<input type="email" name="user_email"
+															class="form-control form-control-solid mb-3 mb-lg-0"
+															placeholder="example@gmail.com" value="">
+														<!-- 																									end::Input -->
+														<div
+															class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+														</div>
+													</div>
+													<!--end::Input group-->
+
+													<!--begin::Input group-->
 												<div class="fv-row mb-7 fv-plugins-icon-container">
 													<!--begin::Label-->
 													<label class="required fw-semibold fs-6 mb-2">부서명</label>
 													<!--end::Label-->
 													<!--begin::Input-->
 													<select class="form-control form-control-solid mb-3 mb-lg-0">
-													<option>개발팀</option>
-													<option>경영전략팀</option>
-													<option>마케팅팀</option>
-													<option>인사팀</option>
-													<option>재무팀</option>
-													<option>해외영업팀</option>
+													<option>인사부</option>
+													<option>경영기획부</option>
+													<option>재무부</option>
+													<option>마케팅부</option>
+													<option>영업부</option>
+													<option>고객지원부</option>
+													<option>연구개발부</option>
+													<option>품질관리부</option>
+													<option>생산부</option>
+													<option>IT</option>
+													<option>감사부</option>
+													<option>법률지원부</option>
+													<option>해외영업부</option>
+													<option>시설관리부</option>
+													<option>리스크관리부</option>
 													</select>
 <!-- 													<input type="text" name="user_name" -->
 <!-- 														class="form-control form-control-solid mb-3 mb-lg-0" -->
@@ -405,12 +430,22 @@
 													<!--begin::Input-->
 													
 													<select class="form-control form-control-solid mb-3 mb-lg-0">
-													<option>A</option>
-													<option>B</option>
-													<option>C</option>
-													<option>D</option>
-													<option>M</option>
-													<option>-</option>
+													<option>인사관리자</option>
+													<option>결재관리자</option>
+													<option>재무관리자</option>
+													<option>마케팅관리자</option>
+													<option>영업관리자</option>
+													<option>고객지원관리자</option>
+													<option>연구개발관리자</option>
+													<option>품질관리관리자</option>
+													<option>생산관리자</option>
+													<option>IT관리자</option>
+													<option>감사책임자</option>
+													<option>법률지원관리자</option>
+													<option>해외영업관리자</option>
+													<option>시설관리자</option>
+													<option>리스크전략관리자</option>
+													<option>비권한</option>
 													</select>
 <!-- 													<input type="text" name="user_name" -->
 <!-- 														class="form-control form-control-solid mb-3 mb-lg-0" -->
@@ -422,18 +457,7 @@
 												<!--end::Input group-->
 
 
-												<!--begin::Input group-->
-												<!-- 												<div class="fv-row mb-7 fv-plugins-icon-container"> -->
-												<!-- 													begin::Label -->
-												<!-- 													<label class="required fw-semibold fs-6 mb-2">이메일</label> -->
-												<!-- 													end::Label -->
-												<!-- 													begin::Input -->
-												<!-- 													<input type="email" name="user_email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="example@domain.com" value="smith@kpmg.com"> -->
-												<!-- 													end::Input -->
-												<!-- 												<div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"> -->
-												<!-- 												</div> -->
-												<!-- 												</div> -->
-												<!--end::Input group-->
+											
 
 												<!--begin::Input group-->
 												<!-- 												<div class="mb-5">-- 롤 -->
