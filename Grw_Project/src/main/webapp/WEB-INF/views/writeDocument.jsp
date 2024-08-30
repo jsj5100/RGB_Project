@@ -183,10 +183,14 @@
 												</tr>
 												<tr>
 													<td class="approval-td-body">
-														본인
+													
 													</td>
-													<td class="approval-td-body">직급</td>
-													<td class="approval-td-body">소속</td>
+													<td class="approval-td-body">
+														
+													</td>
+													<td class="approval-td-body">
+														
+													</td>
 													<td class="approval-td-body">순서</td>
 												</tr>
 												

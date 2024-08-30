@@ -22,7 +22,7 @@ public class DeptDto {
 	
 	private String emp_no;
 	private String emp_name;
-	private EmpDto eDto;		//홍준님꺼
+	private TierDto tierDto;
 	
 	
 }

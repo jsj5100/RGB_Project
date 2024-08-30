@@ -9,19 +9,29 @@ $(document).ready(function() {
 		})
 		.then(data => {
 			console.log(data);
-			console.log(data[0].id);
+
+            
 			// jsTree를 초기화합니다
 			$('#jstree').jstree({
 				'core': {
 					'data': data
-				}
+					}
 			}).on('select_node.jstree', function(e, data) {
 				if (data.node.parent === '#') {
 					selectedName = "";
 					selectedId = "";
+					selectedDep = "";
+                    selectedTierName = "";
 				} else {
 					selectedName = data.node.text;
 					selectedId = data.node.id;
+					selectedDep = data.node.original.dep_name;
+					selectedTierName = data.node.original.tier_name;
+				
+					console.log('Selected Name:', selectedName);
+                    console.log('Selected ID:', selectedId);
+                    console.log('Selected Department:', selectedDep);
+                    console.log('Selected Tier Name:', selectedTierName);
 				}
 			});
 		})
@@ -33,7 +43,7 @@ $(document).ready(function() {
 		const table = document.getElementById('approval-table');
 		const rows = table.querySelectorAll('tr');
 		const rowCount = rows.length - 2; // 헤더와 첫 번째 빈 행 제외
-
+		console.log(selectedDep);
 		if (rowCount >= 3) {
 			alert("최대 결재자는 4명까지입니다.");
 			return; // 더 이상 행 추가하지 않음
@@ -47,8 +57,8 @@ $(document).ready(function() {
                     ${selectedName}
                     <button class="remove-button" aria-label="Remove">X</button>
                 </td>
-                <td class="approval-td-body">직급</td>
-                <td class="approval-td-body">소속</td>
+                <td class="approval-td-body">${selectedTierName}</td>
+                <td class="approval-td-body">${selectedDep}</td>
                 <td class="approval-td-body">순서</td>
             `;
 

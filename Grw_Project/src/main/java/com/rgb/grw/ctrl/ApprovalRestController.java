@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rgb.grw.dto.DeptDto;
 import com.rgb.grw.dto.EmpDto;
-import com.rgb.grw.dto.JsTreeResponseDTO;
+import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 import com.rgb.grw.service.TemplatePreviewServiceImpl;
 
@@ -30,19 +30,8 @@ public class ApprovalRestController {
 	}
 	
 	@GetMapping("/choiceApprovalLine.do")
-	public List<JsTreeResponseDTO> getJsTree(){
-		List<JsTreeResponseDTO> jsTreeList = new ArrayList<JsTreeResponseDTO>();
-		
-		List<DeptDto> deptList = serviceImpl.jstreeDep();
-		for (DeptDto deptDto : deptList) {
-			// id text parent
-			jsTreeList.add(new JsTreeResponseDTO(deptDto.getDep_no(), deptDto.getDep_name(), "#"));
-		}
-		
-		List<EmpDto> empList = serviceImpl.jstreeEmp();
-		for (EmpDto empDto : empList) {
-			jsTreeList.add(new JsTreeResponseDTO(empDto.emp_no, empDto.emp_name, empDto.dep_no));
-		}
-		return jsTreeList;
+	public List<JsTreeResponseDto> getJsTree(){
+		List<JsTreeResponseDto> deptJstreeList = serviceImpl.jsTree();
+		return deptJstreeList;
 	}
 }
