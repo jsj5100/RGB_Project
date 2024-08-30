@@ -6,12 +6,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rgb.grw.dto.TemplatePreviewDto;
 import com.rgb.grw.dto.UserInfoDto;
@@ -38,20 +39,14 @@ public class TemplateController {
 		String strDate = simpleDate.format(date);
 		model.addAttribute("strDate", strDate);
 		
-		TemplatePreviewDto tempDto = new TemplatePreviewDto();
-		String tempId = tempDto.getTemp_id();
-		model.addAttribute("tempId", tempId);
-		
 		return "writeTemplate";
 	}
 	
 	@PostMapping(value = "/uploadTemplate.do")
-	public String UploadTemplate(HttpSession session, TemplatePreviewDto dto) {
-		UserInfoDto userInfo = (UserInfoDto) session.getAttribute("loginDto");
-		String emp_no = userInfo.getEmp_no();
-		dto.setEmp_no(emp_no);
-		int n = templateServiceImpl.writeTemplate(dto);
-		return (n > 0) ? "templateList" : "templateList";
+	public String insertBoard1() {
+		TemplatePreviewDto templateDto = new TemplatePreviewDto();
+		int n = templateServiceImpl.writeTemplate(templateDto);
+		return (n>0)?"templateList":"templateList";
 	}
 	
 	
