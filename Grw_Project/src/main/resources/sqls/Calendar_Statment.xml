@@ -16,13 +16,27 @@ WHERE
     AND SD_START BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
     AND (
         SD_CODE = 'S00'
-        OR (SD_EMPNO = '000000' AND SD_CODE = 'S01')
+        OR (SD_EMPNO = #{empno} AND SD_CODE = 'S01')
         OR (SD_CODE = 'S02' AND SD_DEPNO = (
             SELECT e.DEP_NO 
             FROM EMP e
             WHERE e.EMP_NO = #{empno}
         ))
     )
+<!-- SELECT * -->
+<!-- FROM SCHEDULE s  -->
+<!-- WHERE SD_START BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD') -->
+<!-- AND SD_END BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD') -->
+<!-- AND ( -->
+<!--    		SD_CODE='S00' -->
+<!--    OR( -->
+<!--    		SD_CODE = 'S02' AND SD_DEPNO = ( -->
+<!--             SELECT e.DEP_NO  -->
+<!--             FROM EMP e -->
+<!--             WHERE e.EMP_NO = #{empno} -->
+<!--    			)) -->
+<!--  	OR (SD_EMPNO = #{empno} AND SD_CODE = 'S01')) -->
+<!-- AND SD_DELFLAG ='N' -->
 		
 	</select>
 	

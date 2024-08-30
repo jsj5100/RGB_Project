@@ -1,7 +1,6 @@
 package com.rgb.grw.ctrl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rgb.grw.dto.CalendarDto;
+import com.rgb.grw.dto.UserInfoDto;
 import com.rgb.grw.service.ICalendarService;
 
 import lombok.RequiredArgsConstructor;
