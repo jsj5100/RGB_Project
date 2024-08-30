@@ -40,9 +40,9 @@ public class Approval_jhj_JUnitTest {
 		assertNotEquals(0, lists.size());
 	}
 
-	@Test
-	public void jstreeDepEmpTier_Test() {
-		List<DeptDto> lists = templatePreviewServiceImpl.jstreeDepEmpTier();
-		assertNotEquals(0, lists.size());
-	}
+//	@Test
+//	public void jstreeDepEmpTier_Test() {
+//		List<DeptDto> lists = templatePreviewServiceImpl.jstreeDepEmpTier();
+//		assertNotEquals(0, lists.size());
+//	}
 }

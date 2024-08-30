@@ -17,29 +17,29 @@
 		FROM EMP e
 	</select>
 
-	<select id="jstreeDepEmpTier" resultMap="dDtoJstree">
-		SELECT e.EMP_NAME,
-		e.EMP_NO, d.DEP_NAME, d.DEP_NO, t.TIER_NAME, t.TIER_NAME
-		FROM EMP e
-		JOIN DEP d ON
-		e.DEP_NO = d.DEP_NO
-		JOIN TIER t ON e.TIER_NO = t.TIER_NO
-	</select>
+<!-- 	<select id="jstreeDepEmpTier" resultMap="dDtoJstree"> -->
+<!-- 		SELECT e.EMP_NAME, -->
+<!-- 		e.EMP_NO, d.DEP_NAME, d.DEP_NO, t.TIER_NAME, t.TIER_NAME -->
+<!-- 		FROM EMP e -->
+<!-- 		JOIN DEP d ON -->
+<!-- 		e.DEP_NO = d.DEP_NO -->
+<!-- 		JOIN TIER t ON e.TIER_NO = t.TIER_NO -->
+<!-- 	</select> -->
 
-	<resultMap id="dDtoJstree" type="DeptDto">
-		<result property="dep_no" column="DEP_NO"/>
-		<result property="dep_name" column="DEP_NAME"/>
-		<collection property="eDto" resultMap="eDtoJsTree">
-			<association property="tDto" resultMap="tDtoJstree"/>
-		</collection>
-	</resultMap>
+<!-- 	<resultMap id="dDtoJstree" type="DeptDto"> -->
+<!-- 		<result property="dep_no" column="DEP_NO"/> -->
+<!-- 		<result property="dep_name" column="DEP_NAME"/> -->
+<!-- 		<collection property="eDto" resultMap="eDtoJsTree"> -->
+<!-- 			<association property="tDto" resultMap="tDtoJstree"/> -->
+<!-- 		</collection> -->
+<!-- 	</resultMap> -->
 
-	<resultMap id="tDtoJstree" type="TierDto">
-		<result property="tier_name" column="TIER_NAME"/>
-		<result property="tier_name" column="TIER_NAME"/>
-	</resultMap>
-	<resultMap id="eDtoJsTree" type="EmpDto">
-		<result property="emp_no" column="EMP_NO"/>
-		<result property="emp_name" column="EMP_NAME"/>
-	</resultMap>
+<!-- 	<resultMap id="tDtoJstree" type="TierDto"> -->
+<!-- 		<result property="tier_name" column="TIER_NAME"/> -->
+<!-- 		<result property="tier_name" column="TIER_NAME"/> -->
+<!-- 	</resultMap> -->
+<!-- 	<resultMap id="eDtoJsTree" type="EmpDto"> -->
+<!-- 		<result property="emp_no" column="EMP_NO"/> -->
+<!-- 		<result property="emp_name" column="EMP_NAME"/> -->
+<!-- 	</resultMap> -->
 </mapper>

@@ -36,10 +36,10 @@ public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
 		return previewDaoImpl.jstreeEmp();
 	}
 
-	@Override
-	public List<DeptDto> jstreeDepEmpTier() {
-		return previewDaoImpl.jstreeDepEmpTier();
-	}
+//	@Override
+//	public List<DeptDto> jstreeDepEmpTier() {
+//		return previewDaoImpl.jstreeDepEmpTier();
+//	}
 
 	
 }

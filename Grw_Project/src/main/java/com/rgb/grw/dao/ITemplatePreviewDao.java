@@ -16,5 +16,5 @@ public interface ITemplatePreviewDao {
 	
 	public List<EmpDto> jstreeEmp();
 	
-	public List<DeptDto> jstreeDepEmpTier();
+//	public List<DeptDto> jstreeDepEmpTier();
 }
