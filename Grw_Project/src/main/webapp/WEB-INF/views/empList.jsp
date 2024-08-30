@@ -565,10 +565,11 @@
 <!-- 													data-kt-users-modal-action="cancel">취소하기</button> -->
 <button type="button" id="kt_modal_add_event_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">취소하기</button>
 												<button type="submit" class="btn btn-primary"
-													data-kt-users-modal-action="submit">
-													<span class="indicator-label">등록하기</span> <span
-														class="indicator-progress">등록중... <span
-														class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+													data-kt-users-modal-action="submit" data-bs-dismiss="modal">
+													<span class="indicator-label">등록하기</span> 
+													<span class="indicator-progress">등록중... 
+													<span class="spinner-border spinner-border-sm align-middle ms-2">
+													</span></span>
 												</button>
 											</div>
 											<!--end::Actions-->

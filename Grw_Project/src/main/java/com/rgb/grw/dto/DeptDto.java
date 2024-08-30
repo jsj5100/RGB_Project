@@ -15,13 +15,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DeptDto {
-	public int seq;
-	public String dep_no;
-	public String dep_name;
-	public String dep_state;
+	private int seq;
+	private String dep_no;
+	private String dep_name;
+	private String dep_state;
 	
-	public String emp_no;
-	public String emp_name;
+	private String emp_no;
+	private String emp_name;
+	private EmpDto eDto;		//홍준님꺼
 	
 	
 }

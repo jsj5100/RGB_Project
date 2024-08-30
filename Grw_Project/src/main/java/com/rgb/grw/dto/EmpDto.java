@@ -13,27 +13,27 @@ import lombok.ToString;
 @AllArgsConstructor
 public class EmpDto {
 
-	public String emp_no;			//사원번호
-	public String emp_password;
-	public String emp_phone;
-	public String emp_name;			//이름
-	public String emp_email;
-	public String emp_gender;
-	public String emp_idnum;
-	public String emp_joindate;
-	public String emp_outdate;
-	public String emp_photo;
-	public String emp_state;		//재직여부
-	public String emp_fulloff;
-	public String emp_restoff;
-	public String emp_useoff;
+	private String emp_no;			//사원번호
+	private String emp_password;
+	private String emp_phone;
+	private String emp_name;			//이름
+	private String emp_email;
+	private String emp_gender;
+	private String emp_idnum;
+	private String emp_joindate;
+	private String emp_outdate;
+	private String emp_photo;
+	private String emp_state;		//재직여부
+	private String emp_fulloff;
+	private String emp_restoff;
+	private String emp_useoff;
 	
 
-	public String dep_name;
-	public String dep_no;
+	private String dep_name;
+	private String dep_no;
 
-	public String tier_name;		 //직위
-	public String auth_name;		 //
-	
+	private String tier_name;		 //직위
+	private String auth_name;		 //
+	private TierDto tDto;			//홍준님꺼
 }
 
