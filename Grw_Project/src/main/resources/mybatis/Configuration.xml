@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>	
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
@@ -9,6 +9,7 @@
 	<typeAlias type="com.rgb.grw.dto.EmpDto" alias="EmpDto"/>
 	<typeAlias type="com.rgb.grw.dto.CalendarDto" alias="CalendarDto"/>
 	<typeAlias type="com.rgb.grw.dto.TemplatePreviewDto" alias="TemplatePreviewDto"/>
+	<typeAlias type="com.rgb.grw.dto.TierDto" alias="TierDto"/>
 </typeAliases>
 
 <mappers>
