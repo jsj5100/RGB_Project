@@ -356,6 +356,9 @@ $("#kt_calendar_datepicker_end_time").flatpickr({
 
 var calendar;
 
+var selectedEventId = null;
+
+//일정 추가
 function insertEvents() {
 	
 	let start1 = document.getElementById('kt_calendar_datepicker_start_date').value;
@@ -468,8 +471,6 @@ document.getElementById('kt_calendar_datepicker_allday').addEventListener('click
     }
 });
 
-
-
 //일정 수정
 function modifyEvent(eventNo) {
 	
@@ -525,9 +526,8 @@ function modifyEvent(eventNo) {
     .catch(error => {
         console.error('Error:', error);
     });
- 	
-    
-}
+
+	}
 
 //리셋
 document.getElementById('add_event_button').addEventListener('click', function() {
@@ -542,6 +542,37 @@ document.getElementById('add_event_button').addEventListener('click', function()
 	document.getElementById('kt_calendar_event_location').selectedIndex='0';
 });
 
+//일정삭제
+ document.getElementById('kt_modal_view_event_delete').addEventListener('click', function () {
+//             	console.log('삭제전 들어온 입력 데이터 : ', data)
+                let data = { eventNo: selectedEventId };
+                console.log(data);
+                fetch('./delEvent/calendar.do', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+//                     let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_view_event'));
+//                     modal.hide();
+                    calendar.refetchEvents();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+
+
+//달력출력
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('kt_calendar_app');
     var googleAPI_key = 'AIzaSyASz5EnPZfBWfKLT2tCtxvF7M6Gcp7vKJ4';
@@ -602,6 +633,9 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         
         eventClick: function(info) {
+
+            selectedEventId = info.event.id;
+        	
             // +more 버튼 눌러서 드롭박스 열린 상태에서 일정 클릭 시 드롭박스 닫기
             var morePopover = document.querySelector('.fc-popover');
             if (morePopover) {
@@ -622,11 +656,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!response.ok) {
                     throw new Error(`에러났다: ${response.status}`);
                 }
-                return response.text();  // 먼저 텍스트로 응답을 가져옵니다.
+                return response.text();  // 텍스트로 받기.
             })
             .then(text => {
                 try {
-                    const data = JSON.parse(text);  // 텍스트를 JSON으로 파싱합니다.
+                    const data = JSON.parse(text);  // JSON 변환
                     console.log("Received data:", data);
                     
                     let allDayBadge = document.getElementById('allDayBadge');
@@ -666,32 +700,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             
             // 일정 삭제
-            document.getElementById('kt_modal_view_event_delete').addEventListener('click', function() {
-                let data = { eventNo: eventNo };
-                console.log(data);
-                fetch('./delEvent/calendar.do', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Success:', data);
-//                     let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_view_event'));
-//                     modal.hide();
-                    calendar.refetchEvents();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            });
+           
             
             // 일정 수정
             document.getElementById('kt_modal_view_event_edit').addEventListener('click', function() {
