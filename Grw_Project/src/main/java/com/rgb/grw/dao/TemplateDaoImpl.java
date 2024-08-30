@@ -26,6 +26,6 @@ public class TemplateDaoImpl implements ITemplateDao {
 
 	@Override
 	public int writeTemplate(TemplatePreviewDto dto) {
-		return template.insert(NS+"writeTemplate");
+		return template.insert(NS+"writeTemplate", dto);
 	}
 }
