@@ -10,6 +10,7 @@
 	<typeAlias type="com.rgb.grw.dto.CalendarDto" alias="CalendarDto"/>
 	<typeAlias type="com.rgb.grw.dto.TemplatePreviewDto" alias="TemplatePreviewDto"/>
 	<typeAlias type="com.rgb.grw.dto.TierDto" alias="TierDto"/>
+	<typeAlias type="com.rgb.grw.dto.JsTreeResponseDto" alias="JsTreeResponseDto"/>
 </typeAliases>
 
 <mappers>

@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.rgb.grw.dto.DeptDto;
 import com.rgb.grw.dto.EmpDto;
+import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 import com.rgb.grw.service.TemplatePreviewServiceImpl;
 
@@ -40,9 +41,12 @@ public class Approval_jhj_JUnitTest {
 		assertNotEquals(0, lists.size());
 	}
 
-//	@Test
-//	public void jstreeDepEmpTier_Test() {
-//		List<DeptDto> lists = templatePreviewServiceImpl.jstreeDepEmpTier();
+	@Test
+	public void jstreeDepEmpTier_Test() {
+		List<JsTreeResponseDto> lists = templatePreviewServiceImpl.jsTree();
 //		assertNotEquals(0, lists.size());
-//	}
+		for (JsTreeResponseDto deptDto : lists) {
+			System.out.println(deptDto);
+		}
+	}
 }

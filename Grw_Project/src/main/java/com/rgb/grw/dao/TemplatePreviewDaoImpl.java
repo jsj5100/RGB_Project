@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rgb.grw.dto.DeptDto;
 import com.rgb.grw.dto.EmpDto;
+import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 
 import lombok.RequiredArgsConstructor;
@@ -36,10 +37,10 @@ public class TemplatePreviewDaoImpl implements ITemplatePreviewDao {
 		return template.selectList(NS+"jstreeEmp");
 	}
 
-//	@Override
-//	public List<DeptDto> jstreeDepEmpTier() {
-//		return template.selectList(NS+"jstreeDepEmpTier");
-//	}
+	@Override
+	public List<JsTreeResponseDto> jsTree() {
+		return template.selectList(NS+"jsTree");
+	}
 
 	
 	

@@ -320,10 +320,12 @@ VALUES (
     SYSTIMESTAMP  -- 수정 날짜
 );
 
-SELECT e.EMP_NAME, e.EMP_NO, d.DEP_NAME, d.DEP_NO, t.TIER_NAME
-	FROM EMP e 
-	JOIN DEP d ON e.DEP_NO = d.DEP_NO 
-	JOIN TIER t ON e.TIER_NO = t.TIER_NO;
+SELECT e.EMP_NAME,
+		e.EMP_NO, d.DEP_NAME, d.DEP_NO, t.TIER_NAME, t.TIER_NO 
+		FROM EMP e
+		JOIN DEP d ON
+		e.DEP_NO = d.DEP_NO
+		JOIN TIER t ON e.TIER_NO = t.TIER_NO;
 	
 INSERT INTO RGB.DOCUMENT
 	(DOC_NO, EMP_NO, STA_CODE, 
@@ -337,5 +339,23 @@ VALUES('', '', 1,
 		'', '', '', 
 		'');
 
-
-	
+SELECT 
+    d.DEP_NO AS id, 
+    d.DEP_NAME AS text, 
+    '#' AS parent, 
+    NULL AS tier_no, 
+    NULL AS tier_name, 
+    NULL AS dep_name
+FROM EMP e
+JOIN DEP d ON e.DEP_NO = d.DEP_NO
+UNION
+SELECT 
+    e.EMP_NO AS id, 
+    e.EMP_NAME AS text, 
+    d.DEP_NO AS parent, 
+    SUBSTR(t.TIER_NO, 4) AS tier_no,
+    t.TIER_NAME AS tier_name,
+    d.DEP_NAME AS dep_name  
+FROM EMP e
+JOIN TIER t ON e.TIER_NO = t.TIER_NO
+JOIN DEP d ON e.DEP_NO = d.DEP_NO;

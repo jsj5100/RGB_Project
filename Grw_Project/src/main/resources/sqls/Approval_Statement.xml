@@ -6,40 +6,53 @@
 		TEMP_TITLE, TEMP_CONTENT, TEMP_REGDATE, TEMP_EDITDATE
 		FROM TEMPLATE t
 	</select>
-
-	<select id="jstreeDep" resultType="DeptDto">
-		SELECT *
-		FROM DEP d
-	</select>
-
-	<select id="jstreeEmp" resultType="EmpDto">
-		SELECT *
+	
+	<select id="jsTree" resultType="JsTreeResponseDto">
+		SELECT 
+		    d.DEP_NO AS id, 
+		    d.DEP_NAME AS text, 
+		    '#' AS parent, 
+		    NULL AS tier_no, 
+		    NULL AS tier_name, 
+		    NULL AS dep_name
 		FROM EMP e
+		JOIN DEP d ON e.DEP_NO = d.DEP_NO
+		UNION
+		SELECT 
+		    e.EMP_NO AS id, 
+		    e.EMP_NAME AS text, 
+		    d.DEP_NO AS parent, 
+		    SUBSTR(t.TIER_NO, 4) AS tier_no,
+		    t.TIER_NAME AS tier_name,
+		    d.DEP_NAME AS dep_name  
+		FROM EMP e
+		JOIN TIER t ON e.TIER_NO = t.TIER_NO
+		JOIN DEP d ON e.DEP_NO = d.DEP_NO
 	</select>
 
-<!-- 	<select id="jstreeDepEmpTier" resultMap="dDtoJstree"> -->
-<!-- 		SELECT e.EMP_NAME, -->
-<!-- 		e.EMP_NO, d.DEP_NAME, d.DEP_NO, t.TIER_NAME, t.TIER_NAME -->
-<!-- 		FROM EMP e -->
-<!-- 		JOIN DEP d ON -->
-<!-- 		e.DEP_NO = d.DEP_NO -->
-<!-- 		JOIN TIER t ON e.TIER_NO = t.TIER_NO -->
+
+
+<!-- 	<resultMap type="com.rgb.grw.dto.DeptDto" id="DeptDtoMap"> -->
+<!-- 		<result column="DEP_NO" property="dep_no"/> -->
+<!-- 		<result column="EMP_NAME" property="emp_name"/> -->
+<!-- 		<result column="EMP_NO" property="emp_no"/> -->
+<!-- 		<result column="DEP_NAME" property="dep_name"/> -->
+<!-- 		<collection property="tierDto" resultMap="TierDtoMap"/> -->
+<!-- 	</resultMap> -->
+<!-- 	<resultMap type="com.rgb.grw.dto.TierDto" id="TierDtoMap"> -->
+<!-- 		<result column="TIER_NAME" property="tier_name"/> -->
+<!-- 		<result column="TIER_NO" property="tier_no"/> -->
+<!-- 	</resultMap> -->
+	
+
+
+<!-- 	<select id="jstreeDepEmpTier" resultMap="DeptDtoMap"> -->
+<!-- 		SELECT d.DEP_NO, e.EMP_NAME, e.EMP_NO, d.DEP_NAME, DeptDto -->
+<!-- 			t.TIER_NAME, t.TIER_NO TierDto  -->
+<!-- 			FROM EMP e -->
+<!-- 			JOIN DEP d ON -->
+<!-- 			e.DEP_NO = d.DEP_NO -->
+<!-- 			JOIN TIER t ON e.TIER_NO = t.TIER_NO -->
 <!-- 	</select> -->
 
-<!-- 	<resultMap id="dDtoJstree" type="DeptDto"> -->
-<!-- 		<result property="dep_no" column="DEP_NO"/> -->
-<!-- 		<result property="dep_name" column="DEP_NAME"/> -->
-<!-- 		<collection property="eDto" resultMap="eDtoJsTree"> -->
-<!-- 			<association property="tDto" resultMap="tDtoJstree"/> -->
-<!-- 		</collection> -->
-<!-- 	</resultMap> -->
-
-<!-- 	<resultMap id="tDtoJstree" type="TierDto"> -->
-<!-- 		<result property="tier_name" column="TIER_NAME"/> -->
-<!-- 		<result property="tier_name" column="TIER_NAME"/> -->
-<!-- 	</resultMap> -->
-<!-- 	<resultMap id="eDtoJsTree" type="EmpDto"> -->
-<!-- 		<result property="emp_no" column="EMP_NO"/> -->
-<!-- 		<result property="emp_name" column="EMP_NAME"/> -->
-<!-- 	</resultMap> -->
 </mapper>

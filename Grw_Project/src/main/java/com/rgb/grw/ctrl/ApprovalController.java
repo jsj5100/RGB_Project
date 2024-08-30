@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rgb.grw.dto.DeptDto;
 import com.rgb.grw.dto.EmpDto;
-import com.rgb.grw.dto.JsTreeResponseDTO;
+import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 import com.rgb.grw.service.TemplatePreviewServiceImpl;
 
