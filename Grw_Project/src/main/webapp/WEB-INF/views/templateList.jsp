@@ -90,10 +90,10 @@
 										<p class="text-gray-800 fw-bold d-block mb-1 fs-6">${list.temp_id}</p>
 
 									</td>
-									<td class="text-end"><a id="abn" href="#" onclick="modalTitle('${list.temp_title}')"
-										data-bs-toggle="modal" data-bs-target="#kt_modal_select_location"
-										class="text-gray-800 fw-bold text-hover-primary d-block mb-1 fs-6"
-										style="text-align: center;">${list.temp_title}</a></td>
+									<td class="text-end"> <a onclick="showModalTitle('${list.temp_title}')"
+								       data-bs-toggle="modal" data-bs-target="#kt_modal_select_location"
+								       class="text-gray-800 fw-bold text-hover-primary d-block mb-1 fs-6"
+								       style="text-align: center; cursor: pointer;">${list.temp_title}</a></td>
 									<td class="text-end">
 										<p style="text-align: center;"
 											class="text-gray-800 fw-bold d-block mb-1 fs-6">${list.temp_regdate}</p>
@@ -118,15 +118,8 @@
 						<h2 id="modalTitle"></h2>
 					</div>
 					<div class="modal-body">
-						<div class="container">
-							<div class="form-list">
-								<h2>양식 목록</h2>
-								
-							</div>
-
-							<div class="form-preview">
-							
-							</div>
+						<div id="modalContent">
+						
 						</div>
 					</div>
 					<div class="modal-footer d-flex justify-content-end">
@@ -143,8 +136,8 @@
 	<%@include file="./footer.jsp"%>
 </body>
 <script type="text/javascript">
-	function modalTitle(titl){
-		document.getElementById('modalTitle').innerHTML= titl;
-	}
+function showModalTitle(titl) {
+    document.getElementById('modalTitle').textContent = titl;
+}
 </script>
 </html>

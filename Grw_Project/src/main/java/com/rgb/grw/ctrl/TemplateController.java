@@ -1,21 +1,19 @@
-package com.rgb.grw.ctrl;
+	package com.rgb.grw.ctrl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rgb.grw.dto.TemplatePreviewDto;
-import com.rgb.grw.dto.UserInfoDto;
 import com.rgb.grw.service.TemplateServiceImpl;
 
 @Controller
@@ -28,7 +26,6 @@ public class TemplateController {
 	public String TemplateList(Model model) {
 		List<TemplatePreviewDto> lists = templateServiceImpl.selectTemplateList();
 		model.addAttribute("lists", lists);	
-		System.out.println("lists : "+lists);
 		return "templateList";
 	}
 	
@@ -38,15 +35,20 @@ public class TemplateController {
 		SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy.MM.dd");
 		String strDate = simpleDate.format(date);
 		model.addAttribute("strDate", strDate);
-		
 		return "writeTemplate";
 	}
 	
 	@PostMapping(value = "/uploadTemplate.do")
-	public String insertBoard1() {
-		TemplatePreviewDto templateDto = new TemplatePreviewDto();
-		int n = templateServiceImpl.writeTemplate(templateDto);
-		return (n>0)?"templateList":"templateList";
+	@ResponseBody
+	public String handleFormSubmit(@RequestParam("temp_title") String tempTitle) {
+        // temp_title 값을 콘솔에 출력합니다.
+        if (tempTitle == null || tempTitle.trim().isEmpty()) {
+            return "Error: Title is required!";
+        }
+        System.out.println("Received temp_title: " + tempTitle);
+        return "Received temp_title: " + tempTitle;
+//		int n = templateServiceImpl.writeTemplate(dto);
+//		return (n>0)?"templateList":"templateList";
 	}
 	
 	
