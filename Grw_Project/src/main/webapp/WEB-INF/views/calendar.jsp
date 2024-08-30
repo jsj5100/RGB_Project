@@ -169,12 +169,16 @@
 	                    <button type="button" id="kt_modal_add_event_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">취소</button>
 	                    <!--end::Button-->
 	                    <!--begin::Button-->
-	                    <button type="button" id="kt_modal_add_event_submit" class="btn btn-primary" onClick="insertEvents()">
+	                    <button type="button" id="kt_modal_add_event_submit" class="btn btn-primary d-none" onClick="insertEvents()">
 	                        <span class="indicator-label">등록</span>
 <!-- 	                        <span class="indicator-progress">Please wait... -->
 <!-- 	                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span> -->
 <!-- 	                        </span> -->
 	                    </button>
+	                    
+	                     <button type="button" id="kt_modal_add_event_modify" class="btn btn-primary d-none" onClick="modifyEvents()">
+	                        <span class="indicator-label">수정</span>
+	                     </button>
 	                    <!--end::Button-->
 	                </div>
 	                <!--end::Modal footer-->
@@ -311,7 +315,165 @@
 	    </div>
 	</div>
 	
-	<!-- event 조회 모달 종료' -->			
+	<!-- event 조회 모달 종료' -->	
+	
+	
+<!-- 	<!-- even 변경 modal --> -->
+<!-- 	<div class="modal fade" id="kt_modal_add_event" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false" style="display: none;" aria-hidden="true"> -->
+<!-- 	    <div class="modal-dialog modal-dialog-centered mw-650px"> -->
+<!-- 	        <div class="modal-content"> -->
+	        
+<!-- 	            <form class="form fv-plugins-bootstrap5 fv-plugins-framework" id="kt_modal_modi_event_form"> -->
+<!-- 	                begin::Modal header -->
+<!-- 	                <div class="modal-header"> -->
+<!-- 	                    begin::Modal title -->
+<!-- 	                    <h2 class="fw-bold" data-kt-calendar="title" id="kt_modal_head">일정 변경</h2> -->
+<!-- 	                    end::Modal title -->
+<!-- 	                    begin::Close -->
+<!-- 	                    <div class="btn btn-icon btn-sm btn-active-icon-primary " data-bs-dismiss="modal"> -->
+<!-- 	                        <i class="ki-duotone ki-cross fs-1"> -->
+<!-- 	                            <span class="path1"></span> -->
+<!-- 	                            <span class="path2"></span> -->
+<!-- 	                        </i> -->
+<!-- 	                    </div> -->
+<!-- 	                    end::Close -->
+<!-- 	                </div> -->
+<!-- 	                end::Modal header -->
+<!-- 	                begin::Modal body -->
+<!-- 	                <div class="modal-body py-10 px-lg-17"> -->
+<!-- 	                    begin::Input group -->
+<!-- 	                    <div class="fv-row mb-9 fv-plugins-icon-container"> -->
+<!-- 	                        begin::Label -->
+<!-- 	                        <label class="fs-6 fw-semibold required mb-2">일정 제목</label> -->
+<!-- 	                        end::Label -->
+<!-- 	                        begin::Input -->
+<!-- 	                        <input type="text" class="form-control form-control-solid" placeholder="제목을 입력해주세요" id="kt_calendar_event_name" name="calendar_event_name" required> -->
+<!-- 	                        end::Input -->
+<!-- 	                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div> -->
+<!-- 	                    </div> -->
+<!-- 	                    end::Input group -->
+<!-- 	                    begin::Input group -->
+<!-- 	                    <div class="fv-row mb-9"> -->
+<!-- 	                        begin::Label -->
+<!-- 	                        <label class="fs-6 fw-semibold mb-2">일정 내용</label> -->
+<!-- 	                        end::Label -->
+<!-- 	                        begin::Input -->
+<!-- 	                        <input type="text" class="form-control form-control-solid" placeholder="" id="kt_calendar_event_description" name="calendar_event_description"> -->
+<!-- 	                        end::Input -->
+<!-- 	                    </div> -->
+<!-- 	                    end::Input group -->
+<!-- 	                    begin::Input group -->
+<!-- 	                    <div class="fv-row mb-9"> -->
+<!-- 	                        begin::Label -->
+<!-- 	                        <label class="fs-6 fw-semibold required mb-2">일정 구분</label> -->
+<!-- 	                        end::Label -->
+<!-- 	                        일정구분 셀렉트박스 -->
+<!-- 	                        <select class="form-control form-control-solid" id="kt_calendar_event_location" name="calendar_event_location" required> -->
+<!-- 							  <option value="" disabled selected>선택해주세요</option> -->
+<!-- 							  <option value="S00">전사</option> -->
+<!-- 							  <option value="S01">개인</option> -->
+<!-- 							  <option value="S02">부서</option> -->
+<!-- 							</select> -->
+<!-- 	                        begin::Input -->
+<!-- <!-- 	                        <input type="text" class="form-control form-control-solid" placeholder="" id="kt_calendar_event_location" name="calendar_event_location"> --> -->
+<!-- 	                        end::Input -->
+<!-- 	                    </div> -->
+<!-- 	                    end::Input group -->
+	                    
+<!-- 	                    하루종일 선택 -->
+<!-- 	                    <div class="fv-row mb-9"> -->
+<!-- 	                        begin::Checkbox -->
+<!-- 	                        <label class="form-check form-check-custom form-check-solid"> -->
+<!-- 	                            <input class="form-check-input" type="checkbox" value="" id="kt_calendar_datepicker_allday"> -->
+<!-- 	                            <span class="form-check-label fw-semibold" for="kt_calendar_datepicker_allday">All Day</span> -->
+<!-- 	                        </label> -->
+<!-- 	                        end::Checkbox -->
+<!-- 	                    </div> -->
+<!-- 	                    end::Input group -->
+	                    
+	                    
+<!-- 	                    날짜 설정 -->
+<!-- 	                    <div class="row row-cols-lg-2 g-10"> -->
+<!-- 	                        <div class="col"> -->
+<!-- 	                        	시작일 -->
+<!-- 	                            <div class="fv-row mb-9 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid"> -->
+<!-- 	                                begin::Label -->
+<!-- 	                                <label class="fs-6 fw-semibold mb-2 required">시작 날짜</label> -->
+<!-- 	                                end::Label -->
+<!-- 	                                begin::Input -->
+<!-- 	                                <input class="form-control form-control-solid flatpickr-input" name="calendar_event_start_date" placeholder="Pick a start date" id="kt_calendar_datepicker_start_date" type="text" readonly="readonly"> -->
+<!-- 	                                end::Input -->
+<!-- 	                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div> -->
+<!-- 	                            </div> -->
+<!-- 	                        </div> -->
+<!-- 	                        <div class="col" data-kt-calendar="datepicker"> -->
+<!-- 	                            <div class="fv-row mb-9"> -->
+<!-- 	                                begin::Label -->
+<!-- 	                                <label class="fs-6 fw-semibold mb-2">시작 시간</label> -->
+<!-- 	                                end::Label -->
+<!-- 	                                begin::Input -->
+<!-- 	                                <input class="form-control form-control-solid flatpickr-input" name="calendar_event_start_time" placeholder="Pick a start time" id="kt_calendar_datepicker_start_time" type="text" readonly="readonly"> -->
+<!-- 	                                end::Input -->
+<!-- 	                            </div> -->
+<!-- 	                        </div> -->
+<!-- 	                    </div> -->
+<!-- 	                    end::Input group -->
+	                    
+<!-- 	                    종료일 -->
+<!-- 	                    <div class="row row-cols-lg-2 g-10"> -->
+<!-- 	                        <div class="col"> -->
+<!-- 	                            <div class="fv-row mb-9 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid"> -->
+<!-- 	                                begin::Label -->
+<!-- 	                                <label class="fs-6 fw-semibold mb-2 required">종료 날짜</label> -->
+<!-- 	                                end::Label -->
+<!-- 	                                begin::Input -->
+<!-- 	                                <input class="form-control form-control-solid flatpickr-input" name="calendar_event_end_date" placeholder="Pick an end date" id="kt_calendar_datepicker_end_date" type="text" readonly="readonly"> -->
+<!-- 	                                end::Input -->
+<!-- 	                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div> -->
+<!-- 	                            </div> -->
+<!-- 	                        </div> -->
+<!-- 	                        <div class="col" data-kt-calendar="datepicker"> -->
+<!-- 	                            <div class="fv-row mb-9"> -->
+<!-- 	                                begin::Label -->
+<!-- 	                                <label class="fs-6 fw-semibold mb-2">종료 시간</label> -->
+<!-- 	                                end::Label -->
+<!-- 	                                begin::Input -->
+<!-- 	                                <input class="form-control form-control-solid flatpickr-input" name="calendar_event_end_time" placeholder="Pick an end time" id="kt_calendar_datepicker_end_time" type="text" readonly="readonly"> -->
+<!-- 	                                end::Input -->
+<!-- 	                            </div> -->
+<!-- 	                        </div> -->
+<!-- 	                    </div> -->
+<!-- 	                    end::Input group -->
+<!-- 	                </div> -->
+	                
+<!-- 	                end::Modal body -->
+<!-- 	                begin::Modal footer -->
+<!-- 	                <div class="modal-footer flex-center"> -->
+<!-- 	                    begin::Button -->
+<!-- 	                    <button type="button" id="kt_modal_add_event_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">취소</button> -->
+<!-- 	                    end::Button -->
+<!-- 	                    begin::Button -->
+<!-- 	                    <button type="button" id="kt_modal_add_event_submit" class="btn btn-primary d-none" onClick="insertEvents()"> -->
+<!-- 	                        <span class="indicator-label">등록</span> -->
+<!-- <!-- 	                        <span class="indicator-progress">Please wait... --> -->
+<!-- <!-- 	                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span> --> -->
+<!-- <!-- 	                        </span> --> -->
+<!-- 	                    </button> -->
+	                    
+<!-- 	                     <button type="button" id="kt_modal_add_event_modify" class="btn btn-primary d-none" onClick="modifyEvents()"> -->
+<!-- 	                        <span class="indicator-label">수정</span> -->
+<!-- 	                     </button> -->
+<!-- 	                    end::Button -->
+<!-- 	                </div> -->
+<!-- 	                end::Modal footer -->
+<!-- 	            </form> -->
+<!-- 	        </div> -->
+<!-- 	    </div> -->
+<!-- 	</div> -->
+	
+	
+	
+			
 	</div>
 </div>	
 	
@@ -467,15 +629,27 @@ document.getElementById('kt_calendar_datepicker_allday').addEventListener('click
     } else {
         startTimeInput.disabled = false;
         endTimeInput.disabled = false;
-        document.getElementById('kt_calendar_datepicker_end_date').value=' ';
+//         document.getElementById('kt_calendar_datepicker_end_date').value='';
     }
+    
+    
+    let addbutton = document.getElementById('kt_modal_add_event_submit')
+	addbutton.classList.add('d-none');
 });
 
+
+
 //일정 수정
-function modifyEvent(eventNo) {
+document.getElementById('kt_modal_view_event_edit').addEventListener('click', function () {
+	
+	let addbutton = document.getElementById('kt_modal_add_event_submit')
+	addbutton.classList.add('d-none');
+	
+	let modyfybutton = document.getElementById('kt_modal_add_event_modify')
+	modyfybutton.classList.remove('d-none');
 	
  	//상세조회쪽에서 값 가져왔던 fetch문
- 	fetch('./eventDetail/calendar.do?' + new URLSearchParams({ eventNo: eventNo }))
+ 	fetch('./eventDetail/calendar.do?' + new URLSearchParams({ eventNo: selectedEventId }))
     .then(response => {
         if (!response.ok) {
             throw new Error(`에러났다: ${response.status}`);
@@ -502,12 +676,20 @@ function modifyEvent(eventNo) {
             // 날짜와 시간으로 나누기
             let [startDatePart, startTimePart] = startDate;
             let [endDatePart, endTimePart] = endDate;
-
-            // Date 객체로 변환
+			
+           if(data.sd_allday) {
+        	// Date 객체로 변환
+               document.getElementById('kt_calendar_datepicker_start_date').value = startDatePart;
+               document.getElementById('kt_calendar_datepicker_start_time').value = '';
+               document.getElementById('kt_calendar_datepicker_end_date').value = endDatePart;
+               document.getElementById('kt_calendar_datepicker_end_time').value = '';
+           } else {
+        	   
             document.getElementById('kt_calendar_datepicker_start_date').value = startDatePart;
             document.getElementById('kt_calendar_datepicker_start_time').value = startTimePart.slice(0, 5);  // HH:mm
             document.getElementById('kt_calendar_datepicker_end_date').value = endDatePart;
             document.getElementById('kt_calendar_datepicker_end_time').value = endTimePart.slice(0, 5);  // HH:mm
+           }
             
             
             let select = document.getElementById('kt_calendar_event_location');
@@ -526,10 +708,120 @@ function modifyEvent(eventNo) {
     .catch(error => {
         console.error('Error:', error);
     });
+ 	
+ 	
 
+	});
+	
+//수정하기버튼
+function modifyEvent() {
+	
+	let start1 = document.getElementById('kt_calendar_datepicker_start_date').value;
+	let start2 = document.getElementById('kt_calendar_datepicker_start_time').value;
+
+	let end1 = document.getElementById('kt_calendar_datepicker_end_date').value;
+	let end2 = document.getElementById('kt_calendar_datepicker_end_time').value;
+	let start, end 
+
+	let title = document.getElementById('kt_calendar_event_name').value;
+	let description = document.getElementById('kt_calendar_event_description').value;
+	
+
+	//일정제목이 비어있는 경우
+	if(title==" "||title=="") {
+		alert('제목을 입력해주세요');
+		return;
 	}
+	
+	let groupId = document.getElementById('kt_calendar_event_location').value;
+// 	console.log(groupId)
+	//그룹id 미설정시
+	if(groupId==""){
+		alert('일정구분해주세요');
+		return;
+	}
+	
+	let isAllDay = document.getElementById('kt_calendar_datepicker_allday').checked;
+	
+	//allDay 체크여부에따른 설정시 시간
+	if(isAllDay) {
+		start = start1;
+		end = end1;
+	}else {
+		start = start1 + ' ' + start2+':00';
+		end= end1 + ' ' + end2+':00';
+	}
+	
+	let startDateTime = new Date(start)
+	let endDateTime = new Date(end)
+	
+	console.log('Start', start);
+	console.log('End', end);
+	console.log('StartDateTime', startDateTime)
+	console.log('EndDateTime',endDateTime)
+	
+	//시작시간보다 종료시간이 앞선 경우
+	if(startDateTime>endDateTime) {
+		alert('시간 설정이 잘못되었습니다. 다시 설정해주세요');
+		return;
+	}
+	if(description=" " || description==null) {
+		description='내용없음';
+	}
+	
+//수정된 값을 다시 fetch로 보내기
+ 	
+ 	let data = {
+		start: start,
+		end: end,
+		title: title,
+		description: description,
+		groupId: groupId,
+		allDay: isAllDay
+	};
+ 	
+ 	
+ 	//fetch
+    fetch('./modifyEvent/calendar.do', { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {//성공하면 실행
+    	
+		console.log('Success:', data);
+		let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_add_event'));
+		modal.hide();
+       
+		calendar.refetchEvents()
+    	
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+ 	
+ 	
+ 	
+ 	
+}
 
-//리셋
+//모달창이 닫힐때 checked상태 false로 초기화 리셋
+document.getElementById('kt_modal_add_event').addEventListener('hidden.bs.modal', function () {
+		document.getElementById('kt_modal_head').textContent="일정 추가"
+		document.getElementById('kt_calendar_event_name').value = '';
+		document.getElementById('kt_calendar_event_description').value = '';
+		document.getElementById('kt_calendar_datepicker_allday').checked = false;
+		document.getElementById('kt_calendar_datepicker_start_date').value = '';
+		document.getElementById('kt_calendar_datepicker_start_time').value = ''; 
+		document.getElementById('kt_calendar_datepicker_end_date').value = '';
+		document.getElementById('kt_calendar_datepicker_end_time').value = ''; 
+		document.getElementById('kt_calendar_event_location').selectedIndex='0';
+});
+
+//일정변경 상태였다가 다시 일정 추가 상채로 돌릴때
 document.getElementById('add_event_button').addEventListener('click', function() {
 	document.getElementById('kt_modal_head').textContent="일정 추가"
 	document.getElementById('kt_calendar_event_name').value = '';
@@ -620,15 +912,23 @@ document.addEventListener('DOMContentLoaded', function () {
         dateClick: function(info) {
             let addModal = new bootstrap.Modal(document.getElementById('kt_modal_add_event'));
             addModal.show();
+            console.log('Checkbox state before setting:', document.getElementById('kt_calendar_datepicker_allday').checked);
+            
+//             let addbutton = document.getElementById('kt_modal_add_event_submit')
+//         	addbutton.classList.remove('d-none');
+//             let modifybutton = document.getElementById('kt_modal_add_event_submit')
+//         	modifybutton.classList.add('d-none');
             
             document.getElementById('kt_calendar_event_name').value = '';
             document.getElementById('kt_calendar_event_description').value = '';
             document.getElementById('kt_calendar_event_location').value = '';
-            document.getElementById('kt_calendar_datepicker_allday').checked = false;
             document.getElementById('kt_calendar_datepicker_start_date').value = info.dateStr;
             document.getElementById('kt_calendar_datepicker_start_time').value = '';
             document.getElementById('kt_calendar_datepicker_end_date').value = info.dateStr;
             document.getElementById('kt_calendar_datepicker_end_time').value = '';
+            
+            
+            console.log('Checkbox state after setting:', document.getElementById('kt_calendar_datepicker_allday').checked);
             
         },
         
@@ -699,13 +999,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Error:', error);
             });
             
-            // 일정 삭제
-           
-            
             // 일정 수정
-            document.getElementById('kt_modal_view_event_edit').addEventListener('click', function() {
-                modifyEvent(info.event.id);
-            });
+//             document.getElementById('kt_modal_view_event_edit').addEventListener('click', function() {
+//                 modifyEvent(info.event.id);
+//             });
         }
     });
 
