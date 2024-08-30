@@ -27,6 +27,7 @@ public class CalendarRestController {
 
 	private final ICalendarService service;
 	
+	//이벤트 전체조회
 	@GetMapping(value = "/events/calendar.do")
 	public List<Map<String, Object>> calendar(HttpSession session, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
 //	    String empno = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_no();
@@ -123,6 +124,7 @@ public class CalendarRestController {
 //	    return events; // JSON 형식으로 반환
 //	}
 	
+	//이벤트 등록
 	@PostMapping(value = "/addevent/calendar.do")
 	public boolean addEvent(HttpSession session, @RequestBody Map<String, Object> map) {
 //		String empno = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_no();
@@ -205,7 +207,7 @@ public class CalendarRestController {
 //	    log.info("data: {}", events);
 //	    return events; // JSON 형식으로 반환
 //	}
-	
+	//상세조회
 	@GetMapping(value = "/eventDetail/calendar.do")
 	public CalendarDto eventDto(HttpSession session, @RequestParam("eventNo") int eventNo) {
 		CalendarDto event = new CalendarDto();
@@ -213,12 +215,20 @@ public class CalendarRestController {
 		event = service.eventDetail(sd_no);
 		return event;
 	}
-
+	//삭제
 	@PostMapping(value="/delEvent/calendar.do")
 	public boolean delEvent(@RequestBody Map<String, Integer> map) {
 		int eventNo = map.get("eventNo").intValue();
 		
 		return service.delEvent(eventNo);
+	}
+	
+	//이벤트 수정
+	@PostMapping(value="/modifyEvent/calendar.do")
+	public boolean modifyEvent(@RequestBody Map<String, Object> map) {
+		
+		
+		return service.modifyEvent(map);
 	}
 	
 }
