@@ -5,15 +5,16 @@
 	
 	<!-- 모든 일정 조회 -->
 	<select id="selectCal" resultType="calendarDto">
- SELECT 
+SELECT 
     SD_NO, SD_CODE, SD_EMPNO, 
-    TO_CHAR(SD_START, 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START, TO_CHAR(SD_END, 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_END, SD_TITLE,
+    SD_START,SD_END, SD_TITLE,
     SD_CONTENT, SD_ALLDAY
 FROM 
     SCHEDULE s
 WHERE 
     SD_DELFLAG = 'N' 
     AND SD_START BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+    AND SD_END BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
     AND (
         SD_CODE = 'S00'
         OR (SD_EMPNO = #{empno} AND SD_CODE = 'S01')
@@ -23,6 +24,26 @@ WHERE
             WHERE e.EMP_NO = #{empno}
         ))
     )
+    
+<!--   SELECT  -->
+<!--     SD_NO, SD_CODE, SD_EMPNO,  -->
+<!--     TO_CHAR(SD_START, 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_START, TO_CHAR(SD_END, 'YYYY-MM-DD"T"HH24:MI:SS') AS SD_END, SD_TITLE, -->
+<!--     SD_CONTENT, SD_ALLDAY -->
+<!-- FROM  -->
+<!--     SCHEDULE s -->
+<!-- WHERE  -->
+<!--     SD_DELFLAG = 'N'  -->
+<!--     AND SD_START BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD') -->
+<!--     AND ( -->
+<!--         SD_CODE = 'S00' -->
+<!--         OR (SD_EMPNO = #{empno} AND SD_CODE = 'S01') -->
+<!--         OR (SD_CODE = 'S02' AND SD_DEPNO = ( -->
+<!--             SELECT e.DEP_NO  -->
+<!--             FROM EMP e -->
+<!--             WHERE e.EMP_NO = #{empno} -->
+<!--         )) -->
+<!--     ) -->
+    
 <!-- SELECT * -->
 <!-- FROM SCHEDULE s  -->
 <!-- WHERE SD_START BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD') -->
