@@ -13,4 +13,6 @@ public interface ITemplatePreviewService {
 	public List<DeptDto> jstreeDep();
 	
 	public List<EmpDto> jstreeEmp();
+	
+//	public List<DeptDto> jstreeDepEmpTier();
 }

@@ -36,6 +36,11 @@ public class TemplatePreviewDaoImpl implements ITemplatePreviewDao {
 		return template.selectList(NS+"jstreeEmp");
 	}
 
+//	@Override
+//	public List<DeptDto> jstreeDepEmpTier() {
+//		return template.selectList(NS+"jstreeDepEmpTier");
+//	}
+
 	
 	
 }

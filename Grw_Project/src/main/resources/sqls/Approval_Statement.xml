@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rgb.grw.dao.TemplatePreviewDaoImpl">
-  	<select id="selectTemplate" resultType="TemplatePreviewDto">
-  		SELECT TEMP_ID, TEMP_TITLE, TEMP_CONTENT, TEMP_REGDATE, TEMP_EDITDATE
-			FROM TEMPLATE t
-  	</select>
-  	
-  	<select id="jstreeDep" resultType="DeptDto">
-	  		SELECT *
-				FROM DEP d
-  	</select>
-  	
-  	<select id="jstreeEmp" resultType="EmpDto">
+	<select id="selectTemplate" resultType="TemplatePreviewDto">
+		SELECT TEMP_ID,
+		TEMP_TITLE, TEMP_CONTENT, TEMP_REGDATE, TEMP_EDITDATE
+		FROM TEMPLATE t
+	</select>
+
+	<select id="jstreeDep" resultType="DeptDto">
 		SELECT *
-			FROM EMP e
-  	</select>
+		FROM DEP d
+	</select>
+
+	<select id="jstreeEmp" resultType="EmpDto">
+		SELECT *
+		FROM EMP e
+	</select>
+
+<!-- 	<select id="jstreeDepEmpTier" resultMap="dDtoJstree"> -->
+<!-- 		SELECT e.EMP_NAME, -->
+<!-- 		e.EMP_NO, d.DEP_NAME, d.DEP_NO, t.TIER_NAME, t.TIER_NAME -->
+<!-- 		FROM EMP e -->
+<!-- 		JOIN DEP d ON -->
+<!-- 		e.DEP_NO = d.DEP_NO -->
+<!-- 		JOIN TIER t ON e.TIER_NO = t.TIER_NO -->
+<!-- 	</select> -->
+
+<!-- 	<resultMap id="dDtoJstree" type="DeptDto"> -->
+<!-- 		<result property="dep_no" column="DEP_NO"/> -->
+<!-- 		<result property="dep_name" column="DEP_NAME"/> -->
+<!-- 		<collection property="eDto" resultMap="eDtoJsTree"> -->
+<!-- 			<association property="tDto" resultMap="tDtoJstree"/> -->
+<!-- 		</collection> -->
+<!-- 	</resultMap> -->
+
+<!-- 	<resultMap id="tDtoJstree" type="TierDto"> -->
+<!-- 		<result property="tier_name" column="TIER_NAME"/> -->
+<!-- 		<result property="tier_name" column="TIER_NAME"/> -->
+<!-- 	</resultMap> -->
+<!-- 	<resultMap id="eDtoJsTree" type="EmpDto"> -->
+<!-- 		<result property="emp_no" column="EMP_NO"/> -->
+<!-- 		<result property="emp_name" column="EMP_NAME"/> -->
+<!-- 	</resultMap> -->
 </mapper>

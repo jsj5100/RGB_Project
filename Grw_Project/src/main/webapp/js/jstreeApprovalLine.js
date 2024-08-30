@@ -77,36 +77,36 @@ $(document).ready(function() {
 	});
 
 	document.getElementById('approvalLine-choice').addEventListener('click', function() {
-		// 1. 테이블을 가져옵니다
-const table = document.getElementById('approval-table');
-
-// 2. 모든 <tr> 요소를 가져옵니다
-const rows = table.querySelectorAll('tr');
-
-// 3. 읽어올 <tr> 인덱스를 배열로 정의합니다 (0-based index)
-const rowIndexes = [2, 3, 4]; // 3번째, 4번째, 5번째 <tr>의 인덱스
-
-// 4. 반복문을 사용하여 각 <tr>의 1번째 <td> 텍스트를 읽어옵니다
-	rowIndexes.forEach(index => {
-	    if (rows[index]) { // 해당 인덱스에 <tr> 요소가 있는지 확인
-	        const firstTd = rows[index].querySelectorAll('td')[0]; // 1번째 <td> 요소
-	        if (firstTd) { // <td> 요소가 있는지 확인
-	            // <td> 내의 텍스트 노드와 버튼 노드를 분리하여 텍스트만 추출
-	            let textContent = Array.from(firstTd.childNodes)
-	                .filter(node => node.nodeType === Node.TEXT_NODE) // 텍스트 노드만 필터링
-	                .map(node => node.textContent.trim()) // 텍스트 추출 및 공백 제거
-	                .join(' '); // 텍스트를 공백으로 구분하여 결합
-	
-	            console.log(`${index + 1}th row, 1st td:`, textContent); // 결과 출력
-				var approvalLineValue = document.getElementById('approvalLine-value').value;
-				approvalLineValue.innerHTML = textContent;
-	        } else {
-	            console.warn(`${index + 1}th row, 1st td: <td> not found`);
-	        }
-	    } else {
-	        console.warn(`${index + 1}th row not found`);
-	    }
-	});
+//		// 1. 테이블을 가져옵니다
+//		const table = document.getElementById('approval-table');
+//
+//		// 2. 모든 <tr> 요소를 가져옵니다
+//		const rows = table.querySelectorAll('tr');
+//
+//		// 3. 읽어올 <tr> 인덱스를 배열로 정의합니다 (0-based index)
+//		const rowIndexes = [2, 3, 4]; // 3번째, 4번째, 5번째 <tr>의 인덱스
+//
+//		// 4. 반복문을 사용하여 각 <tr>의 1번째 <td> 텍스트를 읽어옵니다
+//		rowIndexes.forEach(index => {
+//			if (rows[index]) { // 해당 인덱스에 <tr> 요소가 있는지 확인
+//				const firstTd = rows[index].querySelectorAll('td')[0]; // 1번째 <td> 요소
+//				if (firstTd) { // <td> 요소가 있는지 확인
+//					// <td> 내의 텍스트 노드와 버튼 노드를 분리하여 텍스트만 추출
+//					let textContent = Array.from(firstTd.childNodes)
+//						.filter(node => node.nodeType === Node.TEXT_NODE) // 텍스트 노드만 필터링
+//						.map(node => node.textContent.trim()) // 텍스트 추출 및 공백 제거
+//						.join(' '); // 텍스트를 공백으로 구분하여 결합
+//
+//					console.log(`${index + 1}th row, 1st td:`, textContent); // 결과 출력
+//					var approvalLineValue = document.getElementById('approvalLine-value').value;
+//					approvalLineValue.innerHTML = textContent;
+//				} else {
+//					console.warn(`${index + 1}th row, 1st td: <td> not found`);
+//				}
+//			} else {
+//				console.warn(`${index + 1}th row not found`);
+//			}
+//		});
 	});
 
 
