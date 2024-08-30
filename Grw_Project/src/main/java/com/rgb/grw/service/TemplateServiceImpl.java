@@ -21,4 +21,9 @@ public class TemplateServiceImpl implements ITemplateService {
 	public List<TemplatePreviewDto> selectTemplateList() {
 		return templateDaoImpl.selectTemplateList();
 	}
+	
+	@Override
+	public int writeTemplate(TemplatePreviewDto dto) {
+		return templateDaoImpl.writeTemplate(dto);
+	}
 }

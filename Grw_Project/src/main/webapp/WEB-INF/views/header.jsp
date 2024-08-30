@@ -155,8 +155,8 @@
 												<span class="menu-title" style="position: relative;">
 													진행중인 문서함
 													<!-- if 1이상이면 표시 -->
-													<img src="./assets/images/alerm.svg" style="vertical-align: middle; width:25px; height:25px; margin-left:5px;">
-													<span style="position: absolute; color:#F37F7F; right:56px; font-size: 12px;">1</span>
+													<img src="./assets/images/alerm.png" style="vertical-align: middle; width:25px; height:25px; margin-left:5px;">
+													
 												</span>
 													
 													

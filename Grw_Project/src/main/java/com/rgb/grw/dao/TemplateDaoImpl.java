@@ -24,4 +24,8 @@ public class TemplateDaoImpl implements ITemplateDao {
 		return template.selectList(NS+"selectTemplateList");
 	}
 
+	@Override
+	public int writeTemplate(TemplatePreviewDto dto) {
+		return template.insert(NS+"writeTemplate");
+	}
 }

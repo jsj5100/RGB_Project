@@ -1,7 +1,6 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,36 +17,32 @@
 </head>
 <%@include file="./header.jsp"%>
 <body>
-<%
-	Date date = new Date();
-	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy.MM.dd");
-	String strDate = simpleDate.format(date);
-
-%>
 <div style="padding-left: 80px; margin-top: 10px;" id="kt_app_content"
 		class="app-content flex-column-fluid">
 		<div style="padding-left: 80px;" id="kt_app_content_container"
 			class="app-container container-xxl">
 			<div class="card">
 				<div class="card-body">
-					<form action="#" method="post">
+					<form action="./uploadTemplate.do" method="post">
 						<div>
 							<table>
 								<tr>
 									<td class="border-td text-center">카테고리</td>
 									<td style="width:250px; text-align:center;" class="border-td">
-										<select style="width:200px;">
-											<option style="text-align:center;">공통</option>
-											<option style="text-align:center;">인사</option>
+										<select style="width:200px;" name="img_value">
+											<option style="text-align:center;">휴가</option>
+											<option style="text-align:center;">지출</option>
 											<option style="text-align:center;">일정</option>
 										</select>
 									</td>
 									<td class="border-td text-center">작성일자</td>
-									<td class="border-td"><input type="text" readonly="readonly" disabled="disabled" value="<%=strDate%>"></td>
+									<td class="border-td"><input type="text" name="temp_regdate" readonly="readonly" disabled="disabled" value="${strDate}"></td>
+<!-- 									<td class="border-td text-center">문서번호</td> -->
+<%-- 									<td class="border-td"><input type="text" name="temp_id" readonly="readonly" disabled="disabled" value="${tempId}"></td> --%>
 								</tr>
 								<tr>
 									<td class="border-td text-center">제목</td>
-									<td class="border-td" colspan="3"><input type="text"
+									<td class="border-td" colspan="3"><input type="text" name="temp_title"
 										placeholder="제목 작성"></td>
 								</tr>
 								<tr>
