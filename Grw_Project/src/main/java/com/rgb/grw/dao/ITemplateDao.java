@@ -7,4 +7,6 @@ import com.rgb.grw.dto.TemplatePreviewDto;
 public interface ITemplateDao {
 
 	public List<TemplatePreviewDto> selectTemplateList();
+	
+	public int writeTemplate(TemplatePreviewDto dto);
 }
