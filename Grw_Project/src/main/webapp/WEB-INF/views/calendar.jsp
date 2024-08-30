@@ -21,7 +21,7 @@
 				<h2 class="card-title fw-bold">Calendar</h2>
 				<div class="card-toolbar">
 				
-					<button type="button" class="btn btn-primary" data-kt-calendar="add" data-bs-toggle="modal" data-bs-target="#kt_modal_add_event">
+					<button type="button" class="btn btn-primary" data-kt-calendar="add" data-bs-toggle="modal" data-bs-target="#kt_modal_add_event" id="add_event_button">
 						일정추가
 					</button>
 <!-- 					<button class="btn btn-flex btn-primary" data-kt-calendar="add" data-target="#kt_modal_add_event"> -->
@@ -35,7 +35,7 @@
 			</div>
 			
 	<!-- event 추가 modal -->
-	<div class="modal fade" id="kt_modal_add_event" tabindex="-1" data-bs-focus="false" style="display: none;" aria-hidden="true">
+	<div class="modal fade" id="kt_modal_add_event" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false" style="display: none;" aria-hidden="true">
 	    <div class="modal-dialog modal-dialog-centered mw-650px">
 	        <div class="modal-content">
 	        
@@ -184,15 +184,15 @@
 	</div>
 
 	<!-- event 조회 modal -->
-	<div class="modal fade" id="kt_modal_view_event" tabindex="-1" data-bs-focus="false" style="display: none;" aria-hidden="true">
+	<div class="modal fade" id="kt_modal_view_event" tabindex="-1" data-bs-backdrop="static" data-bs-focus="false" style="display: none;" aria-hidden="true">
 	    <div class="modal-dialog modal-dialog-centered mw-650px">
 	        <!-- 모달 컨텐츠 영역 -->
 	        <div class="modal-content">
 	            <!-- 모달 헤더 -->
 	            <div class="modal-header border-0 justify-content-end">
-	                <!-- 일정 닫기 아이콘 -->
-	                <div class="btn btn-icon btn-sm btn-color-gray-500 btn-active-icon-primary me-2"
-	                     data-bs-toggle="tooltip" id="kt_modal_view_event_edit" 
+	                <!-- 일정 수정 아이콘 -->
+	                <div class="btn btn-icon btn-sm btn-color-gray-500 btn-active-icon-primary me-2" 
+	                     data-bs-toggle="modal" data-bs-target="#kt_modal_add_event" id="kt_modal_view_event_edit" data-bs-dismiss="modal"
 	                     aria-label="Edit Event" data-bs-original-title="Edit Event" data-kt-initialized="1">
 	                    <i class="ki-duotone ki-pencil fs-2">
 	                        <span class="path1"></span>
@@ -203,7 +203,7 @@
 	
 	                <!-- 일정 삭제하기 아이콘 영역 -->
 	                <div class="btn btn-icon btn-sm btn-color-gray-500 btn-active-icon-danger me-2"
-	                     data-bs-toggle="tooltip" id="kt_modal_view_event_delete"
+	                     data-bs-toggle="tooltip" id="kt_modal_view_event_delete" data-bs-dismiss="modal"
 	                     aria-label="Delete Event" data-bs-original-title="Delete Event" data-kt-initialized="1">
 	                    <i class="ki-duotone ki-trash fs-2">
 	                        <span class="path1"></span>
@@ -240,7 +240,6 @@
 	                        <span class="path5"></span>
 	                        <span class="path6"></span>
 	                    </i>
-	                    <!-- 아이콘 영역 삭제 -->
 	
 	                    <div class="mb-9">
 	                        <!-- 이벤트 제목 -->
@@ -404,7 +403,7 @@ function insertEvents() {
 	console.log('EndDateTime',endDateTime)
 	
 	//시작시간보다 종료시간이 앞선 경우
-	if(startDateTime>=endDateTime) {
+	if(startDateTime>endDateTime) {
 		alert('시간 설정이 잘못되었습니다. 다시 설정해주세요');
 		return;
 	}
@@ -474,15 +473,6 @@ document.getElementById('kt_calendar_datepicker_allday').addEventListener('click
 //일정 수정
 function modifyEvent(eventNo) {
 	
-	//기존에 열려있는 모달창 닫기
-	let viewModal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_view_event'));
-    if (viewModal) {
-        viewModal.hide();
-    }
-	
-	let editModal = new bootstrap.Modal(document.getElementById('kt_modal_add_event'));
-	editModal.show();
- 	
  	//상세조회쪽에서 값 가져왔던 fetch문
  	fetch('./eventDetail/calendar.do?' + new URLSearchParams({ eventNo: eventNo }))
     .then(response => {
@@ -492,7 +482,7 @@ function modifyEvent(eventNo) {
         return response.text();  // 먼저 텍스트로 응답을 가져옵니다.
     })
     .then(text => {
-         console.log("파싱전 data:", text);
+//          console.log("파싱전 data:", text);
         try {
             const data = JSON.parse(text);  // 텍스트를 JSON으로 파싱합니다.
 	        console.log("파싱후 text:", data);
@@ -503,12 +493,20 @@ function modifyEvent(eventNo) {
             document.getElementById('kt_calendar_datepicker_allday').checked = data.sd_allday;
             
            	
-            let startDate = new Date(data.sd_start);
-            let endDate = new Date(data.sd_end);
-            document.getElementById('kt_calendar_datepicker_start_date').textContent = startDate.toISOString().split('T')[0];
-            document.getElementById('kt_calendar_datepicker_start_time').textContent = startDate.toTimeString().split(' ')[0].substring(0,5);
-            document.getElementById('kt_calendar_datepicker_end_date').textContent = data.sd_end.split('T')[0];
-            document.getElementById('kt_calendar_datepicker_end_time').textContent = data.sd_end.split('T')[1];
+            // 날짜와 시간 설정
+            // 포맷: "YYYY-MM-DD HH:mm:ss"
+            let startDate = data.sd_start.split(' ');
+            let endDate = data.sd_end.split(' ');
+
+            // 날짜와 시간으로 나누기
+            let [startDatePart, startTimePart] = startDate;
+            let [endDatePart, endTimePart] = endDate;
+
+            // Date 객체로 변환
+            document.getElementById('kt_calendar_datepicker_start_date').value = startDatePart;
+            document.getElementById('kt_calendar_datepicker_start_time').value = startTimePart.slice(0, 5);  // HH:mm
+            document.getElementById('kt_calendar_datepicker_end_date').value = endDatePart;
+            document.getElementById('kt_calendar_datepicker_end_time').value = endTimePart.slice(0, 5);  // HH:mm
             
             
             let select = document.getElementById('kt_calendar_event_location');
@@ -528,9 +526,21 @@ function modifyEvent(eventNo) {
         console.error('Error:', error);
     });
  	
- 	
+    
 }
 
+//리셋
+document.getElementById('add_event_button').addEventListener('click', function() {
+	document.getElementById('kt_modal_head').textContent="일정 추가"
+	document.getElementById('kt_calendar_event_name').value = '';
+	document.getElementById('kt_calendar_event_description').value = '';
+	document.getElementById('kt_calendar_datepicker_allday').checked = false;
+	document.getElementById('kt_calendar_datepicker_start_date').value = '';
+	document.getElementById('kt_calendar_datepicker_start_time').value = ''; 
+	document.getElementById('kt_calendar_datepicker_end_date').value = '';
+	document.getElementById('kt_calendar_datepicker_end_time').value = ''; 
+	document.getElementById('kt_calendar_event_location').selectedIndex='0';
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('kt_calendar_app');
@@ -569,6 +579,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 successCallback(data);
+            	console.log(data);
             })
             .catch(error => {
                 failureCallback();
@@ -578,6 +589,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dateClick: function(info) {
             let addModal = new bootstrap.Modal(document.getElementById('kt_modal_add_event'));
             addModal.show();
+            
             document.getElementById('kt_calendar_event_name').value = '';
             document.getElementById('kt_calendar_event_description').value = '';
             document.getElementById('kt_calendar_event_location').value = '';
@@ -586,6 +598,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('kt_calendar_datepicker_start_time').value = '';
             document.getElementById('kt_calendar_datepicker_end_date').value = info.dateStr;
             document.getElementById('kt_calendar_datepicker_end_time').value = '';
+            
         },
         
         eventClick: function(info) {
@@ -671,8 +684,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(data => {
                     console.log('Success:', data);
-                    let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_view_event'));
-                    modal.hide();
+//                     let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_view_event'));
+//                     modal.hide();
                     calendar.refetchEvents();
                 })
                 .catch(error => {
