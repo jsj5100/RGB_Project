@@ -310,6 +310,22 @@
 													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
 											</div>
 											
+												<div class="fv-row mb-7 fv-plugins-icon-container">
+												<!--begin::Label-->
+												<label class="required fw-semibold fs-6 mb-2">부서상태</label>
+												<!--end::Label-->
+												<!--begin::Input-->
+													<select
+															class="form-control form-control-solid mb-3 mb-lg-0"
+															name="depState">
+															<option>Y</option>
+															<option>N</option>
+														</select>
+												<!--end::Input-->
+												<div
+													class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+											</div>
+											
 											
 											<!--end::Input group-->
 
