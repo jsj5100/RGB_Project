@@ -10,7 +10,7 @@
 	<typeAlias type="com.rgb.grw.dto.CalendarDto" alias="CalendarDto"/>
 	<typeAlias type="com.rgb.grw.dto.TemplatePreviewDto" alias="TemplatePreviewDto"/>
 	<typeAlias type="com.rgb.grw.dto.TierDto" alias="TierDto"/>
-	<typeAlias type="com.rgb.grw.dto.JsTreeResponseDto" alias="JsTreeResponseDto"/>
+<!-- 	<typeAlias type="com.rgb.grw.dto.JsTreeResponseDto" alias="JsTreeResponseDto"/> -->
 </typeAliases>
 
 <mappers>
@@ -19,7 +19,7 @@
 	<mapper resource="sqls/Dept_Statement.xml"/>
 	<mapper resource="sqls/Emp_Statement.xml"/>
 	<mapper resource="sqls/Calendar_Statment.xml"/>
-	<mapper resource="sqls/Approval_Statement.xml"/>
+<!-- 	<mapper resource="sqls/Approval_Statement.xml"/> -->
 	<mapper resource="sqls/Template_Statement.xml"/>
 </mappers>
 </configuration>

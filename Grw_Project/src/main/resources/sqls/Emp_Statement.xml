@@ -17,27 +17,6 @@ FROM
     LEFT JOIN TIER T ON E.TIER_NO = T.TIER_NO
 </select>
 
-<!-- <insert id="insertEmp" parameterType="EmpDto"> -->
-<!--  INSERT INTO EMP ( -->
-<!--         emp_no,  -->
-<!--         emp_name,  -->
-<!--         emp_email,  -->
-<!--         emp_idnum,  -->
-<!--         emp_joindate,  -->
-<!--         dep_no,  -->
-<!--         tier_name,  -->
-<!--         auth_name -->
-<!--     ) VALUES ( -->
-<!--         #{empNo},  -->
-<!--         #{empName},  -->
-<!--         #{empEmail},  -->
-<!--         #{empIdnum},  -->
-<!--         #{empJoindate},  -->
-<!--         (SELECT dep_no FROM DEP WHERE dep_name = #{depName}),  -->
-<!--         (SELECT tier_name FROM TIER WHERE tier_name = #{tierName}),  -->
-<!--         (SELECT auth_name FROM AUTH WHERE auth_name = #{authName}) -->
-<!--     ) -->
-<!-- </insert> -->
 
 
 </mapper>
