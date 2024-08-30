@@ -26,13 +26,12 @@ public class UserInfoDto {
 	private String emp_idnum;
 	private Date emp_joindate;
 	private Date emp_outdate;
-	private String emp_photo;
+	private byte[] emp_photo;
 	private String emp_state;
-	private Integer emp_fulloff;
-	private Integer emp_restoff;
-	private Integer emp_useoff;
-	private Integer dep_no;
-	private Integer auth_no;
-	private Integer tier_no;
-
+	private int emp_fulloff;
+	private int emp_restoff;
+	private int emp_useoff;
+	private String dep_no;
+	private String auth_no;
+	private String tier_no;
 }
