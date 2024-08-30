@@ -10,14 +10,14 @@
 </select>
 
 <insert id="insertDept" parameterType="DeptDto">
-	INSERT INTO DEP
-	(SEQ, EMP_NO, DEP_NO, DEP_NAME)
-	VALUES
-	(seq_dep.NEXTVAL, #{EMP_NO}, #{DEP_NO})
+<!-- 	INSERT INTO DEP -->
+<!-- 	(SEQ, EMP_NO, DEP_NO, DEP_NAME) -->
+<!-- 	VALUES -->
+<!-- 	(seq_dep.NEXTVAL, #{EMP_NO}, #{DEP_NO}) -->
 
 
-<!-- 	INSERT INTO DEP (DEP_NO, DEP_NAME, DEP_STATE) -->
-<!--     VALUES (#{depNo}, #{depName}, 'Y') -->
+	INSERT INTO DEP (DEP_NO, DEP_NAME, DEP_STATE)
+    VALUES (#{depNo}, #{depName}, 'Y')
 </insert>
 
 </mapper>

@@ -41,11 +41,14 @@ public class DeptController {
 	}
 	
 	@PostMapping(value="addDept.do")
-	public String insertDept(DeptDto dto, HttpServletResponse response) throws IOException {
+	public String insertDept(DeptDto dto, HttpSession session, HttpServletResponse response) throws IOException {
 		log.info("부서등록 완료");
-		int n = 0;
+		int n = service.insertDept(dto);
+		
+		
+//		int n = 0;
 		if (n == 1) {
-			return "redirect:DeptList.do";
+			return "redirect:deptList.do";
 		}else {
 			response.setContentType("text/html; charset=UTF-8");
 			response.getWriter().print("<script>alert('등록실패'); location.href='./deptList.do';</scrpt>");
