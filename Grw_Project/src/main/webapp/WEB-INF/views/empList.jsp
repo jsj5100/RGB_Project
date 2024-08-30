@@ -294,7 +294,7 @@
 													<label class="required fw-semibold fs-6 mb-2">이름</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" name="user_name"
+													<input type="text" name="userName"
 														class="form-control form-control-solid mb-3 mb-lg-0"
 														placeholder="홍길동" value="">
 													<!--end::Input-->
@@ -309,7 +309,7 @@
 													<label class="required fw-semibold fs-6 mb-2">사원번호</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" name="user_name"
+													<input type="text" name="userNo"
 														class="form-control form-control-solid mb-3 mb-lg-0"
 														placeholder="ex)240101" value="">
 													<!--end::Input-->
@@ -324,7 +324,7 @@
 														<label class="required fw-semibold fs-6 mb-2">이메일</label>
 														<!-- 																									end::Label -->
 														<!-- 																									begin::Input -->
-														<input type="email" name="user_email"
+														<input type="email" name="userEmail"
 															class="form-control form-control-solid mb-3 mb-lg-0"
 															placeholder="example@gmail.com" value="">
 														<!-- 																									end::Input -->
@@ -340,7 +340,7 @@
 													<label class="required fw-semibold fs-6 mb-2">부서명</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<select class="form-control form-control-solid mb-3 mb-lg-0">
+													<select class="form-control form-control-solid mb-3 mb-lg-0" name="deptSelect">
 													<option>인사부</option>
 													<option>경영기획부</option>
 													<option>재무부</option>
@@ -361,8 +361,9 @@
 <!-- 														class="form-control form-control-solid mb-3 mb-lg-0" -->
 <!-- 														placeholder="Full name" value="옵션"> -->
 													<!--end::Input-->
-													<div
-														class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+<!-- 													<div -->
+<!-- 														class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"> -->
+<!-- 													</div> -->
 												</div>
 												
 												<!--end::Input group-->
@@ -373,7 +374,7 @@
 													<label class="required fw-semibold fs-6 mb-2">주민등록번호</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="text" name="user_name"
+													<input type="text" name="userIdnum"
 														class="form-control form-control-solid mb-3 mb-lg-0"
 														placeholder="ex)950101-1xxxxxx" value="">
 													<!--end::Input-->
@@ -388,7 +389,7 @@
 													<label class="required fw-semibold fs-6 mb-2">입사날짜</label>
 													<!--end::Label-->
 													<!--begin::Input-->
-													<input type="date" name="user_name"
+													<input type="date" name="userJoin"
 														class="form-control form-control-solid mb-3 mb-lg-0"
 														placeholder="Full name" value="Emma Smith">
 													<!--end::Input-->
@@ -404,7 +405,7 @@
 													<!--end::Label-->
 													<!--begin::Input-->
 													
-													<select class="form-control form-control-solid mb-3 mb-lg-0">
+													<select class="form-control form-control-solid mb-3 mb-lg-0" name="userTier">
 													<option>사원</option>
 													<option>대리</option>
 													<option>과장</option>
@@ -429,7 +430,7 @@
 													<!--end::Label-->
 													<!--begin::Input-->
 													
-													<select class="form-control form-control-solid mb-3 mb-lg-0">
+													<select class="form-control form-control-solid mb-3 mb-lg-0" name="userAuth">
 													<option>인사관리자</option>
 													<option>결재관리자</option>
 													<option>재무관리자</option>

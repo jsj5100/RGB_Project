@@ -287,7 +287,7 @@
 												<label class="required fw-semibold fs-6 mb-2">부서명</label>
 												<!--end::Label-->
 												<!--begin::Input-->
-												<input type="text" name="user_name"
+												<input type="text" name="depName"
 													class="form-control form-control-solid mb-3 mb-lg-0"
 													placeholder="ex) 기술지원팀" value="">
 												<!--end::Input-->
@@ -302,7 +302,7 @@
 												<label class="required fw-semibold fs-6 mb-2">부서번호</label>
 												<!--end::Label-->
 												<!--begin::Input-->
-												<input type="text" name="user_name"
+												<input type="text" name="depNo"
 													class="form-control form-control-solid mb-3 mb-lg-0"
 													placeholder="ex) HR001" value="">
 												<!--end::Input-->
