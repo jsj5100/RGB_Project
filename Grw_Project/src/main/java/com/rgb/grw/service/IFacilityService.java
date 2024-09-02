@@ -1,5 +1,12 @@
 package com.rgb.grw.service;
 
-public interface IFacilityService {
+import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.rgb.grw.dto.FacilityDto;
+
+public interface IFacilityService {
+	
+	public List<FacilityDto> getFacility();
 }

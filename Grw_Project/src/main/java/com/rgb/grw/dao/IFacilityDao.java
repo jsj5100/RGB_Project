@@ -1,5 +1,10 @@
 package com.rgb.grw.dao;
 
-public interface IFacilityDao {
+import java.util.List;
 
+import com.rgb.grw.dto.FacilityDto;
+
+public interface IFacilityDao {
+	
+	public List<FacilityDto> getFacility();
 }
