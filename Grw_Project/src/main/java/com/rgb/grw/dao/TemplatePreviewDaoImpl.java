@@ -28,16 +28,6 @@ public class TemplatePreviewDaoImpl implements ITemplatePreviewDao {
 	}
 
 	@Override
-	public List<DeptDto> jstreeDep() {
-		return template.selectList(NS+"jstreeDep");
-	}
-
-	@Override
-	public List<EmpDto> jstreeEmp() {
-		return template.selectList(NS+"jstreeEmp");
-	}
-
-	@Override
 	public List<JsTreeResponseDto> jsTree() {
 		return template.selectList(NS+"jsTree");
 	}

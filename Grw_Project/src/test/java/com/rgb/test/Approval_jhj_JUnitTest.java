@@ -28,18 +28,6 @@ public class Approval_jhj_JUnitTest {
 		List<TemplatePreviewDto> lists = templatePreviewServiceImpl.selectTemplate();
 		assertNotEquals(0, lists.size());
 	}
-	
-//	@Test
-	public void jstreeDep_Test() {
-		List<DeptDto> lists = templatePreviewServiceImpl.jstreeDep();
-		assertNotEquals(0, lists.size());
-	}
-	
-//	@Test
-	public void jstreeEmp_Test() {
-		List<EmpDto> lists = templatePreviewServiceImpl.jstreeEmp();
-		assertNotEquals(0, lists.size());
-	}
 
 	@Test
 	public void jstreeDepEmpTier_Test() {

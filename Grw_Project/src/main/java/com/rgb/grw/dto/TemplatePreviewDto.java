@@ -20,7 +20,7 @@ public class TemplatePreviewDto {
 	private String temp_id;
 	private String temp_title;
 	private String temp_content;
-	private String temp_regdate;
+	private Date temp_regdate;
 	private Date temp_editdate;
 	private String img_value;
 }

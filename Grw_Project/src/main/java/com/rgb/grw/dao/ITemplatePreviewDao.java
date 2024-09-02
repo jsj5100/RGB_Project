@@ -12,10 +12,5 @@ public interface ITemplatePreviewDao {
 	//템플릿 조회
 	public List<TemplatePreviewDto> selectTemplate();
 	
-	
-	public List<DeptDto> jstreeDep();
-	
-	public List<EmpDto> jstreeEmp();
-	
 	public List<JsTreeResponseDto> jsTree();
 }
