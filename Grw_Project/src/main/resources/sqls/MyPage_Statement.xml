@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rgb.grw.dao.MyPageDaoImpl">
+
+	<resultMap id="optionMap" type="com.rgb.grw.dto.MyPageDto">
+		<result property="value" column="VALUE" />
+		<result property="type" column="TYPE" />
+	</resultMap>
+
+	<!-- 사원 정보 조회 쿼리 -->
+	<select id="MyPage" parameterType="java.lang.String"
+		resultType="com.rgb.grw.dto.MyPageDto">
+		SELECT
+		EMP.EMP_PHOTO AS emp_photo,
+		EMP.EMP_NAME AS emp_name,
+		EMP.EMP_NO AS emp_no,
+		EMP.EMP_PASSWORD AS emp_password,
+		EMP.EMP_GENDER
+		AS emp_gender,
+		EMP.EMP_PHONE AS emp_phone,
+		EMP.EMP_EMAIL AS emp_email,
+		EMP.EMP_IDNUM AS
+		emp_idnum,
+		EMP.EMP_JOINDATE AS emp_joindate,
+		EMP.EMP_OUTDATE AS
+		emp_outdate,
+		EMP.EMP_STATE AS emp_state,
+		TIER.TIER_NO
+		AS tier_no,
+		TIER.TIER_NAME AS tier_name,
+		DEP.DEP_NO AS
+		dep_no,
+		DEP.DEP_NAME AS
+		dep_name,
+		AUTH.AUTH_NO AS auth_no,
+		AUTH.AUTH_NAME AS
+		auth_name
+		FROM
+		EMP
+		LEFT JOIN TIER ON EMP.TIER_NO =
+		TIER.TIER_NO
+		LEFT JOIN
+		DEP ON EMP.DEP_NO
+		= DEP.DEP_NO
+		LEFT JOIN AUTH ON
+		EMP.AUTH_NO =
+		AUTH.AUTH_NO
+		WHERE
+		EMP.EMP_NO
+		= #{emp_no, jdbcType=VARCHAR}
+	</select>
+
+
+	<!-- 사원 정보 업데이트 쿼리 -->
+	<update id="updateEmp" parameterType="com.rgb.grw.dto.MyPageDto">
+		UPDATE EMP
+		SET
+		EMP_PHOTO =
+		#{emp_photo, jdbcType=BLOB},
+		<if test="emp_password != null and emp_password != ''">
+			EMP_PASSWORD = #{emp_password, jdbcType=VARCHAR},
+		</if>
+		EMP_PHONE = #{emp_phone, jdbcType=VARCHAR},
+		EMP_EMAIL = #{emp_email,
+		jdbcType=VARCHAR},
+		EMP_STATE = #{emp_state,
+		jdbcType=CHAR},
+		DEP_NO =
+		#{dep_no, jdbcType=VARCHAR},
+		AUTH_NO =
+		#{auth_no, jdbcType=VARCHAR},
+		TIER_NO = #{tier_no, jdbcType=VARCHAR}
+		WHERE EMP_NO = #{emp_no,
+		jdbcType=VARCHAR}
+	</update>
+
+	<!-- 옵션 조회 쿼리 -->
+	<select id="getOptions"
+		parameterType="com.rgb.grw.dto.MyPageDto" resultMap="optionMap">
+		SELECT DISTINCT
+		DEP_NAME AS NAME, DEP_NO AS VALUE, '부서' AS TYPE
+		FROM DEP
+		UNION ALL
+		SELECT DISTINCT AUTH_NAME AS NAME, AUTH_NO AS VALUE, '권한' AS TYPE
+		FROM
+		AUTH
+		UNION ALL
+		SELECT DISTINCT TIER_NAME AS NAME, TIER_NO AS VALUE, '직위'
+		AS TYPE
+		FROM TIER
+	</select>
+
+	<!-- 사용자 프로필 업데이트 쿼리 -->
+	<update id="updateUserProfile"
+		parameterType="com.rgb.grw.dto.UserInfoDto">
+		UPDATE EMP
+		SET EMP_PHOTO = #{emp_photo}
+		WHERE EMP_NO =
+		#{emp_no}
+	</update>
+
+
+
+	<!-- 필요없어진 부분 -->
+	<!-- 부서 정보 업데이트 쿼리 -->
+	<update id="updateDep" parameterType="com.rgb.grw.dto.MyPageDto">
+		UPDATE DEP
+		SET
+		DEP_NAME =
+		#{dep_name, jdbcType=VARCHAR}
+		WHERE DEP_NO = #{dep_no,
+		jdbcType=VARCHAR}
+	</update>
+	<!-- 권한 정보 업데이트 쿼리 -->
+	<update id="updateAuth"
+		parameterType="com.rgb.grw.dto.MyPageDto">
+		UPDATE AUTH
+		SET
+		AUTH_NAME = #{auth_name, jdbcType=VARCHAR}
+		WHERE AUTH_NO = #{auth_no, jdbcType=VARCHAR}
+	</update>
+	<!-- 직위 정보 업데이트 쿼리 -->
+	<update id="updateTier"
+		parameterType="com.rgb.grw.dto.MyPageDto">
+		UPDATE TIER
+		SET
+		TIER_NAME = #{tier_name, jdbcType=VARCHAR}
+		WHERE TIER_NO = #{tier_no, jdbcType=VARCHAR}
+	</update>
+	<!-- 필요없어진 부분 -->
+
+</mapper>
