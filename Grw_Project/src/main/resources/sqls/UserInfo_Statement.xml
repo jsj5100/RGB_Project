@@ -3,7 +3,12 @@
 <mapper namespace="com.rgb.grw.dao.UserInfoDaoImpl">
 
 	<select id="login" parameterType="java.util.Map" resultType="UserInfoDto">
-		SELECT EMP_NO, EMP_NAME, EMP_STATE
+		SELECT EMP_NO, EMP_PASSWORD, EMP_PHONE,
+				EMP_NAME, EMP_EMAIL, EMP_GENDER,
+				EMP_IDNUM, EMP_JOINDATE, EMP_OUTDATE,
+				EMP_PHOTO, EMP_STATE, EMP_FULLOFF,
+				EMP_RESTOFF, EMP_USEOFF,
+				DEP_NO, AUTH_NO, TIER_NO
 			FROM EMP
 			WHERE EMP_NO = #{emp_no, jdbcType=VARCHAR} 
       		AND EMP_PASSWORD = #{emp_password, jdbcType=VARCHAR}
