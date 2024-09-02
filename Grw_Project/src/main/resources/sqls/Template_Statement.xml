@@ -2,19 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rgb.grw.dao.TemplateDaoImpl">
 
-<select id="selectTemplateList" resultType="TemplatePreviewDto">
+<select id="selectTemplateList" resultType="TemplateDto">
 	SELECT TEMP_ID, TEMP_TITLE, TEMP_CONTENT, IMG_VALUE, TO_CHAR(TEMP_REGDATE, 'YYYY.MM.DD') TEMP_REGDATE 
 	FROM TEMPLATE t
 </select>
 
-<insert id="writeTemplate" parameterType="TemplatePreviewDto">
-    INSERT INTO TEMPLATE (TEMP_ID, TEMP_TITLE,
-                          TEMP_CONTENT, TEMP_REGDATE, IMG_VALUE)
+<insert id="writeTemplate" parameterType="TemplateDto">
+    INSERT INTO TEMPLATE (TEMP_ID, TEMP_TITLE, TEMP_CONTENT, TEMP_REGDATE, IMG_VALUE)
     VALUES (temp_id_seq.NEXTVAL, 
             #{temp_title, jdbcType=VARCHAR},
-            #{temp_content, jdbcType=CLOB},
-            #{temp_regdate, jdbcType=DATE},
+            #{temp_content, jdbcType=VARCHAR},
+            CURRENT_DATE,
             #{img_value, jdbcType=VARCHAR})
-</insert>
+</insert>	
+
+
+
+
+<select id="getOneTemplate">
+	SELECT TEMP_CONTENT
+	FROM TEMPLATE
+	WHERE TEMP_ID = #{temp_id}
+</select>
 
 </mapper>

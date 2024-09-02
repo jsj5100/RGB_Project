@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,13 +73,17 @@
 									<td class="text-end">
 									</td>
 								</tr>
+								<c:forEach var="list" items="${lists}">
 								<tr>
 									<td>
 										<div class="d-flex align-items-center">
 											<input type="checkbox">
+											<c:if test="${list.img_value eq 'VACATION'}">
 											<div class="symbol symbol-45px me-5">
-												<img style="margin-left:10px;" src="assets/media/avatars/300-9.jpg">
+												<img style="margin-left: 10px; width:45px; height:45px;"
+													src="./assets/images/vacation.png">
 											</div>
+											</c:if>
 											<div class="d-flex justify-content-start flex-column">
 												<p class="text-gray-800 fw-bold mb-1 fs-6">문서번호</p>
 											</div>
@@ -110,6 +115,7 @@
 										<input type="button" value="삭제">
 									</td>
 								</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>
