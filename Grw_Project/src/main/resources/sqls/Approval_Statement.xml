@@ -29,5 +29,18 @@
 		JOIN TIER t ON e.TIER_NO = t.TIER_NO
 		JOIN DEP d ON e.DEP_NO = d.DEP_NO
 	</select>
-
+	
+	<insert id="insertDocument" parameterType="com.rgb.grw.dto.DocumentDto" >
+		INSERT INTO RGB.DOCUMENT
+		    (DOC_NO, EMP_NO, STA_CODE, 
+		     TEMP_ID, DOCFILE_ID, DOC_REGDATE, 
+		     DOC_CONTENT, DOC_EXP, DOC_DELFLAG,
+		     SIGN_ID, DOC_EVTON, DOC_EVTOFF)
+		VALUES (
+		    'D' || TO_CHAR(doc_no_seq.NEXTVAL, 'FM000'), #{emp_no}, 1, 
+		    #{temp_id}, #{docfile_id}, #{doc_regdate}, 
+		    #{doc_content}, #{doc_exp}, 'N', 
+		    #{sign_id}, #{doc_evton}, #{doc_evtoff}
+);
+	</insert>
 </mapper>

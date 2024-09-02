@@ -39,18 +39,18 @@
 								</tr>
 								<tr>
 									<td class="border-td text-center">제목</td>
-									<td class="border-td" colspan="3"><input type="text"
+									<td class="border-td" colspan="3"><input type="text" name="title"
 										placeholder="제목을 입력해주세요"></td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">결재라인 지정</td>
-									<td class="border-td" colspan="3"><input id="approvalLine-value"  type="text"
+									<td class="border-td" colspan="3"><input id="approvalLine-value"  type="text" name="approvalLine"
 										readonly="readonly" data-bs-toggle="modal"
 										data-bs-target="#approvalLineBtn" placeholder="결재라인을 지정해주세요"></td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">참조자</td>
-									<td class="border-td" colspan="3"><input type="text" placeholder="결재라인에서 참조자를 지정해주세요"
+									<td class="border-td" colspan="3"><input id="ccLine-value" type="text" name="ccLine" placeholder="결재라인에서 참조자를 지정해주세요"
 										readonly="readonly"></td>
 								</tr>
 								<tr>
@@ -60,10 +60,10 @@
 								</tr>
 								<tr>
 									<td class="border-td text-center">기안일</td>
-									<td class="border-td"><input type="text"
+									<td class="border-td"><input type="text" name="regDate"
 										readonly="readonly" id=currentYear></td>
 									<td class="border-td text-center">마감기한 설정</td>
-									<td class="border-td"><input id="choiceDeadline" type="text"></td>
+									<td class="border-td"><input id="choiceDeadline" type="text" name="expDate"></td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">파일 첨부</td>
@@ -71,7 +71,7 @@
 									</td>
 								</tr>
 							</table>
-							<textarea id="editor"></textarea>
+							<textarea id="editor" name="editor"></textarea>
 
 							<div class="form-actions">
 								<input type="submit" value="작성하기" class="btn btn-primary">
@@ -184,13 +184,13 @@
 												</tr>
 												<tr>
 													<td class="approval-td-body">
-<%-- 														<%loginDto.getEmp_name()%> --%>
+														<%=loginDto.getEmp_name()%>
 													</td>
 													<td class="approval-td-body">
-<%-- 														<%loginDto.get%> --%>
+														<%=loginDto.getDep_name()%>
 													</td>
 													<td class="approval-td-body">
-<%-- 														<%loginDto.get %> --%>
+														<%=loginDto.getTier_name()%>
 													</td>
 													<td class="approval-td-body">1</td>
 												</tr>
@@ -261,6 +261,5 @@ $("#choiceDeadline").flatpickr({
 	
 </script>
 <script type="text/javascript" src="./js/jstreeApprovalLine.js"></script>
-<script type="text/javascript" src="./js/choiceCalendar.js"></script>
 
 </html>
