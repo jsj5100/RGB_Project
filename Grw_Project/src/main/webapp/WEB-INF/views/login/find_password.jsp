@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,7 +25,7 @@
 						<!--begin::Wrapper-->
 						<div class="w-lg-500px p-10">
 							<!--begin::Form-->
-							<form class="form w-100" novalidate="novalidate" id="kt_password_reset_form" data-kt-redirect-url="./new_password.jsp" action="#">
+							<form class="form w-100" novalidate="novalidate" id="kt_password_reset_form" method="post" action="./mailSender.do">
 								<!--begin::Heading-->
 								<div class="text-center mb-10">
 									<!--begin::Title-->
@@ -35,24 +36,38 @@
 									<!--end::Link-->
 								</div>
 								<!--begin::Heading-->
-								<!--begin::Input group=-->
+								
+								<!-- Error / Success Messages -->
+								<c:if test="${param.error == 'missing_info'}">
+									<div class="alert alert-danger">이메일, 이름 또는 사원번호가 제공되지 않았습니다.</div>
+								</c:if>
+								<c:if test="${param.error == 'invalid_user'}">
+									<div class="alert alert-danger">사용자 정보가 일치하지 않습니다.</div>
+								</c:if>
+								<c:if test="${param.success == 'true'}">
+									<div class="alert alert-success">인증코드가 이메일로 전송되었습니다.</div>
+								</c:if>
+
+								<!--begin::Input group-->
 								<div class="fv-row mb-8">
-									<!--begin::Email-->
-								<input type="text" placeholder="이름" name="name" autocomplete="off" class="form-control bg-transparent custom-input" />
+									<!--begin::Name-->
+									<input type="text" placeholder="이름" name="name" autocomplete="off" class="form-control bg-transparent custom-input" />
 								</div>
 								<div class="fv-row mb-8">
-								<input type="text" placeholder="사원번호" name="emp_no" autocomplete="off" class="form-control bg-transparent custom-input" />
+									<!--begin::Employee Number-->
+									<input type="text" placeholder="사원번호" name="emp_no" autocomplete="off" class="form-control bg-transparent custom-input" />
 								</div>
 								<div class="fv-row mb-8">
 									<div class="input-group">
+										<!--begin::Email-->
 										<input type="text" placeholder="이메일" name="email" autocomplete="off" class="form-control bg-transparent" />
-										<button type="button" id="kt_password_reset_submit" class="btn btn-primary custom-btn">
+										<button type="submit" id="kt_password_reset_submit" class="btn btn-primary custom-btn">
 										    인증코드 요청
 										</button>
 									</div>
 								</div>
-								<div class="fv-row mb-8">
-									<input type="text" placeholder="인증코드확인" name="verification_code" autocomplete="off" class="form-control bg-transparent" />
+								<div class="fv-row mb-8 mail_check_wrap">
+									<input type="text" placeholder="인증코드 확인" name="verification_code" autocomplete="off" class="form-control bg-transparent mail_check_input_box" id="mail_check_input_box_false" disabled="disabled"/>
 								<!--end::Email-->
 								</div>
 								<!--begin::Actions-->
@@ -89,10 +104,22 @@
 		<script src="./assets/js/scripts.bundle.js"></script>
 		<!--end::Global Javascript Bundle-->
 		<!--begin::Custom Javascript(used for this page only)-->
-<!-- 		<script src="./assets/js/custom/authentication/reset-password/reset-password.js"></script> -->
-<!-- 		<script src="./assets/js/custom/authentication/reset-password/reset-password-ok.js"></script> -->
-		<script src="./assets/js/custom/authentication/reset-password/reset-password_jsj.js"></script>
-		<script src="./assets/js/custom/authentication/reset-password/reset-password-ok.js"></script>
+		<script>
+			// Check for success or error messages in URL parameters
+			window.onload = function() {
+				var urlParams = new URLSearchParams(window.location.search);
+				var error = urlParams.get('error');
+				var success = urlParams.get('success');
+
+				if (error === 'missing_info') {
+					alert('이메일, 이름 또는 사원번호가 제공되지 않았습니다.');
+				} else if (error === 'invalid_user') {
+					alert('사용자 정보가 일치하지 않습니다.');
+				} else if (success === 'true') {
+					alert('인증코드가 이메일로 전송되었습니다.');
+				}
+			};
+		</script>
 		<!--end::Custom Javascript-->
 		<!--end::Javascript-->
 	</body>

@@ -14,6 +14,8 @@
 	<typeAlias type="com.rgb.grw.dto.JsTreeResponseDto" alias="JsTreeResponseDto"/>
 	<typeAlias type="com.rgb.grw.dto.FacilityDto" alias="FacilityDto"/>
 	<typeAlias type="com.rgb.grw.dto.ReservationDto" alias="ReservationDto"/>
+	<typeAlias type="com.rgb.grw.dto.MyPageDto" alias="MyPageDto"/>
+	<typeAlias type="com.rgb.grw.dto.DocumentDto" alias="DocumentDto"/>
 </typeAliases>
 
 <mappers>
@@ -26,5 +28,6 @@
 	<mapper resource="sqls/Template_Statement.xml"/>
 	<mapper resource="sqls/Facility_Statement.xml"/>
 	<mapper resource="sqls/Reservation_Statement.xml"/>
+	<mapper resource="sqls/MyPage_Statement.xml"/>
 </mappers>
 </configuration>

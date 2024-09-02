@@ -37,4 +37,6 @@ public class UserInfoDto {
 	private String dep_name;
 	private String auth_name;
 	private String tier_name;
+	
+	private String emp_photo_url; // 프로필사진 주소
 }
