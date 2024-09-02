@@ -9,7 +9,7 @@
 <link href="./assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css">
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 <script src="./assets/plugins/custom/fullcalendar/ko.global.js"></script>
-<script src="./assets/js/custom/apps/calendar/cal.js"></script>
+<script src="./js/calendar.js"></script>
 
 <body>
 	<div style="padding-left:80px; margin-top:10px;" id="kt_app_content" class="app-content flex-column-fluid">
@@ -356,11 +356,109 @@
 			</div>
 				<!-- 캘린더/게시판 전체범위 종 -->
 				
-				
-				
 		</div>
 	</div>
-
+	<!-- 카드 종료 -->
+	
+	
+	
+	
+	<!-- 모달창 일정 상세조회 -->
+	<!-- event 조회 modal -->
+	<div class="modal fade" id="kt_modal_view_event" tabindex="-1" data-bs-focus="false" style="display: none;" aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered mw-650px">
+	        <!-- 모달 컨텐츠 영역 -->
+	        <div class="modal-content">
+	            <!-- 모달 헤더 -->
+	            <div class="modal-header border-0 justify-content-end">
+	               <div class="card-toolbar">
+						<a href="./calendar.do" class="btn btn-sm btn-primary my-1">캘린더이동</a>
+					</div>
+	            </div>
+	            <!-- 모달 헤더 종료 -->
+	
+	            <!-- 모달 이벤트 조회 내용 시작 -->
+	            <div class="modal-body pt-0 pb-20 px-lg-17">
+	                <div class="d-flex">
+	                    <!-- 달력 표시 아이콘 -->
+	                    <i class="ki-duotone ki-calendar-8 fs-1 text-muted me-5">
+	                        <span class="path1"></span>
+	                        <span class="path2"></span>
+	                        <span class="path3"></span>
+	                        <span class="path4"></span>
+	                        <span class="path5"></span>
+	                        <span class="path6"></span>
+	                    </i>
+	
+	                    <div class="mb-9">
+	                        <!-- 이벤트 제목 -->
+	                        <div class="d-flex align-items-center mb-2">
+	                            <span id="event_detail_title" class="fs-3 fw-bold me-3" data-kt-calendar="event_name"></span>
+	                            <span id="allDayBadge" class="badge badge-light-success d-none" data-kt-calendar="all_day">All Day</span>
+	                        </div>
+	                        <!-- end::Event name -->
+	
+	                        <!-- begin::Event description -->
+	                        <div id="event_detail_description" class="fs-6" data-kt-calendar="event_description">
+	                        </div>
+	                        <!-- end::Event description -->
+	                    </div>
+	                </div>
+	                <!-- end::Row -->
+	
+	                <!-- begin::Row -->
+	                <div class="d-flex align-items-center mb-2">
+	                    <!-- begin::Bullet -->
+	                    <span class="bullet bullet-dot h-10px w-10px bg-success ms-2 me-7"></span>
+	                    <!-- end::Bullet -->
+	
+	                    <!-- begin::Event start date/time -->
+	                    <div class="fs-6">
+	                        <span class="fw-bold">시작일</span>
+	                        <span id="event_detail_startdate" data-kt-calendar="event_start_date"></span>
+	                    </div>
+	                    <!-- end::Event start date/time -->
+	                </div>
+	                <!-- end::Row -->
+	
+	                <!-- begin::Row -->
+	                <div class="d-flex align-items-center mb-9">
+	                    <!-- begin::Bullet -->
+	                    <span class="bullet bullet-dot h-10px w-10px bg-danger ms-2 me-7"></span>
+	                    <!-- end::Bullet -->
+	
+	                    <!-- begin::Event end date/time -->
+	                    <div class="fs-6">
+	                        <span class="fw-bold">종료일</span>
+	                        <span id="event_detail_enddate" data-kt-calendar="event_end_date"></span>
+	                    </div>
+	                    <!-- end::Event end date/time -->
+	                </div>
+	                <!-- end::Row -->
+	
+	                <!-- begin::Row -->
+	                <div class="d-flex align-items-center">
+	                    <!-- begin::Icon -->
+	                    <span id="codeBadge" class="bullet bullet-dot h-10px w-10px ms-2 me-7"></span>
+	                    
+<!-- 	                    <i class="ki-duotone ki-geolocation fs-1 text-muted me-5"> -->
+<!-- 	                        <span class="path1"></span> -->
+<!-- 	                        <span class="path2"></span> -->
+<!-- 	                    </i> -->
+	                    <!-- end::Icon -->
+	
+	                    <!-- begin::Event location -->
+	                     <div class="fs-6">
+	                        <span id="event_detail_location" class="fs-6" data-kt-calendar="event_location"></span>
+	                    </div>
+	                    <!-- end::Event location -->
+	                </div>
+	                <!-- end::Row -->
+	            </div>
+	            <!-- end::Modal body -->
+	        </div>
+		</div>
+		</div>
 </body>
 <%@include file="./footer.jsp" %>
 <!--end::Body-->
