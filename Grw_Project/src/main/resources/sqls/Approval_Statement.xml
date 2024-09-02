@@ -30,29 +30,4 @@
 		JOIN DEP d ON e.DEP_NO = d.DEP_NO
 	</select>
 
-
-
-<!-- 	<resultMap type="com.rgb.grw.dto.DeptDto" id="DeptDtoMap"> -->
-<!-- 		<result column="DEP_NO" property="dep_no"/> -->
-<!-- 		<result column="EMP_NAME" property="emp_name"/> -->
-<!-- 		<result column="EMP_NO" property="emp_no"/> -->
-<!-- 		<result column="DEP_NAME" property="dep_name"/> -->
-<!-- 		<collection property="tierDto" resultMap="TierDtoMap"/> -->
-<!-- 	</resultMap> -->
-<!-- 	<resultMap type="com.rgb.grw.dto.TierDto" id="TierDtoMap"> -->
-<!-- 		<result column="TIER_NAME" property="tier_name"/> -->
-<!-- 		<result column="TIER_NO" property="tier_no"/> -->
-<!-- 	</resultMap> -->
-	
-
-
-<!-- 	<select id="jstreeDepEmpTier" resultMap="DeptDtoMap"> -->
-<!-- 		SELECT d.DEP_NO, e.EMP_NAME, e.EMP_NO, d.DEP_NAME, DeptDto -->
-<!-- 			t.TIER_NAME, t.TIER_NO TierDto  -->
-<!-- 			FROM EMP e -->
-<!-- 			JOIN DEP d ON -->
-<!-- 			e.DEP_NO = d.DEP_NO -->
-<!-- 			JOIN TIER t ON e.TIER_NO = t.TIER_NO -->
-<!-- 	</select> -->
-
 </mapper>

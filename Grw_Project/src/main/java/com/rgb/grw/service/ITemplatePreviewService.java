@@ -11,9 +11,5 @@ public interface ITemplatePreviewService {
 	
 	public List<TemplatePreviewDto> selectTemplate();
 	
-	public List<DeptDto> jstreeDep();
-	
-	public List<EmpDto> jstreeEmp();
-	
 	public List<JsTreeResponseDto> jsTree();
 }
