@@ -14,10 +14,18 @@ public class EmpDaoImpl implements IEmpDao {
 	private SqlSessionTemplate sessionTemplate;
 	
 	private final String NS ="com.rgb.grw.dao.EmpDaoImpl.";
+
 	
+	//1. 리스트목록
 	@Override
 	public List<EmpDto> EmpList() {
 		return sessionTemplate.selectList(NS+"EmpList");
+	}
+	
+	//2. 사원등록
+	@Override
+	public int addEmp(EmpDto dto) {
+		return sessionTemplate.insert(NS+"addEmp", dto);
 	}
 	
 
