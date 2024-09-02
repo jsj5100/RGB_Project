@@ -6,16 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-public class CalendarController {
+public class FacilityController {
 	
-	@GetMapping(value = "/calendar.do")
+	
+	@GetMapping(value = "/facility.do")
 	public String calendar(HttpSession session, Model model) {
-		log.info("CalendarController list");
 		Object obj = session.getAttribute("loginDto");
 		
 //		if(obj == null) {
@@ -25,6 +24,6 @@ public class CalendarController {
 //			return "calendar";
 //		}
 		
-		return "calendar";
+		return "facility";
 	}
 }
