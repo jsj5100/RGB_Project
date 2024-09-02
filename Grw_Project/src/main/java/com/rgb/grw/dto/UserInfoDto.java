@@ -34,4 +34,7 @@ public class UserInfoDto {
 	private String dep_no;
 	private String auth_no;
 	private String tier_no;
+	private String dep_name;
+	private String auth_name;
+	private String tier_name;
 }
