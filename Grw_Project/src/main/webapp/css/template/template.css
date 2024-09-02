@@ -128,7 +128,15 @@ input[type="text"], input[type="file"] {
 	border: 1px solid #ddd;
 	padding: 15px;
 	background-color: #fff;
+	width: 100%;
 }
+
+/* #preview-content table{ */
+/* 	table-layout: fixed; 열 너비를 고정 */
+/*     width: 100%; 테이블 너비를 부모 div에 맞추기 */
+/*     max-width: 100%; 테이블이 부모 div의 너비를 넘지 않도록 제한 */
+/* } */
+
 
 /* 전체 컨테이너 스타일 설정 */
 .container-approvalLine {
@@ -197,7 +205,6 @@ input[type="text"], input[type="file"] {
     overflow: auto;               /* 내용이 넘칠 경우 스크롤 가능하게 설정 */
     border: 1px solid #ccc;
     height: 370px;
-    overflow: auto;
 }
 
 /* center-button 스타일 */

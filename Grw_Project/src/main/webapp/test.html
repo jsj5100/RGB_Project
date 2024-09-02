@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결재라인 설정</title>
+    <style>
+        #resultDiv {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #000;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>결재라인 설정</h1>
+    
+    <!-- 직급 추가 버튼 -->
+    <button onclick="addPosition(1)">직급 1 추가</button>
+    <button onclick="addPosition(2)">직급 2 추가</button>
+    <button onclick="addPosition(3)">직급 3 추가</button>
+    <button onclick="addPosition(4)">직급 4 추가</button>
+    <button onclick="addPosition(5)">직급 5 추가</button>
+    <button onclick="addPosition(6)">직급 6 추가</button>
+    <button onclick="addPosition(7)">직급 7 추가</button>
+    
+    <!-- 결과를 표시할 div -->
+    <div id="resultDiv"></div>
+
+    <script>
+        // 추가된 직급들을 저장할 배열
+        let addedPositions = [];
+
+        function addPosition(position) {
+            // 직급이 이미 추가된 직급들보다 높으면 추가
+            if (addedPositions.length === 0 || position < Math.min(...addedPositions)) {
+                addedPositions.push(position);
+                addedPositions.sort((a, b) => a - b); // 직급 오름차순 정렬
+                
+                // 결과를 표시할 div 선택
+                const resultDiv = document.getElementById('resultDiv');
+                
+                // 직급 목록을 resultDiv에 표시
+                resultDiv.innerHTML = addedPositions.map(pos => `직급 ${pos}`).join('<br>');
+            }
+        }
+    </script>
+</body>
+</html>

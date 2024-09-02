@@ -20,6 +20,7 @@
 <title>전자결재 문서 작성</title>
 </head>
 <%@include file="./header.jsp"%>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <body>
 	<div style="padding-left: 80px; margin-top: 10px;" id="kt_app_content"
 		class="app-content flex-column-fluid">
@@ -54,7 +55,7 @@
 								</tr>
 								<tr>
 									<td class="border-td text-center">결재유형</td>
-									<td class="border-td" colspan="3"><input type="text"
+									<td class="border-td" colspan="3"><input id="approval-type" type="text" placeholder="양식을 선택하여 결재유형을 지정해주세요"
 										readonly="readonly"></td>
 								</tr>
 								<tr>
@@ -62,7 +63,7 @@
 									<td class="border-td"><input type="text"
 										readonly="readonly" id=currentYear></td>
 									<td class="border-td text-center">마감기한 설정</td>
-									<td class="border-td"><input type="text"></td>
+									<td class="border-td"><input id="choiceDeadline" type="text"></td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">파일 첨부</td>
@@ -183,15 +184,15 @@
 												</tr>
 												<tr>
 													<td class="approval-td-body">
-													
+<%-- 														<%loginDto.getEmp_name()%> --%>
 													</td>
 													<td class="approval-td-body">
-														
+<%-- 														<%loginDto.get%> --%>
 													</td>
 													<td class="approval-td-body">
-														
+<%-- 														<%loginDto.get %> --%>
 													</td>
-													<td class="approval-td-body">순서</td>
+													<td class="approval-td-body">1</td>
 												</tr>
 												
 											</table>
@@ -201,14 +202,22 @@
 										<div class="div-header	">
 											<span>참조자</span>
 										</div>
-										<div class="div-content"></div>
+										<div class="div-content" style="overflow: auto;">
+											<table id="cc-table" style="margin-top: 0px;">
+												<tr>
+													<td class="approval-td-header">참조자</td>
+													<td class="approval-td-header">직급</td>
+													<td class="approval-td-header">소속</td>
+												</tr>
+											</table>
+										</div>
 									</div>
 								</div>
 								
 							</div>
 							<div class="center-button">
 									<input id="approvalLineButton" type="button" value="결재선 지정" class="btn btn-primary">
-									<input type="button" value="참조자 지정" class="btn btn-primary">
+									<input id="ccLineButton" type="button" value="참조자 지정" class="btn btn-primary">
 							</div>
 						</div>
 					</div>
@@ -229,7 +238,29 @@
 	</div>
 	<%@include file="./footer.jsp"%>
 </body>
+<script type="text/javascript">
 
+const today = new Date();
+const year = today.getFullYear();
+const month = today.getMonth() + 1;
+const date = today.getDate();
+
+const formattedToday = today.toISOString().split('T')[0];
+
+var currentYear = document.getElementById('currentYear');
+currentYear.value = formattedToday;
+
+$("#choiceDeadline").flatpickr({
+	  dateFormat: "Y-m-d",
+	  minDate: formattedToday,
+	  onChange: function(selectedDates, dateStr, instance) {
+	  	selectedStartDate1 = dateStr
+	  	console.log('선택한 마감 날짜: ', dateStr);
+	  }
+	 });
+	
+</script>
 <script type="text/javascript" src="./js/jstreeApprovalLine.js"></script>
+<script type="text/javascript" src="./js/choiceCalendar.js"></script>
 
 </html>
