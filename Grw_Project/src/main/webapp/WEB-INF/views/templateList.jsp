@@ -90,7 +90,8 @@
 										<p class="text-gray-800 fw-bold d-block mb-1 fs-6">${list.temp_id}</p>
 
 									</td>
-									<td class="text-end"> <a onclick="showModalTitle('${list.temp_title}')"
+										
+									<td class="text-end"> <a onclick="showModal('${list.temp_title}')"
 								       data-bs-toggle="modal" data-bs-target="#kt_modal_select_location"
 								       class="text-gray-800 fw-bold text-hover-primary d-block mb-1 fs-6"
 								       style="text-align: center; cursor: pointer;">${list.temp_title}</a></td>
@@ -115,7 +116,8 @@
 			<div class="modal-dialog mw-1000px">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h2 id="modalTitle"></h2>
+						<h2 id="modalTitle">
+						</h2>
 					</div>
 					<div class="modal-body">
 						<div id="modalContent">
@@ -136,8 +138,10 @@
 	<%@include file="./footer.jsp"%>
 </body>
 <script type="text/javascript">
-function showModalTitle(titl) {
+function showModal(titl, cont) {
     document.getElementById('modalTitle').textContent = titl;
+    document.getElementById('modalContent').textContent = cont;	
 }
+
 </script>
 </html>

@@ -2,11 +2,13 @@ package com.rgb.grw.dao;
 
 import java.util.List;
 
-import com.rgb.grw.dto.TemplatePreviewDto;
+import com.rgb.grw.dto.TemplateDto;
 
 public interface ITemplateDao {
 
-	public List<TemplatePreviewDto> selectTemplateList();
+	public List<TemplateDto> selectTemplateList();
 	
-	public int writeTemplate(TemplatePreviewDto dto);
+	public int writeTemplate(TemplateDto dto);
+	
+	public TemplateDto getOneTemplate(String temp_id);
 }

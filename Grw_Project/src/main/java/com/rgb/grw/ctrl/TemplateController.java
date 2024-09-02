@@ -4,15 +4,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rgb.grw.dto.TemplateDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 import com.rgb.grw.service.TemplateServiceImpl;
 
@@ -24,9 +28,14 @@ public class TemplateController {
 	
 	@GetMapping(value = "/templateList.do")
 	public String TemplateList(Model model) {
-		List<TemplatePreviewDto> lists = templateServiceImpl.selectTemplateList();
+		List<TemplateDto> lists = templateServiceImpl.selectTemplateList();
 		model.addAttribute("lists", lists);	
 		return "templateList";
+	}
+	
+	public String selectOneTemplate(String temp_id) {
+		
+		return "";
 	}
 	
 	@GetMapping(value = "/writeTemplate.do")
@@ -38,17 +47,10 @@ public class TemplateController {
 		return "writeTemplate";
 	}
 	
-	@PostMapping(value = "/uploadTemplate.do")
-	@ResponseBody
-	public String handleFormSubmit(@RequestParam("temp_title") String tempTitle) {
-        // temp_title 값을 콘솔에 출력합니다.
-        if (tempTitle == null || tempTitle.trim().isEmpty()) {
-            return "Error: Title is required!";
-        }
-        System.out.println("Received temp_title: " + tempTitle);
-        return "Received temp_title: " + tempTitle;
-//		int n = templateServiceImpl.writeTemplate(dto);
-//		return (n>0)?"templateList":"templateList";
+	@PostMapping("/uploadTemplate.do")
+	public String handleFormSubmit() {
+	    templateServiceImpl.writeTemplate();
+	    return "redirect:/templateList";
 	}
 	
 	
@@ -58,7 +60,8 @@ public class TemplateController {
 	}
 	
 	@GetMapping(value = "/draftDocument.do")
-	public String DraftedDocumentList() {
+	public String DraftedDocumentList(Model model) {
+		
 		return "drafted";
 	}
 	
