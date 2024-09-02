@@ -20,4 +20,6 @@
     VALUES (#{depNo}, #{depName}, 'Y')
 </insert>
 
+
+
 </mapper>
