@@ -921,10 +921,8 @@
 <!-- Js Tree script -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-
 <script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
 <script type="text/javascript">
 	function getJson() {
@@ -1043,6 +1041,14 @@
 		testTree();
 	});
 </script>
+
+
+
+
+
+
+
+
 
 <%@include file="./footer.jsp"%>
 </html>
