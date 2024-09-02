@@ -35,11 +35,12 @@
 												<div class="d-flex flex-column">
 													<h2 class="mb-1">Settings</h2>
 													<div class="text-muted fw-bold">
-													<a href="#">Keenthemes</a>
-													<span class="mx-3">|</span>
-													<a href="#">File Manager</a>
-													<span class="mx-3">|</span>2.6 GB 
-													<span class="mx-3">|</span>758 items</div>
+<!-- 													<a href="#">Keenthemes</a> -->
+													<span class="mx-3"></span>
+<!-- 													<a href="#">File Manager</a> -->
+													<span class="mx-3"></span>
+													<span class="mx-3"></span>
+													</div>
 												</div>
 												<!--end::Title-->
 											</div>
@@ -48,20 +49,20 @@
 										<!--begin::Card body-->
 										<div class="card-body pb-0">
 											<!--begin::Navs-->
-											<div class="d-flex overflow-auto h-55px">
-												<ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-semibold flex-nowrap">
-													<!--begin::Nav item-->
-													<li class="nav-item">
-														<a class="nav-link text-active-primary me-6" href="apps/file-manager/folders.html">Files</a>
-													</li>
-													<!--end::Nav item-->
-													<!--begin::Nav item-->
-													<li class="nav-item">
-														<a class="nav-link text-active-primary me-6 active" href="apps/file-manager/settings.html">Settings</a>
-													</li>
-													<!--end::Nav item-->
-												</ul>
-											</div>
+<!-- 											<div class="d-flex overflow-auto h-55px"> -->
+<!-- 												<ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-semibold flex-nowrap"> -->
+<!-- 													begin::Nav item -->
+<!-- 													<li class="nav-item"> -->
+<!-- 														<a class="nav-link text-active-primary me-6" href="apps/file-manager/folders.html">Files</a> -->
+<!-- 													</li> -->
+<!-- 													end::Nav item -->
+<!-- 													begin::Nav item -->
+<!-- 													<li class="nav-item"> -->
+<!-- 														<a class="nav-link text-active-primary me-6 active" href="apps/file-manager/settings.html">Settings</a> -->
+<!-- 													</li> -->
+<!-- 													end::Nav item -->
+<!-- 												</ul> -->
+<!-- 											</div> -->
 											<!--begin::Navs-->
 										</div>
 										<!--end::Card body-->
@@ -94,15 +95,13 @@
 													<!--begin::Col-->
 													<div class="col-md-9">
 														<!--begin::Input-->
-														<select name="language" aria-label="Select a Language" data-control="select2" data-placeholder="Select a Language..." class="form-select mb-2 select2-hidden-accessible" data-select2-id="select2-data-7-wsdn" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-															<option data-select2-id="select2-data-9-6g3a"></option>
-															<option value="id">Bahasa Indonesia - Indonesian</option>
-															<option value="msa">Bahasa Melayu - Malay</option>
-															<option value="ca">Català - Catalan</option>
-															<option value="zh-cn">简体中文 - Simplified Chinese</option>
-															<option value="zh-tw">繁體中文 - Traditional Chinese</option>
-														</select><span class="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-8-f00s" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single form-select mb-2" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-language-0u-container" aria-controls="select2-language-0u-container"><span class="select2-selection__rendered" id="select2-language-0u-container" role="textbox" aria-readonly="true" title="Select a Language..."><span class="select2-selection__placeholder">Select a Language...</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-														<!--end::Input-->
+
+
+																	<select class="form-control form-control-solid mb-3 mb-lg-0"
+																		name="userGender">
+																		<option>남성</option>
+																		<option>여성</option>
+																	</select>
 													</div>
 													<!--end::Col-->
 												</div>
@@ -121,33 +120,13 @@
 													<!--end::Col-->
 													<!--begin::Col-->
 													<div class="col-md-9">
-														<!--begin::Input-->
-														<select name="dateformat" aria-label="Select a date format" data-hide-search="true" data-control="select2" data-placeholder="Select a date format..." class="form-select mb-2 select2-hidden-accessible" data-select2-id="select2-data-10-ued0" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-															<option data-select2-id="select2-data-12-gupf"></option>
-															<option value="1">10 Sep 2021, 10:15 AM</option>
-															<option value="2">10/09/2021, 10:15 AM</option>
-															<option value="3">09-10-2021</option>
-															<option value="4">Sunday, September 10th 2010</option>
-														</select><span class="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-11-vq1z" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single form-select mb-2" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-dateformat-a7-container" aria-controls="select2-dateformat-a7-container"><span class="select2-selection__rendered" id="select2-dateformat-a7-container" role="textbox" aria-readonly="true" title="Select a date format..."><span class="select2-selection__placeholder">Select a date format...</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-														<!--end::Input-->
+														<select class="form-control form-control-solid mb-3 mb-lg-0" name="userGender">
+															<option>남성</option>
+															<option>여성</option>
+														</select>
 													</div>
 													<!--end::Col-->
 												</div>
-												<!--end::Input group-->
-												<!--begin::Input group-->
-<!-- 												<div class="fv-row row mb-15"> -->
-<!-- 													<div class="col-md-3 d-flex align-items-center"> -->
-<!-- 														<label class="fs-6 fw-semibold">Automatic time zone</label> -->
-<!-- 													</div> -->
-<!-- 													<div class="col-md-9"> -->
-<!-- 														<div class="form-check form-switch form-check-custom form-check-solid me-10"> -->
-<!-- 															<input class="form-check-input h-30px w-50px" name="autotimezone" type="checkbox" value="" id="autotimezone"> -->
-<!-- 															<label class="form-check-label" for="autotimezone">GMT +10:00</label> -->
-<!-- 														</div> -->
-<!-- 													</div> -->
-<!-- 												</div> -->
-												<!--end::Input group-->
-												<!--begin::Input group-->
 												<div class="fv-row row mb-15">
 													<!--begin::Col-->
 													<div class="col-md-3">
@@ -159,15 +138,10 @@
 													<!--end::Col-->
 													<!--begin::Col-->
 													<div class="col-md-9">
-														<!--begin::Input-->
-														<select name="compression" aria-label="Select a Compressions type" data-control="select2" data-hide-search="true" data-placeholder="Select a Compressions type..." class="form-select mb-2 select2-hidden-accessible" data-select2-id="select2-data-13-s94b" tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-															<option data-select2-id="select2-data-15-1pdt"></option>
-															<option value="1">*.zip</option>
-															<option value="2">*.7z</option>
-															<option value="3">*.rar</option>
-															<option value="4">*.tar.gz</option>
-														</select><span class="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-14-eckf" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single form-select mb-2" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-compression-fi-container" aria-controls="select2-compression-fi-container"><span class="select2-selection__rendered" id="select2-compression-fi-container" role="textbox" aria-readonly="true" title="Select a Compressions type..."><span class="select2-selection__placeholder">Select a Compressions type...</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-														<!--end::Input-->
+														<select class="form-control form-control-solid mb-3 mb-lg-0" name="userGender">
+															<option>남성</option>
+															<option>여성</option>
+														</select>
 													</div>
 													<!--end::Col-->
 												</div>
@@ -179,10 +153,11 @@
 												<div class="row mt-12">
 													<div class="col-md-9 offset-md-3">
 														<!--begin::Cancel-->
-														<button type="button" class="btn btn-light me-3">취소</button>
+														<button type="button" class="btn btn-light me-3" onclick="location.href='./deptList.do'">취소</button>
 														<!--end::Cancel-->
 														<!--begin::Button-->
-														<button type="button" class="btn btn-primary" id="kt_file_manager_settings_submit">
+														<button type="button"
+														 class="btn btn-primary" id="kt_file_manager_settings_submit" onclick="">
 															<span class="indicator-label">저장</span>
 															<span class="indicator-progress">저장 중 입니다...
 															<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

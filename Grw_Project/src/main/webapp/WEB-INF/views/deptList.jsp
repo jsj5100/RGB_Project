@@ -319,7 +319,6 @@
 															class="form-control form-control-solid mb-3 mb-lg-0"
 															name="depState">
 															<option>Y</option>
-															<option>N</option>
 														</select>
 												<!--end::Input-->
 												<div

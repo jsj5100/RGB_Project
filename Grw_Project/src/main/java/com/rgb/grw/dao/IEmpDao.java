@@ -8,4 +8,5 @@ public interface IEmpDao {
 	
 	public List<EmpDto> EmpList();
 
+	public int addEmp(EmpDto dto);
 }
