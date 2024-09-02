@@ -5,14 +5,22 @@
 	<select id="getBook" resultType="ReservationDto">
 	SELECT *
 		 FROM (			
-		  		SELECT r.*, ROW_NUMBER() OVER (ORDER BY BK_STDAY) RN
-		  		FROM RESERVATION r  
+		  		SELECT r.*, AUTH_NO, ROW_NUMBER () OVER(ORDER BY BK_STDAY) RN
+				FROM RESERVATION r JOIN EMP e 
+				ON r.BK_EMPNO = e.EMP_NO 
 		  		WHERE BK_STDAY BETWEEN #{startDate} AND #{endDate}
 		  		OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate}
 		  )
-		WHERE BK_EMPNO = #{bk_empno}
+<!-- 		 AND BK_STATE = #{bk_state}  -->
 <!-- 	WHERE RN BETWEEN #{st_index} AND #{end_index} -->
 <!-- 	AND BK_EMPNO = #{bk_empno} -->
 	</select>
 	
+<!-- 	<select id="getAllBook" resultType="ReservationDto"> -->
+<!-- 		SELECT * -->
+<!-- 		FROM RESERVATION r -->
+<!-- 		WHERE BK_STDAY BETWEEN #{startDate} AND #{endDate} -->
+<!-- 		OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate} -->
+<!-- 		ORDER BY BK_REGDATE -->
+<!-- 	</select> -->
 </mapper>

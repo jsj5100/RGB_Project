@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 })
 
+//전체 일정 조회
 document.addEventListener('DOMContentLoaded', function() {
 	
 	//현재날짜
@@ -125,11 +126,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	.then(data=>{
 		
 		data.forEach(item => {
-			createContents(item)
+			
+			createContents(item);
+			reservation(item);
 //			console.log('item',item);
 		});
 		
-		//처음 로드 될때 당일 예약일정 보여주기(로드됐을 첫번째요소)
+		//처음 로드 될때 당일 예약일정 보여주기
 		let firstTab = document.querySelector('#reservation_day_container .nav-link');
    			if (firstTab) {
         		firstTab.classList.add('active');
@@ -217,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //	
 //}
 
-
+//자산예약현황 날짜별 일정 콘텐츠 영역
 function createContents(item, index) {
     for (let i = 0; i < dayarry.length; i++) {
         let contentContainer = document.getElementById('reservation_content-container');
@@ -246,6 +249,7 @@ function createContents(item, index) {
             let titlelink = document.createElement('a');
             let divname = document.createElement('div');
             let aview = document.createElement('a');
+            let statediv = document.createElement('div');
 
             // 시간 표시
             timediv.classList.add('fs-7', 'mb-1');
@@ -267,6 +271,25 @@ function createContents(item, index) {
             aview.href = "#";
             aview.classList.add('btn', 'btn-light', 'bnt-active-light-primary', 'btn-sm');
             aview.textContent = 'View';
+            
+            
+            
+            //상태 뱃지
+//            <div class="badge badge-light-success">Completed</div>
+			if(item.bk_state == 'Y') {
+				statediv.classList.add('badge','badge-light-success');
+				statediv.textContent = '승인';
+			} else if (item.bk_state == 'S') {
+				statediv.classList.add('badge','badge-light-primary');
+				statediv.textContent = '대기';
+			} else if(item.bk_state == 'C') { 
+				statediv.classList.add('badge','badge-light-warning');
+				statediv.textContent = '취소';
+			} else {
+				statediv.classList.add('badge','badge-light-danger');
+				statediv.textContent = '반려';
+			}
+			
 
             // 일정 정보 박스
             infodiv.classList.add('fw-semibold', 'ms-5');
@@ -278,10 +301,76 @@ function createContents(item, index) {
             bookcontainer.classList.add('d-flex', 'flex-stack', 'position-relative', 'mt-6');
             bookcontainer.appendChild(sidebardiv);
             bookcontainer.appendChild(infodiv);
+            bookcontainer.appendChild(statediv);
             bookcontainer.appendChild(aview);
-
+            
             // 부모 div에 추가
             parentdiv.appendChild(bookcontainer);
         }
     }
 }
+
+
+//신청현황 조회(처음 로드되었을때 전체 신청내역조회)
+function reservation (book) {
+	console.log(book);
+	
+	let parentdiv = document.getElementById('reservation_state_all')
+	let wrapdiv = document.createElement('div');
+	let statecontainer = document.createElement('div');
+	let button = document.createElement('button');
+	
+	let labeldiv = document.createElement('div');
+	let infodiv = document.createElement('div');
+	let atitle = document.createElement('a');
+	let writerdiv = document.createElement('div');
+	
+	
+	//관리자
+	if(book.sessionauth == 'FC00A') {
+		console.log(book);
+		
+		//최상단
+		wrapdiv.appendChild(statecontainer)
+		wrapdiv.classList.add('d-flex','align-items-center','position-relative','mb-7');
+		
+		//버튼
+		button.type = 'button';
+		button.classList.add('btn','btn-icon','btn-active-light-primary','w-30px','h-30px','ms-auto')
+		button.setAttribute('data-kt-menu-trigger', 'click');
+		button.setAttribute('data-kt-menu-placement', 'bottom-end');
+		button.textContent="view"
+		//제목
+		atitle.href="#"
+		atitle.classList.add('fs-5','fw-bold','text-gray-900','text-hover-primary')
+		atitle.textContent = book.bk_title;
+		
+		//신청자
+		writerdiv.classList.add('fs-7','text-muted');
+		writerdiv.textContent = book.bk_name;
+		
+		//인포조립
+		infodiv.classList.add('fw-semibold','ms-5')
+		infodiv.appendChild(atitle);
+		infodiv.appendChild(writerdiv);
+		
+		
+		//라벨영역
+		labeldiv.classList.add('position-absolute','top-0','start-0','rounded','h-100','bg-secondary','w-4px');
+		
+		statecontainer.classList.add('d-flex','align-items-center','position-relative','mb-7')
+		statecontainer.appendChild(labeldiv)
+		statecontainer.appendChild(infodiv)
+		statecontainer.appendChild(button)
+		
+		parentdiv.appendChild(wrapdiv);
+		
+		
+	} else { //사용자의 신청현황
+		if(book.sessionEmp == book.bk_empno) {
+			
+		} 
+	}
+}
+	
+	
