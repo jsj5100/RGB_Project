@@ -193,7 +193,64 @@ $(document).ready(function() {
     });
 
     document.getElementById('approvalLine-choice').addEventListener('click', function() {
-        // 여기에 필요한 추가 로직을 구현하세요
+        const approvalLineValueField = document.getElementById('approvalLine-value');
+        const ccLineValueField = document.getElementById('ccLine-value');
+        let approvalNamesArray = [];
+        let ccNamesArray = [];
+
+        // 'approval-table'의 모든 행 선택
+        const approvalTable = document.getElementById('approval-table');
+        const ccTable = document.getElementById('cc-table');
+        
+        const approvalRows = approvalTable.querySelectorAll('tr');
+        const ccRows = ccTable.querySelectorAll('tr');
+
+        // 나머지 행에서 이름 추출
+        approvalRows.forEach((row, index) => {
+            if (index > 0) { // 첫 번째 행 제외 (헤더 제외)
+                const nameCell = row.querySelector('td');
+                if (nameCell) {
+                    const textWithoutButton = Array.from(nameCell.childNodes)
+                        .filter(node => node.nodeType === Node.TEXT_NODE)
+                        .map(node => node.textContent.trim())
+                        .join('');
+                    if (textWithoutButton) {
+                        approvalNamesArray.push(textWithoutButton);
+                    }
+                }
+            }
+        });
+		
+        if (approvalNamesArray.length === 0) {
+            console.warn('추출된 이름이 없습니다.');
+        }
+        
+          ccRows.forEach((row, index) => {
+            if (index > 0) { // 첫 번째 행 제외 (헤더 제외)
+                const nameCell = row.querySelector('td');
+                if (nameCell) {
+                    const textWithoutButton = Array.from(nameCell.childNodes)
+                        .filter(node => node.nodeType === Node.TEXT_NODE)
+                        .map(node => node.textContent.trim())
+                        .join('');
+                    if (textWithoutButton) {
+                        ccNamesArray.push(textWithoutButton);
+                    }
+                }
+            }
+        });
+		
+        if (ccNamesArray.length === 0) {
+            console.warn('추출된 이름이 없습니다.');
+        }
+
+        const approvalNamesString = approvalNamesArray.join(' -> ');
+        approvalLineValueField.value = approvalNamesString;
+		
+		const ccNamesString = ccNamesArray.join(',');
+        ccLineValueField.value = ccNamesString;
+        console.log('설정된 값:', approvalNamesString);
+        console.log('설정된 값:', ccNamesString);
     });
 });
 

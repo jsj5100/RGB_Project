@@ -1,12 +1,14 @@
 package com.rgb.grw.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rgb.grw.dao.TemplatePreviewDaoImpl;
 import com.rgb.grw.dto.DeptDto;
+import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.EmpDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
@@ -30,6 +32,11 @@ public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
 	@Override
 	public List<JsTreeResponseDto> jsTree() {
 		return previewDaoImpl.jsTree();
+	}
+
+	@Override
+	public boolean insertDocument(Map<String, Object> map) {
+		return previewDaoImpl.insertDocument(map);
 	}
 
 	
