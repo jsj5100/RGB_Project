@@ -33,7 +33,7 @@
 												<!--end::Icon-->
 												<!--begin::Title-->
 												<div class="d-flex flex-column">
-													<h2 class="mb-1">Settings</h2>
+													<h2 class="mb-1">설정 [부서관리]</h2>
 													<div class="text-muted fw-bold">
 <!-- 													<a href="#">Keenthemes</a> -->
 													<span class="mx-3"></span>
@@ -82,7 +82,7 @@
 										<!--begin::Card body-->
 										<div class="card-body">
 											<!--begin::Form-->
-											<form class="form" id="kt_file_manager_settings">
+											<form class="form" id="kt_file_manager_settings" action="./deptList.do" method="post">
 												<!--begin::Input group-->
 												<div class="fv-row row mb-15">
 													<!--begin::Col-->
@@ -98,9 +98,8 @@
 
 
 																	<select class="form-control form-control-solid mb-3 mb-lg-0"
-																		name="userGender">
+																		name="deptName">
 																		<option>남성</option>
-																		<option>여성</option>
 																	</select>
 													</div>
 													<!--end::Col-->
@@ -120,9 +119,8 @@
 													<!--end::Col-->
 													<!--begin::Col-->
 													<div class="col-md-9">
-														<select class="form-control form-control-solid mb-3 mb-lg-0" name="userGender">
+														<select class="form-control form-control-solid mb-3 mb-lg-0" name="deptNo">
 															<option>남성</option>
-															<option>여성</option>
 														</select>
 													</div>
 													<!--end::Col-->
@@ -138,9 +136,8 @@
 													<!--end::Col-->
 													<!--begin::Col-->
 													<div class="col-md-9">
-														<select class="form-control form-control-solid mb-3 mb-lg-0" name="userGender">
+														<select class="form-control form-control-solid mb-3 mb-lg-0" name="deptMg">
 															<option>남성</option>
-															<option>여성</option>
 														</select>
 													</div>
 													<!--end::Col-->
@@ -156,8 +153,8 @@
 														<button type="button" class="btn btn-light me-3" onclick="location.href='./deptList.do'">취소</button>
 														<!--end::Cancel-->
 														<!--begin::Button-->
-														<button type="button"
-														 class="btn btn-primary" id="kt_file_manager_settings_submit" onclick="">
+														<button type="submit"
+														 class="btn btn-primary" id="kt_file_manager_settings_submit">
 															<span class="indicator-label">저장</span>
 															<span class="indicator-progress">저장 중 입니다...
 															<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

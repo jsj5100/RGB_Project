@@ -62,5 +62,6 @@ public class DeptController {
 		return "deptEdit";
 	}
 
-
+	
+	
 }
