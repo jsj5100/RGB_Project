@@ -20,4 +20,7 @@ public class ReservationDto {
 	private String bk_apname;
 	private String bk_apday;
 	private String bk_regdate;
+	private String auth_no;
+	private String sessionEmp;
+	private String sessionauth;
 }

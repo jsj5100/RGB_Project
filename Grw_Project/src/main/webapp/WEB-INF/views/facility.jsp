@@ -105,16 +105,24 @@
 							<h2 class="mb-1">예약신청현황</h2>
 						</div>
 					<!--end::Card title-->
-															<!--begin::Card toolbar-->
-<!-- 															<div class="card-toolbar"> 신청버튼 넣을지 고민중-->
+					<!-- begin::Card toolbar -->
+<!-- 						<div class="card-toolbar" data-control="select2"> -->
+<!-- 							<select class="form-select form-select-solid" aria-label="Default select example"> -->
+<!-- 								<option selected>신청현황</option> -->
+<!-- 								<option value="1">신청대기</option> -->
+<!-- 								<option value="2">승인</option> -->
+<!-- 								<option value="3">반려</option> -->
+<!-- 							</select> -->
+<!-- 						</div> -->
+					    
 <!-- 																<button type="button" class="btn btn-light-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_add_task"> -->
 <!-- 																<i class="ki-duotone ki-add-files fs-3"> -->
 <!-- 																	<span class="path1"></span> -->
 <!-- 																	<span class="path2"></span> -->
 <!-- 																	<span class="path3"></span> -->
 <!-- 																</i>Add Task</button> -->
-<!-- 															</div> -->
-															<!--end::Card toolbar-->
+					
+					<!-- end::Card toolbar -->
 															
 															
 				</div>
@@ -123,19 +131,19 @@
 				<!-- 카드 바디 -->
 				<!-- 예약신청리스트 목록 보여주기 -->
 				<!--begin::Card body-->
-				<div class="card-body d-flex flex-column">
+				<div class="card-body d-flex flex-column" id="reservation_state_all">
 					<!--begin::Item-->
 					<div class="d-flex align-items-center position-relative mb-7">
 					<!--begin::Label-->
-					<div class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px">
-					</div>
+						<div class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px">
+						</div>
 					<!--end::Label-->
 					
 					<!--begin::Details-->
-					<div class="fw-semibold ms-5">
-						<a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary">회의실301호 예약신청</a>
-						<!--begin::Info-->
-						<div class="fs-7 text-muted">신청자 
+						<div class="fw-semibold ms-5">
+							<a href="#" class="fs-5 fw-bold text-gray-900 text-hover-primary">회의실301호 예약신청</a>
+							<!--begin::Info-->
+							<div class="fs-7 text-muted">신청자 
 						</div>
 						<!--end::Info-->
 					</div>

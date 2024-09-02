@@ -285,9 +285,6 @@ function createContents(item, index) {
 			} else if(item.bk_state == 'C') { 
 				statediv.classList.add('badge','badge-light-warning');
 				statediv.textContent = '취소';
-			} else {
-				statediv.classList.add('badge','badge-light-danger');
-				statediv.textContent = '반려';
 			}
 			
 
@@ -315,56 +312,91 @@ function createContents(item, index) {
 function reservation (book) {
 	console.log(book);
 	
-	let parentdiv = document.getElementById('reservation_state_all')
-	let wrapdiv = document.createElement('div');
-	let statecontainer = document.createElement('div');
-	let button = document.createElement('button');
+	let contentContainer = document.getElementById('reservation_state_all');
 	
-	let labeldiv = document.createElement('div');
-	let infodiv = document.createElement('div');
-	let atitle = document.createElement('a');
-	let writerdiv = document.createElement('div');
+			
+	let bookcontainer = document.createElement('div');
+    let sidebardiv = document.createElement('div');
+    let infodiv = document.createElement('div');
+    let timediv = document.createElement('div');
+    let titlelink = document.createElement('a');
+	let divname = document.createElement('div');
+    let aview = document.createElement('a');
+	let statediv = document.createElement('div');
+	let requestTime = document.createElement('div');
 	
+	// 시간 형식 변환
+	let startDay = book.bk_stday.slice(5, 10).replace('-', '/');
+	let startTime = book.bk_stday.split('T')[1].slice(0, 5);
+	let endDay = book.bk_edday.slice(5, 10).replace('-', '/');
+	let endTime = book.bk_edday.split('T')[1].slice(0, 5);
+	let regday = book.bk_regdate.slice(5, 10).replace('-', '/');
+	let regTime = book.bk_regdate.split('T')[1].slice(0, 5);
 	
 	//관리자
 	if(book.sessionauth == 'FC00A') {
 		console.log(book);
-		
-		//최상단
-		wrapdiv.appendChild(statecontainer)
-		wrapdiv.classList.add('d-flex','align-items-center','position-relative','mb-7');
-		
-		//버튼
-		button.type = 'button';
-		button.classList.add('btn','btn-icon','btn-active-light-primary','w-30px','h-30px','ms-auto')
-		button.setAttribute('data-kt-menu-trigger', 'click');
-		button.setAttribute('data-kt-menu-placement', 'bottom-end');
-		button.textContent="view"
-		//제목
-		atitle.href="#"
-		atitle.classList.add('fs-5','fw-bold','text-gray-900','text-hover-primary')
-		atitle.textContent = book.bk_title;
-		
-		//신청자
-		writerdiv.classList.add('fs-7','text-muted');
-		writerdiv.textContent = book.bk_name;
-		
-		//인포조립
-		infodiv.classList.add('fw-semibold','ms-5')
-		infodiv.appendChild(atitle);
-		infodiv.appendChild(writerdiv);
-		
-		
-		//라벨영역
-		labeldiv.classList.add('position-absolute','top-0','start-0','rounded','h-100','bg-secondary','w-4px');
-		
-		statecontainer.classList.add('d-flex','align-items-center','position-relative','mb-7')
-		statecontainer.appendChild(labeldiv)
-		statecontainer.appendChild(infodiv)
-		statecontainer.appendChild(button)
-		
-		parentdiv.appendChild(wrapdiv);
-		
+			contentContainer.appendChild(bookcontainer);
+
+			let usageTime = document.createElement('div');
+
+
+            // 시간 표시
+            timediv.classList.add('fs-7', 'mb-1');
+            timediv.innerHTML = `${startDay} ${startTime} - ${endDay} ${endTime}`;
+           	requestTime.innerHTML = `신청시간 : ${regday} ${regTime}`
+
+            // 제목 링크
+            titlelink.href = "#";
+            titlelink.classList.add('fs-5', 'fw-bold', 'text-gray-900', 'text-hover-primary', 'mb-2');
+            titlelink.textContent = book.bk_title;
+
+            // 예약자 정보
+            divname.classList.add('fs-7', 'text-muted');
+            divname.innerHTML = `신청자 : ${book.bk_name}</a>`;
+
+            // 사이드바
+            sidebardiv.classList.add('position-absolute', 'h-100', 'w-4px', 'bg-secondary', 'rounded', 'top-0', 'start-0');
+
+            // 보기 버튼
+            aview.href = "#";
+            aview.classList.add('btn', 'btn-light', 'bnt-active-light-primary', 'btn-sm');
+            aview.textContent = 'View';
+            
+            //상태 뱃지
+//            <div class="badge badge-light-success">Completed</div>
+			if(book.bk_state == 'Y') {
+				statediv.classList.add('badge','badge-light-success');
+				statediv.textContent = '승인';
+			} else if (book.bk_state == 'S') {
+				statediv.classList.add('badge','badge-light-primary');
+				statediv.textContent = '대기';
+			} else if(book.bk_state == 'C') { 
+				statediv.classList.add('badge','badge-light-warning');
+				statediv.textContent = '취소';
+			} else {
+				statediv.classList.add('badge','badge-light-danger');
+				statediv.textContent = '반려';
+			}
+			
+			//시간
+			timediv.appendChild(usageTime);
+			timediv.appendChild(requestTime);
+
+            // 일정 정보 박스
+            infodiv.classList.add('fw-semibold', 'ms-5');
+            infodiv.appendChild(timediv);
+            infodiv.appendChild(titlelink);
+            infodiv.appendChild(divname);
+
+            // 일정 컨테이너
+            bookcontainer.classList.add('d-flex', 'flex-stack', 'position-relative', 'mt-6');
+            bookcontainer.appendChild(sidebardiv);
+            bookcontainer.appendChild(infodiv);
+            bookcontainer.appendChild(requestTime);
+            bookcontainer.appendChild(statediv);
+            bookcontainer.appendChild(aview);
+            
 		
 	} else { //사용자의 신청현황
 		if(book.sessionEmp == book.bk_empno) {
