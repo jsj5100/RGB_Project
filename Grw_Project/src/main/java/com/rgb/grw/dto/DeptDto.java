@@ -23,6 +23,7 @@ public class DeptDto {
 	private String emp_no;
 	private String emp_name;
 	private TierDto tierDto;
+	private String tier_no;
 	
 	
 }

@@ -99,7 +99,9 @@
 
 																	<select class="form-control form-control-solid mb-3 mb-lg-0"
 																		name="deptName">
-																		<option>남성</option>
+																		<c:forEach var="dept" items="${deptList}">
+																		<option>${dept.dep_name}</option>
+																		</c:forEach>
 																	</select>
 													</div>
 													<!--end::Col-->
@@ -120,7 +122,9 @@
 													<!--begin::Col-->
 													<div class="col-md-9">
 														<select class="form-control form-control-solid mb-3 mb-lg-0" name="deptNo">
-															<option>남성</option>
+															<c:forEach var="dept" items="${deptList}">
+																		<option>${dept.dep_no}</option>
+																		</c:forEach>
 														</select>
 													</div>
 													<!--end::Col-->
@@ -137,7 +141,9 @@
 													<!--begin::Col-->
 													<div class="col-md-9">
 														<select class="form-control form-control-solid mb-3 mb-lg-0" name="deptMg">
-															<option>남성</option>
+															<c:forEach var="dept" items="${deptList}">
+																		<option>${dept.emp_name}</option>
+																		</c:forEach>
 														</select>
 													</div>
 													<!--end::Col-->

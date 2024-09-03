@@ -33,7 +33,7 @@ public class DeptController {
 	
 	@GetMapping(value="deptList.do")
 	public String DeptList(Model model) {
-		List<DeptDto> DeptList = service.DeptList();
+		List<DeptDto> DeptList = service.deptList();
 		model.addAttribute("DeptList", DeptList);
 		log.info("Dept 리스트받기");
 		return "deptList";
@@ -57,11 +57,10 @@ public class DeptController {
 	}
 	
 	@GetMapping(value="deptEdit.do")
-	public String deptEdit() {
+	public String deptEdit(Model model) {
+		List<DeptDto> depList = service.deptList();
+		model.addAttribute("deptList", depList);
 		log.info("부서수정 이동");
 		return "deptEdit";
 	}
-
-	
-	
 }
