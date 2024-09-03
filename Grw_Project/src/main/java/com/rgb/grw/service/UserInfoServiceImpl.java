@@ -22,5 +22,11 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		log.info("로그인 서비스 : {}", map);
 		return dao.login(map);
 	}
+	
+	@Override
+	public UserInfoDto validateUser(Map<String, Object> map) {
+		log.info("사용자 검증 서비스 : {}", map);
+		return dao.validateUser(map);
+	}
 
 }

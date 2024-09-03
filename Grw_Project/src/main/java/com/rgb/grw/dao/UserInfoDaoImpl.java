@@ -24,4 +24,11 @@ public class UserInfoDaoImpl implements IUserInfoDao {
 		log.info("UserInfoDaoImpl 로그인: " + map);
 		return session.selectOne(NS+"login", map);
 	}
+	
+	@Override
+	public UserInfoDto validateUser(Map<String, Object> map) {
+		log.info("UserInfoDaoImpl 사용자 검증: " + map);
+		return session.selectOne(NS + "validateUser", map);
+	}
+	
 }
