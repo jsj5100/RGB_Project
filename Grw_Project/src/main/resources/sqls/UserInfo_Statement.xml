@@ -25,5 +25,17 @@
 		AND EMP.EMP_PASSWORD = #{emp_password, jdbcType=VARCHAR}
 		AND EMP.EMP_STATE = 'Y'
 	</select>
+	
+	<select id="validateUser" parameterType="java.util.Map"
+		resultType="UserInfoDto">
+		SELECT
+		EMP.EMP_NO, EMP.EMP_NAME, EMP.EMP_EMAIL
+		FROM EMP
+		WHERE
+		EMP.EMP_NO = #{emp_no, jdbcType=VARCHAR}
+		AND EMP.EMP_NAME = #{name, jdbcType=VARCHAR}
+		AND EMP.EMP_EMAIL = #{email, jdbcType=VARCHAR}
+		AND EMP.EMP_STATE = 'Y'
+	</select>
 
 </mapper>
