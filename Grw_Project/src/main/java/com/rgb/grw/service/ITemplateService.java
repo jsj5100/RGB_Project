@@ -11,5 +11,7 @@ public interface ITemplateService {
 	
 	public int writeTemplate(TemplateDto dto);
 	
-	public TemplateDto getOneTemplate(String temp_id);
+	public int deleteTemplate(String temp_id);
+	
+	public int modifyTemplate(TemplateDto dto);
 }

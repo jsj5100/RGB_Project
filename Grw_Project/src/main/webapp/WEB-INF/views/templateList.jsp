@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +40,11 @@
 				</div>
 				<div class="card-body pt-3 pb-1" style="width: auto;">
 					<div class="table-responsive">
+						<c:choose>
+						<c:when test="${empty lists}">
+					        <br><h2 style="margin-left:30px;">저장된 양식이 존재하지 않습니다.</h2><br>
+					    </c:when>
+					    <c:otherwise>
 						<table class="table align-middle gs-0 gy-4">
 							<thead>
 								<tr class="border-0">
@@ -62,86 +68,105 @@
 										</p>
 									</td>
 									<td class="text-end">
+										<p style="text-align: center" class="text-gray-800 fw-bold d-block mb-1 fs-6">작성자</p>
+									</td>
+									<td class="text-end">
 										<p class="text-gray-800 fw-bold d-block mb-1 fs-6"
 											style="pointer-events: none; text-align: center;">작성일자</p>
 									</td>
-									<td style="width:200px;"></td>
+									<td style="width: 200px;"></td>
 								</tr>
-								
 								<c:forEach var="list" items="${lists}">
-								<tr>
-									<td style="width: 60px;">
-										<c:if test="${list.img_value eq 'VACATION'}">
-										<div class="symbol symbol-45px me-5">
-											<img style="margin-left: 10px; width:45px; height:45px;"
-												src="./assets/images/vacation.png">
-										</div>
-										</c:if>
+									<tr>
+										<td style="width: 60px;">
+											<c:if test="${list.img_value eq '휴가'}">
+												<div class="symbol symbol-45px me-5">
+													<img style="margin-left: 10px; width: 45px; height: 45px;"
+														src="./assets/images/vacation.png">
+												</div>
+											</c:if>
+											<c:if test="${list.img_value eq '지출'}">
+												<div class="symbol symbol-45px me-5">
+													<img style="margin-left: 10px; width: 45px; height: 45px;"
+														src="./assets/images/expense.png">
+												</div>
+											</c:if>
+											<c:if test="${list.img_value eq '일정'}">
+												<div class="symbol symbol-45px me-5">
+													<img style="margin-left: 10px; width: 45px; height: 45px;"
+														src="./assets/images/calendarimg.png">
+												</div>
+											</c:if>
+											</td>
+										<td style="width: 100px; text-align: center;">
+											<p class="text-gray-800 fw-bold d-block mb-1 fs-6">${list.temp_id}</p>
+										</td>
+										<td class="text-end"><a data-title="${list.temp_title}"
+											data-content="${fn:escapeXml(list.temp_content)}"
+											onclick="showModal(this)" data-bs-toggle="modal"
+											data-bs-target="#kt_modal_select_location"
+											class="text-gray-800 fw-bold text-hover-primary d-block mb-1 fs-6"
+											style="text-align: center; cursor: pointer;">
+												${list.temp_title} </a></td>
+										<td class="text-end">
+											<p style="text-align: center;"
+												class="text-gray-800 fw-bold d-block mb-1 fs-6">${list.temp_writename}</p>
+										</td>
+										<td class="text-end">
+											<p style="text-align: center;"
+												class="text-gray-800 fw-bold d-block mb-1 fs-6">${list.temp_regdate}</p>
+										</td>
 										
-										<c:if test="${list.img_value eq 'EXPENSE'}">
-										<div class="symbol symbol-45px me-5">
-											<img style="margin-left: 10px; width:45px; height:45px;"
-												src="./assets/images/expense.png">
-										</div>
-										</c:if>
-										
-									</td>
-									<td style="width: 100px; text-align: center;">
-										<p class="text-gray-800 fw-bold d-block mb-1 fs-6">${list.temp_id}</p>
-
-									</td>
-										
-									<td class="text-end"> <a onclick="showModal('${list.temp_title}')"
-								       data-bs-toggle="modal" data-bs-target="#kt_modal_select_location"
-								       class="text-gray-800 fw-bold text-hover-primary d-block mb-1 fs-6"
-								       style="text-align: center; cursor: pointer;">${list.temp_title}</a></td>
-									<td class="text-end">
-										<p style="text-align: center;"
-											class="text-gray-800 fw-bold d-block mb-1 fs-6">${list.temp_regdate}</p>
-									</td>
-									<td style="text-align: center;"><input type="button"
-										class="btn btn-primary" value="수정" style="margin-right: 10px;">
-										<input type="button" class="btn btn-danger" value="삭제"></td>
-								</tr>
+										<td style="text-align: center;">
+											<form action="./deleteTemplate.do" method="post">
+										        <input type="hidden" name="temp_id" value="${list.temp_id}">
+										        <input type="submit" class="btn btn-danger" value="삭제">
+										    </form>
+											
+										</td>
+									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
+						</c:otherwise>
+					    </c:choose>
 					</div>
 
 				</div>
 			</div>
 			<!-- 모달창 -->
 			<div class="modal fade" id="kt_modal_select_location" tabindex="-1"
-			style="display: none;" aria-hidden="true">
-			<div class="modal-dialog mw-1000px">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h2 id="modalTitle">
-						</h2>
-					</div>
-					<div class="modal-body">
-						<div id="modalContent">
-						
+				style="display: none;" aria-hidden="true">
+				<div class="modal-dialog mw-1000px">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h2 id="modalTitle"></h2>
 						</div>
-					</div>
-					<div class="modal-footer d-flex justify-content-end">
-						<button type="button" id="kt_modal_select_location_button"
-							class="btn btn-primary" data-bs-dismiss="modal">적용</button>
-						<a href="#" class="btn btn-active-light me-5"
-							data-bs-dismiss="modal">취소</a>
+						<div class="modal-body">
+							<div id="modalContent"></div>
+						</div>
+						<div class="modal-footer d-flex justify-content-end">
+						<form action="./modifyTemplate.do" method="get">
+							<input type="submit" id="kt_modal_select_location_button"
+								class="btn btn-primary" data-bs-dismiss="modal" value="수정">
+							<a href="#" class="btn btn-active-light me-5"
+								data-bs-dismiss="modal">취소</a>
+						</form>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		</div>
 	</div>
 	<%@include file="./footer.jsp"%>
 </body>
 <script type="text/javascript">
-function showModal(titl, cont) {
-    document.getElementById('modalTitle').textContent = titl;
-    document.getElementById('modalContent').textContent = cont;	
-}
+function showModal(element) {
+    var title = element.getAttribute('data-title');
+    var content = element.getAttribute('data-content');
 
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalContent').innerHTML = content;
+}
 </script>
 </html>

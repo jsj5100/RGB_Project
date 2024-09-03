@@ -21,4 +21,7 @@ public class TemplateDto {
 	private String temp_content;
 	private String temp_regdate;
 	private String img_value;
+	private String emp_name;
+	private String temp_writename;
+	private String temp_delflag;
 }

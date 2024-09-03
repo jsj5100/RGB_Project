@@ -31,7 +31,12 @@ public class TemplateDaoImpl implements ITemplateDao {
 	}
 	
 	@Override
-	public TemplateDto getOneTemplate(String temp_id) {
-		return template.selectOne(NS+"getOneTemplate", temp_id);
+	public int deleteTemplate(String temp_id) {
+		return template.delete(NS+"deleteTemplate", temp_id);
+	}
+	
+	@Override
+	public int modifyTemplate(TemplateDto dto) {
+		return template.update(NS+"modifyTemplate", dto);
 	}
 }

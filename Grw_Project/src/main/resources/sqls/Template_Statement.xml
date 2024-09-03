@@ -3,26 +3,30 @@
 <mapper namespace="com.rgb.grw.dao.TemplateDaoImpl">
 
 <select id="selectTemplateList" resultType="TemplateDto">
-	SELECT TEMP_ID, TEMP_TITLE, TEMP_CONTENT, IMG_VALUE, TO_CHAR(TEMP_REGDATE, 'YYYY.MM.DD') TEMP_REGDATE 
+	SELECT TEMP_ID, TEMP_TITLE, TEMP_DELFLAG, TEMP_WRITENAME, TEMP_CONTENT, IMG_VALUE, TO_CHAR(TEMP_REGDATE, 'YYYY.MM.DD') TEMP_REGDATE 
 	FROM TEMPLATE t
+	WHERE TEMP_DELFLAG = 'N'
 </select>
 
 <insert id="writeTemplate" parameterType="TemplateDto">
-    INSERT INTO TEMPLATE (TEMP_ID, TEMP_TITLE, TEMP_CONTENT, TEMP_REGDATE, IMG_VALUE)
+    INSERT INTO TEMPLATE (TEMP_ID, TEMP_TITLE, TEMP_CONTENT, TEMP_REGDATE, IMG_VALUE, TEMP_WRITENAME, TEMP_DELFLAG)
     VALUES (temp_id_seq.NEXTVAL, 
             #{temp_title, jdbcType=VARCHAR},
-            #{temp_content, jdbcType=VARCHAR},
+            #{temp_content, jdbcType=CLOB},
             CURRENT_DATE,
-            #{img_value, jdbcType=VARCHAR})
-</insert>	
+            #{img_value, jdbcType=VARCHAR},
+            #{temp_writename, jdbcType=VARCHAR}, 'N')
+</insert>
 
+<delete id="deleteTemplate">
+	UPDATE TEMPLATE SET TEMP_DELFLAG ='Y'
+		WHERE TEMP_DELFLAG ='N'
+		AND TEMP_ID = #{temp_id, jdbcType=CHAR}
+</delete>
 
-
-
-<select id="getOneTemplate">
-	SELECT TEMP_CONTENT
-	FROM TEMPLATE
+<update id="modifyTemplate">
+	UPDATE TEMPLATE SET TEMP_TITLE = #{temp_title}, TEMP_CONTENT = #{temp_content}, IMG_VALUE = #{img_value}, TEMP_WRITENAME = #{temp_writename}
 	WHERE TEMP_ID = #{temp_id}
-</select>
+</update>
 
 </mapper>
