@@ -210,6 +210,11 @@ function addEvents() {
 	let startDateTime = new Date(start)
 	let endDateTime = new Date(end)
 	
+	//시간미설정시 
+	if(startDateTime=='' || endDateTime=='') {
+		alert('시간을 설정해주세요');
+	}
+	
 	console.log('Start', start);
 	console.log('End', end);
 	console.log('StartDateTime', startDateTime)

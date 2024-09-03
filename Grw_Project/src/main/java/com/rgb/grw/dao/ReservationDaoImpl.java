@@ -24,5 +24,29 @@ public class ReservationDaoImpl implements IReservationDao {
 		
 		return template.selectList(NS+"getBook",map);
 	}
+	
+	@Override
+	public List<ReservationDto> getAllBook(Map<String, Object> map) {
+		return template.selectList(NS+"getAllBook",map);
+	}
+	
+	@Override
+	public List<ReservationDto> getBookUser(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return template.selectList(NS+"getBookUser",map);
+	}
+	
+	//페이징
+	@Override
+	public int countBook(Map<String, Object> map) {
+
+		return template.selectOne(NS+"countBook",map);
+	}
+	
+	@Override
+	public int countBookUser(Map<String, Object> map) {
+
+		return template.selectOne(NS+"countBookUser",map);
+	}
 
 }
