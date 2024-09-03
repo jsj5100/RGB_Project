@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DeptDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.EmpDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
+import com.rgb.grw.dto.ReferrerDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 import com.rgb.grw.service.TemplatePreviewServiceImpl;
 
@@ -41,19 +43,36 @@ public class Approval_jhj_JUnitTest {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void test_insertDocument() {
-		
-		Map<String, Object> insertMap = new HashMap<String, Object>();
-		insertMap.put("temp_id", "D001");
-		insertMap.put("docfile_id", "D001");
-		insertMap.put("doc_regdate", "2024-10-01 00:00:00");
-		insertMap.put("doc_content", "ASDFASDF");
-		insertMap.put("doc_exp", "2024-10-01 00:00:00");
-		insertMap.put("sign_id", "ASDFASFD");
-		insertMap.put("doc_evton", "2024-10-01 00:00:00");
-		insertMap.put("doc_evtoff", "2024-10-01 00:00:00");
-		boolean n = templatePreviewServiceImpl.insertDocument(insertMap);
+		DocumentDto dto = new DocumentDto();
+		dto.setEmp_no("000000");
+		dto.setTemp_id("D001");
+		dto.setDoc_regdate("2024-10-01");
+		dto.setDoc_content("ASDFASDF");
+		dto.setDoc_exp("2024-10-01");
+		dto.setDoc_evton("2024-10-01");
+		dto.setDoc_evtoff("2024-10-01");
+		dto.setDoc_name("안녕하세요");
+		boolean n = templatePreviewServiceImpl.insertDocument(dto);
+		assertEquals(true, n);
+	}
+	
+//	@Test
+	public void test_insertApproval() {
+		ApproverDto dto = new ApproverDto();
+		dto.setEmp_no("000000");
+		dto.setDoc_no("1111");
+		boolean n = templatePreviewServiceImpl.insertApproval(dto);
+		assertEquals(true, n);
+	}
+	
+	@Test
+	public void test_insertReferrer() {
+		ReferrerDto dto = new ReferrerDto();
+		dto.setEmp_no("1111");
+		dto.setDoc_no("1111");
+		boolean n = templatePreviewServiceImpl.insertReference(dto);
 		assertEquals(true, n);
 	}
 }

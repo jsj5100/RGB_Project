@@ -19,6 +19,7 @@ public class DocumentDto {
 
 	private String doc_no;
 	private String emp_no;
+	private String doc_name;
 	private int sta_code;
 	private String temp_id;
 	private String docfile_id;

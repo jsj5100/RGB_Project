@@ -16,6 +16,8 @@
 	<typeAlias type="com.rgb.grw.dto.ReservationDto" alias="ReservationDto"/>
 	<typeAlias type="com.rgb.grw.dto.MyPageDto" alias="MyPageDto"/>
 	<typeAlias type="com.rgb.grw.dto.DocumentDto" alias="DocumentDto"/>
+	<typeAlias type="com.rgb.grw.dto.ApproverDto" alias="ApproverDto"/>
+	<typeAlias type="com.rgb.grw.dto.ReferrerDto" alias="ReferrerDto"/>
 </typeAliases>
 
 <mappers>

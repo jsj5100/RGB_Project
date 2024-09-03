@@ -28,7 +28,7 @@
 			class="app-container container-xxl">
 			<div class="card">
 				<div class="card-body">
-					<form action="./" method="post">
+					<form action="./documentBox.do" method="post">
 						<div>
 							<table>
 								<tr>
@@ -39,19 +39,23 @@
 								</tr>
 								<tr>
 									<td class="border-td text-center">제목</td>
-									<td class="border-td" colspan="3"><input type="text" name="title"
+									<td class="border-td" colspan="3"><input type="text" name="doc_name"
 										placeholder="제목을 입력해주세요"></td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">결재라인 지정</td>
-									<td class="border-td" colspan="3"><input id="approvalLine-value"  type="text" name="approvalLine"
+									<td class="border-td" colspan="3"><input id="approvalLine-value"  type="text"
 										readonly="readonly" data-bs-toggle="modal"
-										data-bs-target="#approvalLineBtn" placeholder="결재라인을 지정해주세요"></td>
+										data-bs-target="#approvalLineBtn" placeholder="결재라인을 지정해주세요">
+										<input type="hidden" name="approvalLine" id="approvalLine-id">
+										</td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">참조자</td>
-									<td class="border-td" colspan="3"><input id="ccLine-value" type="text" name="ccLine" placeholder="결재라인에서 참조자를 지정해주세요"
-										readonly="readonly"></td>
+									<td class="border-td" colspan="3"><input id="ccLine-value" type="text" placeholder="결재라인에서 참조자를 지정해주세요"
+										readonly="readonly">
+										<input type="hidden" id="ccLine-id" name="ccLine">
+									</td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">결재유형</td>
@@ -60,10 +64,16 @@
 								</tr>
 								<tr>
 									<td class="border-td text-center">기안일</td>
-									<td class="border-td"><input type="text" name="regDate"
+									<td class="border-td"><input type="text" name="doc_regdate"
 										readonly="readonly" id=currentYear></td>
 									<td class="border-td text-center">마감기한 설정</td>
-									<td class="border-td"><input id="choiceDeadline" type="text" name="expDate"></td>
+									<td class="border-td"><input id="choiceDeadline" type="text" name="doc_exp"></td>
+								</tr>
+								<tr>
+									<td class="border-td text-center">이벤트 시작일</td>
+									<td class="border-td"><input id="startEvent" type="text" name="doc_evton"></td>
+									<td class="border-td text-center">이벤트 마감일</td>
+									<td class="border-td"><input id="endEvent" type="text" name="doc_evtoff"></td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">파일 첨부</td>
@@ -71,8 +81,8 @@
 									</td>
 								</tr>
 							</table>
-							<textarea id="editor" name="editor"></textarea>
-
+							<input type="hidden" id="temp-id" name="tempId">
+							<textarea id="editor" name="doc_content"></textarea>
 							<div class="form-actions">
 								<input type="submit" value="작성하기" class="btn btn-primary">
 								<input type="button" value="임시저장" class="btn btn-primary">
@@ -193,6 +203,10 @@
 														<%=loginDto.getTier_name()%>
 													</td>
 													<td class="approval-td-body">1</td>
+													<td class="approval-td-body" style="display: none;">
+														<%=loginDto.getEmp_no()%>
+													</td>
+												
 												</tr>
 												
 											</table>
@@ -256,6 +270,24 @@ $("#choiceDeadline").flatpickr({
 	  onChange: function(selectedDates, dateStr, instance) {
 	  	selectedStartDate1 = dateStr
 	  	console.log('선택한 마감 날짜: ', dateStr);
+	  }
+	 });
+
+$("#startEvent").flatpickr({
+	  dateFormat: "Y-m-d",
+	  minDate: formattedToday,
+	  onChange: function(selectedDates, dateStr, instance) {
+	  	selectedStartDate1 = dateStr
+	  	console.log('선택한 이벤트 시작 날짜: ', dateStr);
+	  }
+	 });
+	 
+$("#endEvent").flatpickr({
+	  dateFormat: "Y-m-d",
+	  minDate: formattedToday,
+	  onChange: function(selectedDates, dateStr, instance) {
+	  	selectedStartDate1 = dateStr
+	  	console.log('선택한 이벤트 마감 날짜: ', dateStr);
 	  }
 	 });
 	

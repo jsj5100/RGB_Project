@@ -30,17 +30,29 @@
 		JOIN DEP d ON e.DEP_NO = d.DEP_NO
 	</select>
 	
-	<insert id="insertDocument" parameterType="com.rgb.grw.dto.DocumentDto" >
+	<insert id="insertDocument" parameterType="DocumentDto" >
 		INSERT INTO RGB.DOCUMENT
 		    (DOC_NO, EMP_NO, STA_CODE, 
-		     TEMP_ID, DOCFILE_ID, DOC_REGDATE, 
-		     DOC_CONTENT, DOC_EXP, DOC_DELFLAG,
-		     SIGN_ID, DOC_EVTON, DOC_EVTOFF)
+		     TEMP_ID, DOC_REGDATE, DOC_CONTENT,
+		     DOC_EXP, DOC_DELFLAG, DOC_EVTON, 
+		     DOC_EVTOFF, DOC_NAME)
 		VALUES (
-		    'D' || TO_CHAR(doc_no_seq.NEXTVAL, 'FM000'), #{emp_no}, 1, 
-		    #{temp_id}, #{docfile_id}, #{doc_regdate}, 
-		    #{doc_content}, #{doc_exp}, 'N', 
-		    #{sign_id}, #{doc_evton}, #{doc_evtoff}
-);
+		    'D' || LPAD(TO_CHAR(DOC_NO_SEQ.NEXTVAL), 3, '0'), #{emp_no}, 1,
+		    #{temp_id}, TO_TIMESTAMP(#{doc_regdate}, 'YYYY-MM-DD'), #{doc_content},  
+		    TO_TIMESTAMP(#{doc_exp}, 'YYYY-MM-DD'), 'N',  TO_TIMESTAMP(#{doc_evton}, 'YYYY-MM-DD'),
+		    TO_TIMESTAMP(#{doc_evtoff}, 'YYYY-MM-DD'), #{doc_name}
+		)
+	</insert>
+	
+	<insert id="insertApproval" parameterType="ApproverDto">
+		INSERT INTO RGB.APPROVER
+			(EMP_NO, APP_PROCEDURE)
+			VALUES(#{emp_no}, 1)
+	</insert>
+	
+	<insert id="insertReference" parameterType="ReferrerDto">
+		INSERT INTO RGB.REFERRER
+			(EMP_NO, REFFER_AUTH)
+			VALUES(#{emp_no}, 'Y')
 	</insert>
 </mapper>

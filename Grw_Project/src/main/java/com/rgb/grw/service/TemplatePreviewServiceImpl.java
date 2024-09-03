@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rgb.grw.dao.TemplatePreviewDaoImpl;
+import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DeptDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.EmpDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
+import com.rgb.grw.dto.ReferrerDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 
 import lombok.RequiredArgsConstructor;
@@ -35,8 +37,18 @@ public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
 	}
 
 	@Override
-	public boolean insertDocument(Map<String, Object> map) {
-		return previewDaoImpl.insertDocument(map);
+	public boolean insertDocument(DocumentDto dto) {
+		return previewDaoImpl.insertDocument(dto);
+	}
+
+	@Override
+	public boolean insertApproval(ApproverDto dto) {
+		return previewDaoImpl.insertApproval(dto);
+	}
+
+	@Override
+	public boolean insertReference(ReferrerDto dto) {
+		return previewDaoImpl.insertReference(dto);
 	}
 
 	
