@@ -50,6 +50,15 @@
 							<!--end::Search-->
 						</div>
 						<!--begin::Card title-->
+						
+						
+						
+					
+						
+						
+						
+						
+						
 						<!--begin::Card toolbar-->
 						<div class="card-toolbar">
 							<!--begin::Toolbar-->
@@ -83,116 +92,13 @@
 							<div class="d-flex justify-content-end align-items-center d-none"
 								data-kt-user-table-toolbar="selected">
 								<div class="fw-bold me-5">
-									<span class="me-2" data-kt-user-table-select="selected_count"></span>선택
+									<span class="me-2" data-kt-user-table-select="selected_count">
+									</span>선택
 								</div>
 								<button type="button" class="btn btn-danger"
 									data-kt-user-table-select="delete_selected">선택삭제</button>
 							</div>
-							<!--end::Group actions-->
-
-							<!--begin::Modal - Adjust Balance-->
-<!-- 							<div class="modal fade" id="kt_modal_export_users" tabindex="-1" -->
-<!-- 								aria-hidden="true"> -->
-<!-- 								begin::Modal dialog -->
-<!-- 								<div class="modal-dialog modal-dialog-centered mw-650px"> -->
-<!-- 									begin::Modal content -->
-<!-- 									<div class="modal-content"> -->
-<!-- 										begin::Modal header -->
-<!-- 										<div class="modal-header"> -->
-<!-- 											begin::Modal title -->
-<!-- 											<h2 class="fw-bold">Export Users</h2> -->
-<!-- 											end::Modal title -->
-<!-- 											begin::Close -->
-<!-- 											<div class="btn btn-icon btn-sm btn-active-icon-primary" -->
-<!-- 												data-kt-users-modal-action="close"> -->
-<!-- 												<i class="ki-duotone ki-cross fs-1"> <span class="path1"></span> -->
-<!-- 													<span class="path2"></span> -->
-<!-- 												</i> -->
-<!-- 											</div> -->
-<!-- 											end::Close -->
-<!-- 										</div> -->
-<!-- 										end::Modal header -->
-<!-- 										begin::Modal body -->
-<!-- 										<div class="modal-body scroll-y mx-5 mx-xl-15 my-7"> -->
-<!-- 											begin::Form -->
-<!-- 											<form id="kt_modal_export_users_form" -->
-<!-- 												class="form fv-plugins-bootstrap5 fv-plugins-framework" -->
-<!-- 												action="#"> -->
-<!-- 												begin::Input group -->
-<!-- 												<div class="fv-row mb-10"> -->
-<!-- 													begin::Label -->
-<!-- 													<label class="fs-6 fw-semibold form-label mb-2">Select -->
-<!-- 														Roles:</label> -->
-<!-- 													end::Label -->
-<!-- 													begin::Input -->
-<!-- 													<select name="role" data-control="select2" -->
-<!-- 														data-placeholder="Select a role" data-hide-search="true" -->
-<!-- 														class="form-select form-select-solid fw-bold select2-hidden-accessible" -->
-<!-- 														data-select2-id="select2-data-13-v9w3" tabindex="-1" -->
-<!-- 														aria-hidden="true" data-kt-initialized="1"> -->
-<!-- 														<option data-select2-id="select2-data-15-6pch"></option> -->
-<!-- 														<option value="Administrator">Administrator</option> -->
-<!-- 														<option value="Analyst">Analyst</option> -->
-<!-- 														<option value="Developer">Developer</option> -->
-<!-- 														<option value="Support">Support</option> -->
-<!-- 														<option value="Trial">Trial</option> -->
-<!-- 													</select><span -->
-<!-- 														class="select2 select2-container select2-container--bootstrap5" -->
-<!-- 														dir="ltr" data-select2-id="select2-data-14-hmzv" -->
-<!-- 														style="width: 100%;"><span class="selection"><span -->
-<!-- 															class="select2-selection select2-selection--single form-select form-select-solid fw-bold" -->
-<!-- 															role="combobox" aria-haspopup="true" -->
-<!-- 															aria-expanded="false" tabindex="0" aria-disabled="false" -->
-<!-- 															aria-labelledby="select2-role-g6-container" -->
-<!-- 															aria-controls="select2-role-g6-container"><span -->
-<!-- 																class="select2-selection__rendered" -->
-<!-- 																id="select2-role-g6-container" role="textbox" -->
-<!-- 																aria-readonly="true" title="Select a role"><span -->
-<!-- 																	class="select2-selection__placeholder">Select a -->
-<!-- 																		role</span></span><span class="select2-selection__arrow" -->
-<!-- 																role="presentation"><b role="presentation"></b></span></span></span><span -->
-<!-- 														class="dropdown-wrapper" aria-hidden="true"></span></span> -->
-<!-- 													end::Input -->
-<!-- 												</div> -->
-<!-- 												end::Input group -->
-<!-- 												begin::Input group -->
-<!-- 												<div class="fv-row mb-10 fv-plugins-icon-container"> -->
-<!-- 													begin::Label -->
-<!-- 													<label class="required fs-6 fw-semibold form-label mb-2">Select -->
-<!-- 														Export Format:</label> -->
-<!-- 													end::Label -->
-<!-- 													begin::Input -->
-<!-- 																									<select name="format" data-control="select2" data-placeholder="Select a format" data-hide-search="true" class="form-select form-select-solid fw-bold select2-hidden-accessible" data-select2-id="select2-data-16-59xh" tabindex="-1" aria-hidden="true" data-kt-initialized="1"> -->
-<!-- 																										<option data-select2-id="select2-data-18-icax"></option> -->
-<!-- 																										<option value="excel">Excel</option> -->
-<!-- 																										<option value="pdf">PDF</option> -->
-<!-- 																										<option value="cvs">CVS</option> -->
-<!-- 																										<option value="zip">ZIP</option> -->
-<!-- 																									</select><span class="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-17-a4yv" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single form-select form-select-solid fw-bold" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-format-qa-container" aria-controls="select2-format-qa-container"><span class="select2-selection__rendered" id="select2-format-qa-container" role="textbox" aria-readonly="true" title="Select a format"><span class="select2-selection__placeholder">Select a format</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> -->
-<!-- 													end::Input -->
-<!-- 													<div -->
-<!-- 														class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div> -->
-<!-- 												</div> -->
-<!-- 												<div class="text-center"> -->
-<!-- 													<button type="reset" class="btn btn-light me-3" -->
-<!-- 														data-kt-users-modal-action="cancel">등록취소</button> -->
-<!-- 													<button type="submit" class="btn btn-primary" -->
-<!-- 														data-kt-users-modal-action="submit"> -->
-<!-- 														<span class="indicator-label">등록하기</span> <span -->
-<!-- 															class="indicator-progress">등록중... </span> <span -->
-<!-- 															class="spinner-border spinner-border-sm align-middle ms-2"></span> -->
-<!-- 													</button> -->
-<!-- 												</div> -->
-<!-- 											</form> -->
-<!-- 											end::Form -->
-<!-- 										</div> -->
-<!-- 										end::Modal body -->
-<!-- 									</div> -->
-<!-- 									end::Modal content -->
-<!-- 								</div> -->
-<!-- 								end::Modal dialog -->
-<!-- 							</div> -->
-<!-- 							end::Modal - New Card -->
+							
 							
 							
 							
@@ -474,6 +380,7 @@
 													<!-- 													data-kt-users-modal-action="cancel">취소하기</button> -->
 													<button type="button" id="kt_modal_add_event_cancel"
 														class="btn btn-light me-3" data-bs-dismiss="modal">취소하기</button>
+													
 													<button type="submit" class="btn btn-primary"
 														data-kt-users-modal-action="submit"
 														data-bs-dismiss="modal">
@@ -482,6 +389,8 @@
 															class="spinner-border spinner-border-sm align-middle ms-2">
 														</span></span>
 													</button>
+													
+													
 												</div>
 												<!--end::Actions-->
 											</form>
@@ -623,34 +532,7 @@
 									</tbody>
 								</table>
 							</div>
-							<!-- 						<div class="row"> -->
-							<!-- 							<div -->
-							<!-- 								class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"></div> -->
-							<!-- 							<div -->
-							<!-- 								class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"> -->
-							<!-- 								<div class="dataTables_paginate paging_simple_numbers" -->
-							<!-- 									id="kt_table_users_paginate"> -->
-							<!-- 									<ul class="pagination"> -->
-							<!-- 										<li class="paginate_button page-item previous disabled" -->
-							<!-- 											id="kt_table_users_previous"><a href="#" -->
-							<!-- 											class="page-link"><i class="previous"></i></a></li> -->
-							<!-- 										<li class="paginate_button page-item active"><a href="#" -->
-							<!-- 											aria-controls="kt_table_users" data-dt-idx="1" tabindex="0" -->
-							<!-- 											class="page-link">1</a></li> -->
-							<!-- 										<li class="paginate_button page-item "><a href="#" -->
-							<!-- 											aria-controls="kt_table_users" data-dt-idx="2" tabindex="0" -->
-							<!-- 											class="page-link">2</a></li> -->
-							<!-- 										<li class="paginate_button page-item "><a href="#" -->
-							<!-- 											aria-controls="kt_table_users" data-dt-idx="3" tabindex="0" -->
-							<!-- 											class="page-link">3</a></li> -->
-							<!-- 										<li class="paginate_button page-item next" -->
-							<!-- 											id="kt_table_users_next"><a href="#" -->
-							<!-- 											aria-controls="kt_table_users" data-dt-idx="4" tabindex="0" -->
-							<!-- 											class="page-link"><i class="next"></i></a></li> -->
-							<!-- 									</ul> -->
-							<!-- 								</div> -->
-							<!-- 							</div> -->
-							<!-- 						</div> -->
+							
 						</div>
 						<!--end::Table-->
 					</div>
@@ -760,8 +642,6 @@
 <script src="./assets/js/custom/utilities/modals/users-search.js"></script>
 <!--end::Custom Javascript-->
 <!--end::Javascript-->
-
-
 
 
 
@@ -905,8 +785,29 @@
 
 
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        function regEmp() {
+            // 폼 데이터 수집
+            const form = document.getElementById('employeeForm');
+            const formData = new FormData(form);
 
-
+            // POST 요청 보내기
+            fetch('/your-server-endpoint', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 성공적으로 처리된 후의 작업
+                console.log('Success:', data);
+                // 모달 닫기 등의 추가 작업
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 
 
 

@@ -88,7 +88,7 @@
 							<span class="me-2" data-kt-user-table-select="selected_count"></span>선택됨
 						</div>
 						<button type="button" class="btn btn-danger"
-							data-kt-user-table-select="delete_selected">선택삭제</button>
+							data-kt-user-table-select="delete_selected" >선택삭제</button>
 					</div>
 					<!--end::Group actions-->
 					<!--begin::Modal - Adjust Balance-->

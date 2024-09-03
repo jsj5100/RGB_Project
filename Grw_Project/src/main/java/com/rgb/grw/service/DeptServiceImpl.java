@@ -15,12 +15,18 @@ public class DeptServiceImpl implements IDeptService {
 	private IDeptDao dao;
 	
 	@Override
-	public List<DeptDto> DeptList() {
-		return dao.DeptList();
+	public List<DeptDto> deptList() {
+		return dao.deptList();
 	}
 	
 	@Override
 	public int insertDept(DeptDto dto) {
 		return dao.insertDept(dto);
 	}
+	
+	@Override
+	public List<DeptDto> deptEdit() {
+		return dao.deptEdit();
+	}
+	
 }
