@@ -22,5 +22,28 @@ public class ReservationServiceImpl implements IReservationService {
 		
 		return dao.getBook(map);
 	}
+	
+	@Override
+	public List<ReservationDto> getAllBook(Map<String, Object> map) {
 
+		return dao.getAllBook(map);
+	}
+	
+	@Override
+	public List<ReservationDto> getBookUser(Map<String, Object> map) {
+		
+		return dao.getBookUser(map);
+	}
+	
+	@Override
+	public int countBook(Map<String, Object> map) {
+		
+		return dao.countBook(map);
+	}
+	
+	@Override
+	public int countBookUser(Map<String, Object> map) {
+	
+		return dao.countBookUser(map);
+	}
 }

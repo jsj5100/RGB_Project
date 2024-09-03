@@ -11,16 +11,48 @@
 		  		WHERE BK_STDAY BETWEEN #{startDate} AND #{endDate}
 		  		OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate}
 		  )
+	WHERE RN BETWEEN #{first} AND #{last}
 <!-- 		 AND BK_STATE = #{bk_state}  -->
-<!-- 	WHERE RN BETWEEN #{st_index} AND #{end_index} -->
-<!-- 	AND BK_EMPNO = #{bk_empno} -->
 	</select>
 	
-<!-- 	<select id="getAllBook" resultType="ReservationDto"> -->
-<!-- 		SELECT * -->
-<!-- 		FROM RESERVATION r -->
-<!-- 		WHERE BK_STDAY BETWEEN #{startDate} AND #{endDate} -->
-<!-- 		OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate} -->
-<!-- 		ORDER BY BK_REGDATE -->
-<!-- 	</select> -->
+	<select id="getBookUser" resultType="ReservationDto">
+	SELECT *
+		 FROM (			
+		  		SELECT r.*, AUTH_NO, ROW_NUMBER () OVER(ORDER BY BK_STDAY) RN
+				FROM RESERVATION r JOIN EMP e 
+				ON r.BK_EMPNO = e.EMP_NO 
+		  		WHERE BK_STDAY BETWEEN #{startDate} AND #{endDate}
+		  		OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate}
+		  )
+	WHERE RN BETWEEN #{first} AND #{last}
+	AND BK_EMPNO = #{bk_empno}
+<!-- 		 AND BK_STATE = #{bk_state}  -->
+	</select>
+	
+	<select id="getAllBook" parameterType="java.util.Map" resultType="ReservationDto">
+		SELECT *
+		FROM RESERVATION r
+		WHERE (BK_STDAY BETWEEN #{startDate} AND #{endDate})
+		OR BK_EDDAY BETWEEN #{startDate} AND #{endDate}
+	</select>
+	
+	<select id="countBook" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM RESERVATION
+		WHERE BK_STDAY BETWEEN #{startDate} AND #{endDate}
+		OR BK_EDDAY BETWEEN #{startDate} AND #{endDate}
+	</select>
+	
+	<select id="countBookUser" resultType="java.lang.Integer">
+	
+		SELECT COUNT(*)
+		FROM RESERVATION
+		WHERE (BK_STDAY BETWEEN #{startDate} AND #{endDate}
+				OR BK_EDDAY BETWEEN #{startDate} AND #{endDate})
+		AND BK_EMPNO = #{bk_empno}
+		
+	</select>
+	
+	
+
 </mapper>

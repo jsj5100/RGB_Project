@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if(fcList){
 			data.forEach(item => {
 				let div = document.createElement('div');
-//				console.log(fcList)
+				console.log(fcList)
 				div.textContent = item.fc_name;
 //				fcList.append(div);
 
@@ -32,11 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
 let dayarry =[]; //날짜 저장
 let dayname=[]; //요일명 저장
+let currentPage=1;
+let sessionAuth=null;
+let sessionEmp = null;
 
 //당일~12일후 까지 13일간의 기간 테이블
 document.addEventListener('DOMContentLoaded', function() {
 	
-	//조회 날짜 범위 계산하기 오늘을 기점으로 앞으로 9일간의 기간
+	//조회 날짜 범위 계산하기 오늘을 기점으로 앞으로 13일간의 기간
 
 	//현재날짜
 	let today = new Date() 
@@ -102,14 +105,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	
 })
-
 //전체 일정 조회
 document.addEventListener('DOMContentLoaded', function() {
 	
 	//현재날짜
 	let today = new Date() 
 		
-	//9일후의 날짜
+	//12일후의 날짜
 	let endday = new Date();
 	endday.setDate(today.getDate()+12);
 
@@ -117,111 +119,44 @@ document.addEventListener('DOMContentLoaded', function() {
 	let startDate = today.toISOString().split('T')[0];
 	let endDate = endday.toISOString().split('T')[0];
 
-	console.log(startDate, endDate);
-	fetch('./booklist/facility.do?'+ new URLSearchParams({
+//	console.log(startDate, endDate);
+	fetch('./bookalllist/facility.do?'+ new URLSearchParams({
 		startDate: startDate,
 		endDate:endDate
 	}))
-	.then(response=>response.json())
+	.then(response=> {
+		if (!response.ok) {
+        throw new Error('Network response was not ok');
+    	}
+    	return response.json(); 
+	})
 	.then(data=>{
 		
 		data.forEach(item => {
 			
 			createContents(item);
-			reservation(item);
 //			console.log('item',item);
+			
 		});
 		
-		//처음 로드 될때 당일 예약일정 보여주기
-		let firstTab = document.querySelector('#reservation_day_container .nav-link');
-   			if (firstTab) {
-        		firstTab.classList.add('active');
-       			let firstPane = document.querySelector(`#kt_schedule_day_0`);
-        		if (firstPane) {
-            		firstPane.classList.add('active');
-        	}
-   		}
-		
+//		//처음 로드 될때 당일 예약일정 보여주기
+//		let firstTab = document.querySelector('#reservation_day_container .nav-link');
+//   			if (firstTab) {
+//        		firstTab.classList.add('active');
+//       			let firstPane = document.querySelector(`#kt_schedule_day_0`);
+//        		if (firstPane) {
+//            		firstPane.classList.add('active');
+//        	}
+//   		}
 	})
 	.catch(error=> {
 		console.error('Error', error);
 	})
 });
 
-//예약 일정 콘텐츠 영역
-//function createContents(item, index) {
-//	
-//	for(i=0; i<dayarry.length; i++){
-//		
-//		let contentContainer = document.getElementById('reservation_content-container');
-//		let parentdiv = document.createElement('div'); //제일 최상위박스
-//		let bookcontainer = document.createElement('div'); //일정 박스 컨테이너 일정 수만큼 반복
-//		let sidebardiv = document.createElement('div'); //옆에그려진 작대기
-//		let infodiv = document.createElement('div'); //일정 정보영역
-//		let aview  = document.createElement('a'); //view 모달 열어서 정보 자세히보기 창
-//		
-//		//infodiv 하위
-//		let timediv = document.createElement('div'); //시간표기
-//		let spantitle = document.createElement('span'); //원래 a태그였는데 변경함
-//		let divname = document.createElement('div'); //예약자명
-//	
-//		
-//		//시간형식 변환
-//		let startDay = item.bk_stday.slice(5,10).replace('-', '/');
-//		let startTime = item.bk_stday.split('T')[1].slice(0, 5);
-//		let endDay = item.bk_edday.slice(5,10).replace('-', '/');
-//		let endTime = item.bk_edday.split('T')[1].slice(0, 5);
-//		
-////		console.log(startDay);
-////		console.log(startTime);
-//	
-//		if(new Date(item.bk_stday).getDate()==dayarry[i] || new Date(item.bk_edday).getDate()==dayarry[i]){
-//			
-//			//시간 박스
-//			timediv.classList.add('fs-7','mb-1');
-//			//가져온 item.bk_stday 변환하기
-//			timediv.textContent=startDay+' '+ startTime + ' ~ '+endDay + ' ' + endTime;
-////			console.log(startDay+' '+ startTime + ' ~ '+endDay + ' ' + endTime);
-//			
-//			//title 작성되는곳
-//			spantitle.classList.add('fs-5','fw-bold','text-gray-900','text-hover-primary','mb-2');
-//			spantitle.textContent=item.bk_title;
-//			
-//			//예약자작성
-//			divname.classList.add('fs-7','text-muted');
-//			divname.textContent=item.bk_name;
-//			
-//			//일정정보있는 감싸는 상위태그
-//			infodiv.classList.add('fw-semibold','ms-5');
-//			
-//			//사이드바
-//			sidebardiv.classList.add('position-absolute','h-100','w-4px','bg-secondary','rounded','top-0','start-0');
-//			
-//			//view
-//			aview.classList.add('btn','btn-light','bnt-active-light-primary','btn-sm');
-//			aview.textContent='View';
-//			
-//			//클래스추가
-//			bookcontainer.classList.add('d-flex','flex-stack','position-relative','mt-6');
-//			
-//			//일정전체컨테이너
-//			parentdiv.classList.add('tab-pane','fade','show');
-//			parentdiv.setAttribute('id',`kt_schedule_day_${i}`);
-//			
-//			//조립하기
-//			infodiv.append(timediv, spantitle, divname);
-//			bookcontainer.append(sidebardiv,infodiv,aview);
-//			parentdiv.appendChild(bookcontainer);
-//			contentContainer.appendChild(parentdiv);
-//			
-//		}
-//		
-//	}
-//	
-//}
-
 //자산예약현황 날짜별 일정 콘텐츠 영역
-function createContents(item, index) {
+function createContents(item) {
+//	 console.log('Creating content for item:', item);
     for (let i = 0; i < dayarry.length; i++) {
         let contentContainer = document.getElementById('reservation_content-container');
         let parentdiv = document.getElementById(`kt_schedule_day_${i}`);
@@ -307,8 +242,8 @@ function createContents(item, index) {
     }
 }
 
-
-//신청현황 조회(처음 로드되었을때 전체 신청내역조회)
+//신청현황 조회되는 컨테이너 박스 그리기
+//관리자는 반려까지 전부 확인 가능 / 사용자는 반려를 제외한 나머지 항목만 사용가능
 function reservation (book) {
 	console.log(book);
 	
@@ -338,8 +273,62 @@ function reservation (book) {
 		console.log(book);
 			contentContainer.appendChild(bookcontainer);
 
-			let usageTime = document.createElement('div');
+            // 시간 표시
+            timediv.classList.add('fs-7', 'mb-1');
+            timediv.innerHTML = `${startDay} ${startTime} - ${endDay} ${endTime}`;
+           	requestTime.innerHTML = `신청시간 : ${regday} ${regTime}`
 
+            // 제목 링크
+            titlelink.href = "#";
+            titlelink.classList.add('fs-5', 'fw-bold', 'text-gray-900', 'text-hover-primary', 'mb-2');
+            titlelink.textContent = book.bk_title;
+
+            // 예약자 정보
+            divname.classList.add('fs-7', 'text-muted');
+            divname.innerHTML = `신청자 : ${book.bk_name}</a>`;
+
+            // 사이드바
+            sidebardiv.classList.add('position-absolute', 'h-100', 'w-4px', 'bg-secondary', 'rounded', 'top-0', 'start-0');
+
+            // 보기 버튼
+            aview.href = "#";
+            aview.classList.add('btn', 'btn-light', 'bnt-active-light-primary', 'btn-sm');
+            aview.textContent = 'View';
+            
+            //상태 뱃지
+//            <div class="badge badge-light-success">Completed</div>
+			if (book.bk_state == 'S') {
+				statediv.classList.add('badge','badge-light-primary');
+				statediv.textContent = '대기';
+			} else if(book.bk_state == 'C') { 
+				statediv.classList.add('badge','badge-light-warning');
+				statediv.textContent = '취소';
+			} else {
+				statediv.classList.add('badge','badge-light-danger');
+				statediv.textContent = '반려';
+			}
+			
+			//시간
+			timediv.appendChild(requestTime);
+
+            // 일정 정보 박스
+            infodiv.classList.add('fw-semibold', 'ms-5');
+            infodiv.appendChild(timediv);
+            infodiv.appendChild(titlelink);
+            infodiv.appendChild(divname);
+
+            // 일정 컨테이너
+            bookcontainer.classList.add('d-flex', 'flex-stack', 'position-relative', 'mt-6');
+            bookcontainer.appendChild(sidebardiv);
+            bookcontainer.appendChild(infodiv);
+            bookcontainer.appendChild(requestTime);
+            bookcontainer.appendChild(statediv);
+            bookcontainer.appendChild(aview);
+            
+		
+	} else { //사용자의 신청현황
+		if(book.sessionEmp == book.bk_empno) {
+			contentContainer.appendChild(bookcontainer);
 
             // 시간 표시
             timediv.classList.add('fs-7', 'mb-1');
@@ -365,10 +354,7 @@ function reservation (book) {
             
             //상태 뱃지
 //            <div class="badge badge-light-success">Completed</div>
-			if(book.bk_state == 'Y') {
-				statediv.classList.add('badge','badge-light-success');
-				statediv.textContent = '승인';
-			} else if (book.bk_state == 'S') {
+			if (book.bk_state == 'S') {
 				statediv.classList.add('badge','badge-light-primary');
 				statediv.textContent = '대기';
 			} else if(book.bk_state == 'C') { 
@@ -380,7 +366,6 @@ function reservation (book) {
 			}
 			
 			//시간
-			timediv.appendChild(usageTime);
 			timediv.appendChild(requestTime);
 
             // 일정 정보 박스
@@ -396,13 +381,104 @@ function reservation (book) {
             bookcontainer.appendChild(requestTime);
             bookcontainer.appendChild(statediv);
             bookcontainer.appendChild(aview);
-            
-		
-	} else { //사용자의 신청현황
-		if(book.sessionEmp == book.bk_empno) {
-			
 		} 
 	}
 }
-	
-	
+
+//페이징 리스트(관리자/사용자)
+document.addEventListener('DOMContentLoaded', function() {
+    let today = new Date();
+    let endday = new Date();
+    endday.setDate(today.getDate() + 12);
+
+    let startDate = today.toISOString().split('T')[0];
+    let endDate = endday.toISOString().split('T')[0];
+	console.log('startDate',startDate)
+    function fetchPage(page) {
+        clearContents(); // 페이지 콘텐츠 초기화
+        
+        fetch('./booklist/facility.do?' + new URLSearchParams({
+            startDate: startDate,
+            endDate: endDate,
+            page: page
+        }))
+        .then(response => {
+			console.log('222')
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Fetched data:', data); // 데이터 확인
+
+            if (data.content && Array.isArray(data.content)) {
+                data.content.forEach(item => {
+                    console.log('Processing item:', item); // 각 항목 확인
+                    reservation(item);
+                });
+            } else {
+                console.error('Invalid data format:', data);
+            }
+             updatePagination(data.totalPage, page);
+		
+        })
+        .catch(error => {
+            console.error('Error', error);
+        });
+    }
+
+    function clearContents() {
+        document.getElementById('reservation_state_all').innerHTML = '';
+    }
+
+    function updatePagination(totalPages, currentPage) {
+        const paginationContainer = document.querySelector('.pagination');
+        paginationContainer.innerHTML = ''; // 기존 페이지네이션 초기화
+
+        // 이전 페이지 버튼
+        const prevButton = document.createElement('li');
+        prevButton.className = 'page-item previous';
+        prevButton.innerHTML = '<a href="#" class="page-link"><i class="previous"></i></a>';
+        prevButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (currentPage > 1) {
+                fetchPage(currentPage - 1);
+            }
+        });
+        paginationContainer.appendChild(prevButton);
+
+        // 페이지 번호 버튼
+        for (let i = 1; i <= totalPages; i++) {
+            const pageItem = document.createElement('li');
+            pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
+            pageItem.innerHTML = `<a href="#" class="page-link">${i}</a>`;
+            pageItem.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (i !== currentPage) {
+                    fetchPage(i);
+                }
+            });
+            paginationContainer.appendChild(pageItem);
+        }
+
+        // 다음 페이지 버튼
+        const nextButton = document.createElement('li');
+        nextButton.className = 'page-item next';
+        nextButton.innerHTML = '<a href="#" class="page-link"><i class="next"></i></a>';
+        nextButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (currentPage < totalPages) {
+                fetchPage(currentPage + 1);
+            }
+        });
+        paginationContainer.appendChild(nextButton);
+    }
+
+    fetchPage(currentPage); // 초기 페이지 로드
+});
+
+
+
+
+
