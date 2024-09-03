@@ -28,7 +28,12 @@ public class TemplateServiceImpl implements ITemplateService {
 	}
 	
 	@Override
-	public TemplateDto getOneTemplate(String temp_id) {
-		return templateDaoImpl.getOneTemplate(temp_id);
+	public int deleteTemplate(String temp_id) {
+		return templateDaoImpl.deleteTemplate(temp_id);
+	}
+	
+	@Override
+	public int modifyTemplate(TemplateDto dto) {
+		return templateDaoImpl.modifyTemplate(dto);
 	}
 }

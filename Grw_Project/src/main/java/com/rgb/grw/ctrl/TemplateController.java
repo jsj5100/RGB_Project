@@ -1,10 +1,14 @@
 	package com.rgb.grw.ctrl;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rgb.grw.dto.TemplateDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
+import com.rgb.grw.dto.UserInfoDto;
 import com.rgb.grw.service.TemplateServiceImpl;
 
 @Controller
@@ -27,31 +32,64 @@ public class TemplateController {
 	private TemplateServiceImpl templateServiceImpl;
 	
 	@GetMapping(value = "/templateList.do")
-	public String TemplateList(Model model) {
+	public String TemplateList(Model model, HttpServletRequest request) {
 		List<TemplateDto> lists = templateServiceImpl.selectTemplateList();
 		model.addAttribute("lists", lists);	
 		return "templateList";
 	}
 	
-	public String selectOneTemplate(String temp_id) {
-		
-		return "";
-	}
-	
 	@GetMapping(value = "/writeTemplate.do")
-	public String WriteTemplate(Model model) {
+	public String WriteTemplate(Model model, HttpServletRequest request) {
 		Date date = new Date();
 		SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy.MM.dd");
 		String strDate = simpleDate.format(date);
 		model.addAttribute("strDate", strDate);
+		
+		HttpSession session = request.getSession();
+		UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
+		String writeName = loginDto.getEmp_name();
+		model.addAttribute("writeName", writeName);
 		return "writeTemplate";
 	}
 	
 	@PostMapping("/uploadTemplate.do")
-	public String handleFormSubmit() {
-	    templateServiceImpl.writeTemplate();
-	    return "redirect:/templateList";
+	public String handleFormSubmit(@RequestParam("temp_title") String title,
+									@RequestParam("temp_content") String content,
+									@RequestParam("img_value") String img_value,
+									@RequestParam("temp_writename") String temp_writeName, TemplateDto dto, Model model) {
+		int n = templateServiceImpl.writeTemplate(dto);
+		System.out.println("temp_title : "+title);
+		System.out.println("temp_content : "+content);
+		System.out.println("img_value : "+img_value);
+		model.addAttribute("temp_writeName", temp_writeName);
+	    return (n>0)?"redirect:/templateList.do":"redirect:/writeTemplate.do";
 	}
+
+	@PostMapping("/deleteTemplate.do")
+	public String deleteTemplate(@RequestParam("temp_id") String id, HttpServletResponse response) throws IOException {
+	    response.setContentType("text/html; charset=utf-8");
+		PrintWriter alert = response.getWriter();
+		int n = templateServiceImpl.deleteTemplate(id);
+	    if (n == 1) {
+	    	alert.println("<script>alert('삭제되었습니다.'); location.href='./templateList.do'</script>");
+	    	
+	    } 
+	    	alert.println("<script>alert('삭제실패했습니다.'); location.href='./templateList.do'</script>");
+	    	alert.flush();
+	    	return "";
+	}
+
+//	@GetMapping(value = "/getOneTemplate.do")
+//	public String modifyBoardForm(String seq, HttpSession session, Model model) {
+//		UserInfoDto loginDto = (UserInfoDto)session.getAttribute("loginDto");
+//		TemplateDto dto = TemplateServiceImpl.class
+//		if(dto.getId().equals(loginDto.getId())) {
+//			model.addAttribute("dto", dto);
+//			return "modifyBoardForm";			
+//		}else {
+//			return "redirect:/loginSerlvet.do";
+//		}
+//	}
 	
 	
 	@GetMapping(value = "/progressDocument.do")

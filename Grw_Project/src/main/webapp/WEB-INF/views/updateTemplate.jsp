@@ -44,7 +44,7 @@
 								<tr>
 									<td class="border-td text-center">제목</td>
 									<td class="border-td" colspan="5"><input type="text"
-										name="temp_title" placeholder="제목 작성"></td>
+										name="temp_title" placeholder="제목 작성" value="${titl}"></td>
 								</tr>
 								<tr>
 									<td class="border-td text-center">파일 첨부</td>

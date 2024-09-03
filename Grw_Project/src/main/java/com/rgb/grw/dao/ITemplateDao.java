@@ -9,6 +9,8 @@ public interface ITemplateDao {
 	public List<TemplateDto> selectTemplateList();
 	
 	public int writeTemplate(TemplateDto dto);
+		
+	public int deleteTemplate(String temp_id);
 	
-	public TemplateDto getOneTemplate(String temp_id);
+	public int modifyTemplate(TemplateDto dto);
 }
