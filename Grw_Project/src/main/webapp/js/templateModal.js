@@ -1,6 +1,8 @@
-window.onload = function() {
+// 선택한 ID를 저장할 전역 변수
+let selectedId = null;
 
-    // Initialize CKEditor 4
+window.onload = function() {
+    // CKEditor 4 초기화
     let editorInstance;
     CKEDITOR.replace('editor', {
         allowedContent: true
@@ -17,13 +19,21 @@ window.onload = function() {
         } else {
             console.error('Editor instance not initialized.');
         }
+
+        // 선택한 ID가 있을 때 tempId 입력 필드에 설정
+        if (selectedId) {
+            console.log('Setting tempId to:', selectedId); // 디버깅을 위한 로그
+            document.getElementById('temp-id').value = selectedId;
+        } else {
+            console.error('No item selected.');
+        }
     });
 };
 
-// Global variable to store the fetched data
+// 전역 변수로 데이터를 저장
 let data = [];
 
-// Function to fetch data from an API
+// API에서 데이터 가져오기
 async function fetchData() {
     try {
         let response = await fetch('http://localhost:8080/Grw_Project/api/data.do');
@@ -38,7 +48,7 @@ async function fetchData() {
     }
 }
 
-// Function to render the list of items
+// 데이터 항목 렌더링
 function renderList() {
     const dataList = document.getElementById('dataList');
     dataList.innerHTML = '';
@@ -50,40 +60,41 @@ function renderList() {
     });
 }
 
-// Function to get content by ID
+// ID로 내용 가져오기
 function getContentById(id) {
     const item = data.find(d => d.temp_id === id);
     return item ? item.temp_content : 'Not found';
 }
 
-// Function to get title by ID
+// ID로 제목 가져오기
 function getTitleById(id) {
     const item = data.find(d => d.temp_id === id);
     return item ? item.temp_title : 'Not found';
 }
 
-// Update view div based on clicked item
+// 클릭한 항목에 따라 뷰 업데이트
 function updateView(id) {
     const content = getContentById(id);
     document.getElementById('preview-content').innerHTML = content;
 }
 
-// Update approval type with title based on ID
+// 클릭한 항목에 따라 승인 타입 업데이트
 function updateApprovalType(id) {
     const title = getTitleById(id);
     document.getElementById('approval-type').value = title;
 }
 
-// Event listener for clicks on list items
+// 리스트 아이템 클릭 시 이벤트 리스너
 document.addEventListener('DOMContentLoaded', async () => {
     await fetchData();
 
     const dataList = document.getElementById('dataList');
     dataList.addEventListener('click', (event) => {
         if (event.target.tagName === 'LI') {
-            const id = event.target.getAttribute('data-id');
-            updateView(id);
-            updateApprovalType(id);
+            selectedId = event.target.getAttribute('data-id'); // 선택한 ID 저장
+            console.log('Selected ID:', selectedId); // 디버깅을 위한 로그
+            updateView(selectedId);
+            updateApprovalType(selectedId);
         }
     });
 });

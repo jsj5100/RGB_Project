@@ -87,6 +87,7 @@ $(document).ready(function() {
                 <td class="approval-td-body">${selectedTierName}</td>
                 <td class="approval-td-body">${selectedDep}</td>
                 <td class="approval-td-body order-cell">순서</td>
+                <td class="approval-td-body" style="display:none;">${selectedId}</td>
             `;
 
             // 테이블에 새로운 행을 추가합니다.
@@ -107,6 +108,7 @@ $(document).ready(function() {
         }
     });
 	
+	//참조자 지정 버튼
 	document.getElementById('ccLineButton').addEventListener('click', function(){
 		 // 테이블의 행 수를 계산합니다 (헤더를 제외한 행 수)
         const ccTable = document.getElementById('cc-table');
@@ -136,6 +138,7 @@ $(document).ready(function() {
                 </td>
                 <td class="approval-td-body">${selectedTierName}</td>
                 <td class="approval-td-body">${selectedDep}</td>
+                <td class="approval-td-body" style="display:none;">${selectedId}</td>
                 `;
 
             // 테이블에 새로운 행을 추가합니다.
@@ -193,64 +196,88 @@ $(document).ready(function() {
     });
 
     document.getElementById('approvalLine-choice').addEventListener('click', function() {
-        const approvalLineValueField = document.getElementById('approvalLine-value');
-        const ccLineValueField = document.getElementById('ccLine-value');
-        let approvalNamesArray = [];
-        let ccNamesArray = [];
+    const approvalLineValueField = document.getElementById('approvalLine-value');
+    const approvalLineIdField = document.getElementById('approvalLine-id'); // 새롭게 추가된 id 필드
+    const ccLineValueField = document.getElementById('ccLine-value');
+    const ccLineLineIdField = document.getElementById('ccLine-id');
+    let approvalNamesArray = [];
+    let approvalIdsArray = []; // ID 값을 저장할 배열 추가
+    let ccNamesArray = [];
+    let ccIdsArray = [];
 
-        // 'approval-table'의 모든 행 선택
-        const approvalTable = document.getElementById('approval-table');
-        const ccTable = document.getElementById('cc-table');
-        
-        const approvalRows = approvalTable.querySelectorAll('tr');
-        const ccRows = ccTable.querySelectorAll('tr');
+    const approvalTable = document.getElementById('approval-table');
+    const ccTable = document.getElementById('cc-table');
+    
+    const approvalRows = approvalTable.querySelectorAll('tr');
+    const ccRows = ccTable.querySelectorAll('tr');
 
-        // 나머지 행에서 이름 추출
-        approvalRows.forEach((row, index) => {
-            if (index > 0) { // 첫 번째 행 제외 (헤더 제외)
-                const nameCell = row.querySelector('td');
-                if (nameCell) {
-                    const textWithoutButton = Array.from(nameCell.childNodes)
-                        .filter(node => node.nodeType === Node.TEXT_NODE)
-                        .map(node => node.textContent.trim())
-                        .join('');
-                    if (textWithoutButton) {
-                        approvalNamesArray.push(textWithoutButton);
-                    }
+    approvalRows.forEach((row, index) => {
+        if (index > 0) { // 첫 번째 행 제외 (헤더 제외)
+            const nameCell = row.querySelector('td');
+            const idCell = row.querySelector('td:nth-child(5)'); // 숨겨진 ID 셀 선택
+
+            if (nameCell) {
+                const textWithoutButton = Array.from(nameCell.childNodes)
+                    .filter(node => node.nodeType === Node.TEXT_NODE)
+                    .map(node => node.textContent.trim())
+                    .join('');
+                if (textWithoutButton) {
+                    approvalNamesArray.push(textWithoutButton);
                 }
             }
-        });
-		
-        if (approvalNamesArray.length === 0) {
-            console.warn('추출된 이름이 없습니다.');
+
+            if (idCell) {
+                approvalIdsArray.push(idCell.textContent.trim()); // ID 값 저장
+            }
         }
-        
-          ccRows.forEach((row, index) => {
-            if (index > 0) { // 첫 번째 행 제외 (헤더 제외)
-                const nameCell = row.querySelector('td');
-                if (nameCell) {
-                    const textWithoutButton = Array.from(nameCell.childNodes)
-                        .filter(node => node.nodeType === Node.TEXT_NODE)
-                        .map(node => node.textContent.trim())
-                        .join('');
-                    if (textWithoutButton) {
-                        ccNamesArray.push(textWithoutButton);
-                    }
+    });
+
+    if (approvalNamesArray.length === 0) {
+        console.warn('추출된 이름이 없습니다.');
+    }
+
+    if (approvalIdsArray.length === 0) {
+        console.warn('추출된 ID가 없습니다.');
+    }
+    
+    ccRows.forEach((row, index) => {
+        if (index > 0) { // 첫 번째 행 제외 (헤더 제외)
+            const nameCell = row.querySelector('td');
+            const idCell = row.querySelector('td:nth-child(4)');
+            if (nameCell) {
+                const textWithoutButton = Array.from(nameCell.childNodes)
+                    .filter(node => node.nodeType === Node.TEXT_NODE)
+                    .map(node => node.textContent.trim())
+                    .join('');
+                if (textWithoutButton) {
+                    ccNamesArray.push(textWithoutButton);
                 }
             }
-        });
-		
-        if (ccNamesArray.length === 0) {
-            console.warn('추출된 이름이 없습니다.');
+            if (idCell) {
+                ccIdsArray.push(idCell.textContent.trim()); // ID 값 저장
+            }
         }
+    });
 
-        const approvalNamesString = approvalNamesArray.join(' -> ');
-        approvalLineValueField.value = approvalNamesString;
-		
-		const ccNamesString = ccNamesArray.join(',');
-        ccLineValueField.value = ccNamesString;
-        console.log('설정된 값:', approvalNamesString);
-        console.log('설정된 값:', ccNamesString);
+    if (ccNamesArray.length === 0) {
+        console.warn('추출된 참조자 이름이 없습니다.');
+    }
+
+    const approvalNamesString = approvalNamesArray.join(' -> ');
+    const approvalIdsString = approvalIdsArray.join(','); // ID 값을 콤마로 연결
+    approvalLineValueField.value = approvalNamesString;
+    approvalLineIdField.value = approvalIdsString; // ID 값을 필드에 설정
+    
+    const ccNamesString = ccNamesArray.join(',');
+    const ccIdsString = ccIdsArray.join(',');
+    ccLineValueField.value = ccNamesString;
+    ccLineLineIdField.value = ccIdsString;
+    
+    console.log('설정된 결재자 이름:', approvalNamesString);
+    console.log('설정된 결재자 ID:', approvalIdsString);
+    console.log('설정된 참조자 이름:', ccNamesString);
+    console.log('설정된 참조자 ID:', ccIdsString);
+
     });
 });
 
