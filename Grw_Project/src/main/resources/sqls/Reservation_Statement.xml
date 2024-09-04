@@ -3,33 +3,38 @@
 <mapper namespace="com.rgb.grw.dao.ReservationDaoImpl">
 
 	<select id="getBook" resultType="ReservationDto">
+	
+	
 	SELECT *
-		 FROM (			
-		  		SELECT r.*, AUTH_NO, ROW_NUMBER () OVER(ORDER BY BK_STDAY) RN
-				FROM RESERVATION r JOIN EMP e 
-				ON r.BK_EMPNO = e.EMP_NO 
-		  		WHERE BK_STDAY BETWEEN #{startDate} AND #{endDate}
-		  		OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate}
-		  )
-	WHERE RN BETWEEN #{first} AND #{last}
+		FROM RESERVATION r
+		WHERE (BK_STDAY BETWEEN #{startDate} AND #{endDate} 
+				OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate})
+		ORDER BY BK_REGDATE DESC
+	
+<!-- 	SELECT * -->
+<!-- 		 FROM (			 -->
+<!-- 		  		SELECT r.*, AUTH_NO, ROW_NUMBER () OVER(ORDER BY BK_STDAY) RN -->
+<!-- 				FROM RESERVATION r JOIN EMP e  -->
+<!-- 				ON r.BK_EMPNO = e.EMP_NO  -->
+<!-- 		  		WHERE BK_STDAY BETWEEN #{startDate} AND #{endDate} -->
+<!-- 		  		OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate} -->
+<!-- 		  ) -->
+<!-- 	WHERE RN BETWEEN #{first} AND #{last} -->
+<!-- 	OREDR BY BK_REGDATE DESC -->
 <!-- 		 AND BK_STATE = #{bk_state}  -->
 	</select>
 	
 	<select id="getBookUser" resultType="ReservationDto">
 	SELECT *
-		 FROM (			
-		  		SELECT r.*, AUTH_NO, ROW_NUMBER () OVER(ORDER BY BK_STDAY) RN
-				FROM RESERVATION r JOIN EMP e 
-				ON r.BK_EMPNO = e.EMP_NO 
-		  		WHERE BK_STDAY BETWEEN #{startDate} AND #{endDate}
-		  		OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate}
-		  )
-	WHERE RN BETWEEN #{first} AND #{last}
-	AND BK_EMPNO = #{bk_empno}
+		FROM RESERVATION r
+		WHERE (BK_STDAY BETWEEN #{startDate} AND #{endDate} 
+				OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate})
+		AND BK_EMPNO = #{bk_empno}
+		ORDER BY BK_REGDATE DESC
 <!-- 		 AND BK_STATE = #{bk_state}  -->
 	</select>
 	
-	<select id="getAllBook" parameterType="java.util.Map" resultType="ReservationDto">
+	<select id="getAllBook" resultType="ReservationDto">
 		SELECT *
 		FROM RESERVATION r
 		WHERE (BK_STDAY BETWEEN #{startDate} AND #{endDate})

@@ -138,13 +138,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //일정조회
 function selectEvents (fetchInfo, successCallback, failureCallback) {
-	console.log('111')
+//	console.log('111')
 	const startDate = fetchInfo.start; // 현재 뷰의 시작 날짜
 	const endDate = fetchInfo.end;
 	
 	//달력의 시간값 잘 들어오는지 확인
-	console.log(startDate);
-	console.info(endDate);
+//	console.log(startDate);
+//	console.info(endDate);
 	
 	fetch('./events/calendar.do?' + new URLSearchParams({
 	 

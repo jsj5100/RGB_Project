@@ -1,6 +1,8 @@
 package com.rgb.grw.ctrl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,98 +40,38 @@ public class ReservationRestController {
 	 * @return 페이징된 예약 목록
 	 */
 	@GetMapping(value="/booklist/facility.do")
-	public PagingDto<ReservationDto> booklist (HttpSession session, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate
-			,@RequestParam(defaultValue="1") int page, @RequestParam(defaultValue="5") int countList) {
-		log.info("start Date:{}", startDate);
-	    // 세션에서 loginDto 가져오기
-	    UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
-	    
-	    String sessionEmp = loginDto.getEmp_no();
-	    String sessionauth = loginDto.getAuth_no();
-	    log.info("sessionEmp: {}", sessionEmp);
-	    
-	    //페이징 파라미터 설정
-	    Map<String, Object> pageParams = new HashMap<String, Object>();
-	    pageParams.put("page", page);
-	    pageParams.put("countList", countList);
-	    pageParams.put("startDate", startDate);
-	    pageParams.put("endDate", endDate);
-	    pageParams.put("bk_empno", sessionEmp);
-	    log.info("Page value: {}", page);
-	    int totalCount;
-	    
-	    //세션 auth 값으로 관리자 사용자의 총 예약글 수 분리
-	    
-	    if(sessionauth.equals("FC00A")) {
-	    	
-	    	//전체 예약 수 조회
-	    	totalCount=service.countBook(pageParams);
-	    	
-	    } else {
-	    	
-	    	//사용자 예약게시글 만큼만 조회
-	    	totalCount = service.countBookUser(pageParams);
-	    	
-	    }
-	    
-	    //페이징 정보 생성
-	    PagingDto<ReservationDto> paging = new PagingDto<ReservationDto>(page, countList, totalCount, page);
-	    
-		Map<String, Object> bmap = new HashMap<String, Object>();
-		bmap.put("first", (page-1)*countList+1);
-		bmap.put("last", page*countList);
-		bmap.put("startDate", startDate);
-		bmap.put("endDate", endDate);
-		bmap.put("bk_empno", sessionEmp);
+	public List<ReservationDto> booklist (HttpSession session) {
 		
-		log.info("GetMapping 매핑 실행{}", bmap);
-	    
-	    
-		List<ReservationDto> list = new ArrayList<ReservationDto>();
-		
-		if(sessionauth.equals("FC00A")) {
-			//예약목록 조회(관리자)
-			list =service.getBook(bmap);
-		    	
-		    } else {
-		    
-		    //사용자	
-		    list=service.getBookUser(bmap);
-		    	
-		    }
-		
-		//예약목록 조회
+		String empno = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_no();
+		String auth = ((UserInfoDto) session.getAttribute("loginDto")).getAuth_no();
 		
 		
-		for(ReservationDto dto : list) {
-			
-			String stday = dto.getBk_stday().replace(" ", "T");
-			dto.setBk_stday(stday);
-			
-			String edday = dto.getBk_edday().replace(" ", "T");
-			dto.setBk_edday(edday);
-			
-			String regday = dto.getBk_regdate().replace(" ", "T");
-			dto.setBk_regdate(regday);
-			
-			dto.setSessionEmp(sessionEmp);
-			
-			dto.setSessionauth(sessionauth);
-			
-			if(!(dto.getBk_apday()==null)) {
-				
-				String apday = dto.getBk_apday().replace(" ", "T");
-				dto.setBk_apday(apday);
-			}
-			
+		Calendar today = Calendar.getInstance();
+		//오늘 날짜
+		Date startDate = today.getTime();
+		//12일 후 날짜
+		today.add(Calendar.DAY_OF_MONTH, 12);
+		Date endDate = today.getTime();
+		log.info("날짜 확인용",startDate, endDate );
+		
+		//params
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("bk_empno", empno);
+		params.put("startDate", startDate);
+		params.put("endDate", endDate);
+		
+		
+		List<ReservationDto> booklist = new ArrayList<ReservationDto>();
+		if(auth.equals("FC00A")) {
+
+			booklist = service.getBook(params);
+		
+		} else {
+			booklist = service.getBookUser(params);
 		}
 		
-		//결과를 PagingDto에서 실행
-		paging.setContent(list);
 		
-		log.info("booklist 리스트 {}", list);
-		
-		return paging;
+		return booklist; 
 	}
 	
 	
@@ -142,6 +84,7 @@ public class ReservationRestController {
 	 */
 	@GetMapping(value="/bookalllist/facility.do")
 	public List<ReservationDto> bookalllist (HttpSession session, @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate) {
+		
 		
 	    // 세션에서 loginDto 가져오기
 	    UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
@@ -213,11 +156,6 @@ public class ReservationRestController {
 		rmap.put("bk_title", map.get("bk_title"));
 		rmap.put("bk_stday", map.get("bk_stday"));
 		rmap.put("bk_edday", map.get("bk_edday"));
-		
-		
-		System.out.println(rmap);
-		
-		
 		
 		return service.insertReservation(rmap);
 	}
