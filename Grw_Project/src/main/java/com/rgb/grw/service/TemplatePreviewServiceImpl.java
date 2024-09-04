@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.rgb.grw.dao.TemplatePreviewDaoImpl;
 import com.rgb.grw.dto.ApproverDto;
@@ -22,8 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
-	
-	@Autowired
+
 	private final TemplatePreviewDaoImpl previewDaoImpl;
 	
 	@Override
@@ -42,13 +42,46 @@ public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
 	}
 
 	@Override
-	public boolean insertApproval(ApproverDto dto) {
-		return previewDaoImpl.insertApproval(dto);
+	public boolean insertApproval(Map<String, Object> map) {
+		return previewDaoImpl.insertApproval(map);
 	}
 
 	@Override
-	public boolean insertReference(ReferrerDto dto) {
-		return previewDaoImpl.insertReference(dto);
+	public boolean insertReference(Map<String, Object> map) {
+		return previewDaoImpl.insertReference(map);
+	}
+
+	@Override
+	@Transactional
+	public boolean processDocument(DocumentDto dto, Map<String, Object> approvalMaps, Map<String, Object> ccMaps) {
+		try {
+			boolean insertDoc = previewDaoImpl.insertDocument(dto);
+			if(!insertDoc) {
+				 throw new RuntimeException("Document insertion failed");
+			}
+			
+			boolean insertApp = previewDaoImpl.insertApproval(approvalMaps);
+			if(!insertApp) {
+				 throw new RuntimeException("Approval insertion failed");
+			}
+			
+			boolean insertCc = previewDaoImpl.insertReference(ccMaps);
+			
+			if(!insertCc) {
+				 throw new RuntimeException("cc insertion failed");
+			}
+			
+			return true;
+			
+		} catch (Exception e) {
+			throw new RuntimeException("Transaction failed, rolling back.", e);
+		}
+		
+	}
+
+	@Override
+	public boolean insertSign(Map<String, Object> map) {
+		return previewDaoImpl.insertSign(map);
 	}
 
 	

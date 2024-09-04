@@ -1,6 +1,10 @@
 package com.rgb.grw.ctrl;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -28,9 +32,7 @@ public class ApprovalController {
 	@Autowired
 	private TemplatePreviewServiceImpl serviceImpl;
 	
-	@Autowired
-	private SqlSessionTemplate template;
-	
+	//문서 작성화면
 	@GetMapping(value = "/writeDocument.do")
 	public String writeDocument(Model model) {
 		List<TemplatePreviewDto> lists = serviceImpl.selectTemplate();
@@ -38,58 +40,63 @@ public class ApprovalController {
 		return "writeDocument";
 	}
 	
+	//사인함
 	@GetMapping(value = "/signList.do")
 	public String signList() {
 		return "signList";
 	}
 	
+	//문서 작성 후 전송
 	@PostMapping(value = "/documentBox.do")
-	public String documentBox(DocumentDto docDto, ApproverDto appDto, ReferrerDto refDto,
-								String approvalLine, String ccLine, String tempId, HttpSession session) {
-		
-		UserInfoDto loginDto = (UserInfoDto)session.getAttribute("loginDto");		
-		log.info("문서 이름 : " + docDto.getDoc_name());
-		log.info("ckEditor 콘텐츠 : " + docDto.getDoc_content());
-		log.info("기안일 : " + docDto.getDoc_regdate());
-		log.info("마감일 : " + docDto.getDoc_exp());
-		log.info("결재자 라인 : " + approvalLine);
-		log.info("참조자 라인 : " + ccLine);
-		log.info("템플릿 번호 : " + tempId);
-		
-		String[] aLine = approvalLine.split(",");
-		String[] cLine = ccLine.split(",");
-		
-		for(int i = 0; i < aLine.length; i++) {
-			log.info(aLine[i]);
-			appDto.setEmp_no(aLine[i]);
-			int n = i + 1;
-			appDto.setApp_procedure(n);
-			serviceImpl.insertApproval(appDto);
-		}
-		
-		for(int i = 0; i < cLine.length; i++) {
-			log.info(cLine[i]);
-			refDto.setEmp_no(cLine[i]);
-		}
-		
-		docDto.setEmp_no(loginDto.getEmp_no());
-		docDto.setTemp_id(tempId);
-		docDto.setDoc_regdate(docDto.getDoc_regdate());
-		docDto.setDoc_exp(docDto.getDoc_exp());
-		docDto.setDoc_evton(docDto.getDoc_evton());
-		docDto.setDoc_evtoff(docDto.getDoc_evtoff());
-		docDto.setDoc_content(docDto.getDoc_content());
-		docDto.setDoc_name(docDto.getDoc_name());
-		
-		boolean docBoolean = serviceImpl.insertDocument(docDto);
-		boolean appBoolean = serviceImpl.insertApproval(appDto);
-		boolean refBoolean = serviceImpl.insertReference(refDto);
-		
-		if(docBoolean && appBoolean && refBoolean == true) {
-			return "redirect:/draftDocument.do";
-		}else {
-			return "redirect:/writeDocument.do";
-		}
+	public String documentBox(DocumentDto docDto,
+	                          String approvalLine, String ccLine, String tempId, HttpSession session) {
+
+	    UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
+	    
+	    log.info("문서 이름 : " + docDto.getDoc_name());
+	    log.info("ckEditor 콘텐츠 : " + docDto.getDoc_content());
+	    log.info("기안일 : " + docDto.getDoc_regdate());
+	    log.info("마감일 : " + docDto.getDoc_exp());
+	    log.info("결재자 라인 : " + approvalLine);
+	    log.info("참조자 라인 : " + ccLine);
+	    log.info("템플릿 번호 : " + tempId);
+
+	    docDto.setEmp_no(loginDto.getEmp_no());
+	    docDto.setTemp_id(tempId);
+	    docDto.setDoc_regdate(docDto.getDoc_regdate());
+	    docDto.setDoc_exp(docDto.getDoc_exp());
+	    docDto.setDoc_evton(docDto.getDoc_evton());
+	    docDto.setDoc_evtoff(docDto.getDoc_evtoff());
+	    docDto.setDoc_content(docDto.getDoc_content());
+	    docDto.setDoc_name(docDto.getDoc_name());
+	    
+	    boolean docBoolean = serviceImpl.insertDocument(docDto);
+
+	    List<String> approvalLists = Arrays.asList(approvalLine.split(","));
+	    List<String> ccLists = Arrays.asList(ccLine.split(","));
+	    
+	    Map<String, Object> approvalMap = new HashMap<String,Object>();
+	    approvalMap.put("doc_no", docDto.getDoc_no());
+	    approvalMap.put("approvalMap", approvalLists);
+	    
+	    Map<String, Object> ccMap = new HashMap<String,Object>();
+	    ccMap.put("doc_no", docDto.getDoc_no());
+	    ccMap.put("ccMap", ccLists);
+	    
+	    boolean appBoolean = serviceImpl.insertApproval(approvalMap);
+	    boolean refBoolean = serviceImpl.insertReference(ccMap);
+	    
+//	    boolean processDocBoolean = serviceImpl.processDocument(docDto, approvalMap, ccMap);
+	    log.info("Document Insertion Status: " + docBoolean);
+	    log.info("Approval Insertion Status: " + appBoolean);
+	    log.info("Reference Insertion Status: " + refBoolean);
+	    
+
+	    if (docBoolean && appBoolean && refBoolean) {
+	        return "redirect:/draftDocument.do";
+	    } else {
+	        return "redirect:/writeDocument.do";
+	    }
 	}
 	
 	
