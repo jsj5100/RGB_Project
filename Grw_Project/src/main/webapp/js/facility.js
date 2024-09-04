@@ -105,6 +105,72 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	
 })
+
+//데이터 테이블스 적용하기
+
+$(document).ready(function() {
+    $("#table_list").DataTable({
+        "info": false,
+        "paging": true, // 페이징 활성화
+        "ordering": true, // 정렬 활성화
+        "order": [[3, "desc"]], // 4번째 열 대신 3번째 열(신청일 기준)로 변경
+        "ajax":{
+			"url" :"./booklist/facility.do",
+			"type" :"GET",
+			"dataSrc" : ""
+		},
+		"columns":[
+			{"data" :"bk_title"},
+			{ // 사용기간
+                "data": null,
+                "render": function (data) {
+					
+					let startDate = data.bk_stday.replace(/:00$/, '');
+					let endDate = data.bk_edday.replace(/:00$/, '');
+	
+//					let startDate = row.bk_stday.split(' ')[0]+' '+row.bk_stday.split(' ')[1].slice(0,-3);
+//					let endDate = row.bk_edday.split(' ')[0]+' '+row.bk_edday.split(' ')[1].slice(0,-3);
+					
+                    return startDate + ' ~ ' + endDate;
+                }
+            },
+			 { // 진행상태
+                "data": null, 
+                "render": function (data, type, row) {
+                    let state;
+                    if (row.bk_state === 'S') {
+                        state = '신청대기';
+                    } else if (row.bk_state === 'C') {
+                        state = '신청취소';
+                    } else if (row.bk_state === 'Y') {
+                        state = '신청수락';
+                    } else {
+                        state = '반려';
+                    }
+                    return state;
+                }
+            },
+				
+			{"data": null,
+                "render": function (data) {
+	
+                    return data.bk_regdate.replace(/:00$/, '');
+                }}
+		],
+		
+        "columnDefs":[
+            {"orderable": false, "targets": 0} // 첫 번째 열은 정렬 불가
+        ]
+    });
+});
+
+//let table = new DataTable('#table_list', {
+//		paging:false,
+//		info:false,
+//		ordering: true,
+//		
+//	});
+
 //전체 일정 조회
 document.addEventListener('DOMContentLoaded', function() {
 	
@@ -242,245 +308,21 @@ function createContents(item) {
     }
 }
 
-//신청현황 조회되는 컨테이너 박스 그리기
-//관리자는 반려까지 전부 확인 가능 / 사용자는 반려를 제외한 나머지 항목만 사용가능
-function reservation (book) {
-//	console.log(book);
-	
-	let contentContainer = document.getElementById('reservation_state_all');
-	
-			
-	let bookcontainer = document.createElement('div');
-    let sidebardiv = document.createElement('div');
-    let infodiv = document.createElement('div');
-    let timediv = document.createElement('div');
-    let titlelink = document.createElement('a');
-	let divname = document.createElement('div');
-    let aview = document.createElement('a');
-	let statediv = document.createElement('div');
-	let requestTime = document.createElement('div');
-	
-	// 시간 형식 변환
-	let startDay = book.bk_stday.slice(5, 10).replace('-', '/');
-	let startTime = book.bk_stday.split('T')[1].slice(0, 5);
-	let endDay = book.bk_edday.slice(5, 10).replace('-', '/');
-	let endTime = book.bk_edday.split('T')[1].slice(0, 5);
-	let regday = book.bk_regdate.slice(5, 10).replace('-', '/');
-	let regTime = book.bk_regdate.split('T')[1].slice(0, 5);
-	
-	//관리자
-	if(book.sessionauth == 'FC00A') {
-//		console.log(book);
-			contentContainer.appendChild(bookcontainer);
-
-            // 시간 표시
-            timediv.classList.add('fs-7', 'mb-1');
-            timediv.innerHTML = `${startDay} ${startTime} - ${endDay} ${endTime}`;
-           	requestTime.innerHTML = `신청시간 : ${regday} ${regTime}`
-
-            // 제목 링크
-            titlelink.href = "#";
-            titlelink.classList.add('fs-5', 'fw-bold', 'text-gray-900', 'text-hover-primary', 'mb-2');
-            titlelink.textContent = book.bk_title;
-
-            // 예약자 정보
-            divname.classList.add('fs-7', 'text-muted');
-            divname.innerHTML = `신청자 : ${book.bk_name}</a>`;
-
-            // 사이드바
-            sidebardiv.classList.add('position-absolute', 'h-100', 'w-4px', 'bg-secondary', 'rounded', 'top-0', 'start-0');
-
-            // 보기 버튼
-            aview.href = "#";
-            aview.classList.add('btn', 'btn-light', 'bnt-active-light-primary', 'btn-sm');
-            aview.textContent = 'View';
-            
-            //상태 뱃지
-//            <div class="badge badge-light-success">Completed</div>
-			if (book.bk_state == 'S') {
-				statediv.classList.add('badge','badge-light-primary');
-				statediv.textContent = '대기';
-			} else if(book.bk_state == 'C') { 
-				statediv.classList.add('badge','badge-light-warning');
-				statediv.textContent = '취소';
-			} else {
-				statediv.classList.add('badge','badge-light-danger');
-				statediv.textContent = '반려';
-			}
-			
-			//시간
-			timediv.appendChild(requestTime);
-
-            // 일정 정보 박스
-            infodiv.classList.add('fw-semibold', 'ms-5');
-            infodiv.appendChild(timediv);
-            infodiv.appendChild(titlelink);
-            infodiv.appendChild(divname);
-
-            // 일정 컨테이너
-            bookcontainer.classList.add('d-flex', 'flex-stack', 'position-relative', 'mt-6');
-            bookcontainer.appendChild(sidebardiv);
-            bookcontainer.appendChild(infodiv);
-            bookcontainer.appendChild(requestTime);
-            bookcontainer.appendChild(statediv);
-            bookcontainer.appendChild(aview);
-            
-		
-	} else { //사용자의 신청현황
-		if(book.sessionEmp == book.bk_empno) {
-			contentContainer.appendChild(bookcontainer);
-
-            // 시간 표시
-            timediv.classList.add('fs-7', 'mb-1');
-            timediv.innerHTML = `${startDay} ${startTime} - ${endDay} ${endTime}`;
-           	requestTime.innerHTML = `신청시간 : ${regday} ${regTime}`
-
-            // 제목 링크
-            titlelink.href = "#";
-            titlelink.classList.add('fs-5', 'fw-bold', 'text-gray-900', 'text-hover-primary', 'mb-2');
-            titlelink.textContent = book.bk_title;
-
-            // 예약자 정보
-            divname.classList.add('fs-7', 'text-muted');
-            divname.innerHTML = `신청자 : ${book.bk_name}</a>`;
-
-            // 사이드바
-            sidebardiv.classList.add('position-absolute', 'h-100', 'w-4px', 'bg-secondary', 'rounded', 'top-0', 'start-0');
-
-            // 보기 버튼
-            aview.href = "#";
-            aview.classList.add('btn', 'btn-light', 'bnt-active-light-primary', 'btn-sm');
-            aview.textContent = 'View';
-            
-            //상태 뱃지
-//            <div class="badge badge-light-success">Completed</div>
-			if (book.bk_state == 'S') {
-				statediv.classList.add('badge','badge-light-primary');
-				statediv.textContent = '대기';
-			} else if(book.bk_state == 'C') { 
-				statediv.classList.add('badge','badge-light-warning');
-				statediv.textContent = '취소';
-			} else {
-				statediv.classList.add('badge','badge-light-danger');
-				statediv.textContent = '반려';
-			}
-			
-			//시간
-			timediv.appendChild(requestTime);
-
-            // 일정 정보 박스
-            infodiv.classList.add('fw-semibold', 'ms-5');
-            infodiv.appendChild(timediv);
-            infodiv.appendChild(titlelink);
-            infodiv.appendChild(divname);
-
-            // 일정 컨테이너
-            bookcontainer.classList.add('d-flex', 'flex-stack', 'position-relative', 'mt-6');
-            bookcontainer.appendChild(sidebardiv);
-            bookcontainer.appendChild(infodiv);
-            bookcontainer.appendChild(requestTime);
-            bookcontainer.appendChild(statediv);
-            bookcontainer.appendChild(aview);
-		} 
-	}
-}
-
-//페이징 리스트(관리자/사용자)
-document.addEventListener('DOMContentLoaded', function() {
-    let today = new Date();
-    let endday = new Date();
-    endday.setDate(today.getDate() + 12);
-
-    let startDate = today.toISOString().split('T')[0];
-    let endDate = endday.toISOString().split('T')[0];
-//	console.log('startDate',startDate)
-    function fetchPage(page) {
-        clearContents(); // 페이지 콘텐츠 초기화
-        
-        fetch('./booklist/facility.do?' + new URLSearchParams({
-            startDate: startDate,
-            endDate: endDate,
-            page: page
-        }))
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-//            console.log('Fetched data:', data); // 데이터 확인
-
-            if (data.content && Array.isArray(data.content)) {
-                data.content.forEach(item => {
-//                    console.log('Processing item:', item); // 각 항목 확인
-                    reservation(item);
-                });
-            } else {
-                console.error('Invalid data format:', data);
-            }
-             updatePagination(data.totalPage, page);
-		
-        })
-        .catch(error => {
-            console.error('Error', error);
-        });
-    }
-
-    function clearContents() {
-        document.getElementById('reservation_state_all').innerHTML = '';
-    }
-
-    function updatePagination(totalPages, currentPage) {
-        const paginationContainer = document.querySelector('.pagination');
-        paginationContainer.innerHTML = ''; // 기존 페이지네이션 초기화
-
-        // 이전 페이지 버튼
-        const prevButton = document.createElement('li');
-        prevButton.className = 'page-item previous';
-        prevButton.innerHTML = '<a href="#" class="page-link"><i class="previous"></i></a>';
-        prevButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            if (currentPage > 1) {
-                fetchPage(currentPage - 1);
-            }
-        });
-        paginationContainer.appendChild(prevButton);
-
-        // 페이지 번호 버튼
-        for (let i = 1; i <= totalPages; i++) {
-            const pageItem = document.createElement('li');
-            pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
-            pageItem.innerHTML = `<a href="#" class="page-link">${i}</a>`;
-            pageItem.addEventListener('click', (event) => {
-                event.preventDefault();
-                if (i !== currentPage) {
-                    fetchPage(i);
-                }
-            });
-            paginationContainer.appendChild(pageItem);
-        }
-
-        // 다음 페이지 버튼
-        const nextButton = document.createElement('li');
-        nextButton.className = 'page-item next';
-        nextButton.innerHTML = '<a href="#" class="page-link"><i class="next"></i></a>';
-        nextButton.addEventListener('click', (event) => {
-            event.preventDefault();
-            if (currentPage < totalPages) {
-                fetchPage(currentPage + 1);
-            }
-        });
-        paginationContainer.appendChild(nextButton);
-    }
-
-    fetchPage(currentPage); // 초기 페이지 로드
-});
 
 //timepicker 시작일 초기화설정
 document.addEventListener('DOMContentLoaded', function() {
   flatpickr("#kt_modal_add_schedule_datepicker_start", {
     enableTime: true,
+    enable: [
+		function(date) {
+	        let today = new Date();
+	        let endday = new Date(); 
+	        endday.setDate(today.getDate() + 12);
+	
+	        // date가 today와 endday 사이에 있는지 확인
+	        return (date >= today && date <= endday);
+	        }
+	],
     noCalendar: false,
     dateFormat: "Y-m-d H:i", // 시간만 표시
     time_24hr: true,   // 24시간 형식
@@ -497,6 +339,16 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
   flatpickr("#kt_modal_add_schedule_datepicker_end", {
     enableTime: true,
+    enable: [
+		function(date) {
+	        let today = new Date();
+	        let endday = new Date(); 
+	        endday.setDate(today.getDate() + 12);
+	
+	        // date가 today와 endday 사이에 있는지 확인
+	        return (date >= today && date <= endday);
+	        }
+	],
     noCalendar: false,
     dateFormat: "Y-m-d H:i", // 시간만 표시
     time_24hr: true,   // 24시간 형식
@@ -512,48 +364,76 @@ document.addEventListener('DOMContentLoaded', function() {
 
 //예약 신청서의 자산선택탭
 function insertReservation() {
-	console.log('11111')
-	//셀렉트(자산선택) 값
-	let selectElement = document.getElementById('kt_facility_location');
-	
-	let selectFacility = selectElement.options[selectElement.selectedIndex];
-	
-	let fc_no = selectFacility.value;
-	let bk_title = selectFacility.textContent;
-	
-	//사용일
-	let bk_stday = document.getElementById('kt_modal_add_schedule_datepicker_start').value;
-	let bk_edday = document.getElementById('kt_modal_add_schedule_datepicker_end').value;
-	bk_stday = bk_stday+':00';
-	bk_edday = bk_edday+':00';
-	
-	
-	//사용목적
-	let bk_content = document.getElementById('facility_use').value;
-	
-	let data = {
-		fc_no:fc_no,
-		bk_title:bk_title,
-		bk_stday:bk_stday,
-		bk_edday:bk_edday,
-		bk_content:bk_content
-	}
-	console.log('data:',data)
-	
-	fetch('./addreservation/facility.do', {
-		method: 'POST',
-		headers: {
+    // 셀렉트(자산선택) 값
+    let selectElement = document.getElementById('kt_facility_location');
+    let selectFacility = selectElement.options[selectElement.selectedIndex];
+    let fc_no = selectFacility.value;
+    let bk_title = selectFacility.textContent;
+
+    // 사용일
+    let bk_stday = document.getElementById('kt_modal_add_schedule_datepicker_start').value;
+    let bk_edday = document.getElementById('kt_modal_add_schedule_datepicker_end').value;
+    bk_stday = bk_stday + ':00';
+    bk_edday = bk_edday + ':00';
+    let startDateTime = new Date(bk_stday);
+    let endDateTiem = new Date(bk_edday);
+
+    // 시간 설정이 안되어있을때
+    if (startDateTime == '' || endDateTiem == '') {
+        alert('시간을 설정해주세요');
+        return;
+    }
+
+    // 사용종료시간이 사용시작시간보다 같거나 빠른경우
+    if (startDateTime >= endDateTiem) {
+        alert('시간설정이 잘못되었습니다.');
+        return;
+    }
+
+    // 자산선택이 되어있지 않은 경우
+    if (fc_no == '') {
+        alert('자산을 선택해주세요');
+        return;
+    }
+
+    // 사용목적
+    let bk_content = document.getElementById('facility_use').value;
+
+    let data = {
+        fc_no: fc_no,
+        bk_title: bk_title,
+        bk_stday: bk_stday,
+        bk_edday: bk_edday,
+        bk_content: bk_content
+    };
+
+    console.log('data:', data);
+
+    fetch('./addreservation/facility.do', {
+        method: 'POST',
+        headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-	})
-	.then(response=>response.json())
-	.then(data => {
-		console.log('true면 성공' , data);
-	})
-	.catch(error => {
-			console.error('insertfetch error', error);
-	});
-	
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('true면 성공', data);
+		var table = new DataTable('#table_list').DataTable();
+	 
+			 table.row.add({
+	            bk_title: data.bk_title,
+	            bk_stday: data.bk_stday,
+	            bk_edday: data.bk_edday,
+	            bk_state: data.bk_state, // 진행상태
+	            bk_regdate: data.bk_regdate
+	        }).draw();
+     
+        // 모달 숨기기
+        let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_add_schedule'));
+        modal.hide();
+    })
+    .catch(error => {
+        console.error('insertfetch error', error);
+    });
 }
-

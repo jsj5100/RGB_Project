@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +9,8 @@
 <title>Insert title here</title>
 
 <%@include file="./header.jsp"%>
-<link href="https://cdn.datatables.net/v/bs5/dt-2.1.5/b-3.1.2/datatables.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="./js/facility.js"></script>
+
 <body>
 	<div style="padding-left:80px; margin-top:10px;" id="kt_app_content" class="app-content flex-column-fluid">
 		<div style="padding-left:80px;" id="kt_app_content_container" class="app-container container-xxl" style="padding-top: 30px;">
@@ -58,13 +56,12 @@
 				</div>
 			</div>
 
-<!-- 			우측 -->
-<!-- 			<div class="flex-lg-row-fluid ms-lg-10"> -->
-				<div class="card mb-5 mb-xl-10">
-<!-- 				<div class="card card-flush mb-6 mb-xl-9"> -->
+			<!-- 우측 -->
+			<div class="flex-lg-row-fluid ms-lg-10">
+				<div class="card card-flush mb-6 mb-xl-9">
 				
 					<!--begin::Card header-->
-					<div class="card-header">
+					<div class="card-header mt-6">
 					
 					<!--begin::Card title-->
 					<div class="card-title flex-column">
@@ -86,7 +83,7 @@
 				<!--end::Card header-->
 				
 				<!--begin::Card body-->
-				<div class="card-body">
+				<div class="card-body p-9 pt-4">
 					<!--begin::Dates-->
 					<ul class="nav nav-pills d-flex flex-nowrap hover-scroll-x py-2" role="tablist" id="reservation_day_container">
 					</ul>
@@ -103,15 +100,13 @@
 				<!-- 시설예약 일정 영역 종료 -->									
 													
 				<!-- 예약신청현황 -->
-<!-- 				<div class="card mb-5 mb-xl-10"> -->
+				<div class="card card-flush mb-6 mb-xl-9">
 				<!--begin::Card header-->
-					<div class="card-header">
+					<div class="card-header mt-6">
 						<!--begin::Card title-->
 						<div class="card-title flex-column">
 							<h2 class="mb-1">예약신청현황</h2>
 						</div>
-						
-					</div>
 					<!--end::Card title-->
 <!-- 					begin::Card toolbar -->
 <!-- 						<div class="card-toolbar" data-control="select2"> -->
@@ -123,8 +118,9 @@
 <!-- 							</select> -->
 <!-- 						</div> -->
 					<!-- end::Card toolbar -->
-					
+					</div>
 					<!--end::Card header-->
+
 					<!-- 카드 바디 -->
 					<!-- 예약신청리스트 목록 보여주기 -->
 <!-- 					begin::Card body -->
@@ -144,63 +140,80 @@
 				<div class="card-body p-0">
 					<div class="table-responsive">
 						<!--begin::Table-->
-						<table id="table_list" class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
+						<table class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
 						<!--begin::Thead-->
 							<thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
 								<tr>
-									<th class="min-w-250px">신청자산</th>
-									<th class="min-w-100px">사용기간</th>
-									<th class="min-w-150px">진행상태</th>
-									<th class="min-w-150px">신청일</th>
+									<th class="min-w-250px">Location</th>
+									<th class="min-w-100px">Status</th>
+									<th class="min-w-150px">Device</th>
+									<th class="min-w-150px">IP Address</th>
+									<th class="min-w-150px">Time</th>
 								</tr>
 							</thead>
 						<!--end::Thead-->
 						<!--begin::Tbody-->
 							<tbody class="fw-6 fw-semibold text-gray-600">
-								 <c:choose>
-							        <c:when test="${booklist eq null}">
-							            <!-- 예약 리스트가 비어있을 때 -->
-							            <tr>
-							                <td colspan="4">신청내용이 없습니다.</td>
-							            </tr>
-							        </c:when>
-							        <c:otherwise>
-							            <!-- 예약 리스트가 있을 때 -->
-							            <c:forEach var="booklist" items="${booklist}">
-							                <tr>
-							                    <td>
-								                    <a href="#" class="text-hover-primary text-gray-600">${booklist.bk_title}</a>
-							                    </td>
-							                    <td> 
-							                    	${fn:substring(fn:replace(booklist.bk_stday, 'T', ' '), 0, 16)} ~ 
-							                    	${fn:substring(fn:replace(booklist.bk_edday, 'T', ' '), 0, 16)}
-							                    	</td>
-							                    <td>
-													<c:if test="${booklist.bk_state eq 'S'}">							                    
-							                    		신청대기
-							                    	</c:if>
-													<c:if test="${booklist.bk_state eq 'C'}">							                    
-							                    		신청취소
-							                    	</c:if>
-													<c:if test="${booklist.bk_state eq 'Y'}">							                    
-							                    		신청승인
-							                    	</c:if>
-													<c:if test="${booklist.bk_state eq 'N'}">							                    
-							                    		신청반려
-							                    	</c:if>
-							                    </td>
-							                    <td>${fn:substring(fn:replace(booklist.bk_regdate, 'T', ' '), 0, 16)}</td>
-							                </tr>
-							            </c:forEach>
-							        </c:otherwise>
-							    </c:choose>
-<!-- 											<span class="badge badge-light-success fs-7 fw-bold">OK</span> -->
-											
-							</tbody>
-							<!--end::Tbody-->
-						</table>
-						<!--end::Table-->
-					</div>
+								<tr>
+									<td>
+										<a href="#" class="text-hover-primary text-gray-600">USA(5)</a>
+									</td>
+										<td>
+										<span class="badge badge-light-success fs-7 fw-bold">OK</span>
+										</td>
+															<td>Chrome - Windows</td>
+															<td>236.125.56.78</td>
+															<td>2 mins ago</td>
+														</tr>
+														<tr>
+															<td>
+																<a href="#" class="text-hover-primary text-gray-600">United Kingdom(10)</a>
+															</td>
+															<td>
+																<span class="badge badge-light-success fs-7 fw-bold">OK</span>
+															</td>
+															<td>Safari - Mac OS</td>
+															<td>236.125.56.78</td>
+															<td>10 mins ago</td>
+														</tr>
+														<tr>
+															<td>
+																<a href="#" class="text-hover-primary text-gray-600">Norway(-)</a>
+															</td>
+															<td>
+																<span class="badge badge-light-danger fs-7 fw-bold">ERR</span>
+															</td>
+															<td>Firefox - Windows</td>
+															<td>236.125.56.10</td>
+															<td>20 mins ago</td>
+														</tr>
+														<tr>
+															<td>
+																<a href="#" class="text-hover-primary text-gray-600">Japan(112)</a>
+															</td>
+															<td>
+																<span class="badge badge-light-success fs-7 fw-bold">OK</span>
+															</td>
+															<td>iOS - iPhone Pro</td>
+															<td>236.125.56.54</td>
+															<td>30 mins ago</td>
+														</tr>
+														<tr>
+															<td>
+																<a href="#" class="text-hover-primary text-gray-600">Italy(5)</a>
+															</td>
+															<td>
+																<span class="badge badge-light-warning fs-7 fw-bold">WRN</span>
+															</td>
+															<td>Samsung Noted 5- Android</td>
+															<td>236.100.56.50</td>
+															<td>40 mins ago</td>
+														</tr>
+													</tbody>
+													<!--end::Tbody-->
+												</table>
+												<!--end::Table-->
+											</div>
 				</div>
 				
 
@@ -230,6 +243,9 @@
 
 	</div>
 
+</div>
+	</div>
+	
 	
 	
 	
@@ -356,6 +372,5 @@
 	
 </body>
 <%@include file="./footer.jsp" %>
-<script src="https://cdn.datatables.net/v/bs5/dt-2.1.5/b-3.1.2/datatables.min.js"></script>
-<script type="text/javascript" src="./js/facility.js"></script>
+
 </html>

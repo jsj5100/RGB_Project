@@ -49,7 +49,7 @@ public class ReservationServiceImpl implements IReservationService {
 		return dao.countBookUser(map);
 	}
 	
-//	@Transactional(isolation = Isolation.SERIALIZABLE)
+	@Transactional(isolation = Isolation.SERIALIZABLE)
 	@Override
 	public boolean insertReservation(Map<String, Object> map) {
 		

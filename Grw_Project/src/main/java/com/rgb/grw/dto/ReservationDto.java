@@ -23,4 +23,5 @@ public class ReservationDto {
 	private String auth_no;
 	private String sessionEmp;
 	private String sessionauth;
+	
 }
