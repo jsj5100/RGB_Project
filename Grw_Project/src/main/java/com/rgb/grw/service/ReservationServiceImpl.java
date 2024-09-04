@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.rgb.grw.dao.IReservationDao;
 import com.rgb.grw.dto.ReservationDto;
@@ -45,5 +47,12 @@ public class ReservationServiceImpl implements IReservationService {
 	public int countBookUser(Map<String, Object> map) {
 	
 		return dao.countBookUser(map);
+	}
+	
+//	@Transactional(isolation = Isolation.SERIALIZABLE)
+	@Override
+	public boolean insertReservation(Map<String, Object> map) {
+		
+		return dao.insertReservation(map);
 	}
 }

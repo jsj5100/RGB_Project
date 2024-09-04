@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,14 +109,14 @@
 						</div>
 					<!--end::Card title-->
 <!-- 					begin::Card toolbar -->
-						<div class="card-toolbar" data-control="select2">
-							<select class="form-select form-select-solid" aria-label="Default select example">
-								<option selected>신청현황</option>
-								<option value="1">신청대기</option>
-								<option value="2">승인</option>
-								<option value="3">반려</option>
-							</select>
-						</div>
+<!-- 						<div class="card-toolbar" data-control="select2"> -->
+<!-- 							<select class="form-select form-select-solid" aria-label="Default select example"> -->
+<!-- 								<option selected>신청현황</option> -->
+<!-- 								<option value="1">신청대기</option> -->
+<!-- 								<option value="2">승인</option> -->
+<!-- 								<option value="3">반려</option> -->
+<!-- 							</select> -->
+<!-- 						</div> -->
 					<!-- end::Card toolbar -->
 					</div>
 					<!--end::Card header-->
@@ -123,7 +124,7 @@
 					<!-- 카드 바디 -->
 					<!-- 예약신청리스트 목록 보여주기 -->
 <!-- 					begin::Card body -->
-					<div class="card-body d-flex flex-column" id="reservation_state_all" style="height:400px;">
+					<div class="card-body d-flex flex-column" id="reservation_state_all">
 						<div class="d-flex align-items-center position-relative mb-7" id="reservation_state_all"> 
 						</div>
 					</div>
@@ -146,6 +147,131 @@
 
 </div>
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 모달 이미지 영역 -->
+	<div class="modal fade" id="kt_modal_add_schedule" tabindex="-1" style="display: none;" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Modal header-->
+            <div class="modal-header">
+                <!--begin::Modal title-->
+                <h2 class="fw-bold">자산예약</h2>
+                <!--end::Modal title-->
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" data-bs-dismiss="modal">
+                    <i class="ki-duotone ki-cross fs-1">
+                    <span class="path1"></span>
+                    <span class="path2"></span></i>                
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--end::Modal header-->
+
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                <!--begin::Form-->
+                <form id="kt_modal_add_schedule_form" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                    <!--begin::Input group-->
+                    
+                     <div class="fv-row mb-9">
+	                        <!--begin::Label-->
+	                        <label class="fs-6 fw-semibold required mb-2">자산 선택</label>
+	                        <!--end::Label-->
+	                        <!-- 자산선택 셀렉트박스 -->
+	                        <select class="form-control form-control-solid" id="kt_facility_location" name="calendar_event_location" required>
+							  <option value="" id="facility_ctegory" disabled selected>선택해주세요</option>
+							  <c:forEach var="facilityList" items="${fclist}">
+							  	<c:if test="${facilityList.fc_no ne null}">
+							  		<option value="${facilityList.fc_no}">${facilityList.fc_name}</option>
+							  	</c:if>
+							  </c:forEach>
+							</select>
+	                        <!--begin::Input-->
+<!-- 	                        <input type="text" class="form-control form-control-solid" placeholder="" id="kt_calendar_event_location" name="calendar_event_location"> -->
+	                        <!--end::Input-->
+	                    </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Input group-->
+                    <div class="row row-cols-lg-2 g-10">
+	                        <div class="col">
+	                        	<!-- 시작일 -->
+	                            <div class="fv-row mb-9 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
+	                                <!--begin::Label-->
+	                                <label class="fs-6 fw-semibold mb-2 required">사용시작일</label>
+	                                <!--end::Label-->
+	                                <!--begin::Input-->
+	                                <input class="form-control form-control-solid flatpickr-input" placeholder="Select a date &amp; time." id="kt_modal_add_schedule_datepicker_start" type="text" readonly="readonly">
+	                                <!--end::Input-->
+	                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+	                            </div>
+	                        </div>
+	                        <div class="col" data-kt-calendar="datepicker">
+	                            <div class="fv-row mb-9">
+	                                <!--begin::Label-->
+	                                <label class="fs-6 fw-semibold mb-2">사용종료일</label>
+	                                <!--end::Label-->
+	                                <!--begin::Input-->
+	                                <input class="form-control form-control-solid flatpickr-input" placeholder="Select a date &amp; time." id="kt_modal_add_schedule_datepicker_end" type="text" readonly="readonly">
+	                                <!--end::Input-->
+	                            </div>
+	                        </div>
+	                    </div>
+                    
+                    
+                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                    <!--end::Input group-->
+
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                        <!--begin::Label-->
+                        <label class="required fs-6 fw-semibold form-label mb-2">사용목적</label>
+                        <!--end::Label-->
+
+                        <!--begin::Input-->
+                        <input type="text" class="form-control form-control-solid" id="facility_use" value="">
+                        <!--end::Input-->
+                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                    <!--end::Input group-->
+
+
+                    <!--begin::Actions-->
+                    <div class="text-center pt-15">
+                        <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel" data-bs-dismiss="modal">
+                            취소
+                        </button>
+
+                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="insertReservation()">
+                            <span class="indicator-label">
+                                승인
+                            </span>
+<!--                             <span class="indicator-progress"> -->
+<!--                                 Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span> -->
+<!--                             </span> -->
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+	
 </body>
 <%@include file="./footer.jsp" %>
 

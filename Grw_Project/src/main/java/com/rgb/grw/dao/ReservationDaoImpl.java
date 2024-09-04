@@ -36,17 +36,23 @@ public class ReservationDaoImpl implements IReservationDao {
 		return template.selectList(NS+"getBookUser",map);
 	}
 	
-	//페이징
+	//페이징(관리자 totalpage)
 	@Override
 	public int countBook(Map<String, Object> map) {
 
 		return template.selectOne(NS+"countBook",map);
 	}
 	
+	//페이징(사용자 totalpage)
 	@Override
 	public int countBookUser(Map<String, Object> map) {
 
 		return template.selectOne(NS+"countBookUser",map);
 	}
+	@Override
+	public boolean insertReservation(Map<String, Object> map) {
 
+		return template.insert(NS+"insertReservation",map)>0?true:false;
+	}
+	
 }

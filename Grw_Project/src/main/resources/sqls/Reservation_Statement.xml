@@ -53,6 +53,16 @@
 		
 	</select>
 	
+	<insert id="insertReservation">
+	INSERT INTO RESERVATION(BK_NO, FC_NO, BK_EMPNO, 
+   								BK_TITLE, BK_CONTENT , BK_STDAY, 
+   								BK_EDDAY, BK_NAME, BK_DEP,
+   								BK_REGDATE) 
+  	VALUES ((SELECT NVL(MAX(BK_NO),0)+1 FROM RESERVATION), #{fc_no}, #{bk_empno}, 
+  						#{bk_title}, #{bk_content}, TO_TIMESTAMP(#{bk_stday}, 'YYYY-MM-DD HH24:MI:SS'),
+  						TO_TIMESTAMP(#{bk_edday}, 'YYYY-MM-DD HH24:MI:SS'), #{bk_name}, #{bk_dep}, CURRENT_TIMESTAMP)
+	</insert>
+	
 	
 
 </mapper>
