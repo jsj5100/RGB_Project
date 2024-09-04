@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		if(fcList){
 			data.forEach(item => {
 				let div = document.createElement('div');
-				console.log(fcList)
+//				console.log(fcList)
 				div.textContent = item.fc_name;
 //				fcList.append(div);
 
@@ -58,8 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		dayarry.push(d.getDate());
 		dayname.push(getDayName(d));
 		}
-	console.log(dayarry);
-	console.log(dayname);
+//	console.log(dayarry);
+//	console.log(dayname);
 
 	//daycontainer
 	let daylist = document.getElementById('reservation_day_container');
@@ -245,7 +245,7 @@ function createContents(item) {
 //신청현황 조회되는 컨테이너 박스 그리기
 //관리자는 반려까지 전부 확인 가능 / 사용자는 반려를 제외한 나머지 항목만 사용가능
 function reservation (book) {
-	console.log(book);
+//	console.log(book);
 	
 	let contentContainer = document.getElementById('reservation_state_all');
 	
@@ -270,7 +270,7 @@ function reservation (book) {
 	
 	//관리자
 	if(book.sessionauth == 'FC00A') {
-		console.log(book);
+//		console.log(book);
 			contentContainer.appendChild(bookcontainer);
 
             // 시간 표시
@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let startDate = today.toISOString().split('T')[0];
     let endDate = endday.toISOString().split('T')[0];
-	console.log('startDate',startDate)
+//	console.log('startDate',startDate)
     function fetchPage(page) {
         clearContents(); // 페이지 콘텐츠 초기화
         
@@ -403,18 +403,17 @@ document.addEventListener('DOMContentLoaded', function() {
             page: page
         }))
         .then(response => {
-			console.log('222')
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             return response.json();
         })
         .then(data => {
-            console.log('Fetched data:', data); // 데이터 확인
+//            console.log('Fetched data:', data); // 데이터 확인
 
             if (data.content && Array.isArray(data.content)) {
                 data.content.forEach(item => {
-                    console.log('Processing item:', item); // 각 항목 확인
+//                    console.log('Processing item:', item); // 각 항목 확인
                     reservation(item);
                 });
             } else {
@@ -478,7 +477,83 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchPage(currentPage); // 초기 페이지 로드
 });
 
+//timepicker 시작일 초기화설정
+document.addEventListener('DOMContentLoaded', function() {
+  flatpickr("#kt_modal_add_schedule_datepicker_start", {
+    enableTime: true,
+    noCalendar: false,
+    dateFormat: "Y-m-d H:i", // 시간만 표시
+    time_24hr: true,   // 24시간 형식
+    onChange: function(selectedDates, dateStr, instance) {
+      // 사용자가 시간만 선택하면, 분을 00으로 설정
+      if (selectedDates.length > 0) {
+        let selectedDate = selectedDates[0];
+        instance.setDate(selectedDate.setMinutes(0));
+      }
+    }
+  });
+});
+//timepicker 종료일 초기화설정
+document.addEventListener('DOMContentLoaded', function() {
+  flatpickr("#kt_modal_add_schedule_datepicker_end", {
+    enableTime: true,
+    noCalendar: false,
+    dateFormat: "Y-m-d H:i", // 시간만 표시
+    time_24hr: true,   // 24시간 형식
+    onChange: function(selectedDates, dateStr, instance) {
+      // 사용자가 시간만 선택하면, 분을 00으로 설정
+      if (selectedDates.length > 0) {
+        let selectedDate = selectedDates[0];
+        instance.setDate(selectedDate.setMinutes(0));
+      }
+    }
+  });
+});
 
-
-
+//예약 신청서의 자산선택탭
+function insertReservation() {
+	console.log('11111')
+	//셀렉트(자산선택) 값
+	let selectElement = document.getElementById('kt_facility_location');
+	
+	let selectFacility = selectElement.options[selectElement.selectedIndex];
+	
+	let fc_no = selectFacility.value;
+	let bk_title = selectFacility.textContent;
+	
+	//사용일
+	let bk_stday = document.getElementById('kt_modal_add_schedule_datepicker_start').value;
+	let bk_edday = document.getElementById('kt_modal_add_schedule_datepicker_end').value;
+	bk_stday = bk_stday+':00';
+	bk_edday = bk_edday+':00';
+	
+	
+	//사용목적
+	let bk_content = document.getElementById('facility_use').value;
+	
+	let data = {
+		fc_no:fc_no,
+		bk_title:bk_title,
+		bk_stday:bk_stday,
+		bk_edday:bk_edday,
+		bk_content:bk_content
+	}
+	console.log('data:',data)
+	
+	fetch('./addreservation/facility.do', {
+		method: 'POST',
+		headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+	})
+	.then(response=>response.json())
+	.then(data => {
+		console.log('true면 성공' , data);
+	})
+	.catch(error => {
+			console.error('insertfetch error', error);
+	});
+	
+}
 
