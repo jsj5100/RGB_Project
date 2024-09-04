@@ -423,3 +423,17 @@ INSERT INTO RGB.REFERRER
 VALUES('', '', 'Y'
  );
 
+INSERT INTO RGB.SIGN
+(SIGN_ID, SIGN_IMG, EMP_NO, DOC_NO)
+VALUES( 'S' || LPAD(TO_CHAR(DOC_NO_SEQ.NEXTVAL), 3, '0'), 'sadf', '','');
+
+CREATE SEQUENCE SIGN_ID_SEQ
+    START WITH 1     -- 시작값
+    INCREMENT BY 1   -- 증가값
+    MINVALUE 1       -- 최소값
+    MAXVALUE 99999   -- 최대값
+    NOCYCLE          -- 최대값에 도달하면 다시 1로 돌아가지 않도록 설정
+    NOCACHE;         -- 캐시 사용 안함
+    
+DROP SEQUENCE SIGN_ID_SEQ;
+

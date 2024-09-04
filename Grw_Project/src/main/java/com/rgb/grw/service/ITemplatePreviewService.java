@@ -19,7 +19,11 @@ public interface ITemplatePreviewService {
 	
 	public boolean insertDocument(DocumentDto dto);
 	
-	public boolean insertApproval(ApproverDto dto);
+	public boolean insertApproval(Map<String, Object> map);
 		
-	public boolean insertReference(ReferrerDto dto);
+	public boolean insertReference(Map<String, Object> map);
+	
+	public boolean processDocument(DocumentDto dto, Map<String, Object> approvalMaps, Map<String, Object> ccMaps);
+	
+	public boolean insertSign(Map<String, Object> map);
 }

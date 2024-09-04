@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.function.FailableObjDoubleConsumer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,19 +61,42 @@ public class Approval_jhj_JUnitTest {
 	
 //	@Test
 	public void test_insertApproval() {
-		ApproverDto dto = new ApproverDto();
-		dto.setEmp_no("000000");
-		dto.setDoc_no("1111");
-		boolean n = templatePreviewServiceImpl.insertApproval(dto);
+		Map<String, Object> approvalMap = new HashMap<>();
+        approvalMap.put("approvalMap", List.of("EMP001", "EMP002", "EMP003"));
+        approvalMap.put("doc_no", "DOC123");
+		boolean n = templatePreviewServiceImpl.insertApproval(approvalMap);
+		assertEquals(true, n);
+	}
+	
+//	@Test
+	public void test_insertReferrer() {
+		Map<String, Object> ccMap = new HashMap<>();
+		ccMap.put("ccMap", List.of("EMP001", "EMP002", "EMP003"));
+		ccMap.put("doc_no", "DOC123");
+		boolean n = templatePreviewServiceImpl.insertReference(ccMap);
 		assertEquals(true, n);
 	}
 	
 	@Test
-	public void test_insertReferrer() {
-		ReferrerDto dto = new ReferrerDto();
-		dto.setEmp_no("1111");
-		dto.setDoc_no("1111");
-		boolean n = templatePreviewServiceImpl.insertReference(dto);
-		assertEquals(true, n);
+	public void test_processDocument() {
+		DocumentDto dto = new DocumentDto();
+		dto.setEmp_no("000000");
+		dto.setTemp_id("D001");
+		dto.setDoc_regdate("2024-10-01");
+		dto.setDoc_content("ASDFASDF");
+		dto.setDoc_exp("2024-10-01");
+		dto.setDoc_evton("2024-10-01");
+		dto.setDoc_evtoff("2024-10-01");
+		dto.setDoc_name("안녕하세요");
+		
+		Map<String, Object> approvalMap = new HashMap<>();
+        approvalMap.put("approvalMap", List.of("EMP001", "EMP002", "EMP003"));
+        approvalMap.put("doc_no", "DOC123");
+        
+        Map<String, Object> ccMap = new HashMap<>();
+		ccMap.put("ccMap", List.of("EMP001", "EMP002", "EMP003"));
+		ccMap.put("doc_no", "DOC123");
+        
+		templatePreviewServiceImpl.processDocument(dto, approvalMap, ccMap);
 	}
 }

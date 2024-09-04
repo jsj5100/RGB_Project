@@ -21,8 +21,11 @@ public interface ITemplatePreviewDao {
 	public boolean insertDocument(DocumentDto dto);
 	
 	//결재라인
-	public boolean insertApproval(ApproverDto dto);
+	public boolean insertApproval(Map<String, Object> map);
 	
 	//참조자 라인
-	public boolean insertReference(ReferrerDto dto);
+	public boolean insertReference(Map<String, Object> map);
+	
+	//서명 사인 저장
+	public boolean insertSign(Map<String, Object> map);
 }
