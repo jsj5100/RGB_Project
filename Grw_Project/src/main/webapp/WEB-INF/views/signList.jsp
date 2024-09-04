@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
 <script type="text/javascript" src="./js/signaturePad.js"></script>
 <title>서명관리</title>
 <style type="text/css">
@@ -44,11 +45,17 @@
 	text-align: center;
 }
 
-#signature-pad {
+#signature-pad-div {
 	border: 1px solid #ccc;
-	border-radius: 4px;
-	margin: 20px auto;
-	background-color: #fff;
+	width: 950px; 
+	height: 450px; 
+	position: relative;
+}
+
+#signature-pad-div canvas {
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 </style>
 </head>
@@ -87,15 +94,12 @@
 					<div class="modal-header">
 						<!--begin::Title-->
 						<h2>서명 작성</h2>
-						<!--end::Title-->
-						<!--begin::Close-->
-						<!--end::Close-->
 					</div>
 					<!--end::Modal header-->
 					<!--begin::Modal body-->
 					<div class="modal-body">
-						<div class="container">
-							<canvas id="signature-pad" style="width: 100%; height: 450px;"></canvas>
+						<div id="signature-pad-div">
+							<canvas></canvas>
 						</div>
 					</div>
 					<!--end::Modal body-->

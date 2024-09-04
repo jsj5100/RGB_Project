@@ -43,14 +43,24 @@ public class TemplatePreviewDaoImpl implements ITemplatePreviewDao {
 	}
 
 	@Override
-	public boolean insertApproval(ApproverDto dto) {
-		int n = template.insert(NS+"insertApproval", dto);
-		return (n==1)?true:false;
+	public boolean insertApproval(Map<String, Object> map) {
+		List<String> approvalList = (List<String>) map.get("approvalMap");
+		int approvalCount = approvalList.size();
+		int n = template.insert(NS+"insertApproval", map);
+		return (approvalCount == n)?true:false;
 	}
 
 	@Override
-	public boolean insertReference(ReferrerDto dto) {
-		int n = template.insert(NS+"insertReference", dto);
+	public boolean insertReference(Map<String, Object> map) {
+		List<String> ccList = (List<String>) map.get("ccMap");
+		int ccCount = ccList.size();
+		int n = template.insert(NS+"insertReference", map);
+		return (ccCount == n)?true:false;
+	}
+
+	@Override
+	public boolean insertSign(Map<String, Object> map) {
+		int n = template.insert(NS+"insertSign", map);
 		return (n==1)?true:false;
 	}
 	

@@ -1,7 +1,5 @@
 package com.rgb.grw.dto;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -22,7 +20,6 @@ public class DocumentDto {
 	private String doc_name;
 	private int sta_code;
 	private String temp_id;
-	private String docfile_id;
 	private String doc_regdate;
 	private String doc_content;
 	private String doc_exp;

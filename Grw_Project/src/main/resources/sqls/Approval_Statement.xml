@@ -31,28 +31,42 @@
 	</select>
 	
 	<insert id="insertDocument" parameterType="DocumentDto" >
+		<selectKey keyProperty="doc_no" resultType="java.lang.String" order="BEFORE">
+			SELECT 'D' || LPAD(TO_CHAR(DOC_NO_SEQ.NEXTVAL), 3, '0') FROM DUAL
+		</selectKey>
+		
 		INSERT INTO RGB.DOCUMENT
 		    (DOC_NO, EMP_NO, STA_CODE, 
 		     TEMP_ID, DOC_REGDATE, DOC_CONTENT,
 		     DOC_EXP, DOC_DELFLAG, DOC_EVTON, 
 		     DOC_EVTOFF, DOC_NAME)
 		VALUES (
-		    'D' || LPAD(TO_CHAR(DOC_NO_SEQ.NEXTVAL), 3, '0'), #{emp_no}, 1,
+		    #{doc_no}, #{emp_no}, 1,
 		    #{temp_id}, TO_TIMESTAMP(#{doc_regdate}, 'YYYY-MM-DD'), #{doc_content},  
 		    TO_TIMESTAMP(#{doc_exp}, 'YYYY-MM-DD'), 'N',  TO_TIMESTAMP(#{doc_evton}, 'YYYY-MM-DD'),
 		    TO_TIMESTAMP(#{doc_evtoff}, 'YYYY-MM-DD'), #{doc_name}
 		)
 	</insert>
 	
-	<insert id="insertApproval" parameterType="ApproverDto">
+	<insert id="insertApproval">
 		INSERT INTO RGB.APPROVER
-			(EMP_NO, APP_PROCEDURE)
-			VALUES(#{emp_no}, 1)
+			(EMP_NO, APP_PROCEDURE, DOC_NO)
+			<foreach collection="approvalMap" item="approvalOne" index="idx" separator=" UNION ALL ">
+				SELECT #{approvalOne}, #{idx} + 1, #{doc_no} FROM DUAL 			
+			</foreach>
 	</insert>
 	
-	<insert id="insertReference" parameterType="ReferrerDto">
+	<insert id="insertReference">
 		INSERT INTO RGB.REFERRER
-			(EMP_NO, REFFER_AUTH)
-			VALUES(#{emp_no}, 'Y')
+			(EMP_NO, REFFER_AUTH, DOC_NO)
+			<foreach collection="ccMap" item="ccOne" separator=" UNION ALL ">
+				SELECT #{ccOne}, 'Y', #{doc_no} FROM DUAL
+			</foreach>
+	</insert>
+	
+	<insert id="insertSign">
+		INSERT INTO RGB.SIGN
+			(SIGN_ID, SIGN_IMG, EMP_NO, DOC_NO)
+			VALUES( 'S' || LPAD(TO_CHAR(DOC_NO_SEQ.NEXTVAL), 3, '0'), #{sign_img}, #{emp_no}, '임시');
 	</insert>
 </mapper>
