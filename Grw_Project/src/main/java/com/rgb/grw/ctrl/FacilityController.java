@@ -37,6 +37,10 @@ public class FacilityController {
 		String empno = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_no();
 		String auth = ((UserInfoDto) session.getAttribute("loginDto")).getAuth_no();
 		
+		if(session.getAttribute("loginDto") == null) {
+			return "redirect:/loginServlet.do";
+			
+		} else {
 		
 		Calendar today = Calendar.getInstance();
 		//오늘 날짜
@@ -50,12 +54,6 @@ public class FacilityController {
 		
 		log.info("list 출력 {}",list);
 		
-		if(empno == null) {
-			log.info("empno값 확인 : {}", empno);
-			return "redirect:/loginServlet.do";
-			
-		} else {
-			
 		 Map<String, Object> pageParams = new HashMap<String, Object>();
 		    pageParams.put("startDate", startDate);
 		    pageParams.put("endDate", endDate);

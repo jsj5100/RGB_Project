@@ -13,7 +13,13 @@ public interface IReservationService {
 	
 	public List<ReservationDto> getAllBook(Map<String,Object> map);
 	
+	public boolean serchReservation(Map<String, Object> map);
+	
 	public boolean insertReservation(Map<String,Object> map);
+	
+//	public List<ReservationDto> updateBook(Map<String, Object> map);
+//	
+//	public List<ReservationDto> modifyBook(Map<String, Object> map);
 	
 	public int countBook(Map<String, Object> map);
 	

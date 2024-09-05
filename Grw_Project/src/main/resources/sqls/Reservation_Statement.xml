@@ -68,6 +68,14 @@
   						TO_TIMESTAMP(#{bk_edday}, 'YYYY-MM-DD HH24:MI:SS'), #{bk_name}, #{bk_dep}, CURRENT_TIMESTAMP)
 	</insert>
 	
+<!-- 	예약여부 확인 -->
+	<select id="serchReservation" resultType="java.lang.Integer">
+		SELECT COUNT(*) 
+		FROM RESERVATION r 
+		WHERE BK_STDAY >= TO_TIMESTAMP('2024-09-06 00:00:00', 'YYYY-MM-DD HH24:MI:SS') 
+		AND  BK_EDDAY &lt; TO_TIMESTAMP('2024-09-07 17:00:00', 'YYYY-MM-DD HH24:MI:SS') 
+		AND FC_NO  = #{fc_no}
+	</select>
 	
 
 </mapper>

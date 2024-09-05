@@ -70,8 +70,6 @@ document.addEventListener('DOMContentLoaded', function () {
         	console.log(selectedEventId);
             detailEvent(selectedEventId);
         	
-        	
-        	
         }
         
     });

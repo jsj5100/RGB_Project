@@ -52,7 +52,23 @@ public class ReservationServiceImpl implements IReservationService {
 	@Transactional(isolation = Isolation.SERIALIZABLE)
 	@Override
 	public boolean insertReservation(Map<String, Object> map) {
+		boolean insertSuccess = dao.insertReservation(map);
 		
-		return dao.insertReservation(map);
+		if (insertSuccess) {
+
+			boolean searchSuccess = dao.serchReservation(map);
+
+	        if (!searchSuccess) {
+	            throw new RuntimeException("선예약시간 있음");
+	        }
+	    }
+
+	    return insertSuccess;
+	}
+	
+	@Override
+	public boolean serchReservation(Map<String, Object> map) {
+		
+		return dao.serchReservation(map);
 	}
 }

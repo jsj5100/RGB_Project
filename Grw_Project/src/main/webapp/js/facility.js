@@ -134,6 +134,7 @@ $(document).ready(function() {
                     return startDate + ' ~ ' + endDate;
                 }
             },
+             {"data" : "bk_name"},
 			 { // 진행상태
                 "data": null, 
                 "render": function (data, type, row) {
@@ -152,9 +153,11 @@ $(document).ready(function() {
             },
 				
 			{"data": null,
-                "render": function (data) {
-	
-                    return data.bk_regdate.replace(/:00$/, '');
+                "render": function (row) {
+					
+//					let regdate=data.bk_regdate.replace(/:00$/, '');
+					let regdate=row.bk_stday.split(' ')[0]+' '+row.bk_stday.split(' ')[1].slice(0,-3);
+                    return regdate;
                 }}
 		],
 		
@@ -205,7 +208,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 		});
 		
-//		//처음 로드 될때 당일 예약일정 보여주기
+
+		//처음 로드 될때 당일 예약일정 보여주기
 //		let firstTab = document.querySelector('#reservation_day_container .nav-link');
 //   			if (firstTab) {
 //        		firstTab.classList.add('active');
@@ -219,6 +223,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		console.error('Error', error);
 	})
 });
+
+
+
 
 //자산예약현황 날짜별 일정 콘텐츠 영역
 function createContents(item) {
@@ -398,6 +405,10 @@ function insertReservation() {
 
     // 사용목적
     let bk_content = document.getElementById('facility_use').value;
+    if(bk_content == '') {
+	alert('내용을 적어주세요');
+	return;
+	}
 
     let data = {
         fc_no: fc_no,
@@ -407,7 +418,7 @@ function insertReservation() {
         bk_content: bk_content
     };
 
-    console.log('data:', data);
+//    console.log('data:', data);
 
     fetch('./addreservation/facility.do', {
         method: 'POST',
@@ -416,19 +427,32 @@ function insertReservation() {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json())
+    .then(response => {
+			
+			//응답오류
+			if(!response.ok){
+				return response.text()
+				 
+			}
+			return response.json();
+				
+		})	
     .then(data => {
-        console.log('true면 성공', data);
-		var table = new DataTable('#table_list').DataTable();
-	 
-			 table.row.add({
-	            bk_title: data.bk_title,
-	            bk_stday: data.bk_stday,
-	            bk_edday: data.bk_edday,
-	            bk_state: data.bk_state, // 진행상태
-	            bk_regdate: data.bk_regdate
+//        console.log('true면 성공', data);
+        
+        var table = new DataTable('#table_list');
+
+		  data.forEach(item => {
+       
+	        table.row.add({
+	            "bk_title": item.bk_title,       // 제목
+	            "bk_stday": item.bk_stday,       // 시작일
+	            "bk_edday": item.bk_edday,       // 종료일
+	            "bk_name" : item.bk_name,	 	 //작성자
+	            "bk_state": item.bk_state,       // 상태
+	            "bk_regdate": item.bk_regdate    // 등록일
 	        }).draw();
-     
+    	 });
         // 모달 숨기기
         let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_add_schedule'));
         modal.hide();
@@ -437,3 +461,34 @@ function insertReservation() {
         console.error('insertfetch error', error);
     });
 }
+
+
+//모달 닫힐때 리셋
+document.addEventListener('DOMContentLoaded', function () { 
+    // 모달 요소 선택
+    var addmodalElement = document.getElementById('kt_modal_add_schedule');
+
+    // 모달이 닫힐 때 호출될 함수
+    function resetModalContent() {
+        // 모든 input 요소들을 찾고 초기화
+        document.querySelectorAll('#kt_modal_add_schedule input').forEach(function(input) {
+           	if(input.type=='checkbox') {
+				input.checked=false;	//체크박스는 안되서 if문으로 걸어줌
+			} else {
+	            input.value = ''; // 각 input의 값을 빈 문자열로 설정
+			}
+            
+        });
+        //셀렉트요소도 있으니까
+        document.querySelectorAll('#kt_modal_add_schedule select').forEach(function(select) {
+			select.selectedIndex=0;
+		})
+        
+    }
+
+    // 모달이 닫힐 때 resetModalContent 함수를 호출합니다.
+    addmodalElement.addEventListener('hidden.bs.modal', function () {
+        resetModalContent();
+    });
+
+});
