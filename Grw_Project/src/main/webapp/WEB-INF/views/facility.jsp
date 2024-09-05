@@ -9,10 +9,10 @@
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-
+<link href="https://cdn.datatables.net/v/bs5/dt-2.1.5/datatables.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <%@include file="./header.jsp"%>
-<link href="https://cdn.datatables.net/v/bs5/dt-2.1.5/b-3.1.2/datatables.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <body>
 	<div style="padding-left:80px; margin-top:10px;" id="kt_app_content" class="app-content flex-column-fluid">
 		<div style="padding-left:80px;" id="kt_app_content_container" class="app-container container-xxl" style="padding-top: 30px;">
@@ -51,7 +51,7 @@
 
 				<!--begin::Card footer-->
 				<div class="card-footer pt-0">
-				    <button type="button" class="btn btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">예약신청</button>
+<!-- 				    <button type="button" class="btn btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">예약신청</button> -->
 				    <button type="button" class="btn btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">추가(관리자용)</button>
 				</div>
 				<!--end::Card footer-->
@@ -74,7 +74,11 @@
 					
 					<!--begin::Card toolbar-->
 					<div class="card-toolbar">
-					<button type="button" class="btn btn-light-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_add_schedule">
+					<button type="button" id="kt_modal_add_schedule_add" 
+					class="btn btn-light-primary btn-sm" 
+					data-bs-toggle="modal" 
+					data-bs-target="#kt_modal_add_schedule" 
+					data-bs-whatever="add_event">
 						<i class="ki-duotone ki-brush fs-3">
 						<span class="path1"></span>
 						<span class="path2"></span>
@@ -141,7 +145,7 @@
 							<thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
 								<tr>
 									<th class="min-w-100px">신청자산</th>
-									<th class="min-w-350px">사용기간</th>
+									<th class="min-w-300px">사용기간</th>
 									<th class="min-w-100px">신청자</th>
 									<th class="min-w-100px">진행상태</th>
 									<th class="min-w-200px">신청일</th>
@@ -213,7 +217,7 @@
 
 	
 	<!-- 모달 이미지 영역 -->
-	<div class="modal fade" id="kt_modal_add_schedule" tabindex="-1" style="display: none;" aria-hidden="true">
+	<div class="modal" id="kt_modal_add_schedule" tabindex="-1" style="display: none;" aria-hidden="true" >
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -225,7 +229,7 @@
                 <!--end::Modal title-->
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" data-bs-dismiss="modal">
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
                     <i class="ki-duotone ki-cross fs-1">
                     <span class="path1"></span>
                     <span class="path2"></span></i>                
@@ -273,7 +277,7 @@
 	                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
 	                            </div>
 	                        </div>
-	                        <div class="col" data-kt-calendar="datepicker">
+	                        <div class="col">
 	                            <div class="fv-row mb-9">
 	                                <!--begin::Label-->
 	                                <label class="fs-6 fw-semibold mb-2">사용종료일</label>
@@ -305,17 +309,148 @@
 
                     <!--begin::Actions-->
                     <div class="text-center pt-15">
+                        
+                        <c:choose>
+                        <c:when test="${loginDto.auth_no eq 'FC00A'}">
+                        <button type="reset" class="btn btn-light me-3" id="kt_modal_admin_schedule_deny" data-kt-users-modal-action="cancel" onclick="deny(event)" data-bs-dismiss="modal">
+                           반려
+                        </button>
+
+                        <button type="button" id="kt_modal_admin_schedule_submit" class="btn btn-primary" onclick="approve(event)" data-bs-dismiss="modal">
+                            <span class="indicator-label">
+                                승인
+                            </span>
+                        </button>
+                        </c:when>
+                       
+                        
+                        <c:otherwise>
                         <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel" data-bs-dismiss="modal">
                             취소
                         </button>
 
-                        <button type="button" class="btn btn-primary" onclick="insertReservation()" data-bs-dismiss="modal">
+                        <button type="button" id="kt_modal_add_schedule_submit" class="btn btn-primary" onclick="insertReservation()" data-bs-dismiss="modal">
                             <span class="indicator-label">
-                                승인
+                                등록
                             </span>
-<!--                             <span class="indicator-progress"> -->
-<!--                                 Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span> -->
-<!--                             </span> -->
+                        </button>
+                        </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+
+<!-- 모달 이미지 영역 -->
+	<div class="modal" id="kt_modal_edit_schedule" tabindex="-1" style="display: none;" aria-hidden="true" >
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Modal header-->
+            <div class="modal-header">
+                <!--begin::Modal title-->
+                <h2 class="fw-bold">자산예약</h2>
+                <!--end::Modal title-->
+
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                    <i class="ki-duotone ki-cross fs-1">
+                    <span class="path1"></span>
+                    <span class="path2"></span></i>                
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--end::Modal header-->
+
+            <!--begin::Modal body-->
+            <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                <!--begin::Form-->
+                <form id="kt_modal_add_schedule_form" class="form fv-plugins-bootstrap5 fv-plugins-framework">
+                    <!--begin::Input group-->
+                    
+                     <div class="fv-row mb-9">
+	                        <!--begin::Label-->
+	                        <label class="fs-6 fw-semibold required mb-2">자산 선택</label>
+	                        <!--end::Label-->
+	                        <!-- 자산선택 셀렉트박스 -->
+	                        <select class="form-control form-control-solid" id="kt_facility_location" name="calendar_event_location" required>
+							  <option value="" id="facility_ctegory" disabled selected>선택해주세요</option>
+							  <c:forEach var="facilityList" items="${fclist}">
+							  	<c:if test="${facilityList.fc_no ne null}">
+							  		<option value="${facilityList.fc_no}">${facilityList.fc_name}</option>
+							  	</c:if>
+							  </c:forEach>
+							</select>
+	                        <!--begin::Input-->
+<!-- 	                        <input type="text" class="form-control form-control-solid" placeholder="" id="kt_calendar_event_location" name="calendar_event_location"> -->
+	                        <!--end::Input-->
+	                    </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Input group-->
+                    <div class="row row-cols-lg-2 g-10">
+	                        <div class="col">
+	                        	<!-- 시작일 -->
+	                            <div class="fv-row mb-9 fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
+	                                <!--begin::Label-->
+	                                <label class="fs-6 fw-semibold mb-2 required">사용시작일</label>
+	                                <!--end::Label-->
+	                                <!--begin::Input-->
+	                                <input class="form-control form-control-solid flatpickr-input" placeholder="Select a date &amp; time." id="kt_modal_add_schedule_datepicker_start" type="text" readonly="readonly">
+	                                <!--end::Input-->
+	                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+	                            </div>
+	                        </div>
+	                        <div class="col">
+	                            <div class="fv-row mb-9">
+	                                <!--begin::Label-->
+	                                <label class="fs-6 fw-semibold mb-2">사용종료일</label>
+	                                <!--end::Label-->
+	                                <!--begin::Input-->
+	                                <input class="form-control form-control-solid flatpickr-input" placeholder="Select a date &amp; time." id="kt_modal_add_schedule_datepicker_end" type="text" readonly="readonly">
+	                                <!--end::Input-->
+	                            </div>
+	                        </div>
+	                    </div>
+                    
+                    
+                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                    <!--end::Input group-->
+
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                        <!--begin::Label-->
+                        <label class="required fs-6 fw-semibold form-label mb-2">사용목적</label>
+                        <!--end::Label-->
+
+                        <!--begin::Input-->
+                        <input type="text" class="form-control form-control-solid" id="facility_use" value="">
+                        <!--end::Input-->
+                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                    <!--end::Input group-->
+
+
+                    <!--begin::Actions-->
+                    <div class="text-center pt-15">
+                        
+                       
+                        <button type="reset" class="deny" data-kt-users-modal-action="cancel" data-bs-dismiss="modal">
+                            취소
+                        </button>
+
+                        <button type="button" id="approve" class="btn btn-primary" onclick="approve()" data-bs-dismiss="modal">
+                            <span class="indicator-label">
+                                등록
+                            </span>
                         </button>
                     </div>
                     <!--end::Actions-->
@@ -328,9 +463,11 @@
     </div>
     <!--end::Modal dialog-->
 </div>
-	
+
 </body>
 <%@include file="./footer.jsp" %>
-<script src="https://cdn.datatables.net/v/bs5/dt-2.1.5/b-3.1.2/datatables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/v/bs5/dt-2.1.5/datatables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="./js/facility.js"></script>
 </html>

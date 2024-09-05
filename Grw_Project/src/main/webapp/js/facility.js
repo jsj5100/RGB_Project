@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //데이터 테이블스 적용하기
 
 $(document).ready(function() {
-    $("#table_list").DataTable({
+	var table = $("#table_list").DataTable({
         "info": false,
         "paging": true, // 페이징 활성화
         "ordering": true, // 정렬 활성화
@@ -128,10 +128,7 @@ $(document).ready(function() {
 					let startDate = data.bk_stday.replace(/:00$/, '');
 					let endDate = data.bk_edday.replace(/:00$/, '');
 	
-//					let startDate = row.bk_stday.split(' ')[0]+' '+row.bk_stday.split(' ')[1].slice(0,-3);
-//					let endDate = row.bk_edday.split(' ')[0]+' '+row.bk_edday.split(' ')[1].slice(0,-3);
-					
-                    return startDate + ' ~ ' + endDate;
+                    return "<span data-bs-toggle='modal' data-bs-target='#kt_modal_add_schedule' >"+startDate + ' ~ ' + endDate +"</span>";
                 }
             },
              {"data" : "bk_name"},
@@ -165,15 +162,25 @@ $(document).ready(function() {
             {"orderable": false, "targets": 0} // 첫 번째 열은 정렬 불가
         ]
     });
+    
+    
+    $('#table_list tbody').on('click', 'td', function() {
+        var rowData = table.row(this).data();
+       	console.log("ssss",rowData)
+       	$('#kt_facility_location').val(rowData.fc_no).change();
+       	$('#kt_modal_add_schedule_datepicker_start').val(rowData.bk_stday).attr('disabled', true);
+       	$('#kt_modal_add_schedule_datepicker_end').val(rowData.bk_edday).attr('disabled', true);
+       	$('#facility_use').val(rowData.bk_content)
+       	$('#kt_modal_add_schedule_submit').text('변경').on('click', modify(rowData));
+       	$("#kt_modal_add_schedule").show()
+       	approve(rowData);
+       	deny(rowData);
+    });
+    
+    
 });
 
-//let table = new DataTable('#table_list', {
-//		paging:false,
-//		info:false,
-//		ordering: true,
-//		
-//	});
-
+//let bk_no = rowData.bk_no;
 //전체 일정 조회
 document.addEventListener('DOMContentLoaded', function() {
 	
@@ -276,10 +283,11 @@ function createContents(item) {
             sidebardiv.classList.add('position-absolute', 'h-100', 'w-4px', 'bg-secondary', 'rounded', 'top-0', 'start-0');
 
             // 보기 버튼
-            aview.href = "#";
+            aview.setAttribute('onclick', `openModal(${item.bk_no})`);
             aview.classList.add('btn', 'btn-light', 'bnt-active-light-primary', 'btn-sm');
+            aview.setAttribute('data-bs-target','#kt_modal_add_event');
+//            alink.setAttribute('data-bk-no', `${item.bk_no}`)
             aview.textContent = 'View';
-            
             
             
             //상태 뱃지
@@ -307,7 +315,7 @@ function createContents(item) {
             bookcontainer.appendChild(sidebardiv);
             bookcontainer.appendChild(infodiv);
             bookcontainer.appendChild(statediv);
-            bookcontainer.appendChild(aview);
+//            bookcontainer.appendChild(aview);
             
             // 부모 div에 추가
             parentdiv.appendChild(bookcontainer);
@@ -492,3 +500,177 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+
+//승인하기
+function approve(rowData){
+	
+	
+	fetch('./approve/facility.do?'+ new URLSearchParams({
+		bk_no :rowData.bk_no,
+	}))
+	.then(response=> {
+		if (!response.ok) {
+        throw new Error('Network response was not ok');
+    	}
+    	return response.json(); 
+	})
+	.then(data=>{
+		
+		data.forEach(item => {
+			
+//			createContents(item);
+			console.log('item',item);
+			
+		});
+	})
+	.catch(error => {
+		console.log('error 승인')
+	})
+}
+
+//반려하기
+function deny(rowData) {
+	fetch('./deny/facility.do?'+ new URLSearchParams({
+		bk_no :rowData.bk_no,
+	}))
+	.then(response=> {
+		if (!response.ok) {
+        throw new Error('Network response was not ok');
+    	}
+    	return response.json(); 
+	})
+	.then(data=>{
+		
+		data.forEach(item => {
+			
+//			createContents(item);
+			console.log('item',item);
+			
+		});
+	})
+	.catch(error => {
+		console.log('error 반려')
+	})
+}
+
+//반려하기
+function cancel(rowData) {
+	fetch('./deny/cancel.do?'+ new URLSearchParams({
+		bk_no :rowData.bk_no,
+	}))
+	.then(response=> {
+		if (!response.ok) {
+        throw new Error('Network response was not ok');
+    	}
+    	return response.json(); 
+	})
+	.then(data=>{
+		
+		data.forEach(item => {
+			
+//			createContents(item);
+			console.log('item',item);
+			
+		});
+	})
+	.catch(error => {
+		console.log('error 취소망함')
+	})
+}
+
+
+//aview 누르면 모달창 열기
+//function openModal(bk_no){
+//	 console.log('모달을 열 값:', bk_no);
+//	var infoModal = new bootstrap.Modal(document.getElementById('kt_modal_view_schedule'), {
+//    });
+//	infoModal.show();
+//}
+
+//이벤트 추가 수정 창 스위칭하기
+//document.addEventListener('DOMContentLoaded', function () {
+//    // 모달 요소 선택
+//    let addEditModel = document.getElementById('kt_modal_add_schedule');
+//    let registerButton = document.getElementById('kt_modal_add_schedule_add');
+//    let editButton = document.getElementById('kt_modal_add_schedule_edit');
+//    
+//    // 모달이 열릴 때 실행될 이벤트 리스너
+//    addEditModel.addEventListener('show.bs.modal', function (event) {
+//		console.log(calendarData);
+//	    
+//        // 클릭된 버튼을 참조
+//        let button = event.relatedTarget;
+//
+//        // data-bs-whatever의 값을 참조
+//        let recipient;
+//        if (button) { //일정추가 버튼을 누르고 추가하는경우
+//            recipient = button.getAttribute('data-bs-whatever');
+//        } else { //이벤트 클릭 or 데이트 클릭
+//            recipient = null;
+//        }
+//
+//        // 모달 제목 요소 선택
+//        let modalHead = addEditModel.querySelector('#kt_modal_head');
+//        let modalTitle = addEditModel.querySelector('#kt_calendar_event_name');
+//		let modalDescription = addEditModel.querySelector('#kt_calendar_event_description');
+//		let modalAllday = addEditModel.querySelector('#kt_calendar_datepicker_allday');
+//		let modalStartDate = addEditModel.querySelector('#kt_calendar_datepicker_start_date');
+//		let modalStartTime = addEditModel.querySelector('#kt_calendar_datepicker_start_time');
+//		let modalEndDate = addEditModel.querySelector('#kt_calendar_datepicker_end_date');
+//		let modalEndTime = addEditModel.querySelector('#kt_calendar_datepicker_end_time');
+//		let modalGroupId = addEditModel.querySelector('#kt_calendar_event_location');
+//		
+//		let editSubmit = document.getElementById('kt_modal_add_event_submit'); //이벤트 스위칭용
+//		
+//        // recipient 값에 따라 모달 제목을 변경
+//        if (recipient === 'edit_event') {
+//            modalHead.textContent = '일정 수정';
+//            modalTitle.value = calendarData.sd_title;
+//            modalDescription.value = calendarData.sd_content;
+//            modalAllday.checked = calendarData.sd_allday;
+//            
+//            
+//            //날짜와 시간으로 값 나누기
+//            let startDate = calendarData.sd_start.split(' ');
+//            let endDate = calendarData.sd_end.split(' ');
+//            
+//            let [startDatePart, startTimePart] = startDate;
+//            let [endDatePart, endTimePart] = endDate;
+//            
+//            if(calendarData.sd_allday) {
+//				//allday
+//				modalStartDate.value=startDatePart;
+//				modalStartTime.value='';
+//				modalEndDate.value=endDatePart;
+//				modalEndTime.value=endTimePart='';
+//				
+//			} else {
+//				
+//				modalStartDate.value=startDatePart;
+//				modalStartTime.value=startTimePart.slice(0,5);
+//				modalEndDate.value=endDatePart;
+//				modalEndTime.value=endTimePart.slice(0,5);;
+//				
+//			}
+//            
+//            //그룹 코드값
+//            for(let i=1; i<modalGroupId.options.length; i++) {
+//				if(modalGroupId.options[i].value === calendarData.sd_code) {
+//					modalGroupId.selectedIndex = i;
+//					break;
+//			}
+//			console.log(selectedIndex);
+//			
+//			//등록버튼 -> 수정버튼
+//       		registerButton.style.display = 'none';
+//            editButton.style.display = 'block';
+//		}
+//            
+//        } else {
+//			//수정버튼 -> 등록버튼
+//            modalHead.textContent = '일정 추가';
+//			registerButton.style.display = 'block';
+//            editButton.style.display = 'none';
+//        }
+//    });
+//});

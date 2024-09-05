@@ -178,6 +178,7 @@ public class ReservationRestController {
 			bookmap.put("bk_empno", bk_empno);
 			bookmap.put("startDate", startDate);
 			bookmap.put("endDate", endDate);
+			bookmap.put("bk_auth", auth);
 			
 			if(auth == "FC00A") {
 				booklist = service.getBook(bookmap);
@@ -190,6 +191,43 @@ public class ReservationRestController {
 			
 		}
 		
+	}
+	
+	//관리자 승인
+	@GetMapping(value="/approve/facility.do")
+	public boolean approve(HttpSession session, @RequestParam Map<String, Object> map) {
+		String se_name = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_name();
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("bk_state", "Y");
+		params.put("bk_no", map.get("bk_no"));
+		params.put("se_name", se_name);
+		log.info("params",params);
+		
+		return service.updateBook(params);
+	}
+	
+	//관리자 반려
+	@GetMapping(value="/deny/facility.do")
+	public boolean deny(HttpSession session, @RequestParam Map<String, Object> map) {
+		String se_name = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_name();
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("bk_state", "N");
+		params.put("bk_no", map.get("bk_no"));
+		params.put("se_name", se_name);
+		
+		return service.updateBook(params);
+	}
+	
+	//사용자 취소
+	@GetMapping(value="/cancel/facility.do")
+	public boolean cancel(HttpSession session, @RequestParam Map<String, Object> map) {
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("bk_no", map.get("bk_no"));
+		
+		return service.cancelBook(params);
 	}
 }
 

@@ -75,7 +75,25 @@
 		WHERE BK_STDAY >= TO_TIMESTAMP('2024-09-06 00:00:00', 'YYYY-MM-DD HH24:MI:SS') 
 		AND  BK_EDDAY &lt; TO_TIMESTAMP('2024-09-07 17:00:00', 'YYYY-MM-DD HH24:MI:SS') 
 		AND FC_NO  = #{fc_no}
+		AND BK_STATE IN ('Y', 'S')
 	</select>
 	
-
+<!-- 	관리자 승인 / 반려 -->
+	<update id="updateBook">
+		UPDATE  RESERVATION SET 
+			BK_STATE= #{bk_state}, BK_APNAME= #{}, BK_APDAY=CURRENT_TIMESTAMP
+		WHERE BK_NO = #{bk_no}
+	</update>
+	
+<!-- 	사용자 취소 -->
+	<update id="cancelBook">
+		UPDATE  RESERVATION SET BK_STATE= 'C'
+		WHERE BK_NO = #{bk_no}
+	</update>
+	
+	<select id="getBookInfo">
+		SELECT *
+		FROM RESERVATION
+		WHERE BK_NO = #{bk_no}
+	</select>
 </mapper>

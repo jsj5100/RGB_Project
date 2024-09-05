@@ -71,4 +71,24 @@ public class ReservationServiceImpl implements IReservationService {
 		
 		return dao.serchReservation(map);
 	}
+	
+	//관리자 승인 / 반려
+	@Override
+	public boolean updateBook(Map<String, Object> map) {
+		
+		return dao.updateBook(map);
+	}
+	
+	//사용자 취소
+	@Override
+	public boolean cancelBook(Map<String, Object> map) {
+		return dao.cancelBook(map);
+	}
+	
+	//예약내역 상세
+	@Override
+	public ReservationDto getBookInfo(Map<String, Object> map) {
+		
+		return dao.getBookInfo(map);
+	}
 }

@@ -17,6 +17,12 @@ public interface IReservationDao {
 	
 	public boolean serchReservation(Map<String, Object> map);
 	
+	public boolean updateBook(Map<String, Object> map);
+	
+	public boolean cancelBook(Map<String, Object> map);
+	
+	public ReservationDto getBookInfo(Map<String, Object>map);
+	
 	//Paging
 	public int countBook(Map<String, Object> map);
 	
