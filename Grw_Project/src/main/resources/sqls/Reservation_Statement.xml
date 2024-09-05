@@ -81,7 +81,7 @@
 <!-- 	관리자 승인 / 반려 -->
 	<update id="updateBook">
 		UPDATE  RESERVATION SET 
-			BK_STATE= #{bk_state}, BK_APNAME= #{}, BK_APDAY=CURRENT_TIMESTAMP
+			BK_STATE= #{bk_state}, BK_APNAME= #{se_name}, BK_APDAY=CURRENT_TIMESTAMP
 		WHERE BK_NO = #{bk_no}
 	</update>
 	
