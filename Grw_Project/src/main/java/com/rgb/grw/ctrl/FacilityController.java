@@ -107,9 +107,6 @@ public class FacilityController {
 		model.addAttribute("booklist", rlist);
 		model.addAttribute("abooklist", allbooklist);
 		
-		
-		
-	    
 	    return "facility";
 		}
 	}

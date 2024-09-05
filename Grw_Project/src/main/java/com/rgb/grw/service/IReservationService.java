@@ -17,9 +17,11 @@ public interface IReservationService {
 	
 	public boolean insertReservation(Map<String,Object> map);
 	
-//	public List<ReservationDto> updateBook(Map<String, Object> map);
-//	
-//	public List<ReservationDto> modifyBook(Map<String, Object> map);
+	public boolean updateBook(Map<String, Object> map);
+	
+	public boolean cancelBook(Map<String, Object> map);
+	
+	public ReservationDto getBookInfo(Map<String, Object>map);
 	
 	public int countBook(Map<String, Object> map);
 	
