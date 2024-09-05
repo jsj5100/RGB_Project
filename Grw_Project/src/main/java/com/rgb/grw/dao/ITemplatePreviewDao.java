@@ -7,6 +7,7 @@ import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.ReferrerDto;
+import com.rgb.grw.dto.SignDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 
 public interface ITemplatePreviewDao {
@@ -28,4 +29,10 @@ public interface ITemplatePreviewDao {
 	
 	//서명 사인 저장
 	public boolean insertSign(Map<String, Object> map);
+	
+	//서명 조회
+	public Byte[] selectSign(String empNo);
+	
+	//서명 삭제
+	public boolean deleteSign(String empNo);
 }

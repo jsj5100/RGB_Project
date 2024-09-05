@@ -14,6 +14,7 @@ import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.EmpDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.ReferrerDto;
+import com.rgb.grw.dto.SignDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 
 import lombok.RequiredArgsConstructor;
@@ -83,6 +84,18 @@ public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
 	public boolean insertSign(Map<String, Object> map) {
 		return previewDaoImpl.insertSign(map);
 	}
+
+	@Override
+	public Byte[] selectSign(String empNo) {
+		return previewDaoImpl.selectSign(empNo);
+	}
+
+	@Override
+	public boolean deleteSign(String empNo) {
+		return previewDaoImpl.deleteSign(empNo);
+	}
+
+	
 
 	
 }

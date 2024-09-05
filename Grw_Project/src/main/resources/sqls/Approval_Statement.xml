@@ -69,4 +69,17 @@
 			(SIGN_ID, SIGN_IMG, EMP_NO, DOC_NO)
 			VALUES( 'S' || LPAD(TO_CHAR(DOC_NO_SEQ.NEXTVAL), 3, '0'), #{sign_img}, #{emp_no}, '임시')
 	</insert>
+	
+	<select id="selectSign" resultType="Byte[]">
+		 SELECT s.SIGN_IMG
+		    FROM SIGN s
+		    JOIN EMP e 
+		    ON s.EMP_NO = e.EMP_NO
+		    WHERE e.EMP_NO = #{empNo}
+	</select>
+	
+	<delete id="deleteSign">
+		DELETE FROM RGB.SIGN
+		WHERE EMP_NO = #{empNo}
+	</delete>
 </mapper>

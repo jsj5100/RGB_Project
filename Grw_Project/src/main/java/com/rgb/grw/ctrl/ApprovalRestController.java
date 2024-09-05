@@ -1,6 +1,7 @@
 package com.rgb.grw.ctrl;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +32,8 @@ public class ApprovalRestController {
 	private TemplatePreviewServiceImpl serviceImpl;
 	
 	@GetMapping("/api/data.do")
-	public List<TemplatePreviewDto> previewContent(Model model) {
+	public List<TemplatePreviewDto> previewContent() {
 		List<TemplatePreviewDto> lists = serviceImpl.selectTemplate();
-		model.addAttribute("lists", lists);
 		return lists;
 	}
 	
@@ -44,7 +44,7 @@ public class ApprovalRestController {
 	}
 	
 	@PostMapping("/saveSignatureSign.do")
-	public boolean saveSignatureSign(@RequestBody Map<String, String> request, HttpSession session){
+	public Map<String, Object> saveSignatureSign(@RequestBody Map<String, String> request, HttpSession session){
 		UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
 		
 		String base64Image = request.get("image").split(",")[1];
@@ -57,6 +57,10 @@ public class ApprovalRestController {
 		
 		boolean success = serviceImpl.insertSign(response);
 		System.out.println(success);
-		return success;
+		
+		return response;
 	}
+
+	
+	
 }
