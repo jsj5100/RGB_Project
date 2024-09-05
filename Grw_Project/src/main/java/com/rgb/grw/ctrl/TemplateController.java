@@ -17,12 +17,15 @@ import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rgb.grw.dto.DocumentListDto;
 import com.rgb.grw.dto.TemplateDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 import com.rgb.grw.dto.UserInfoDto;
+import com.rgb.grw.service.DocumentListServiceImpl;
 import com.rgb.grw.service.TemplateServiceImpl;
 
 @Controller
@@ -31,8 +34,11 @@ public class TemplateController {
 	@Autowired
 	private TemplateServiceImpl templateServiceImpl;
 	
+	@Autowired
+	private DocumentListServiceImpl documentListServiceImpl;
+	
 	@GetMapping(value = "/templateList.do")
-	public String TemplateList(Model model, HttpServletRequest request) {
+	public String TemplateList(Model model) {
 		List<TemplateDto> lists = templateServiceImpl.selectTemplateList();
 		model.addAttribute("lists", lists);	
 		return "templateList";
@@ -99,7 +105,8 @@ public class TemplateController {
 	
 	@GetMapping(value = "/draftDocument.do")
 	public String DraftedDocumentList(Model model) {
-		
+		List<DocumentListDto> lists = documentListServiceImpl.selectDratfDocumentList();
+		model.addAttribute("draftLists", lists);
 		return "drafted";
 	}
 	
@@ -120,7 +127,9 @@ public class TemplateController {
 	}
 	
 	@GetMapping(value = "/signDocument.do")
-	public String SignDocumentList() {
+	public String SignDocumentList(Model model) {
+		List<DocumentListDto> lists = documentListServiceImpl.selectDratfDocumentList();
+		model.addAttribute("draftLists", lists);
 		return "signDocumentList";
 	}
 	

@@ -214,6 +214,26 @@
 								</div>
 								</div>
 							<!-- 끝 -->
+							<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+									<span class="menu-link">
+										<span style="color : #2c9aff;" class="menu-bullet">
+											<span style="color : #2c9aff;" class="bullet bullet-dot"></span>
+										</span>
+										<span class="menu-title">서명관리</span>
+										<span class="menu-arrow"></span>
+									</span>
+									<div class="menu-sub menu-sub-accordion" style="display: none; overflow: hidden;">
+										<div class="menu-item">
+											<a class="menu-link" href="./signList.do">&nbsp;&nbsp;&nbsp;
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">서명</span>
+											</a>
+										</div>
+										
+								</div>
+								</div>
 						</div>
 						</div>
 						<div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"

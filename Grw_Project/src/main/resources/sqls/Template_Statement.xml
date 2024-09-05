@@ -29,4 +29,15 @@
 	WHERE TEMP_ID = #{temp_id}
 </update>
 
+<select id="selectDraftedList" resultType="DocumentListDto">
+	SELECT DOC_NO, DOC_NAME, EMP_NAME, TO_CHAR(DOC_EXP, 'YYYY.MM.DD') DOC_EXP, IMG_VALUE, TO_CHAR(DOC_REGDATE, 'YYYY.MM.DD') DOC_REGDATE, DOC_CONTENT
+	FROM DOCUMENT d, EMP e, TEMPLATE t 
+	WHERE d.EMP_NO = e.EMP_NO 
+	AND d.TEMP_ID = t.TEMP_ID
+</select>
+
+<select id="selectProgressList" resultType="DocumentListDto">
+	SELECT DOC_NO, DOC_NAME 
+</select>
+
 </mapper>
