@@ -67,6 +67,6 @@
 	<insert id="insertSign">
 		INSERT INTO RGB.SIGN
 			(SIGN_ID, SIGN_IMG, EMP_NO, DOC_NO)
-			VALUES( 'S' || LPAD(TO_CHAR(DOC_NO_SEQ.NEXTVAL), 3, '0'), #{sign_img}, #{emp_no}, '임시');
+			VALUES( 'S' || LPAD(TO_CHAR(DOC_NO_SEQ.NEXTVAL), 3, '0'), #{sign_img}, #{emp_no}, '임시')
 	</insert>
 </mapper>
