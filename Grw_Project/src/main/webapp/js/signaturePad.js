@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+	const canvas = document.querySelector('#signature-pad-div canvas'); 
     const signaturePad = new SignaturePad(canvas);
 
     function resizeCanvas() {
@@ -40,10 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
 				return response.json();
 			})
 			.then(data => {
-				if (data.success){
+				if (data){
 					console.log('사인 이미지 전송 성공');
+					console.log(typeof data.success);
+					console.log('111');
 				}else{
 					console.log('사인 이미지 전송 실패');	
+					console.log(typeof data.success);
+					console.log(data.success);
+					console.log(data.status);
+					console.log(data);
+					console.log(typeof data);
 				}
 			})
 			.catch(error => {

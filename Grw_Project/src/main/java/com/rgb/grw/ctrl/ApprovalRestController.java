@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,15 +44,19 @@ public class ApprovalRestController {
 	}
 	
 	@PostMapping("/saveSignatureSign.do")
-	public Map<String, Object> saveSignatureSign(@RequestBody Map<String, String> request, HttpSession session){
+	public boolean saveSignatureSign(@RequestBody Map<String, String> request, HttpSession session){
 		UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
-		String image = request.get("image");
+		
+		String base64Image = request.get("image").split(",")[1];
+		
+		byte[] imageData = Base64Utils.decodeFromString(base64Image);
 		
 		Map<String, Object> response = new HashMap<String, Object>();
-		response.put("sign_img", image);
+		response.put("sign_img", imageData);
 		response.put("emp_no", loginDto.getEmp_no());
 		
 		boolean success = serviceImpl.insertSign(response);
-		return response;
+		System.out.println(success);
+		return success;
 	}
 }
