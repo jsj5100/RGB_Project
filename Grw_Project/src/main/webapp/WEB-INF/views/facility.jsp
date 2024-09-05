@@ -133,14 +133,6 @@
 <!-- 						</div> -->
 <!-- 					</div> -->
 <!-- 				end::Task menu -->
-
-
-
-
-
-
-
-
 				<div class="card-body p-0">
 					<div class="table-responsive">
 						<!--begin::Table-->
@@ -148,79 +140,68 @@
 						<!--begin::Thead-->
 							<thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
 								<tr>
-									<th class="min-w-250px">신청자산</th>
-									<th class="min-w-100px">사용기간</th>
-									<th class="min-w-150px">진행상태</th>
-									<th class="min-w-150px">신청일</th>
+									<th class="min-w-100px">신청자산</th>
+									<th class="min-w-350px">사용기간</th>
+									<th class="min-w-100px">신청자</th>
+									<th class="min-w-100px">진행상태</th>
+									<th class="min-w-200px">신청일</th>
 								</tr>
 							</thead>
 						<!--end::Thead-->
 						<!--begin::Tbody-->
-							<tbody class="fw-6 fw-semibold text-gray-600">
-								 <c:choose>
-							        <c:when test="${booklist eq null}">
-							            <!-- 예약 리스트가 비어있을 때 -->
-							            <tr>
-							                <td colspan="4">신청내용이 없습니다.</td>
-							            </tr>
-							        </c:when>
-							        <c:otherwise>
-							            <!-- 예약 리스트가 있을 때 -->
-							            <c:forEach var="booklist" items="${booklist}">
-							                <tr>
-							                    <td>
-								                    <a href="#" class="text-hover-primary text-gray-600">${booklist.bk_title}</a>
-							                    </td>
-							                    <td> 
-							                    	${fn:substring(fn:replace(booklist.bk_stday, 'T', ' '), 0, 16)} ~ 
-							                    	${fn:substring(fn:replace(booklist.bk_edday, 'T', ' '), 0, 16)}
-							                    	</td>
-							                    <td>
-													<c:if test="${booklist.bk_state eq 'S'}">							                    
-							                    		신청대기
-							                    	</c:if>
-													<c:if test="${booklist.bk_state eq 'C'}">							                    
-							                    		신청취소
-							                    	</c:if>
-													<c:if test="${booklist.bk_state eq 'Y'}">							                    
-							                    		신청승인
-							                    	</c:if>
-													<c:if test="${booklist.bk_state eq 'N'}">							                    
-							                    		신청반려
-							                    	</c:if>
-							                    </td>
-							                    <td>${fn:substring(fn:replace(booklist.bk_regdate, 'T', ' '), 0, 16)}</td>
-							                </tr>
-							            </c:forEach>
-							        </c:otherwise>
-							    </c:choose>
-<!-- 											<span class="badge badge-light-success fs-7 fw-bold">OK</span> -->
+<!-- 							<tbody class="fw-6 fw-semibold text-gray-600"> -->
+<%-- 								 <c:choose> --%>
+<%-- 							        <c:when test="${booklist eq null}"> --%>
+<!-- 							            예약 리스트가 비어있을 때 -->
+<!-- 							            <tr> -->
+<!-- 							                <td colspan="4">신청내용이 없습니다.</td> -->
+<!-- 							            </tr> -->
+<%-- 							        </c:when> --%>
+<%-- 							        <c:otherwise> --%>
+<!-- 							            예약 리스트가 있을 때 -->
+<%-- 							            <c:forEach var="booklist" items="${booklist}"> --%>
+<!-- 							                <tr> -->
+<!-- 							                    <td> -->
+<%-- 								                    <a href="#" class="text-hover-primary text-gray-600">${booklist.bk_title}</a> --%>
+<!-- 							                    </td> -->
+<!-- 							                    <td>  -->
+<%-- 							                    	${fn:substring(fn:replace(booklist.bk_stday, 'T', ' '), 0, 16)} ~  --%>
+<%-- 							                    	${fn:substring(fn:replace(booklist.bk_edday, 'T', ' '), 0, 16)} --%>
+<!-- 							                    	</td> -->
+<!-- 							                    <td> -->
+<%-- 													<c:if test="${booklist.bk_state eq 'S'}">							                     --%>
+<!-- 							                    		신청대기 -->
+<%-- 							                    	</c:if> --%>
+<%-- 													<c:if test="${booklist.bk_state eq 'C'}">							                     --%>
+<!-- 							                    		신청취소 -->
+<%-- 							                    	</c:if> --%>
+<%-- 													<c:if test="${booklist.bk_state eq 'Y'}">							                     --%>
+<!-- 							                    		신청승인 -->
+<%-- 							                    	</c:if> --%>
+<%-- 													<c:if test="${booklist.bk_state eq 'N'}">							                     --%>
+<!-- 							                    		신청반려 -->
+<%-- 							                    	</c:if> --%>
+<!-- 							                    </td> -->
+<%-- 							                    <td>${fn:substring(fn:replace(booklist.bk_regdate, 'T', ' '), 0, 16)}</td> --%>
+<!-- 							                </tr> -->
+<%-- 							            </c:forEach> --%>
+<%-- 							        </c:otherwise> --%>
+<%-- 							    </c:choose> --%>
+<!-- <!-- 											<span class="badge badge-light-success fs-7 fw-bold">OK</span> -->
 											
-							</tbody>
-							<!--end::Tbody-->
+<!-- 							</tbody> -->
+<!-- 							end::Tbody -->
 						</table>
 						<!--end::Table-->
 					</div>
 				</div>
 				
-
-
-
-
-
-
-
-
-
-
-
-
-				<div class="fs-6 fw-semibold text-gray-700">
-					<!--begin::Pages-->
-					<ul class="pagination">
-					</ul>
-					<!--end::Pages-->
-				</div>						
+<!-- 				<div class="fs-6 fw-semibold text-gray-700"> -->
+<!-- 					begin::Pages -->
+<!-- 					<ul class="pagination"> -->
+<!-- 					</ul> -->
+<!-- 					end::Pages -->
+<!-- 				</div>						 -->
 				<!--end::Menu-->
 			</div>
 			<!--end::Item-->
@@ -230,12 +211,6 @@
 
 	</div>
 
-	
-	
-	
-	
-	
-	
 	
 	<!-- 모달 이미지 영역 -->
 	<div class="modal fade" id="kt_modal_add_schedule" tabindex="-1" style="display: none;" aria-hidden="true">
@@ -334,7 +309,7 @@
                             취소
                         </button>
 
-                        <button type="button" class="btn btn-primary" onclick="insertReservation()">
+                        <button type="button" class="btn btn-primary" onclick="insertReservation()" data-bs-dismiss="modal">
                             <span class="indicator-label">
                                 승인
                             </span>

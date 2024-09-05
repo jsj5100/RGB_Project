@@ -49,10 +49,21 @@ public class ReservationDaoImpl implements IReservationDao {
 
 		return template.selectOne(NS+"countBookUser",map);
 	}
+	
+	//예약등록신청
 	@Override
 	public boolean insertReservation(Map<String, Object> map) {
 
 		return template.insert(NS+"insertReservation",map)>0?true:false;
+	}
+	
+	//예약시간 확인 검사
+	@Override
+	public boolean serchReservation(Map<String, Object> map) {
+		
+		int n = template.selectOne(NS+"serchReservation",map);
+		
+		return n>0?false:true;
 	}
 	
 }

@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -138,13 +140,21 @@ public class ReservationRestController {
 	 * @return 성공하면 true 실패하면 false
 	 */
 	@PostMapping(value="/addreservation/facility.do")
-	public boolean insertReservation(HttpSession session, @RequestBody Map<String, Object>map) {
+	public ResponseEntity<List<ReservationDto>> insertReservation(HttpSession session, @RequestBody Map<String, Object>map) {
+		
+		Calendar today = Calendar.getInstance();
+		//오늘 날짜
+		Date startDate = today.getTime();
+		//12일 후 날짜
+		today.add(Calendar.DAY_OF_MONTH, 12);
+		Date endDate = today.getTime();
 		
 		UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
 		
 		String bk_empno = loginDto.getEmp_no();
 		String bk_name = loginDto.getEmp_name();
 		String bk_dep = loginDto.getDep_no();
+		String auth = loginDto.getAuth_no();
 		
 		Map<String, Object> rmap = new HashMap<String, Object>();
 		
@@ -157,7 +167,29 @@ public class ReservationRestController {
 		rmap.put("bk_stday", map.get("bk_stday"));
 		rmap.put("bk_edday", map.get("bk_edday"));
 		
-		return service.insertReservation(rmap);
+		//insert전 동일 시간대에 예약기록있는지 체크
+		boolean insertSuccess = service.insertReservation(rmap);
+		
+		if(!insertSuccess) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		} else {
+			Map<String, Object> bookmap = new HashMap<String, Object>();
+			List<ReservationDto> booklist = new ArrayList<ReservationDto>();
+			bookmap.put("bk_empno", bk_empno);
+			bookmap.put("startDate", startDate);
+			bookmap.put("endDate", endDate);
+			
+			if(auth == "FC00A") {
+				booklist = service.getBook(bookmap);
+			} else {
+				booklist = service.getBookUser(bookmap);
+			}
+			
+			log.info("booklist:{}", booklist);
+			return ResponseEntity.ok(booklist);
+			
+		}
+		
 	}
 }
 
