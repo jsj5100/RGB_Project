@@ -1,6 +1,7 @@
 package com.rgb.grw.ctrl;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.ReferrerDto;
+import com.rgb.grw.dto.SignDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 import com.rgb.grw.dto.UserInfoDto;
 import com.rgb.grw.service.TemplatePreviewServiceImpl;
@@ -34,7 +36,11 @@ public class ApprovalController {
 	
 	//문서 작성화면
 	@GetMapping(value = "/writeDocument.do")
-	public String writeDocument(Model model) {
+	public String writeDocument(Model model, HttpSession session) {
+		UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
+		if(loginDto == null) {
+			return "redirect:/loginServlet.do";
+		}
 		List<TemplatePreviewDto> lists = serviceImpl.selectTemplate();
 		model.addAttribute("lists", lists);
 		return "writeDocument";
@@ -42,7 +48,27 @@ public class ApprovalController {
 	
 	//사인함
 	@GetMapping(value = "/signList.do")
-	public String signList() {
+	public String signList(HttpSession session, Model model) {
+		UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
+		if(loginDto == null) {
+			return "redirect:/loginServlet.do";
+		}
+		String emp_no = loginDto.getEmp_no();
+		Byte[] signImgByteArray = serviceImpl.selectSign(emp_no);
+		
+		if(signImgByteArray == null) {
+			model.addAttribute("signImg", "");
+			return "signList";
+		}
+		
+		byte[] signImg = new byte[signImgByteArray.length];
+		for(int i = 0; i < signImgByteArray.length; i++) {
+			signImg[i] = signImgByteArray[i];
+		}
+		
+		String base64SignImg = Base64.getEncoder().encodeToString(signImg);
+		System.out.println("base64로 변경된 이미지 " + base64SignImg);
+		model.addAttribute("signImg",base64SignImg);
 		return "signList";
 	}
 	
@@ -52,6 +78,9 @@ public class ApprovalController {
 	                          String approvalLine, String ccLine, String tempId, HttpSession session) {
 
 	    UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
+	    if(loginDto == null) {
+			return "redirect:/loginServlet.do";
+		}
 	    
 	    log.info("문서 이름 : " + docDto.getDoc_name());
 	    log.info("ckEditor 콘텐츠 : " + docDto.getDoc_content());

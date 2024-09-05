@@ -11,6 +11,7 @@ import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.ReferrerDto;
+import com.rgb.grw.dto.SignDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 
 import lombok.RequiredArgsConstructor;
@@ -63,6 +64,18 @@ public class TemplatePreviewDaoImpl implements ITemplatePreviewDao {
 		int n = template.insert(NS+"insertSign", map);
 		return (n==1)?true:false;
 	}
+
+	@Override
+	public Byte[] selectSign(String empNo) {
+		return template.selectOne(NS+"selectSign", empNo);
+	}
+
+	@Override
+	public boolean deleteSign(String empNo) {
+		int n = template.delete(NS+"deleteSign", empNo);
+		return (n==1)?true:false;
+	}
+
 	
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,8 +48,8 @@
 
 #signature-pad-div {
 	border: 1px solid #ccc;
-	width: 950px; 
-	height: 450px; 
+	width: 950px;
+	height: 450px;
 	position: relative;
 }
 
@@ -56,6 +57,13 @@
 	position: absolute;
 	left: 0;
 	top: 0;
+}
+
+.inner-box img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	/* or 'cover' if you want the image to cover the div */
 }
 </style>
 </head>
@@ -70,12 +78,26 @@
 					<div class="outer-container">
 						<div class="inner-container">
 							<p>보유중인 서명</p>
-							<div class="inner-box"></div>
+							<div class="inner-box">
+								<c:if test="${signImg != null && !signImg.isEmpty()}">
+									<img src="data:image/png;base64,${signImg}" alt="Sign-Image" />
+								</c:if>
+								<c:if test="${signImg == null || signImg.isEmpty()}">
+									<img src="data:image/png;base64,${signImg}" alt="Sign-Image"
+										style="display: none;" />
+								</c:if>
+							</div>
 							<div class="actions">
-								<input type="submit" value="서명 등록" class="btn btn-primary"
-									data-bs-toggle="modal"
-									data-bs-target="#kt_modal_select_location"> <input
-									type="button" value="서명 삭제" class="btn btn-primary">
+								<c:if test="${signImg != null && !signImg.isEmpty()}">
+									<input type="submit" value="서명 수정" class="btn btn-primary"
+										data-bs-toggle="modal" data-bs-target="kt_modal_modify">
+								</c:if>
+								<c:if test="${signImg == null || signImg.isEmpty()}">
+									<input type="submit" value="서명 등록" class="btn btn-primary"
+										data-bs-toggle="modal"
+										data-bs-target="#kt_modal_select_location">
+								</c:if>
+								<input type="button" value="서명 삭제" class="btn btn-primary">
 							</div>
 						</div>
 					</div>
@@ -85,6 +107,40 @@
 
 		<!-- 서명등록 모달창 -->
 		<div class="modal fade" id="kt_modal_select_location" tabindex="-1"
+			style="display: none;" aria-hidden="true">
+			<!--begin::Modal dialog-->
+			<div class="modal-dialog mw-1000px">
+				<!--begin::Modal content-->
+				<div class="modal-content">
+					<!--begin::Modal header-->
+					<div class="modal-header">
+						<!--begin::Title-->
+						<h2>서명 작성</h2>
+					</div>
+					<!--end::Modal header-->
+					<!--begin::Modal body-->
+					<div class="modal-body">
+						<div id="signature-pad-div">
+							<canvas></canvas>
+						</div>
+					</div>
+					<!--end::Modal body-->
+					<!--begin::Modal footer-->
+					<div class="modal-footer d-flex justify-content-end">
+						<input type="button" id="saveSign" value="저장"
+							class="btn btn-primary" data-bs-dismiss="modal"> <input
+							type="button" id="clearSign" value="지우기" class="btn btn-primary">
+						<a href="#" class="btn btn-active-light me-5"
+							data-bs-dismiss="modal">취소</a>
+					</div>
+					<!--end::Modal footer-->
+				</div>
+				<!--end::Modal content-->
+			</div>
+			<!--end::Modal dialog-->
+		</div>
+		<!-- 서명수정 모달창 -->
+		<div class="modal fade" id="kt_modal_modify" tabindex="-1"
 			style="display: none;" aria-hidden="true">
 			<!--begin::Modal dialog-->
 			<div class="modal-dialog mw-1000px">

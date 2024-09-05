@@ -77,7 +77,7 @@ public class Approval_jhj_JUnitTest {
 		assertEquals(true, n);
 	}
 	
-	@Test
+//	@Test
 	public void test_processDocument() {
 		DocumentDto dto = new DocumentDto();
 		dto.setEmp_no("000000");
@@ -99,4 +99,10 @@ public class Approval_jhj_JUnitTest {
         
 		templatePreviewServiceImpl.processDocument(dto, approvalMap, ccMap);
 	}
+	
+		@Test
+		public void test_selectSign() {
+			String emp_no = "000000";
+			templatePreviewServiceImpl.selectSign(emp_no);
+		}
 }

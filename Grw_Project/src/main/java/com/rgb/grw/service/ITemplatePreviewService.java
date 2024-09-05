@@ -9,6 +9,7 @@ import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.EmpDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.ReferrerDto;
+import com.rgb.grw.dto.SignDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 
 public interface ITemplatePreviewService {
@@ -26,4 +27,8 @@ public interface ITemplatePreviewService {
 	public boolean processDocument(DocumentDto dto, Map<String, Object> approvalMaps, Map<String, Object> ccMaps);
 	
 	public boolean insertSign(Map<String, Object> map);
+	
+	public Byte[] selectSign(String empNo);
+	
+	public boolean deleteSign(String empNo);
 }
