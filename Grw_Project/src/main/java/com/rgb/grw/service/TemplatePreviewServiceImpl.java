@@ -12,6 +12,7 @@ import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DeptDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.EmpDto;
+import com.rgb.grw.dto.FileDocumentDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.ReferrerDto;
 import com.rgb.grw.dto.SignDto;
@@ -54,17 +55,22 @@ public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
 
 	@Override
 	@Transactional
-	public boolean processDocument(DocumentDto dto, Map<String, Object> approvalMaps, Map<String, Object> ccMaps) {
+	public boolean processDocument(DocumentDto dto, Map<String, Object> approvalMaps, Map<String, Object> ccMaps,
+									FileDocumentDto fileDto) {
 	
 			boolean insertDoc = previewDaoImpl.insertDocument(dto);
 			approvalMaps.put("doc_no", dto.getDoc_no());
 			boolean insertApp = previewDaoImpl.insertApproval(approvalMaps);
 			ccMaps.put("doc_no", dto.getDoc_no());
 			boolean insertCc = previewDaoImpl.insertReference(ccMaps);
+			boolean insertFile = true;
 			
-	
+			 if (fileDto != null) {
+			        fileDto.setDoc_no(dto.getDoc_no());
+			        insertFile = previewDaoImpl.insertFile(fileDto);
+			    }
 			
-			return true;
+			return (insertDoc && insertApp && insertCc && insertFile)?true:false;
 			
 
 		
@@ -83,6 +89,11 @@ public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
 	@Override
 	public boolean deleteSign(String empNo) {
 		return previewDaoImpl.deleteSign(empNo);
+	}
+
+	@Override
+	public boolean insertFile(FileDocumentDto dto) {
+		return previewDaoImpl.insertFile(dto);
 	}
 
 	

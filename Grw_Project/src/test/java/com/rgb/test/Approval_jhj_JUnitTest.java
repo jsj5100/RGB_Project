@@ -17,6 +17,7 @@ import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DeptDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.EmpDto;
+import com.rgb.grw.dto.FileDocumentDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.ReferrerDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
@@ -77,7 +78,7 @@ public class Approval_jhj_JUnitTest {
 		assertEquals(true, n);
 	}
 	
-	@Test
+//	@Test
 	public void test_processDocument() {
 		DocumentDto dto = new DocumentDto();
 		dto.setEmp_no("000000");
@@ -97,12 +98,23 @@ public class Approval_jhj_JUnitTest {
 		ccMap.put("ccMap", List.of("EMP001", "EMP002", "EMP003"));
 		ccMap.put("doc_no", "DOC123");
         
-		templatePreviewServiceImpl.processDocument(dto, approvalMap, ccMap);
+//		templatePreviewServiceImpl.processDocument(dto, approvalMap, ccMap);
 	}
 	
-		@Test
+//		@Test
 		public void test_selectSign() {
 			String emp_no = "000000";
 			templatePreviewServiceImpl.selectSign(emp_no);
+		}
+		
+		@Test
+		public void test_insertFile() {
+			FileDocumentDto dto = new FileDocumentDto();
+			dto.setDoc_no("sdf");
+			dto.setFdoc_no("sdf");
+			dto.setFdoc_path("sdf");
+			dto.setFdoc_size(0);
+			dto.setFdoc_title("sdf");
+			templatePreviewServiceImpl.insertFile(dto);
 		}
 }

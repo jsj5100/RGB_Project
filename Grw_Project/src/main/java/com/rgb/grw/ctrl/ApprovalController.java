@@ -1,11 +1,15 @@
 package com.rgb.grw.ctrl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,9 +20,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DocumentDto;
+import com.rgb.grw.dto.FileDocumentDto;
 import com.rgb.grw.dto.ReferrerDto;
 import com.rgb.grw.dto.SignDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
@@ -74,8 +80,9 @@ public class ApprovalController {
 	
 	//문서 작성 후 전송
 	@PostMapping(value = "/documentBox.do")
-	public String documentBox(DocumentDto docDto,
-	                          String approvalLine, String ccLine, String tempId, HttpSession session) {
+	public String documentBox(DocumentDto docDto, String approvalLine, String ccLine, 
+								String tempId, HttpSession session, @RequestParam MultipartFile uploadZip,
+								HttpServletRequest req) {
 
 	    UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");
 	    if(loginDto == null) {
@@ -89,7 +96,8 @@ public class ApprovalController {
 	    log.info("결재자 라인 : " + approvalLine);
 	    log.info("참조자 라인 : " + ccLine);
 	    log.info("템플릿 번호 : " + tempId);
-
+	    
+	    
 	    docDto.setEmp_no(loginDto.getEmp_no());
 	    docDto.setTemp_id(tempId);
 	    docDto.setDoc_regdate(docDto.getDoc_regdate());
@@ -99,7 +107,7 @@ public class ApprovalController {
 	    docDto.setDoc_content(docDto.getDoc_content());
 	    docDto.setDoc_name(docDto.getDoc_name());
 	    
-//	    boolean docBoolean = serviceImpl.insertDocument(docDto);
+
 
 	    List<String> approvalLists = Arrays.asList(approvalLine.split(","));
 	    List<String> ccLists = Arrays.asList(ccLine.split(","));
@@ -112,13 +120,46 @@ public class ApprovalController {
 	    ccMap.put("doc_no", docDto.getDoc_no());
 	    ccMap.put("ccMap", ccLists);
 	    
-//	    boolean appBoolean = serviceImpl.insertApproval(approvalMap);
-//	    boolean refBoolean = serviceImpl.insertReference(ccMap);
+	    FileDocumentDto fileDto = null;
 	    
-	    boolean processDocBoolean = serviceImpl.processDocument(docDto, approvalMap, ccMap);
-//	    log.info("Document Insertion Status: " + docBoolean);
-//	    log.info("Approval Insertion Status: " + appBoolean);
-//	    log.info("Reference Insertion Status: " + refBoolean);
+	    if(uploadZip != null && !uploadZip.isEmpty()) {
+	    	String path = req.getSession().getServletContext().getRealPath("resources");
+		    log.info("path : " + path);
+		    String root = path + "\\uploadFiles";
+		    
+		    File file = new File(root);
+		    
+		    if(!file.exists()) {
+		    	file.mkdirs();
+		    }
+		    
+		    String originalFileName = uploadZip.getOriginalFilename();
+		    
+		    String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+		    String storedFileName = UUID.randomUUID().toString() + ext;
+		    
+		    File changeFile = new File(root + "\\" + storedFileName);
+		    
+		    fileDto = new FileDocumentDto();
+		    fileDto.setDoc_no(docDto.getDoc_no());
+		    fileDto.setFdoc_path(root);
+		    fileDto.setFdoc_size(uploadZip.getSize());
+		    fileDto.setFdoc_title(originalFileName);
+		    fileDto.setFdoc_stname(storedFileName);
+		    
+			try {
+				uploadZip.transferTo(changeFile);
+				log.info("파일 업로드 성공");
+			} catch (IllegalStateException | IOException e) {
+				log.info("파일 업로드 실패");
+				e.printStackTrace();
+			}
+	    }
+	    
+
+	    
+	    boolean processDocBoolean = serviceImpl.processDocument(docDto, approvalMap, ccMap, fileDto);
+
 	    
 
 	    if (processDocBoolean) {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DocumentDto;
+import com.rgb.grw.dto.FileDocumentDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.ReferrerDto;
 import com.rgb.grw.dto.SignDto;
@@ -73,6 +74,12 @@ public class TemplatePreviewDaoImpl implements ITemplatePreviewDao {
 	@Override
 	public boolean deleteSign(String empNo) {
 		int n = template.delete(NS+"deleteSign", empNo);
+		return (n==1)?true:false;
+	}
+
+	@Override
+	public boolean insertFile(FileDocumentDto dto) {
+		int n = template.insert(NS + "insertFile", dto);
 		return (n==1)?true:false;
 	}
 
