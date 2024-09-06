@@ -3,42 +3,32 @@
 <mapper namespace="com.rgb.grw.dao.ReservationDaoImpl">
 
 	<select id="getBook" resultType="ReservationDto">
-	SELECT *
-		FROM RESERVATION r
-		WHERE (BK_STDAY BETWEEN #{startDate} AND #{endDate} 
-				OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate})
+		SELECT *
+		FROM RESERVATION  
+		WHERE BK_STDAY &lt;= #{startDate}
+		OR BK_EDDAY &lt;= #{endDate}
 		AND BK_STATE = 'S'
-		ORDER BY BK_REGDATE DESC
-	
-<!-- 	SELECT * -->
-<!-- 		 FROM (			 -->
-<!-- 		  		SELECT r.*, AUTH_NO, ROW_NUMBER () OVER(ORDER BY BK_STDAY) RN -->
-<!-- 				FROM RESERVATION r JOIN EMP e  -->
-<!-- 				ON r.BK_EMPNO = e.EMP_NO  -->
-<!-- 		  		WHERE BK_STDAY BETWEEN #{startDate} AND #{endDate} -->
-<!-- 		  		OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate} -->
-<!-- 		  ) -->
-<!-- 	WHERE RN BETWEEN #{first} AND #{last} -->
-<!-- 	OREDR BY BK_REGDATE DESC -->
-<!-- 		 AND BK_STATE = #{bk_state}  -->
+		ORDER BY BK_REGDATE DESC 
+		
 	</select>
 	
 	<select id="getBookUser" resultType="ReservationDto">
 	SELECT *
-		FROM RESERVATION r
-		WHERE (BK_STDAY BETWEEN #{startDate} AND #{endDate} 
-				OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate})
-		AND BK_EMPNO = #{bk_empno}
-		AND BK_STATE IN ('S', 'N', 'Y')
-		ORDER BY BK_REGDATE DESC
-<!-- 		 AND BK_STATE = #{bk_state}  -->
+	FROM RESERVATION  
+	WHERE BK_STDAY &lt;= #{startDate}
+	OR BK_EDDAY &lt;= #{endDate}
+	AND BK_EMPNO = #{bk_empno}
+	ORDER BY BK_REGDATE DESC, BK_STATE DESC 
+
 	</select>
 	
 	<select id="getAllBook" resultType="ReservationDto">
 		SELECT *
-		FROM RESERVATION r
+		FROM RESERVATION 
 		WHERE (BK_STDAY BETWEEN #{startDate} AND #{endDate})
 		OR BK_EDDAY BETWEEN #{startDate} AND #{endDate}
+		AND BK_STATE IN ('Y', 'S')
+		ORDER BY BK_STDAY 
 	</select>
 	
 	<select id="countBook" resultType="java.lang.Integer">
@@ -72,8 +62,8 @@
 	<select id="serchReservation" resultType="java.lang.Integer">
 		SELECT COUNT(*) 
 		FROM RESERVATION r 
-		WHERE BK_STDAY >= TO_TIMESTAMP('2024-09-06 00:00:00', 'YYYY-MM-DD HH24:MI:SS') 
-		AND  BK_EDDAY &lt; TO_TIMESTAMP('2024-09-07 17:00:00', 'YYYY-MM-DD HH24:MI:SS') 
+		WHERE (BK_STDAY &lt;= TO_TIMESTAMP(#{bk_edday}, 'YYYY-MM-DD HH24:MI:SS') 
+		AND  BK_EDDAY &gt; TO_TIMESTAMP(#{bk_stday}, 'YYYY-MM-DD HH24:MI:SS')) 
 		AND FC_NO  = #{fc_no}
 		AND BK_STATE IN ('Y', 'S')
 	</select>

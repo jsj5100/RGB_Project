@@ -32,13 +32,9 @@ public class ReservationRestController {
 	private final IReservationService service;
 	
 	/**
-	 * 전체 예약목록을 조회 페이징 처리하여 관리자 조회
-	 * @param session HTTP 세션에서 관리자 권한과 empno를 받아옴
-	 * @param startDate 시작날짜
-	 * @param endDate 끝 날짜
-	 * @param page 현재 페이지
-	 * @param countList 페이지당 게시글 수 
-	 * @return 페이징된 예약 목록
+	 * 관리자 / 사용자의 자산예약 리스트 조회
+	 * @param session 세션에 저장된 loginDto의 auth로 권한확인/ empno 값 전달
+	 * @return booklist 관리자는 신청대기상태의 예약신청리스트 확인 / 사용자는 본인의 모든 예약리스트 확인
 	 */
 	@GetMapping(value="/booklist/facility.do")
 	public List<ReservationDto> booklist (HttpSession session) {
@@ -46,10 +42,11 @@ public class ReservationRestController {
 		String empno = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_no();
 		String auth = ((UserInfoDto) session.getAttribute("loginDto")).getAuth_no();
 		
-		
+		log.info("today 실행전");
 		Calendar today = Calendar.getInstance();
 		//오늘 날짜
 		Date startDate = today.getTime();
+		log.info("today 실행후 startDate:{}", startDate);
 		//12일 후 날짜
 		today.add(Calendar.DAY_OF_MONTH, 12);
 		Date endDate = today.getTime();
@@ -77,7 +74,8 @@ public class ReservationRestController {
 	
 	
 	/**
-	 * 페이징 처리없이 날짜값만으로 예약전체정보가져오기
+	 * 날짜값으로 해당기간 예약 정보가져오기
+	 * 현재 예약 승인 or 대기 상태인 정보만 확인
 	 * @param session empno 값 받기
 	 * @param startDate 오늘
 	 * @param endDate 12일 후
@@ -139,7 +137,7 @@ public class ReservationRestController {
 	 * @return 성공하면 true 실패하면 false
 	 */
 	@PostMapping(value="/addreservation/facility.do")
-	public ResponseEntity<List<ReservationDto>> insertReservation(HttpSession session, @RequestBody Map<String, Object>map) {
+	public ResponseEntity<Map<String, Object>> insertReservation(HttpSession session, @RequestBody Map<String, Object>map) {
 		
 		Calendar today = Calendar.getInstance();
 		//오늘 날짜
@@ -154,7 +152,6 @@ public class ReservationRestController {
 		String bk_name = loginDto.getEmp_name();
 		String bk_dep = loginDto.getDep_no();
 		String auth = loginDto.getAuth_no();
-		
 		Map<String, Object> rmap = new HashMap<String, Object>();
 		
 		rmap.put("bk_empno", bk_empno);
@@ -165,6 +162,9 @@ public class ReservationRestController {
 		rmap.put("bk_title", map.get("bk_title"));
 		rmap.put("bk_stday", map.get("bk_stday"));
 		rmap.put("bk_edday", map.get("bk_edday"));
+		
+		log.info("insert params : {}", rmap);
+		
 		
 		//insert전 동일 시간대에 예약기록있는지 체크
 		boolean insertSuccess = service.insertReservation(rmap);
@@ -179,20 +179,36 @@ public class ReservationRestController {
 			bookmap.put("endDate", endDate);
 			bookmap.put("bk_auth", auth);
 			
-			if(auth == "FC00A") {
-				booklist = service.getBook(bookmap);
-			} else {
-				booklist = service.getBookUser(bookmap);
-			}
+			ReservationDto dto = service.getBookInfo(bookmap);
+			Map<String, Object> result = new HashMap<String, Object>();
 			
-			log.info("booklist:{}", booklist);
-			return ResponseEntity.ok(booklist);
+			result.put("bk_title", dto.getBk_title());
+			result.put("bk_title", dto.getBk_stday());
+			result.put("bk_title", dto.getBk_edday());
+			result.put("bk_title", dto.getBk_name());
+			result.put("bk_title", dto.getBk_state());
+			result.put("bk_title", dto.getBk_content());
+			result.put("bk_title", dto.getBk_regdate());
+			
+//			if(auth == "FC00A") {
+//				booklist = service.getBook(bookmap);
+//			} else {
+//				booklist = service.getBookUser(bookmap);
+//			}
+			
+			log.info("booklist:{}", result);
+			return ResponseEntity.ok(result);
 			
 		}
 		
 	}
 	
-	//관리자 승인 / 반려
+	/**
+	 * 관리자예약신청서 승인/반려
+	 * @param session 관리자 정보받아오기
+	 * @param map state 값 Y / N
+	 * @return 데이터 테이블스 다시그려줘야하므로 예약신청리스트 전체 보내주기
+	 */
 	@GetMapping(value="/approve/facility.do")
 	public List<ReservationDto> approve(HttpSession session, @RequestParam Map<String, Object> map) {
 		String se_name = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_name();

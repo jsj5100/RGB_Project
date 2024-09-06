@@ -11,8 +11,9 @@ import com.rgb.grw.dao.IReservationDao;
 import com.rgb.grw.dto.ReservationDto;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReservationServiceImpl implements IReservationService {
@@ -52,18 +53,23 @@ public class ReservationServiceImpl implements IReservationService {
 	@Transactional(isolation = Isolation.SERIALIZABLE)
 	@Override
 	public boolean insertReservation(Map<String, Object> map) {
-		boolean insertSuccess = dao.insertReservation(map);
-		
-		if (insertSuccess) {
-
-			boolean searchSuccess = dao.serchReservation(map);
-
-	        if (!searchSuccess) {
-	            throw new RuntimeException("선예약시간 있음");
+		try {
+	        // 예약 중복 확인
+	        boolean isDuplicate = dao.serchReservation(map);
+	        
+	        // 중복된 예약이 있으면 예외 발생
+	        if (isDuplicate) {
+	            throw new RuntimeException("중복된 예약이 존재합니다.");
 	        }
+	        
+	        boolean insertSuccess = dao.insertReservation(map);
+	        log.info("insertSuccess {}", insertSuccess);
+	        return insertSuccess;
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace(); 
+	        throw new RuntimeException("예약 삽입 중 오류 발생", e);
 	    }
-
-	    return insertSuccess;
 	}
 	
 	@Override
