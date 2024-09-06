@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rgb.grw.dto.PagingDto;
 import com.rgb.grw.dto.ReservationDto;
 import com.rgb.grw.dto.UserInfoDto;
 import com.rgb.grw.service.IReservationService;
@@ -193,41 +192,63 @@ public class ReservationRestController {
 		
 	}
 	
-	//관리자 승인
+	//관리자 승인 / 반려
 	@GetMapping(value="/approve/facility.do")
-	public boolean approve(HttpSession session, @RequestParam Map<String, Object> map) {
+	public List<ReservationDto> approve(HttpSession session, @RequestParam Map<String, Object> map) {
 		String se_name = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_name();
 		
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("bk_state", "Y");
-		params.put("bk_no", map.get("bk_no"));
-		params.put("se_name", se_name);
-		log.info("params",params);
+		Calendar today = Calendar.getInstance();
+		//오늘 날짜
+		Date startDate = today.getTime();
+		//12일 후 날짜
+		today.add(Calendar.DAY_OF_MONTH, 12);
+		Date endDate = today.getTime();
 		
-		return service.updateBook(params);
-	}
-	
-	//관리자 반려
-	@GetMapping(value="/deny/facility.do")
-	public boolean deny(HttpSession session, @RequestParam Map<String, Object> map) {
-		String se_name = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_name();
+		Map<String, Object> updateparams = new HashMap<String, Object>();
+		updateparams.put("bk_state", map.get("bk_state"));
+		updateparams.put("bk_no", map.get("bk_no"));
+		updateparams.put("se_name", se_name);
+		log.info("params",updateparams);
+		boolean result =service.updateBook(updateparams);
 		
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("bk_state", "N");
-		params.put("bk_no", map.get("bk_no"));
-		params.put("se_name", se_name);
+		Map<String, Object> reSelectMap = new HashMap<String, Object>();
+		reSelectMap.put("startDate", startDate);
+		reSelectMap.put("endDate", endDate);
 		
-		return service.updateBook(params);
+		List<ReservationDto> list = new ArrayList<ReservationDto>();
+		list = service.getBook(reSelectMap);
+		
+		return list;
 	}
 	
 	//사용자 취소
 	@GetMapping(value="/cancel/facility.do")
-	public boolean cancel(HttpSession session, @RequestParam Map<String, Object> map) {
+	public List<ReservationDto> cancel(HttpSession session, @RequestParam Map<String, Object> map) {
+		String sessionEmpno = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_no();
 		
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("bk_no", map.get("bk_no"));
+		Calendar today = Calendar.getInstance();
+		//오늘 날짜
+		Date startDate = today.getTime();
+		//12일 후 날짜
+		today.add(Calendar.DAY_OF_MONTH, 12);
+		Date endDate = today.getTime();
 		
-		return service.cancelBook(params);
+		Map<String, Object> cancelParams = new HashMap<String, Object>();
+		cancelParams.put("bk_no", map.get("bk_no"));
+		log.info("params",cancelParams);
+		
+		boolean result =service.cancelBook(cancelParams);
+		log.info("사용자 취소 : {}",result);
+		
+		Map<String, Object> reSelectMap = new HashMap<String, Object>();
+		reSelectMap.put("startDate", startDate);
+		reSelectMap.put("endDate", endDate);
+		reSelectMap.put("bk_empno", sessionEmpno);
+		
+		List<ReservationDto> list = new ArrayList<ReservationDto>();
+		list = service.getBookUser(reSelectMap);
+		
+		return list;
 	}
 }
 

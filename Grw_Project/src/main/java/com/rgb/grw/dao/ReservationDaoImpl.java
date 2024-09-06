@@ -72,16 +72,16 @@ public class ReservationDaoImpl implements IReservationDao {
 		return template.update(NS+"updateBook",map)>0?true:false;
 	}
 	
-	//사용자 수정
+	//사용자 취소
 	@Override
 	public boolean cancelBook(Map<String, Object> map) {
-		return template.update(NS+"modifyBook",map)>0?true:false;
+		return template.update(NS+"cancelBook",map)>0?true:false;
 	}
 	
 	//예약 내용 상세
 	@Override
 	public ReservationDto getBookInfo(Map<String, Object> map) {
 		
-	return template.selectOne(NS+"ReservationDto",map);
+	return template.selectOne(NS+"getBookInfo",map);
 	}
 }

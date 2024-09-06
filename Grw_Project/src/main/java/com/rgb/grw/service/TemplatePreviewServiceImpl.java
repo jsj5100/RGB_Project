@@ -55,28 +55,18 @@ public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
 	@Override
 	@Transactional
 	public boolean processDocument(DocumentDto dto, Map<String, Object> approvalMaps, Map<String, Object> ccMaps) {
-		try {
+	
 			boolean insertDoc = previewDaoImpl.insertDocument(dto);
-			if(!insertDoc) {
-				 throw new RuntimeException("Document insertion failed");
-			}
-			
+			approvalMaps.put("doc_no", dto.getDoc_no());
 			boolean insertApp = previewDaoImpl.insertApproval(approvalMaps);
-			if(!insertApp) {
-				 throw new RuntimeException("Approval insertion failed");
-			}
-			
+			ccMaps.put("doc_no", dto.getDoc_no());
 			boolean insertCc = previewDaoImpl.insertReference(ccMaps);
 			
-			if(!insertCc) {
-				 throw new RuntimeException("cc insertion failed");
-			}
+	
 			
 			return true;
 			
-		} catch (Exception e) {
-			throw new RuntimeException("Transaction failed, rolling back.", e);
-		}
+
 		
 	}
 

@@ -1,3 +1,5 @@
+let bk_no;
+
 //자산 전체 리스트
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -128,12 +130,18 @@ $(document).ready(function() {
 					let startDate = data.bk_stday.replace(/:00$/, '');
 					let endDate = data.bk_edday.replace(/:00$/, '');
 	
-                    return "<span data-bs-toggle='modal' data-bs-target='#kt_modal_add_schedule' >"+startDate + ' ~ ' + endDate +"</span>";
+//                    return "<span data-bs-toggle='modal' data-bs-target='#kt_modal_add_schedule' >"+startDate + ' ~ ' + endDate +"</span>";
+						return startDate + ~ + endDate;
                 }
             },
-             {"data" : "bk_name"},
-			 { // 진행상태
-                "data": null, 
+             {"data" : null,
+             	"render": function(data){
+//             		return "<span data-bs-toggle='modal' data-bs-target='#kt_modal_add_schedule'>"+data.bk_name+"</span>";
+						return data.bk_name
+             		}
+             },
+			// 진행상태
+             { "data": null, 
                 "render": function (data, type, row) {
                     let state;
                     if (row.bk_state === 'S') {
@@ -145,7 +153,8 @@ $(document).ready(function() {
                     } else {
                         state = '반려';
                     }
-                    return state;
+//                    return "<span data-bs-toggle='modal' data-bs-target='#kt_modal_add_schedule'>"+state+"</span>";
+					return state;
                 }
             },
 				
@@ -160,27 +169,66 @@ $(document).ready(function() {
 		
         "columnDefs":[
             {"orderable": false, "targets": 0} // 첫 번째 열은 정렬 불가
-        ]
+        ],
+    	"responsive": {	
+        	"details": {
+            	"display": DataTable.Responsive.display.modal({
+                header: function (row) {
+                    var data = row.data();
+                    return '예약신청내역';
+                }
+            }),
+            renderer: DataTable.Responsive.renderer.tableAll({
+                tableClass: 'table'
+            })
+        }
+    	},
+    	"layout": {
+        "topStart": 'buttons'
+    },
+    "buttons": [
+        {
+            text: 'Alert',
+            action: function (e, dt, node, config, cb) {
+                alert('Activated!');
+                this.disable(); // disable button
+            }
+        }
+    ]
     });
+  });
     
     
-    $('#table_list tbody').on('click', 'td', function() {
-        var rowData = table.row(this).data();
-       	console.log("ssss",rowData)
-       	$('#kt_facility_location').val(rowData.fc_no).change();
-       	$('#kt_modal_add_schedule_datepicker_start').val(rowData.bk_stday).attr('disabled', true);
-       	$('#kt_modal_add_schedule_datepicker_end').val(rowData.bk_edday).attr('disabled', true);
-       	$('#facility_use').val(rowData.bk_content)
-       	$('#kt_modal_add_schedule_submit').text('변경').on('click', modify(rowData));
-       	$("#kt_modal_add_schedule").show()
-       	approve(rowData);
-       	deny(rowData);
-    });
+//    table.on('buttons-action', function (e, buttonApi, dataTable, node, config) {
+//    console.log('Button ' + buttonApi.text() + ' was activated');
+//});
+//    $("#preVideo").on("shown.bs.modal", function () {
+//  	$('#tblList3>tbody').empty();
+//  });
+//  $("#preVideo").on("hidden.bs.modal", function () {
+// 	$('#tblList3>tbody').empty();
+//});
     
-    
-});
+//    $('#table_list tbody').on('click', 'td', function() {
+//        var rowData = table.row(this).data();
+//       	console.log("ssss",rowData)
+//       	$('#kt_facility_location').val(rowData.fc_no).change();
+//       	$('#kt_modal_add_schedule_datepicker_start').val(rowData.bk_stday).attr('disabled', true);
+//       	$('#kt_modal_add_schedule_datepicker_end').val(rowData.bk_edday).attr('disabled', true);
+//       	$('#facility_use').val(rowData.bk_content)
+//       	$('#modal_cancel_button').text('예약취소').on('click', function() {
+//				cancel(rowData.bk_no)
+//			});
+//       	$("#kt_modal_add_schedule").show()
+//       	
+//		bk_no = rowData.bk_no;
+//		console.log(rowData.bk_no);
+//    });
+//    
+//    
+//});
 
-//let bk_no = rowData.bk_no;
+
 //전체 일정 조회
 document.addEventListener('DOMContentLoaded', function() {
 	
@@ -398,7 +446,8 @@ function insertReservation() {
         alert('시간을 설정해주세요');
         return;
     }
-
+	console.log('startDateTime',startDateTime)
+	console.log('endDateTiem',endDateTiem)
     // 사용종료시간이 사용시작시간보다 같거나 빠른경우
     if (startDateTime >= endDateTiem) {
         alert('시간설정이 잘못되었습니다.');
@@ -462,8 +511,9 @@ function insertReservation() {
 	        }).draw();
     	 });
         // 모달 숨기기
-        let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_add_schedule'));
-        modal.hide();
+//        let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_add_schedule'));
+//        modal.hide();
+		$('#kt_modal_add_schedule').modal('hide');
     })
     .catch(error => {
         console.error('insertfetch error', error);
@@ -491,7 +541,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('#kt_modal_add_schedule select').forEach(function(select) {
 			select.selectedIndex=0;
 		})
-        
+		
     }
 
     // 모달이 닫힐 때 resetModalContent 함수를 호출합니다.
@@ -502,11 +552,12 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //승인하기
-function approve(rowData){
+function approve(){
 	
-	
+	console.log(bk_no)
 	fetch('./approve/facility.do?'+ new URLSearchParams({
-		bk_no :rowData.bk_no,
+		bk_no :bk_no,
+		bk_state :'Y'
 	}))
 	.then(response=> {
 		if (!response.ok) {
@@ -516,12 +567,20 @@ function approve(rowData){
 	})
 	.then(data=>{
 		
+		var table = new DataTable('#table_list');
+		console.log('1111 값넘어옴',data);
 		data.forEach(item => {
-			
-//			createContents(item);
-			console.log('item',item);
-			
-		});
+       		console.log('2222 성공실행')
+	        table.row.add({
+	            "bk_title": item.bk_title,       // 제목
+	            "bk_stday": item.bk_stday,       // 시작일
+	            "bk_edday": item.bk_edday,       // 종료일
+	            "bk_name" : item.bk_name,	 	 //작성자
+	            "bk_state": item.bk_state,       // 상태
+	            "bk_regdate": item.bk_regdate    // 등록일
+	        }).draw();
+    	 });
+		$('#kt_modal_add_schedule').modal('hide');
 	})
 	.catch(error => {
 		console.log('error 승인')
@@ -529,9 +588,10 @@ function approve(rowData){
 }
 
 //반려하기
-function deny(rowData) {
-	fetch('./deny/facility.do?'+ new URLSearchParams({
-		bk_no :rowData.bk_no,
+function deny(bk_no) {
+	fetch('./approve/facility.do?'+ new URLSearchParams({
+		bk_no :bk_no,
+		bk_state :'N'
 	}))
 	.then(response=> {
 		if (!response.ok) {
@@ -541,22 +601,30 @@ function deny(rowData) {
 	})
 	.then(data=>{
 		
+		var table = new DataTable('#table_list');
+		console.log('1111 값넘어옴',data);
 		data.forEach(item => {
-			
-//			createContents(item);
-			console.log('item',item);
-			
-		});
+       		console.log('2222 성공실행')
+	        table.row.add({
+	            "bk_title": item.bk_title,       // 제목
+	            "bk_stday": item.bk_stday,       // 시작일
+	            "bk_edday": item.bk_edday,       // 종료일
+	            "bk_name" : item.bk_name,	 	 //작성자
+	            "bk_state": item.bk_state,       // 상태
+	            "bk_regdate": item.bk_regdate    // 등록일
+	        }).draw();
+    	 });
 	})
 	.catch(error => {
 		console.log('error 반려')
 	})
 }
 
-//반려하기
-function cancel(rowData) {
-	fetch('./deny/cancel.do?'+ new URLSearchParams({
-		bk_no :rowData.bk_no,
+//취소하기
+function cancel(bk_no) {
+	
+	fetch('./cancel/facility.do?'+ new URLSearchParams({
+		bk_no :bk_no
 	}))
 	.then(response=> {
 		if (!response.ok) {
@@ -566,12 +634,19 @@ function cancel(rowData) {
 	})
 	.then(data=>{
 		
+		var table = new DataTable('#table_list');
+		console.log('1111 값넘어옴',data);
 		data.forEach(item => {
-			
-//			createContents(item);
-			console.log('item',item);
-			
-		});
+       		console.log('2222 성공실행')
+	        table.row.add({
+	            "bk_title": item.bk_title,       // 제목
+	            "bk_stday": item.bk_stday,       // 시작일
+	            "bk_edday": item.bk_edday,       // 종료일
+	            "bk_name" : item.bk_name,	 	 //작성자
+	            "bk_state": item.bk_state,       // 상태
+	            "bk_regdate": item.bk_regdate    // 등록일
+	        }).draw();
+    	 });
 	})
 	.catch(error => {
 		console.log('error 취소망함')
@@ -591,7 +666,7 @@ function cancel(rowData) {
 //document.addEventListener('DOMContentLoaded', function () {
 //    // 모달 요소 선택
 //    let addEditModel = document.getElementById('kt_modal_add_schedule');
-//    let registerButton = document.getElementById('kt_modal_add_schedule_add');
+//    let registerButton = document.getElementById('kt_modal_top_add');
 //    let editButton = document.getElementById('kt_modal_add_schedule_edit');
 //    
 //    // 모달이 열릴 때 실행될 이벤트 리스너

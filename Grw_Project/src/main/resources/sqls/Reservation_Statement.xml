@@ -3,12 +3,11 @@
 <mapper namespace="com.rgb.grw.dao.ReservationDaoImpl">
 
 	<select id="getBook" resultType="ReservationDto">
-	
-	
 	SELECT *
 		FROM RESERVATION r
 		WHERE (BK_STDAY BETWEEN #{startDate} AND #{endDate} 
 				OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate})
+		AND BK_STATE = 'S'
 		ORDER BY BK_REGDATE DESC
 	
 <!-- 	SELECT * -->
@@ -30,6 +29,7 @@
 		WHERE (BK_STDAY BETWEEN #{startDate} AND #{endDate} 
 				OR BK_EDDAY BETWEEN  #{startDate} AND #{endDate})
 		AND BK_EMPNO = #{bk_empno}
+		AND BK_STATE IN ('S', 'N', 'Y')
 		ORDER BY BK_REGDATE DESC
 <!-- 		 AND BK_STATE = #{bk_state}  -->
 	</select>
