@@ -3,6 +3,7 @@ $(document).ready(function() {
     let selectedId = "";
     let selectedDep = "";
     let selectedTierName = "";
+    let selectTierNo = "";
 
     // 서버에서 트리 데이터를 가져옵니다
     fetch('http://localhost:8080/Grw_Project/choiceApprovalLine.do') // 서버에서 트리 데이터를 가져오는 URL
@@ -26,16 +27,19 @@ $(document).ready(function() {
                     selectedId = "";
                     selectedDep = "";
                     selectedTierName = "";
+                    selectedTierNo = "";
                 } else {
                     selectedName = data.node.text;
                     selectedId = data.node.id;
                     selectedDep = data.node.original.dep_name;
                     selectedTierName = data.node.original.tier_name;
+                    selectTierNo = data.node.original.tier_no;
 
                     console.log('Selected Name:', selectedName);
                     console.log('Selected ID:', selectedId);
                     console.log('Selected Department:', selectedDep);
                     console.log('Selected Tier Name:', selectedTierName);
+                    console.log('Selected Tier No:', selectTierNo);
                 }
             });
         })
@@ -65,6 +69,7 @@ $(document).ready(function() {
 
         // 이미 추가된 노드인지 확인
         const existingRow = table.querySelector(`tr[data-node-id="${selectedId}"]`);
+        
         if (existingRow) {
             alert("이미 추가된 결재자입니다.");
             return;
@@ -105,6 +110,15 @@ $(document).ready(function() {
 
             // 순서 업데이트
             updateRowOrder();
+            
+            console.log(selectTierNo);
+            if(selectTierNo == 7){
+				const nodes = $('#jstree').jstree('get_json');
+				console.log(nodes);
+				nodes.forEach(node => {
+                	console.log(node.children);
+            	});
+			}
         }
     });
 	

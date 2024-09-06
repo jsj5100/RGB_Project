@@ -131,13 +131,6 @@ input[type="text"], input[type="file"] {
 	width: 100%;
 }
 
-/* #preview-content table{ */
-/* 	table-layout: fixed; 열 너비를 고정 */
-/*     width: 100%; 테이블 너비를 부모 div에 맞추기 */
-/*     max-width: 100%; 테이블이 부모 div의 너비를 넘지 않도록 제한 */
-/* } */
-
-
 /* 전체 컨테이너 스타일 설정 */
 .container-approvalLine {
     display: grid;                /* Grid 레이아웃 사용 */
@@ -170,7 +163,7 @@ input[type="text"], input[type="file"] {
     flex: 0 0 auto;                      /* 남은 공간을 균등하게 차지하도록 설정 */
     padding: 20px;
 	border: 1px solid #ccc;
-    width: 200px;
+    width: 300px;
     height: 450px;                /* 높이 고정 */
 }
 

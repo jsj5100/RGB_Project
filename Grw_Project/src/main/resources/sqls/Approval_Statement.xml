@@ -82,4 +82,10 @@
 		DELETE FROM RGB.SIGN
 		WHERE EMP_NO = #{empNo}
 	</delete>
+	
+	<insert id="insertFile">
+		INSERT INTO RGB.FILE_DOCUMENT
+			(FDOC_NO, DOC_NO, FDOC_SIZE, FDOC_TITLE, FDOC_PATH, FDOC_STNAME)
+			VALUES('FD' || LPAD(TO_CHAR(DOC_NO_SEQ.NEXTVAL), 3, '0'), #{doc_no}, #{fdoc_size}, #{fdoc_title}, #{fdoc_path}, #{fdoc_stname})
+	</insert>
 </mapper>
