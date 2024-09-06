@@ -1,10 +1,12 @@
 package com.rgb.grw.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.rgb.grw.dto.DeptDto;
 
 @Service
@@ -23,13 +25,15 @@ public class DeptDaoImpl implements IDeptDao {
 	}
 	
 	@Override
-	public int insertDept(DeptDto dto) {
-		return sessionTemplate.insert(NS+"insertDept");
+	public int insertDept(Map<String, Object> map) {
+		return sessionTemplate.insert(NS+"insertDept", map);
 	}
 	
 	@Override
 	public List<DeptDto> deptEdit() {
-		return sessionTemplate.selectList(NS+"Deptedit");
+		return sessionTemplate.selectList(NS+"deptEdit");
 	}
 
 }
+
+

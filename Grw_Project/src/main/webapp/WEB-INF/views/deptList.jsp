@@ -11,6 +11,7 @@
 
 <%@include file="./header.jsp"%>
 </head>
+<script src="./js/deptList.js"></script>
 
 <body>
 	<div id="kt_app_content_container" class="app-container container-xxl" style="padding-top: 30px;">
@@ -88,7 +89,7 @@
 							<span class="me-2" data-kt-user-table-select="selected_count"></span>선택됨
 						</div>
 						<button type="button" class="btn btn-danger"
-							data-kt-user-table-select="delete_selected" >선택삭제</button>
+							data-kt-user-table-select="delete_selected">선택삭제</button>
 					</div>
 					<!--end::Group actions-->
 					<!--begin::Modal - Adjust Balance-->
@@ -207,7 +208,7 @@
 										<div class="text-center pt-10">
 											<button type="button" id="kt_modal_add_event_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">취소</button>
 											<button type="submit" class="btn btn-primary"
-												data-kt-users-modal-action="submit" data-bs-dismiss="modal">
+												data-kt-users-modal-action="submit" data-bs-dismiss="modal" onclick="deptAdd()">
 												<span class="indicator-label">등록</span> 
 												<span class="indicator-progress">등록중...
 												<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
@@ -310,7 +311,7 @@
 <%-- 													class="text-gray-800 text-hover-primary mb-1">${vo.seq}</a>  --%>
 <!-- 													<span>　</span> -->
 <!-- 											</div> -->
-											1
+											${vs.count}
 										</td>
 										
 										<td>${vo.dep_name}</td>
