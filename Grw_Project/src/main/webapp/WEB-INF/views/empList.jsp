@@ -785,29 +785,7 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        function regEmp() {
-            // 폼 데이터 수집
-            const form = document.getElementById('employeeForm');
-            const formData = new FormData(form);
 
-            // POST 요청 보내기
-            fetch('/your-server-endpoint', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                // 성공적으로 처리된 후의 작업
-                console.log('Success:', data);
-                // 모달 닫기 등의 추가 작업
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-        }
-    </script>
 
 
 
