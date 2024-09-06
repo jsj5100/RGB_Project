@@ -44,6 +44,9 @@
 .actions {
 	margin-top: 20px;
 	text-align: center;
+	display: flex; /* 플렉스박스를 사용하여 한 줄에 나란히 배치 */
+	justify-content: center; /* 가운데 정렬 */
+	gap: 10px; /* 버튼 사이에 간격 추가 */
 }
 
 #signature-pad-div {
@@ -88,16 +91,18 @@
 								</c:if>
 							</div>
 							<div class="actions">
-								<c:if test="${signImg != null && !signImg.isEmpty()}">
-									<input type="submit" value="서명 수정" class="btn btn-primary"
-										data-bs-toggle="modal" data-bs-target="kt_modal_modify">
-								</c:if>
 								<c:if test="${signImg == null || signImg.isEmpty()}">
 									<input type="submit" value="서명 등록" class="btn btn-primary"
 										data-bs-toggle="modal"
-										data-bs-target="#kt_modal_select_location">
+										data-bs-target="#kt_modal_select_location"
+										style="display: inline;">
 								</c:if>
-								<input type="button" value="서명 삭제" class="btn btn-primary">
+								
+								<c:if test="${signImg != null && !signImg.isEmpty()}">
+									<form id="delete-sign-form" action="./deleteSign.do" method="post">
+										<input type="submit" value="서명 삭제" class="btn btn-primary" onsubmit="delSignCheck()">
+									</form>
+								</c:if>
 							</div>
 						</div>
 					</div>

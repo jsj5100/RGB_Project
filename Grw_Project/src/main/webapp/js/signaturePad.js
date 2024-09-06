@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+	
 	const canvas = document.querySelector('#signature-pad-div canvas');
 	const signaturePad = new SignaturePad(canvas);
 
@@ -69,4 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('clearSign').addEventListener('click', () => {
 		signaturePad.clear();
 	});
+	
+   
 });
+
+

@@ -128,5 +128,13 @@ public class ApprovalController {
 	    }
 	}
 	
+	@PostMapping(value = "/deleteSign.do")
+	public String deleteSign(HttpSession session) {
+		UserInfoDto loginDto = (UserInfoDto)session.getAttribute("loginDto");
+		String empNo = loginDto.getEmp_no();
+		boolean delSign = serviceImpl.deleteSign(empNo);
+		return "redirect:/signList.do";
+	}
+	
 	
 }
