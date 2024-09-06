@@ -34,14 +34,14 @@ public class FacilityController {
 	
 	@GetMapping(value = "/facility.do")
 	public String calendar(HttpSession session, Model model,@RequestParam(defaultValue="1") int page, @RequestParam(defaultValue="5") int countList) {
-		String empno = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_no();
-		String auth = ((UserInfoDto) session.getAttribute("loginDto")).getAuth_no();
 		
 		if(session.getAttribute("loginDto") == null) {
 			return "redirect:/loginServlet.do";
 			
 		} else {
 		
+		String empno = ((UserInfoDto) session.getAttribute("loginDto")).getEmp_no();
+		String auth = ((UserInfoDto) session.getAttribute("loginDto")).getAuth_no();
 		Calendar today = Calendar.getInstance();
 		//오늘 날짜
 		Date startDate = today.getTime();

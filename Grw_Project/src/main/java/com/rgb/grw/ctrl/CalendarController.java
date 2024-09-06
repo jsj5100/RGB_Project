@@ -15,8 +15,11 @@ public class CalendarController {
 	
 	@GetMapping(value = "/calendar.do")
 	public String calendar(HttpSession session, Model model) {
-		log.info("CalendarController list");
-		Object obj = session.getAttribute("loginDto");
+
+		if(session.getAttribute("loginDto") == null) {
+			return "redirect:/loginServlet.do";
+			
+		}
 		
 //		if(obj == null) {
 //			log.info("empno값 확인 : {}", session);

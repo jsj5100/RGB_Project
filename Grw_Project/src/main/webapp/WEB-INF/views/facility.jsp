@@ -1,39 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<link href="https://cdn.datatables.net/v/bs5/dt-2.1.5/datatables.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.datatables.net/v/bs5/dt-2.1.5/datatables.min.js"></script>
-
-
-<!-- jQuery -->
-<!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
-
-<!-- <!-- Bootstrap Bundle (includes Popper) -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script> -->
-
-<!-- <!-- DataTables -->
-<!-- <script src="https://cdn.datatables.net/2.1.5/js/jquery.dataTables.min.js"></script> -->
-<!-- <script src="https://cdn.datatables.net/2.1.5/js/dataTables.bootstrap5.min.js"></script> -->
-
-<!-- <!-- DataTables Responsive -->
-<script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/3.0.3/js/responsive.bootstrap5.min.js"></script>
-<script type="text/javascript" src="./js/facility.js"></script>
-
+<link href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css'>
+<link href='https://cdn.datatables.net/2.1.5/css/dataTables.bootstrap5.css'>
+<script src='https://code.jquery.com/jquery-3.7.1.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js'></script>
+<script src='https://cdn.datatables.net/2.1.5/js/dataTables.js'></script>
+<script src='https://cdn.datatables.net/2.1.5/js/dataTables.bootstrap5.js'></script>
 <%@include file="./header.jsp"%>
+
+<script type="text/javascript" src="./js/facility.js"></script>
+<style type="text/css">
+	tr .selected{
+		background-color: orange;
+	}
+
+</style>
+
 
 <body>
 	<div style="padding-left:80px; margin-top:10px;" id="kt_app_content" class="app-content flex-column-fluid">
@@ -73,20 +62,19 @@
 
 				<!--begin::Card footer-->
 				<div class="card-footer pt-0">
-<!-- 				    <button type="button" class="btn btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">예약신청</button> -->
+				    <button type="button" class="btn btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">예약신청</button>
 				    <button type="button" class="btn btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">추가(관리자용)</button>
 				</div>
 				<!--end::Card footer-->
 				</div>
 			</div>
 
-<!-- 			우측 -->
-<!-- 			<div class="flex-lg-row-fluid ms-lg-10"> -->
-				<div class="card mb-5 mb-xl-10">
-<!-- 				<div class="card card-flush mb-6 mb-xl-9"> -->
+			<!-- 우측 -->
+			<div class="flex-lg-row-fluid ms-lg-10">
+				<div class="card card-flush mb-6 mb-xl-9">
 				
 					<!--begin::Card header-->
-					<div class="card-header">
+					<div class="card-header mt-6">
 					
 					<!--begin::Card title-->
 					<div class="card-title flex-column">
@@ -96,11 +84,7 @@
 					
 					<!--begin::Card toolbar-->
 					<div class="card-toolbar">
-					<button type="button" id="kt_modal_top_add" 
-					class="btn btn-light-primary btn-sm" 
-					data-bs-toggle="modal" 
-					data-bs-target="#kt_modal_add_schedule" 
-					data-bs-whatever="add_event">
+					<button type="button" class="btn btn-light-primary btn-sm" data-bs-toggle="modal" data-bs-target="#kt_modal_add_schedule">
 						<i class="ki-duotone ki-brush fs-3">
 						<span class="path1"></span>
 						<span class="path2"></span>
@@ -112,7 +96,7 @@
 				<!--end::Card header-->
 				
 				<!--begin::Card body-->
-				<div class="card-body">
+				<div class="card-body p-9 pt-4">
 					<!--begin::Dates-->
 					<ul class="nav nav-pills d-flex flex-nowrap hover-scroll-x py-2" role="tablist" id="reservation_day_container">
 					</ul>
@@ -129,15 +113,13 @@
 				<!-- 시설예약 일정 영역 종료 -->									
 													
 				<!-- 예약신청현황 -->
-<!-- 				<div class="card mb-5 mb-xl-10"> -->
+				<div class="card card-flush mb-6 mb-xl-9">
 				<!--begin::Card header-->
-					<div class="card-header">
+					<div class="card-header mt-6">
 						<!--begin::Card title-->
 						<div class="card-title flex-column">
 							<h2 class="mb-1">예약신청현황</h2>
 						</div>
-						
-					</div>
 					<!--end::Card title-->
 <!-- 					begin::Card toolbar -->
 <!-- 						<div class="card-toolbar" data-control="select2"> -->
@@ -149,8 +131,9 @@
 <!-- 							</select> -->
 <!-- 						</div> -->
 					<!-- end::Card toolbar -->
-					
+					</div>
 					<!--end::Card header-->
+
 					<!-- 카드 바디 -->
 					<!-- 예약신청리스트 목록 보여주기 -->
 <!-- 					begin::Card body -->
@@ -159,75 +142,55 @@
 <!-- 						</div> -->
 <!-- 					</div> -->
 <!-- 				end::Task menu -->
+
+				<!-- 데이터 테이블스 -->
 				<div class="card-body p-0">
 					<div class="table-responsive">
+						<c:choose>
+                        <c:when test="${loginDto.auth_no eq 'FC00A'}">
+                        	<p><button class="btn btn-light-primary btn-sm" id="approvebtn">승인</button>
+							<button class="btn btn-light-primary btn-sm" id="denybtn">반려</button></p>
+						</c:when>
+						
+						<c:otherwise>
+							<p><button class="btn btn-light-primary btn-sm" id="cancelbtn">신청취소</button></p>
+						</c:otherwise>
+						</c:choose>
 						<!--begin::Table-->
 						<table id="table_list" class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
 						<!--begin::Thead-->
 							<thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
 								<tr>
 									<th class="min-w-100px">신청자산</th>
-									<th class="min-w-300px">사용기간</th>
+									<th class="min-w-250px">사용기간</th>
 									<th class="min-w-100px">신청자</th>
-									<th class="min-w-100px">진행상태</th>
-									<th class="min-w-200px">신청일</th>
+									<th class="min-w-150px">진행상태</th>
+									<th class="min-w-150px">신청일</th>
+									<th class="min-w-200px">신청사유</th>
 								</tr>
 							</thead>
-						<!--end::Thead-->
-						<!--begin::Tbody-->
-<!-- 							<tbody class="fw-6 fw-semibold text-gray-600"> -->
-<%-- 								 <c:choose> --%>
-<%-- 							        <c:when test="${booklist eq null}"> --%>
-<!-- 							            예약 리스트가 비어있을 때 -->
-<!-- 							            <tr> -->
-<!-- 							                <td colspan="4">신청내용이 없습니다.</td> -->
-<!-- 							            </tr> -->
-<%-- 							        </c:when> --%>
-<%-- 							        <c:otherwise> --%>
-<!-- 							            예약 리스트가 있을 때 -->
-<%-- 							            <c:forEach var="booklist" items="${booklist}"> --%>
-<!-- 							                <tr> -->
-<!-- 							                    <td> -->
-<%-- 								                    <a href="#" class="text-hover-primary text-gray-600">${booklist.bk_title}</a> --%>
-<!-- 							                    </td> -->
-<!-- 							                    <td>  -->
-<%-- 							                    	${fn:substring(fn:replace(booklist.bk_stday, 'T', ' '), 0, 16)} ~  --%>
-<%-- 							                    	${fn:substring(fn:replace(booklist.bk_edday, 'T', ' '), 0, 16)} --%>
-<!-- 							                    	</td> -->
-<!-- 							                    <td> -->
-<%-- 													<c:if test="${booklist.bk_state eq 'S'}">							                     --%>
-<!-- 							                    		신청대기 -->
-<%-- 							                    	</c:if> --%>
-<%-- 													<c:if test="${booklist.bk_state eq 'C'}">							                     --%>
-<!-- 							                    		신청취소 -->
-<%-- 							                    	</c:if> --%>
-<%-- 													<c:if test="${booklist.bk_state eq 'Y'}">							                     --%>
-<!-- 							                    		신청승인 -->
-<%-- 							                    	</c:if> --%>
-<%-- 													<c:if test="${booklist.bk_state eq 'N'}">							                     --%>
-<!-- 							                    		신청반려 -->
-<%-- 							                    	</c:if> --%>
-<!-- 							                    </td> -->
-<%-- 							                    <td>${fn:substring(fn:replace(booklist.bk_regdate, 'T', ' '), 0, 16)}</td> --%>
-<!-- 							                </tr> -->
-<%-- 							            </c:forEach> --%>
-<%-- 							        </c:otherwise> --%>
-<%-- 							    </c:choose> --%>
-<!-- <!-- 											<span class="badge badge-light-success fs-7 fw-bold">OK</span> -->
-											
-<!-- 							</tbody> -->
-<!-- 							end::Tbody -->
 						</table>
-						<!--end::Table-->
 					</div>
 				</div>
 				
-<!-- 				<div class="fs-6 fw-semibold text-gray-700"> -->
-<!-- 					begin::Pages -->
-<!-- 					<ul class="pagination"> -->
-<!-- 					</ul> -->
-<!-- 					end::Pages -->
-<!-- 				</div>						 -->
+
+
+
+
+
+
+
+
+
+
+
+
+				<div class="fs-6 fw-semibold text-gray-700">
+					<!--begin::Pages-->
+					<ul class="pagination">
+					</ul>
+					<!--end::Pages-->
+				</div>						
 				<!--end::Menu-->
 			</div>
 			<!--end::Item-->
@@ -237,9 +200,18 @@
 
 	</div>
 
+</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
 	
 	<!-- 모달 이미지 영역 -->
-	<div class="modal" id="kt_modal_add_schedule" tabindex="-1" style="display: none;" aria-hidden="true" >
+	<div class="modal fade" id="kt_modal_add_schedule" tabindex="-1" style="display: none;" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->
@@ -251,7 +223,7 @@
                 <!--end::Modal title-->
 
                 <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" data-bs-dismiss="modal">
                     <i class="ki-duotone ki-cross fs-1">
                     <span class="path1"></span>
                     <span class="path2"></span></i>                
@@ -299,7 +271,7 @@
 	                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
 	                            </div>
 	                        </div>
-	                        <div class="col">
+	                        <div class="col" data-kt-calendar="datepicker">
 	                            <div class="fv-row mb-9">
 	                                <!--begin::Label-->
 	                                <label class="fs-6 fw-semibold mb-2">사용종료일</label>
@@ -331,22 +303,6 @@
 
                     <!--begin::Actions-->
                     <div class="text-center pt-15">
-                        
-                        <c:choose>
-                        <c:when test="${loginDto.auth_no eq 'FC00A'}">
-                        <button type="reset" class="btn btn-light me-3" id="kt_modal_admin_schedule_deny" data-kt-users-modal-action="cancel" onclick="deny()" data-bs-dismiss="modal">
-                           반려
-                        </button>
-
-                        <button type="button" id="kt_modal_admin_schedule_submit" class="btn btn-primary" onclick="approve()" data-bs-dismiss="modal">
-                            <span class="indicator-label">
-                                승인
-                            </span>
-                        </button>
-                        </c:when>
-                       
-                        
-                        <c:otherwise>
                         <button type="reset" id="modal_cancel_button" class="btn btn-light me-3" data-kt-users-modal-action="cancel" data-bs-dismiss="modal">
                             취소
                         </button>
@@ -356,8 +312,6 @@
                                 등록
                             </span>
                         </button>
-                        </c:otherwise>
-                        </c:choose>
                     </div>
                     <!--end::Actions-->
                 </form>
@@ -369,7 +323,8 @@
     </div>
     <!--end::Modal dialog-->
 </div>
-
+	
 </body>
 <%@include file="./footer.jsp" %>
+
 </html>
