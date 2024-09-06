@@ -19,18 +19,13 @@
 			style="padding-top: 30px;">
 			<div class="d-flex flex-column flex-lg-row">
 				<!--begin::Card-->
-
 				<!-- 트리 -->
 				<div
 					class="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10"
 					style="padding-left: 30px; padding-right: 10px;">
-
 					<div class="card">
-
 						<div id="tree"></div>
-
 					</div>
-
 				</div>
 
 
@@ -50,12 +45,6 @@
 							<!--end::Search-->
 						</div>
 						<!--begin::Card title-->
-						
-						
-						
-					
-						
-						
 						
 						
 						
@@ -81,6 +70,9 @@
 
 								<!--end::Export-->
 								<!--begin::Add user-->
+								
+								
+								
 								<button type="button" class="btn btn-primary"
 									data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
 									<i class="ki-duotone ki-plus fs-2"></i>사원등록
@@ -133,10 +125,6 @@
 											<!--end::Close-->
 										</div>
 										<!--end::Modal header-->
-										
-										
-										
-										
 										<!--begin::Modal body-->
 										<div class="modal-body px-5 my-7">
 											<!--begin::Form-->

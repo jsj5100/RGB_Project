@@ -51,5 +51,8 @@
 <!-- </delete> -->
 
 
+<!-- <update id="deptUpdate"> -->
+<!-- </update> -->
+
 
 </mapper>
