@@ -1,5 +1,3 @@
-let bk_no;
-
 //자산 전체 리스트
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -111,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
 //데이터 테이블스 적용하기
 
 $(document).ready(function() {
-	var table = $("#table_list").DataTable({
+	 var table = $("#table_list").DataTable({
         "info": false,
         "paging": true, // 페이징 활성화
         "ordering": true, // 정렬 활성화
@@ -122,22 +120,30 @@ $(document).ready(function() {
 			"dataSrc" : ""
 		},
 		"columns":[
+			//신청자산
 			{"data" :"bk_title"},
+			
 			{ // 사용기간
                 "data": null,
                 "render": function (data) {
 					
-					let startDate = data.bk_stday.replace(/:00$/, '');
-					let endDate = data.bk_edday.replace(/:00$/, '');
-	
-//                    return "<span data-bs-toggle='modal' data-bs-target='#kt_modal_add_schedule' >"+startDate + ' ~ ' + endDate +"</span>";
-						return startDate + ~ + endDate;
+					let startDate = data.bk_stday.split(' ')[0]; // 2024-09-09
+					let startTime = data.bk_stday.split(' ')[1].slice(0, -3); // 19:00
+					
+					let endDate = data.bk_edday.split(' ')[0]; // 2024-09-09
+					let endTime = data.bk_edday.split(' ')[1].slice(0, -3); // 20:00
+					
+					startDate = startDate.slice(5); // 09-09
+					endDate = endDate.slice(5); // 09-09
+					
+					return startDate +' ' + startTime + ' ~ ' + endDate +' ' + endTime;
                 }
             },
+            //신청자
              {"data" : null,
              	"render": function(data){
-//             		return "<span data-bs-toggle='modal' data-bs-target='#kt_modal_add_schedule'>"+data.bk_name+"</span>";
-						return data.bk_name
+             		return "<span data-bs-toggle='modal' data-bs-target='#kt_modal_add_schedule'>"+data.bk_name+"</span>";
+//						return data.bk_name
              		}
              },
 			// 진행상태
@@ -153,23 +159,35 @@ $(document).ready(function() {
                     } else {
                         state = '반려';
                     }
-//                    return "<span data-bs-toggle='modal' data-bs-target='#kt_modal_add_schedule'>"+state+"</span>";
-					return state;
+                    return "<span data-bs-toggle='modal' data-bs-target='#kt_modal_add_schedule'>"+state+"</span>";
+//					return state;
                 }
             },
 				
 			{"data": null,
-                "render": function (row) {
+                "render": function (data) {
 					
-//					let regdate=data.bk_regdate.replace(/:00$/, '');
-					let regdate=row.bk_stday.split(' ')[0]+' '+row.bk_stday.split(' ')[1].slice(0,-3);
+					let date = data.bk_regdate.split(' ')[0]; // 2024-09-09
+					let time = data.bk_regdate.split(' ')[1].slice(0, -3); // 19:00
+					
+					date = date.slice(5); // 09-09
+					time = time.slice(5); // 09-09
+					
+					let regdate = date +' ' + time;
+//					let regdate=data.bk_stday.split(' ')[0]+' '+data.bk_stday.split(' ')[1].slice(0,-3);
                     return regdate;
-                }}
+                }
+            },
+            //신청자산
+			{"data" :"bk_content"},
+            
 		],
+		
 		
         "columnDefs":[
             {"orderable": false, "targets": 0} // 첫 번째 열은 정렬 불가
         ],
+        
     	"responsive": {	
         	"details": {
             	"display": DataTable.Responsive.display.modal({
@@ -181,24 +199,57 @@ $(document).ready(function() {
             renderer: DataTable.Responsive.renderer.tableAll({
                 tableClass: 'table'
             })
-        }
-    	},
-    	"layout": {
-        "topStart": 'buttons'
-    },
-    "buttons": [
-        {
-            text: 'Alert',
-            action: function (e, dt, node, config, cb) {
-                alert('Activated!');
-                this.disable(); // disable button
-            }
-        }
-    ]
+        	}
+    	}
+    	
     });
+		table.on('click', 'tbody tr', (e) => {
+	    let classList = e.currentTarget.classList;
+	 
+	    if (classList.contains('selected')) {
+	        classList.remove('selected');
+	    }
+	    else {
+	        table.rows('.selected').nodes().each((row) => row.classList.remove('selected'));
+	        classList.add('selected');
+	    }
+	});
+	  
+		var user = document.getElementById('cancelbtn');
+		if(user){
+		  // 삭제 버튼 클릭 시 선택된 행 삭제
+		    document.querySelector('#cancelbtn').addEventListener('click', function () {
+		    	var rowData = table.row('.selected').data();
+		    	console.log(rowData.bk_no);
+		    	table.row('.selected').remove().draw(false);
+		        cancel(rowData.bk_no);
+		    });
+		}	  
+	    
+	    // 관리자 승인 버튼 클릭 시 선택된 행 삭제
+	    var admin = document.getElementById('approvebtn');
+	    if(admin) {
+		
+		    document.querySelector('#approvebtn').addEventListener('click', function () {
+		    	var rowData = table.row('.selected').data();
+		    	console.log(rowData.bk_no);
+		    	table.row('.selected').remove().draw(false);
+		        approve(rowData.bk_no);
+		    });
+		    
+		     // 관리자 반려 버튼 클릭 시 선택된 행 삭제
+		    document.querySelector('#denybtn').addEventListener('click', function () {
+		    	var rowData = table.row('.selected').data();
+		    	console.log(rowData.bk_no);
+		    	table.row('.selected').remove().draw(false);
+		        deny(rowData.bk_no);
+		    });
+		}
+	    
   });
-    
-    
+
+ 
+  
 //    table.on('buttons-action', function (e, buttonApi, dataTable, node, config) {
 //    console.log('Button ' + buttonApi.text() + ' was activated');
 //});
@@ -208,8 +259,7 @@ $(document).ready(function() {
 //  $("#preVideo").on("hidden.bs.modal", function () {
 // 	$('#tblList3>tbody').empty();
 //});
-    
-//    $('#table_list tbody').on('click', 'td', function() {
+//    $('#table_list').on('click', 'td', function() {
 //        var rowData = table.row(this).data();
 //       	console.log("ssss",rowData)
 //       	$('#kt_facility_location').val(rowData.fc_no).change();
@@ -224,8 +274,6 @@ $(document).ready(function() {
 //		bk_no = rowData.bk_no;
 //		console.log(rowData.bk_no);
 //    });
-//    
-//    
 //});
 
 
@@ -425,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-//예약 신청서의 자산선택탭
+//예약신청
 function insertReservation() {
     // 셀렉트(자산선택) 값
     let selectElement = document.getElementById('kt_facility_location');
@@ -507,6 +555,7 @@ function insertReservation() {
 	            "bk_edday": item.bk_edday,       // 종료일
 	            "bk_name" : item.bk_name,	 	 //작성자
 	            "bk_state": item.bk_state,       // 상태
+	            "bk_content": item.bk_content,   // 내용
 	            "bk_regdate": item.bk_regdate    // 등록일
 	        }).draw();
     	 });
@@ -552,7 +601,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //승인하기
-function approve(){
+function approve(bk_no){
 	
 	console.log(bk_no)
 	fetch('./approve/facility.do?'+ new URLSearchParams({
@@ -577,10 +626,11 @@ function approve(){
 	            "bk_edday": item.bk_edday,       // 종료일
 	            "bk_name" : item.bk_name,	 	 //작성자
 	            "bk_state": item.bk_state,       // 상태
+	            "bk_content": item.bk_content,   // 내용
 	            "bk_regdate": item.bk_regdate    // 등록일
 	        }).draw();
     	 });
-		$('#kt_modal_add_schedule').modal('hide');
+//		$('#kt_modal_add_schedule').modal('hide');
 	})
 	.catch(error => {
 		console.log('error 승인')
@@ -611,6 +661,7 @@ function deny(bk_no) {
 	            "bk_edday": item.bk_edday,       // 종료일
 	            "bk_name" : item.bk_name,	 	 //작성자
 	            "bk_state": item.bk_state,       // 상태
+	            "bk_content": item.bk_content,   // 내용
 	            "bk_regdate": item.bk_regdate    // 등록일
 	        }).draw();
     	 });
@@ -644,6 +695,7 @@ function cancel(bk_no) {
 	            "bk_edday": item.bk_edday,       // 종료일
 	            "bk_name" : item.bk_name,	 	 //작성자
 	            "bk_state": item.bk_state,       // 상태
+	            "bk_content": item.bk_content,   // 내용
 	            "bk_regdate": item.bk_regdate    // 등록일
 	        }).draw();
     	 });
