@@ -1,6 +1,7 @@
 package com.rgb.grw.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class DeptServiceImpl implements IDeptService {
 	}
 	
 	@Override
-	public int insertDept(DeptDto dto) {
-		return dao.insertDept(dto);
+	public int insertDept(Map<String, Object> map) {
+		return dao.insertDept(map);
 	}
 	
 	@Override
@@ -30,3 +31,4 @@ public class DeptServiceImpl implements IDeptService {
 	}
 	
 }
+

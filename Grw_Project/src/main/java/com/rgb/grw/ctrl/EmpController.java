@@ -1,15 +1,21 @@
 package com.rgb.grw.ctrl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rgb.grw.dto.DeptDto;
 import com.rgb.grw.dto.EmpDto;
 import com.rgb.grw.service.IEmpService;
 
@@ -39,17 +45,65 @@ public class EmpController {
 		return "userView";
 	}
 	
-	//사원등록
-	@PostMapping(value="/addEmp.do")
-	public String addEmp(EmpDto dto, HttpServletRequest request) {
-		log.info("사원등록 완료");
-		int n = 0;
-		if( n== 1) {
-			return "redirect:/empList.do";
-		}else {
-			return null; 
-		}
+	
+	
+	//트리 부서리스트
+	@GetMapping(value="treeDept.do")
+	@ResponseBody
+	public List<DeptDto> treeDept(Model model) {
+		List<DeptDto> treeDept = service.treeDept();
+		log.info("트리 부서리스트");
+		return treeDept;
 	}
+	
+	@GetMapping(value="selectDept.do")
+	@ResponseBody
+	//트리 사원리스트
+	public List<EmpDto> selectDept(EmpDto dto){
+		return service.selectDept(dto);
+	}
+		
+	
+	
+	
+	//사원등록
+//	@PostMapping(value="/addEmp.do")
+//	public String addEmp(EmpDto dto, HttpServletRequest request) {
+//		log.info("사원등록 완료");
+//		int n = 0;
+//		if( n== 1) {
+//			return "redirect:/empList.do";
+//		}else {
+//			return null; 
+//		}
+//	}
+	
+	@PostMapping(value="addEmp.do")
+	public String insertDept(HttpSession session, @RequestParam Map<String, Object> map) {
+		log.info("사원등록 완료");
+		
+		Map<String, Object> dtoMap = new HashMap<String, Object>();
+		
+		dtoMap.put("empName", map.get("userName"));
+		dtoMap.put("empNo", map.get("userNo"));
+		dtoMap.put("empPw", map.get("userPw"));
+		dtoMap.put("empEmail", map.get("userEmail"));
+		dtoMap.put("depName", map.get("deptSelect"));
+		dtoMap.put("empIdno", map.get("userIdnum"));
+		dtoMap.put("empGender", map.get("userGender"));
+		dtoMap.put("empJoin", map.get("userJoin"));
+		dtoMap.put("empTier", map.get("userTier"));
+		dtoMap.put("empAuth", map.get("userAuth"));
+		dtoMap.put("empState", map.get("userState"));
+		
+		int n = service.insertEmp(dtoMap);
+		
+		return "redirect:empList.do";
+		}
+	
 	
 	
 }
+
+
+

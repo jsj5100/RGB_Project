@@ -9,7 +9,7 @@
 		ON D.DEP_NO = E.DEP_NO
 </select>
 
-<insert id="insertDept" parameterType="DeptDto">
+<insert id="insertDept" parameterType="java.util.Map">
 <!-- 	INSERT INTO DEP -->
 <!-- 	(SEQ, EMP_NO, DEP_NO, DEP_NAME) -->
 <!-- 	VALUES -->
@@ -20,15 +20,36 @@
     VALUES (#{depNo}, #{depName}, 'Y')
 </insert>
 
+<!-- <select id="deptEdit1" resultType="DeptDto"> -->
+<!-- 	SELECT d.DEP_NAME -->
+<!-- 	     , d.DEP_NO -->
+<!-- 	     , e.EMP_NAME -->
+<!-- 	  FROM emp e -->
+<!-- 	  JOIN DEP d -->
+<!-- 	    ON e.DEP_NO = d.DEP_NO -->
+<!--  LEFT JOIN AUTH b -->
+<!-- 	    ON e.AUTH_NO =b.AUTH_NO -->
+<!-- 	 WHERE e.AUTH_NO NOT IN ('NO00A') -->
+<!--   ORDER BY e.TIER_NO -->
+<!-- </select> -->
 
 <select id="deptEdit" resultType="DeptDto">
-
-SELECT DISTINCT d.DEP_NAME, DISTINCT d.DEP_NO, DISTINCT e.EMP_NAME
-FROM EMP e
-JOIN TIER t ON e.TIER_NO = t.TIER_NO
-JOIN DEP d ON e.DEP_NO = d.DEP_NO
-WHERE t.TIER_NO IN ('T001', 'T002', 'T003', 'T004');
-
+	SELECT d.DEP_NAME
+	     , d.DEP_NO
+	     , e.EMP_NAME
+	  FROM emp e
+	  JOIN DEP d
+	    ON e.DEP_NO = d.DEP_NO
+ LEFT JOIN AUTH b
+	    ON e.AUTH_NO =b.AUTH_NO
+	 WHERE e.AUTH_NO NOT IN ('NO00A')
+  ORDER BY e.TIER_NO
 </select>
+
+
+<!-- <delete id="deptDel"> -->
+<!-- </delete> -->
+
+
 
 </mapper>

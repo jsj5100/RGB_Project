@@ -43,7 +43,7 @@
 							<div class="d-flex align-items-center position-relative my-1">
 								<i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
 									<span class="path1"></span> <span class="path2"></span>
-								</i> <input type="text" data-kt-user-table-filter="search"
+								</i> <input type="text" id="searchEmp" data-kt-user-table-filter="search"
 									class="form-control form-control-solid w-250px ps-13"
 									placeholder="이름, 사번검색">
 							</div>
@@ -286,7 +286,7 @@
 														<!--begin::Input-->
 														<input type="date" name="userJoin"
 															class="form-control form-control-solid mb-3 mb-lg-0"
-															placeholder="Full name" value="Emma Smith">
+															placeholder="Full name" value="">
 														<!--end::Input-->
 														<div
 															class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
@@ -380,15 +380,17 @@
 													<!-- 													data-kt-users-modal-action="cancel">취소하기</button> -->
 													<button type="button" id="kt_modal_add_event_cancel"
 														class="btn btn-light me-3" data-bs-dismiss="modal">취소하기</button>
-													
-													<button type="submit" class="btn btn-primary"
-														data-kt-users-modal-action="submit"
-														data-bs-dismiss="modal">
-														<span class="indicator-label">등록하기</span> <span
-															class="indicator-progress">등록중... <span
-															class="spinner-border spinner-border-sm align-middle ms-2">
-														</span></span>
-													</button>
+													<button type="submit" id="kt_modal_add_event_submit" class="btn btn-primary" data-bs-dismiss="modal" onclick="addEmp()">
+								                        <span class="indicator-label">등록하기</span>
+								                    </button>
+<!-- 													<button type="submit" class="btn btn-primary" -->
+<!-- 														data-kt-users-modal-action="submit" -->
+<!-- 														data-bs-dismiss="modal"> -->
+<!-- 														<span class="indicator-label">등록하기</span> <span -->
+<!-- 															class="indicator-progress">등록중... <span -->
+<!-- 															class="spinner-border spinner-border-sm align-middle ms-2"> -->
+<!-- 														</span></span> -->
+<!-- 													</button> -->
 													
 													
 												</div>
@@ -475,7 +477,7 @@
 													</div>
 												</td>
 												<!-- 										<td class="d-flex align-items-center"> -->
-												<td>1 <!--begin:: Avatar --> <!-- 											<div --> <!-- 												class="symbol symbol-circle symbol-50px overflow-hidden me-3"> -->
+												<td>${vs.count} <!--begin:: Avatar --> <!-- 											<div --> <!-- 												class="symbol symbol-circle symbol-50px overflow-hidden me-3"> -->
 													<!-- 												<a href="apps/user-management/users/view.html"> -->
 													<!-- 													<div class="symbol-label"> --> <!-- 														<img src="assets/media/avatars/300-6.jpg" alt="Emma Smith" -->
 													<!-- 															class="w-100"> --> <!-- 													</div> -->
@@ -526,9 +528,6 @@
 											</tr>
 										</c:forEach>
 
-										
-
-
 									</tbody>
 								</table>
 							</div>
@@ -570,52 +569,6 @@
 
 <!-- Code injected by live-server -->
 <script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function() {
-			function refreshCSS() {
-				var sheets = [].slice.call(document
-						.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0
-							|| rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/,
-								'');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?')
-								+ '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://'
-					: 'wss://';
-			var address = protocol + window.location.host
-					+ window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function(msg) {
-				if (msg.data == 'reload')
-					window.location.reload();
-				else if (msg.data == 'refreshcss')
-					refreshCSS();
-			};
-			if (sessionStorage
-					&& !sessionStorage
-							.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer',
-						true);
-			}
-		})();
-	} else {
-		console
-				.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
 </script>
 
 <!--begin::Javascript-->
@@ -660,33 +613,43 @@
 
 
 <!-- Js Tree script -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-<script type="text/javascript" src="resources/js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
 <script type="text/javascript">
+
 	function getJson() {
-		debugger;
-		$.ajax({
-			type : 'get',
-			url : '/treelist.do',
-			dataType : 'json',
-			success : function(data) {
-				var company = new Array();
-				// 데이터 받아옴
-				$.each(data, function(idx, item) {
-					company[idx] = {
-						id : item.id,
-						parent : item.parent_id,
-						text : item.name
+		
+		// 서버에서 트리 데이터를 가져옵니다
+	    fetch('./treeDept.do') // 서버에서 트리 데이터를 가져오는 URL
+	        .then(response => {
+	            if (!response.ok) {
+	                throw new Error("네트워크 응답이 올바르지 않습니다.");
+	            }
+	            return response.json();
+	        })
+	        .then(data => {
+	            console.log(data);
+	            
+	            var company = new Array();
+	            
+	            company[0] = {
+	    			id : "root",
+	    			parent : "#",
+	    			text : "부서명"
+	    		}
+	            
+	            $.each(data, function(idx, item) {
+					company[idx+1] = {
+						id : item.dep_no,
+						parent : 'root',
+						text : item.dep_name
 					};
 				});
-
-				// 트리 생성
+	         	// 트리 생성
 				$('#tree').jstree({
 					core : {
-						data : company
+						data : company  
 					}, //데이터연결
 					types : {
 						'default' : {
@@ -698,97 +661,42 @@
 					//트리 로딩 롼료 이벤트
 				}).bind('select_node.jstree', function(event, data) {
 					//노드 선택 이벤트
+					console.log(data);
+					
+					if (data.node.parent == '#') return;
+					
+					//document.getElementById('searchEmp').value = "";
+					selectTree(data.node.id);
+					document.getElementById('searchEmp').value = data.node.text;
+					$("#searchEmp").focus();
 				})
-			},
-			error : function(data) {
-				alert("에러");
-			}
-		});
+	        })
+	        .catch(error => console.error('Error fetching tree data:', error));
 	}
-
-	function testTree() {
-
-		var company = new Array();
-		// 데이터 받아옴
-
-		var data = [ {
-			"id" : "1",
-			"name" : "부서명",
-			"parent_id" : "#"
-		}, {
-			"id" : "2",
-			"name" : "인사부",
-			"parent_id" : "1"
-		}, {
-			"id" : "8",
-			"name" : "둘리(사원)",
-			"parent_id" : "2"
-		}, {
-			"id" : "9",
-			"name" : "또치(사원)",
-			"parent_id" : "2"
-		}, {
-			"id" : "10",
-			"name" : "고길동(주임)",
-			"parent_id" : "2"
-		}, {
-			"id" : "4",
-			"name" : "경영기획부",
-			"parent_id" : "1"
-		}, {
-			"id" : "5",
-			"name" : "재무부",
-			"parent_id" : "1"
-		}, {
-			"id" : "6",
-			"name" : "마케팅부",
-			"parent_id" : "1"
-		}, {
-			"id" : "7",
-			"name" : "영업부",
-			"parent_id" : "1"
-		},
-
-		];
-
-		$.each(data, function(idx, item) {
-			company[idx] = {
-				id : item.id,
-				parent : item.parent_id,
-				text : item.name
-			};
-		});
-
-		// 트리 생성
-		$('#tree').jstree({
-			core : {
-				data : company
-			//데이터 연결
-			},
-			types : {
-				'default' : {
-					'icon' : 'jstree-folder'
-				}
-			},
-			plugins : [ 'wholerow', 'types' ]
-		}).bind('loaded.jstree', function(event, data) {
-			//트리 로딩 롼료 이벤트
-		}).bind('select_node.jstree', function(event, data) {
-			//노드 선택 이벤트
-		})
+	
+	
+	
+	function selectTree(dep_no) {
+		// 서버에서 트리 데이터를 가져옵니다
+	    fetch('./selectDept.do?dep_no=' + dep_no) // 서버에서 트리 데이터를 가져오는 URL
+	        .then(response => {
+	            if (!response.ok) {
+	                throw new Error("네트워크 응답이 올바르지 않습니다.");
+	            }
+	            return response.json();
+	        })
+	        .then(data => {
+	            console.log("선택한 부서번호 : " + dep_no);
+	            console.log(data);
+	        })
+	        .catch(error => console.error('Error fetching tree data:', error));
 	}
 
 	$(document).ready(function() {
-		testTree();
+		getJson();
 	});
 </script>
-
-
-
-
-
-
-
-
+<script src="./js/empList.js"></script>
 <%@include file="./footer.jsp"%>
 </html>
+
