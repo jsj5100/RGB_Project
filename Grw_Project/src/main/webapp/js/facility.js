@@ -217,7 +217,7 @@ $(document).ready(function() {
 	  
 		var user = document.getElementById('cancelbtn');
 		if(user){
-		  // 삭제 버튼 클릭 시 선택된 행 삭제
+		  // 취소 버튼 클릭 시 선택된 행 상태변경
 		    document.querySelector('#cancelbtn').addEventListener('click', function () {
 		    	var rowData = table.row('.selected').data();
 		    	console.log(rowData.bk_no);
