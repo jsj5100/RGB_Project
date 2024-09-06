@@ -99,7 +99,7 @@ public class ApprovalController {
 	    docDto.setDoc_content(docDto.getDoc_content());
 	    docDto.setDoc_name(docDto.getDoc_name());
 	    
-	    boolean docBoolean = serviceImpl.insertDocument(docDto);
+//	    boolean docBoolean = serviceImpl.insertDocument(docDto);
 
 	    List<String> approvalLists = Arrays.asList(approvalLine.split(","));
 	    List<String> ccLists = Arrays.asList(ccLine.split(","));
@@ -112,16 +112,16 @@ public class ApprovalController {
 	    ccMap.put("doc_no", docDto.getDoc_no());
 	    ccMap.put("ccMap", ccLists);
 	    
-	    boolean appBoolean = serviceImpl.insertApproval(approvalMap);
-	    boolean refBoolean = serviceImpl.insertReference(ccMap);
+//	    boolean appBoolean = serviceImpl.insertApproval(approvalMap);
+//	    boolean refBoolean = serviceImpl.insertReference(ccMap);
 	    
-//	    boolean processDocBoolean = serviceImpl.processDocument(docDto, approvalMap, ccMap);
-	    log.info("Document Insertion Status: " + docBoolean);
-	    log.info("Approval Insertion Status: " + appBoolean);
-	    log.info("Reference Insertion Status: " + refBoolean);
+	    boolean processDocBoolean = serviceImpl.processDocument(docDto, approvalMap, ccMap);
+//	    log.info("Document Insertion Status: " + docBoolean);
+//	    log.info("Approval Insertion Status: " + appBoolean);
+//	    log.info("Reference Insertion Status: " + refBoolean);
 	    
 
-	    if (docBoolean && appBoolean && refBoolean) {
+	    if (processDocBoolean) {
 	        return "redirect:/draftDocument.do";
 	    } else {
 	        return "redirect:/writeDocument.do";

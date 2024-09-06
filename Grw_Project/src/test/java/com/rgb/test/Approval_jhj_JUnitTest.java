@@ -77,7 +77,7 @@ public class Approval_jhj_JUnitTest {
 		assertEquals(true, n);
 	}
 	
-//	@Test
+	@Test
 	public void test_processDocument() {
 		DocumentDto dto = new DocumentDto();
 		dto.setEmp_no("000000");
