@@ -457,8 +457,17 @@ ADD CONSTRAINT uq_emp_no UNIQUE (emp_no);
 DELETE FROM RGB.SIGN
 WHERE EMP_NO ='444444';
 
+INSERT INTO RGB.FILE_DOCUMENT
+(FDOC_NO, DOC_NO, FDOC_SIZE, FDOC_TITLE, FDOC_PATH)
+VALUES('FD' || LPAD(TO_CHAR(DOC_NO_SEQ.NEXTVAL), 3, '0'), 'sdf', 0, 'sdf', 'sdf');
 
 
-
+CREATE SEQUENCE	FODC_NO_SEQ
+    START WITH 1     -- 시작값
+    INCREMENT BY 1   -- 증가값
+    MINVALUE 1       -- 최소값
+    MAXVALUE 99999   -- 최대값
+    NOCYCLE          -- 최대값에 도달하면 다시 1로 돌아가지 않도록 설정
+    NOCACHE;         -- 캐시 사용 안함
 
 

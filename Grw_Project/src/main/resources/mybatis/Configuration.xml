@@ -21,6 +21,8 @@
 	<typeAlias type="com.rgb.grw.dto.DocumentListDto" alias="DocumentListDto"/>
 	<typeAlias type="com.rgb.grw.dto.SignDto" alias="SignDto"/>
 	<typeAlias type="com.rgb.grw.dto.StroageDto" alias="StroageDto"/>
+	<typeAlias type="com.rgb.grw.dto.FileDocumentDto" alias="com.rgb.grw.dto.FileDocumentDto"/>
+  
 </typeAliases>
 
 <mappers>

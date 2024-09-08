@@ -28,7 +28,7 @@
 			class="app-container container-xxl">
 			<div class="card">
 				<div class="card-body">
-					<form action="./documentBox.do" method="post">
+					<form action="./documentBox.do" method="post" enctype="multipart/form-data">
 						<div>
 							<table>
 								<tr>
@@ -77,7 +77,8 @@
 								</tr>
 								<tr>
 									<td class="border-td text-center">파일 첨부</td>
-									<td class="border-td" colspan="3"><input type="file">
+									<td class="border-td" colspan="3">
+										<input type="file" name="uploadZip" accept=".zip">
 									</td>
 								</tr>
 							</table>
@@ -151,7 +152,7 @@
 			<!--begin::Modal dialog-->
 			<div class="modal-dialog mw-1000px">
 				<!--begin::Modal content-->
-				<div class="modal-content">
+				<div class="modal-content" style="width: 1200px;">
 					<!--begin::Modal header-->
 					<div class="modal-header">
 						<!--begin::Title-->

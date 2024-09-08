@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DocumentDto;
+import com.rgb.grw.dto.FileDocumentDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.ReferrerDto;
 import com.rgb.grw.dto.SignDto;
@@ -35,4 +36,7 @@ public interface ITemplatePreviewDao {
 	
 	//서명 삭제
 	public boolean deleteSign(String empNo);
+	
+	//문서 파일 업로드 
+	public boolean insertFile(FileDocumentDto dto);
 }

@@ -40,6 +40,14 @@ public class ApprovalRestController {
 	@GetMapping("/choiceApprovalLine.do")
 	public List<JsTreeResponseDto> getJsTree(){
 		List<JsTreeResponseDto> deptJstreeList = serviceImpl.jsTree();
+		  for (JsTreeResponseDto node : deptJstreeList) {
+		        // 'text'와 'tier_name'을 결합하여 'text' 필드를 업데이트
+		        String combinedText = node.getText();
+		        if (node.getTier_name() != null && !node.getTier_name().isEmpty()) {
+		            combinedText += " (" + node.getTier_name() + ")";
+		        }
+		        node.setText(combinedText);
+		    }
 		return deptJstreeList;
 	}
 	

@@ -63,7 +63,7 @@ public class ReservationDaoImpl implements IReservationDao {
 		
 		int n = template.selectOne(NS+"serchReservation",map);
 		
-		return n>0?false:true;
+		return n>0?true:false;
 	}
 	
 	//관리자 승인
@@ -84,4 +84,5 @@ public class ReservationDaoImpl implements IReservationDao {
 		
 	return template.selectOne(NS+"getBookInfo",map);
 	}
+	
 }

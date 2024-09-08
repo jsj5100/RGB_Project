@@ -56,8 +56,7 @@ SELECT DEP_NO
 <select id="selectDept" parameterType="EmpDto" resultType="EmpDto">
  SELECT EMP_NO, EMP_NAME, EMP_STATE,
     	DEP_NAME, TIER_NAME
- FROM
-    EMP E
+ FROM EMP E
  LEFT JOIN DEP D 
    ON E.DEP_NO = D.DEP_NO
  LEFT JOIN TIER T 
