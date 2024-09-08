@@ -107,9 +107,9 @@ document.addEventListener('DOMContentLoaded', function() {
 })
 
 //데이터 테이블스 적용하기
-
+var table;
 $(document).ready(function() {
-	 var table = $("#table_list").DataTable({
+	table = $("#table_list").DataTable({
         "info": false,
         "paging": true, // 페이징 활성화
         "ordering": true, // 정렬 활성화
@@ -120,6 +120,7 @@ $(document).ready(function() {
 			"dataSrc" : ""
 		},
 		"columns":[
+			{"data" : "bk_no"},
 			//신청자산
 			{"data" :"bk_title"},
 			
@@ -185,7 +186,8 @@ $(document).ready(function() {
 		
 		
         "columnDefs":[
-            {"orderable": false, "targets": 0} // 첫 번째 열은 정렬 불가
+            {"orderable": false, "targets": 0}, // 첫 번째 열은 정렬 불가
+            {"target" : 0, "visible":false , "searchable": false}
         ],
         
     	"responsive": {	
@@ -200,7 +202,7 @@ $(document).ready(function() {
                 tableClass: 'table'
             })
         	}
-    	}
+    	},
     	
     });
 		table.on('click', 'tbody tr', (e) => {
@@ -215,31 +217,52 @@ $(document).ready(function() {
 	    }
 	});
 	  
-		var user = document.getElementById('cancelbtn');
-		if(user){
-		  // 취소 버튼 클릭 시 선택된 행 상태변경
+//		document.querySelector('#cancelbtn').addEventListener('click', function () {
+//    let rowData = table.row('.selected').data();
+//    console.log(rowData);
+//    if (rowData) {
+//        console.log(rowData.bk_no);
+//        cancel(rowData.bk_no, function(success) {
+//            if (success) {
+//                table.row('.selected').remove().draw();
+//            }
+//        });
+//    } else {
+//        console.log('선택된 행이 없습니다.');
+//    }
+//});  
+
+		//취소버튼
+	    let cancelbtn = document.getElementById('cancelbtn');
+	    if(cancelbtn) {
+		
 		    document.querySelector('#cancelbtn').addEventListener('click', function () {
-		    	var rowData = table.row('.selected').data();
+		    	let rowData = table.row('.selected').data();
 		    	console.log(rowData.bk_no);
 		    	table.row('.selected').remove().draw(false);
 		        cancel(rowData.bk_no);
 		    });
-		}	  
+		    
+		}
 	    
 	    // 관리자 승인 버튼 클릭 시 선택된 행 삭제
-	    var admin = document.getElementById('approvebtn');
-	    if(admin) {
+	    let appbtn = document.getElementById('approvebtn');
+	    if(appbtn) {
 		
 		    document.querySelector('#approvebtn').addEventListener('click', function () {
-		    	var rowData = table.row('.selected').data();
+		    	let rowData = table.row('.selected').data();
 		    	console.log(rowData.bk_no);
 		    	table.row('.selected').remove().draw(false);
 		        approve(rowData.bk_no);
 		    });
 		    
-		     // 관리자 반려 버튼 클릭 시 선택된 행 삭제
+		}
+		
+		let denybtn = document.getElementById('denybtn');
+		// 관리자 반려 버튼 클릭 시 선택된 행 삭제
+		if(denybtn){
 		    document.querySelector('#denybtn').addEventListener('click', function () {
-		    	var rowData = table.row('.selected').data();
+		    	let rowData = table.row('.selected').data();
 		    	console.log(rowData.bk_no);
 		    	table.row('.selected').remove().draw(false);
 		        deny(rowData.bk_no);
@@ -545,8 +568,7 @@ function insertReservation() {
     .then(data => {
 //        console.log('true면 성공', data);
         
-        var table = new DataTable('#table_list');
-
+		table.clear();
 		  data.forEach(item => {
        
 	        table.row.add({
@@ -562,7 +584,7 @@ function insertReservation() {
         // 모달 숨기기
 //        let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_add_schedule'));
 //        modal.hide();
-		$('#kt_modal_add_schedule').modal('hide');
+//		$('#kt_modal_add_schedule').modal('hide');
     })
     .catch(error => {
         console.error('insertfetch error', error);
@@ -616,11 +638,12 @@ function approve(bk_no){
 	})
 	.then(data=>{
 		
-		var table = new DataTable('#table_list');
 		console.log('1111 값넘어옴',data);
-		data.forEach(item => {
-       		console.log('2222 성공실행')
+		table.clear();
+		  data.forEach(item => {
+       
 	        table.row.add({
+				"bk_no" : item.bk_no,
 	            "bk_title": item.bk_title,       // 제목
 	            "bk_stday": item.bk_stday,       // 시작일
 	            "bk_edday": item.bk_edday,       // 종료일
@@ -650,12 +673,13 @@ function deny(bk_no) {
     	return response.json(); 
 	})
 	.then(data=>{
-		
-		var table = new DataTable('#table_list');
 		console.log('1111 값넘어옴',data);
-		data.forEach(item => {
-       		console.log('2222 성공실행')
+		
+		table.clear();
+		  data.forEach(item => {
+       
 	        table.row.add({
+				"bk_no" : item.bk_no,
 	            "bk_title": item.bk_title,       // 제목
 	            "bk_stday": item.bk_stday,       // 시작일
 	            "bk_edday": item.bk_edday,       // 종료일
@@ -685,11 +709,14 @@ function cancel(bk_no) {
 	})
 	.then(data=>{
 		
-		var table = new DataTable('#table_list');
-		console.log('1111 값넘어옴',data);
+//		console.log('1111 값넘어옴',data);
+		
+		table.clear()
+		
 		data.forEach(item => {
        		console.log('2222 성공실행')
 	        table.row.add({
+				"bk_no" : item.bk_no,
 	            "bk_title": item.bk_title,       // 제목
 	            "bk_stday": item.bk_stday,       // 시작일
 	            "bk_edday": item.bk_edday,       // 종료일
@@ -699,11 +726,13 @@ function cancel(bk_no) {
 	            "bk_regdate": item.bk_regdate    // 등록일
 	        }).draw();
     	 });
-	})
-	.catch(error => {
-		console.log('error 취소망함')
-	})
-}
+    })
+    .catch(error => {
+        console.error('error 취소망함', error);
+    });
+       		
+};
+
 
 
 //aview 누르면 모달창 열기

@@ -103,7 +103,7 @@
 					<!--end::Dates-->
 					
 					<!--begin::Tab Content-->
-					<div class="tab-content" id="reservation_content-container">
+					<div class="tab-content" data-bs-spy="scroll" id="reservation_content-container">
 					</div>	
 					<div class="d-flex flex-stack flex-wrap pt-10">
 														
@@ -161,6 +161,7 @@
 						<!--begin::Thead-->
 							<thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
 								<tr>
+									<th class="min-w-50px"></th>
 									<th class="min-w-100px">신청자산</th>
 									<th class="min-w-250px">사용기간</th>
 									<th class="min-w-100px">신청자</th>
