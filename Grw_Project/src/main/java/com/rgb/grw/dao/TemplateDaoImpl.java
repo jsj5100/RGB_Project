@@ -39,4 +39,9 @@ public class TemplateDaoImpl implements ITemplateDao {
 	public int modifyTemplate(TemplateDto dto) {
 		return template.update(NS+"modifyTemplate", dto);
 	}
+	
+	@Override
+	public TemplateDto selectDetailBoard(String temp_id) {
+		return template.selectOne(NS+"selectModifyTemplate", temp_id);
+	}
 }

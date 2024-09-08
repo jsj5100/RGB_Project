@@ -55,7 +55,7 @@
 										</thead>
 										<tbody>
 											<tr>
-												<td style="width: 150px;">
+												<td style="width: 100px;">
 													<div class="d-flex align-items-center">
 														<div class="symbol symbol-45px me-5">
 															<img style="margin-left: 10px;"
@@ -93,29 +93,41 @@
 												<td class="text-end"></td>
 											</tr>
 
-											<c:forEach var="list" items="${draftLists}">
+											<c:forEach var="list" items="${list}">
 												<tr>
-													<td>
-														<div class="d-flex align-items-center">
-
-
-															<div class="symbol symbol-45px me-5">
-																<img
-																	style="margin-left: 10px; width: 45px; height: 45px;"
-																	src="./assets/images/vacation.png">
-															</div>
-
-
-
-															<div style="flex: 0 0 25px;"></div>
-															<div class="symbol symbol-45px me-5">
-																<p class="text-gray-800 fw-bold mb-1 fs-6">${list.doc_no}</p>
-															</div>
+												<td style="width: 60px;">
+												<div class="d-flex align-items-center">
+												<c:if
+														test="${list.img_value eq '휴가'}">
+														<div class="symbol symbol-45px me-5">
+															<img
+																style="margin-left: 10px; width: 45px; height: 45px;"
+																src="./assets/images/vacation.png">
 														</div>
+													</c:if> <c:if test="${list.img_value eq '지출'}">
+														<div class="symbol symbol-45px me-5">
+															<img
+																style="margin-left: 10px; width: 45px; height: 45px;"
+																src="./assets/images/expense.png">
+														</div>
+													</c:if> <c:if test="${list.img_value eq '일정'}">
+														<div class="symbol symbol-45px me-5">
+															<img
+																style="margin-left: 10px; width: 45px; height: 45px;"
+																src="./assets/images/calendarimg.png">
+														</div>
+													</c:if>
+													<div style="flex: 0 0 15px;"></div>
+														<div class="symbol symbol-45px me-5" style="margin-left:20px;">
+													<p class="text-gray-800 fw-bold d-block mb-1 fs-6"
+														data-temp-id="${list.doc_no}">${list.doc_no}</p>
+														</div>
+													</div>
 													</td>
+													
 													<td class="text-end"><a href="#" data-title="asdfd"
 														data-content="<p>adg</p>
-" onclick="showModal(this)"
+															" onclick="showModal(this)"
 														class="text-gray-800 fw-bold text-hover-primary d-block mb-1 fs-6"
 														style="text-align: center;" data-bs-toggle="modal"
 														data-bs-target="#kt_modal_select_location">${list.doc_name}</a>
@@ -143,60 +155,20 @@
 															</div>
 														</div>
 													</td>
-													<td style="text-align: center;"><input type="button"
-														value="삭제"></td>
+													<td style="text-align: center;">
+													<form id="form2_${list.doc_no}" action="./deleteDocument1.do" method="post">
+														<input type="hidden" name="doc_no" value="${list.doc_no}" />
+														<input class="btn btn-danger" type="button" value="삭제"
+																onclick="submitForm('form2_${list.doc_no}')">
+													</form>
+													</td>
 												</tr>
 											</c:forEach>
 
 										</tbody>
 									</table>
 								</div>
-								<div class="row">
-							<div
-								class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
-								<div class="dataTables_length"
-									id="kt_ecommerce_sales_table_length">
-									<label><select name="kt_ecommerce_sales_table_length"
-										aria-controls="kt_ecommerce_sales_table"
-										class="form-select form-select-sm form-select-solid"><option
-												value="10">10</option>
-											<option value="25">25</option>
-											<option value="50">50</option>
-											<option value="100">100</option></select></label>
-								</div>
-							</div>
-							<div
-								class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
-								<div class="dataTables_paginate paging_simple_numbers"
-									id="kt_ecommerce_sales_table_paginate">
-									<ul class="pagination">
-										<li class="paginate_button page-item previous disabled"
-											id="kt_ecommerce_sales_table_previous"><a href="#"
-											aria-controls="kt_ecommerce_sales_table" data-dt-idx="0"
-											tabindex="0" class="page-link"><i class="previous"></i></a></li>
-										<li class="paginate_button page-item active"><a href="#"
-											aria-controls="kt_ecommerce_sales_table" data-dt-idx="1"
-											tabindex="0" class="page-link">1</a></li>
-										<li class="paginate_button page-item "><a href="#"
-											aria-controls="kt_ecommerce_sales_table" data-dt-idx="2"
-											tabindex="0" class="page-link">2</a></li>
-										<li class="paginate_button page-item "><a href="#"
-											aria-controls="kt_ecommerce_sales_table" data-dt-idx="3"
-											tabindex="0" class="page-link">3</a></li>
-										<li class="paginate_button page-item "><a href="#"
-											aria-controls="kt_ecommerce_sales_table" data-dt-idx="4"
-											tabindex="0" class="page-link">4</a></li>
-										<li class="paginate_button page-item "><a href="#"
-											aria-controls="kt_ecommerce_sales_table" data-dt-idx="5"
-											tabindex="0" class="page-link">5</a></li>
-										<li class="paginate_button page-item next"
-											id="kt_ecommerce_sales_table_next"><a href="#"
-											aria-controls="kt_ecommerce_sales_table" data-dt-idx="6"
-											tabindex="0" class="page-link"><i class="next"></i></a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
+								
 							</div>
 						</div>
 					</div>
@@ -235,6 +207,10 @@
 
 		document.getElementById('modalTitle').textContent = title;
 		document.getElementById('modalContent').innerHTML = content;
+	}
+	
+	function submitForm(formId) {
+		document.getElementById(formId).submit();
 	}
 </script>
 </html>

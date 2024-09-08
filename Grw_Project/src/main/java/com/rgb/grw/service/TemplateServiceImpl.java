@@ -36,4 +36,9 @@ public class TemplateServiceImpl implements ITemplateService {
 	public int modifyTemplate(TemplateDto dto) {
 		return templateDaoImpl.modifyTemplate(dto);
 	}
+	
+	@Override
+	public TemplateDto selectDetailBoard(String temp_id) {
+		return templateDaoImpl.selectDetailBoard(temp_id);
+	}
 }

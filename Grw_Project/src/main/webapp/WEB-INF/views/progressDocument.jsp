@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,7 @@
 				class="card">
 				<div class="card-header border-0 pt-5">
 					<h3 class="card-title align-items-start flex-column">
-						<span class="card-label fw-bold fs-3 mb-1">진행중인 문서함</span>
+						<span class="card-label fw-bold fs-3 mb-1">완료문서함</span>
 					</h3>
 					<div class="card-title">
 						<!--begin::Search-->
@@ -89,10 +90,9 @@
 
 												</td>
 												<td class="text-end"></td>
-												<td class="text-end"></td>
 											</tr>
 
-											<c:forEach var="list" items="${draftLists}">
+											<c:forEach var="list" items="${lists}">					
 												<tr>
 													<td>
 														<div class="d-flex align-items-center">
@@ -123,7 +123,7 @@
 													<td class="text-end"><a href="#"
 														style="text-align: center;"
 														class="text-gray-800 fw-bold text-hover-primary d-block mb-1 fs-6">${list.emp_name}</a>
-													</td>
+													</td> 
 													<td class="text-end">
 														<p style="text-align: center;"
 															class="text-gray-800 fw-bold d-block mb-1 fs-6">
@@ -133,17 +133,16 @@
 														<div class="d-flex flex-column w-100 me-2">
 															<div
 																class="d-flex flex-stack text-gray-500 fs-7 fw-semibold mb-2">
-																<span class="me-2">0%</span> <span>Progress</span>
+																<span class="me-2">100%</span> <span>Progress</span>
 															</div>
 															<div class="progress h-6px w-100 bg-light-danger">
-																<div class="progress-bar bg-danger" role="progressbar"
-																	style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+																<div class="progress-bar bg-success" role="progressbar"
+																	style="width: 100%" aria-valuenow="0" aria-valuemin="0"
 																	aria-valuemax="100"></div>
 															</div>
 														</div>
 													</td>
-													<td style="text-align: center;"><input type="button"
-														value="삭제"></td>
+													
 												</tr>
 											</c:forEach>
 

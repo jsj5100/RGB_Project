@@ -20,6 +20,7 @@
 	<typeAlias type="com.rgb.grw.dto.ReferrerDto" alias="ReferrerDto"/>
 	<typeAlias type="com.rgb.grw.dto.DocumentListDto" alias="DocumentListDto"/>
 	<typeAlias type="com.rgb.grw.dto.SignDto" alias="SignDto"/>
+	<typeAlias type="com.rgb.grw.dto.StroageDto" alias="StroageDto"/>
 </typeAliases>
 
 <mappers>
