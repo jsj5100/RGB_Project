@@ -8,6 +8,7 @@
 	WHERE TEMP_DELFLAG = 'N'
 </select>
 
+
 <insert id="writeTemplate" parameterType="TemplateDto">
     INSERT INTO TEMPLATE (TEMP_ID, TEMP_TITLE, TEMP_CONTENT, TEMP_REGDATE, IMG_VALUE, TEMP_WRITENAME, TEMP_DELFLAG)
     VALUES (temp_id_seq.NEXTVAL, 
@@ -25,19 +26,218 @@
 </delete>
 
 <update id="modifyTemplate">
-	UPDATE TEMPLATE SET TEMP_TITLE = #{temp_title}, TEMP_CONTENT = #{temp_content}, IMG_VALUE = #{img_value}, TEMP_WRITENAME = #{temp_writename}
+	UPDATE TEMPLATE SET TEMP_TITLE = #{temp_title}, TEMP_CONTENT = #{temp_content}, IMG_VALUE = #{img_value}, TEMP_REGDATE = CURRENT_DATE, TEMP_WRITENAME = #{temp_writename}
 	WHERE TEMP_ID = #{temp_id}
 </update>
 
-<select id="selectDraftedList" resultType="DocumentListDto">
-	SELECT DOC_NO, DOC_NAME, EMP_NAME, TO_CHAR(DOC_EXP, 'YYYY.MM.DD') DOC_EXP, IMG_VALUE, TO_CHAR(DOC_REGDATE, 'YYYY.MM.DD') DOC_REGDATE, DOC_CONTENT
-	FROM DOCUMENT d, EMP e, TEMPLATE t 
-	WHERE d.EMP_NO = e.EMP_NO 
-	AND d.TEMP_ID = t.TEMP_ID
+<select id="selectModifyTemplate" resultType="TemplateDto">
+	SELECT TEMP_ID, TEMP_TITLE, TEMP_CONTENT
+	FROM TEMPLATE
+	WHERE TEMP_ID = #{temp_id}
 </select>
 
-<select id="selectProgressList" resultType="DocumentListDto">
-	SELECT DOC_NO, DOC_NAME 
+<select id="selectDraftedList" resultType="DocumentListDto">
+
+SELECT d.DOC_NO, d.DOC_NAME, e.EMP_NAME, TO_CHAR(d.DOC_EXP, 'YYYY.MM.DD') DOC_EXP, t.IMG_VALUE, TO_CHAR(d.DOC_REGDATE, 'YYYY.MM.DD') DOC_REGDATE, d.DOC_CONTENT
+FROM DOCUMENT d
+JOIN EMP e ON d.EMP_NO = e.EMP_NO
+JOIN TEMPLATE t ON d.TEMP_ID = t.TEMP_ID
+WHERE e.EMP_NAME = #{emp_name}
+AND d.DOC_DELFLAG = 'N'
+
 </select>
+
+<select id="selectProgressList" parameterType="java.util.Map" resultType="DocumentListDto">
+	WITH RankedApprovers AS (
+	    SELECT 
+	        a.*,
+	        ROW_NUMBER() OVER (PARTITION BY DOC_NO ORDER BY APP_PROCEDURE ASC) AS rn
+	    FROM APPROVER a
+	    WHERE APPROVE = 'N'
+	      AND EMP_NO = #{emp_no, jdbcType=VARCHAR}
+	)
+	SELECT *
+	FROM RankedApprovers
+	WHERE rn = 3
+</select>
+
+<select id="signDocumentList" parameterType="map" resultType="DocumentListDto">
+    SELECT d.DOC_NO, d.DOC_NAME, e.EMP_NAME, TO_CHAR(d.DOC_EXP, 'YYYY.MM.DD') DOC_EXP, e.EMP_NO, a.APPROVE
+	FROM APPROVER a
+	JOIN DOCUMENT d ON d.DOC_NO = a.DOC_NO
+	JOIN EMP e ON a.EMP_NO = e.EMP_NO
+	WHERE a.EMP_NO = #{emp_no, jdbcType=VARCHAR}
+	AND (
+	    (
+	        (a.APP_PROCEDURE = '1' AND a.APPROVE = 'Y' AND a.REJECTION = 'N')
+	        OR (a.APP_PROCEDURE = '2' AND a.APPROVE = 'N' AND a.REJECTION = 'N')
+	    )
+	    OR
+	    (
+	        (a.APP_PROCEDURE = '1' AND a.APPROVE = 'Y' AND a.REJECTION = 'N')
+	        OR (a.APP_PROCEDURE = '2' AND a.APPROVE = 'Y' AND a.REJECTION = 'N')
+	        OR (a.APP_PROCEDURE = '3' AND a.APPROVE = 'N' AND a.REJECTION = 'N')
+	    )
+	)
+</select>
+
+
+<select id="selectSignDocumentList" parameterType="java.lang.String" resultType="java.lang.String">
+	SELECT EMP_NAME
+	FROM APPROVER JOIN EMP
+	USING (EMP_NO)
+	WHERE DOC_NO = #{doc_no, jdbcType=VARCHAR} AND APP_PROCEDURE = '1'
+</select>
+
+<update id="approval">
+	UPDATE APPROVER SET APPROVE = 'Y'
+	WHERE EMP_NO = #{emp_no, jdbcType=VARCHAR}
+	AND DOC_NO = #{doc_no, jdbcType=VARCHAR}
+</update>
+
+<update id="rejection">
+	UPDATE APPROVER
+	SET REJECTION = 'Y',
+	    REJECTION_COMMENT = #{rejectComment}
+	WHERE DOC_NO = #{doc_no}
+	AND EMP_NO = #{emp_no}
+</update>
+
+<select id="rejectionDocumentList" resultType="DocumentListDto">
+	SELECT d.DOC_NO, d.DOC_NAME, e.EMP_NAME, TO_CHAR(d.DOC_EXP, 'YYYY.MM.DD') DOC_EXP, t.IMG_VALUE, TO_CHAR(d.DOC_REGDATE, 'YYYY.MM.DD') DOC_REGDATE, d.DOC_CONTENT
+FROM DOCUMENT d
+JOIN EMP e ON d.EMP_NO = e.EMP_NO
+JOIN TEMPLATE t ON d.TEMP_ID = t.TEMP_ID
+JOIN APPROVER a ON d.DOC_NO = a.DOC_NO 
+WHERE e.EMP_NAME = #{emp_name}
+AND REJECTION = 'Y'
+AND DOC_DELFLAG = 'N'
+</select>
+
+<delete id="deleteDocument">
+	UPDATE DOCUMENT SET DOC_DELFLAG = 'Y'
+	WHERE DOC_DELFLAG ='N'
+	AND DOC_NO = #{doc_no, jdbcType=VARCHAR}
+</delete>
+
+<select id="selectRecycleList" resultType="DocumentListDto">
+SELECT d.DOC_NO, d.DOC_NAME, e.EMP_NAME, TO_CHAR(d.DOC_EXP, 'YYYY.MM.DD') DOC_EXP, t.IMG_VALUE, TO_CHAR(d.DOC_REGDATE, 'YYYY.MM.DD') DOC_REGDATE, d.DOC_CONTENT
+FROM DOCUMENT d
+JOIN EMP e ON d.EMP_NO = e.EMP_NO
+JOIN TEMPLATE t ON d.TEMP_ID = t.TEMP_ID
+WHERE e.EMP_NAME = #{emp_name}
+AND d.DOC_DELFLAG = 'Y'
+</select>
+
+<update id="restoreDocument">
+	UPDATE DOCUMENT SET DOC_DELFLAG = 'N'
+	WHERE DOC_DELFLAG ='Y'
+	AND DOC_NO = #{doc_no, jdbcType=VARCHAR}
+</update>
+
+<select id="referenceDocumentList" resultType="DocumentListDto">
+SELECT d.DOC_NO, d.DOC_NAME, e.EMP_NAME, TO_CHAR(d.DOC_EXP, 'YYYY.MM.DD') DOC_EXP, t.IMG_VALUE, TO_CHAR(d.DOC_REGDATE, 'YYYY.MM.DD') DOC_REGDATE, d.DOC_CONTENT
+FROM DOCUMENT d
+JOIN REFERRER r ON r.DOC_NO = d.DOC_NO
+JOIN TEMPLATE t ON d.TEMP_ID = t.TEMP_ID 
+JOIN EMP e ON d.EMP_NO = e.EMP_NO
+WHERE r.EMP_NO = #{emp_no}
+  AND r.REFFER_AUTH = 'Y'
+</select>
+
+<delete id="deleteRefferenceDocument">
+	UPDATE REFERRER SET REFFER_AUTH = 'N'
+	WHERE REFFER_AUTH ='Y'
+	AND EMP_NO = #{emp_no}
+	AND DOC_NO = #{doc_no}
+</delete>
+
+<select id="progressDocumentList" resultType="DocumentListDto">
+SELECT DISTINCT d.DOC_NO, 
+       d.DOC_NAME, 
+       e.EMP_NAME, 
+       TO_CHAR(d.DOC_EXP, 'YYYY.MM.DD') AS DOC_EXP, 
+       t.IMG_VALUE, 
+       TO_CHAR(d.DOC_REGDATE, 'YYYY.MM.DD') AS DOC_REGDATE
+FROM DOCUMENT d
+JOIN REFERRER r ON r.DOC_NO = d.DOC_NO
+JOIN TEMPLATE t ON d.TEMP_ID = t.TEMP_ID 
+JOIN EMP e ON d.EMP_NO = e.EMP_NO
+JOIN APPROVER a ON d.DOC_NO = a.DOC_NO 
+WHERE a.APP_PROCEDURE = '1'
+  AND a.EMP_NO = #{emp_no}
+  AND d.DOC_NO IN (
+      SELECT a1.DOC_NO
+      FROM APPROVER a1
+      WHERE a1.APPROVE = 'Y'
+      GROUP BY a1.DOC_NO
+      HAVING COUNT(DISTINCT a1.APP_PROCEDURE) = (SELECT COUNT(DISTINCT APP_PROCEDURE) FROM APPROVER WHERE DOC_NO = a1.DOC_NO)
+  )
+</select>
+
+<select id="ingDocumentList" resultType="DocumentListDto">
+SELECT DISTINCT d.DOC_NO, 
+       d.DOC_NAME, 
+       e.EMP_NAME, 
+       TO_CHAR(d.DOC_EXP, 'YYYY.MM.DD') AS DOC_EXP, 
+       t.IMG_VALUE, 
+       TO_CHAR(d.DOC_REGDATE, 'YYYY.MM.DD') AS DOC_REGDATE
+FROM DOCUMENT d
+JOIN REFERRER r ON r.DOC_NO = d.DOC_NO
+JOIN TEMPLATE t ON d.TEMP_ID = t.TEMP_ID 
+JOIN EMP e ON d.EMP_NO = e.EMP_NO
+JOIN APPROVER a ON d.DOC_NO = a.DOC_NO
+WHERE d.DOC_NO IN (
+    SELECT DOC_NO
+    FROM APPROVER
+    GROUP BY DOC_NO
+    HAVING 
+        (
+            SUM(CASE WHEN APP_PROCEDURE IN (1, 2) AND APPROVE = 'Y' THEN 1 ELSE 0 END) = 2
+            AND SUM(CASE WHEN APP_PROCEDURE IN (3, 4) AND APPROVE = 'N' THEN 1 ELSE 0 END) = 2
+        )
+        OR (
+            COUNT(DISTINCT CASE WHEN APP_PROCEDURE IN (1, 2, 3) AND APPROVE = 'Y' THEN APP_PROCEDURE END) = 3
+            AND COUNT(DISTINCT CASE WHEN APP_PROCEDURE = 4 AND APPROVE = 'N' THEN APP_PROCEDURE END) = 1
+        )
+)
+AND d.EMP_NO = #{emp_no}
+</select>
+
+<insert id="writeStorage">
+	INSERT INTO STORAGE
+		    (STORAGE_NO, EMP_NO,  
+		     TEMP_ID, STORAGE_REGDATE, STORAGE_CONTENT,
+		     STORAGE_EXP, STORAGE_DELFLAG, STORAGE_EVTON, 
+		     STORAGE_EVTOFF, STORAGE_NAME)
+		VALUES (
+		    STORAGE_NO_SEQ.NEXTVAL, #{emp_no, jdbcType=VARCHAR}, 
+		    #{temp_id, jdbcType=VARCHAR}, TO_TIMESTAMP(#{doc_regdate, jdbcType=DATE}, 'YYYY-MM-DD'), #{doc_content, jdbcType=CLOB},  
+		    TO_TIMESTAMP(#{doc_exp, jdbcType=DATE}, 'YYYY-MM-DD'), 'N',  TO_TIMESTAMP(#{doc_evton, jdbcType=DATE}, 'YYYY-MM-DD'),
+		    TO_TIMESTAMP(#{doc_evtoff, jdbcType=DATE}, 'YYYY-MM-DD'), #{doc_name, jdbcType=VARCHAR}
+		)
+</insert>
+
+<select id="selectStorage" resultType="StroageDto">
+	SELECT d.STORAGE_NO, 
+       d.STORAGE_NAME, 
+       e.EMP_NAME, 
+       TO_CHAR(d.STORAGE_EXP, 'YYYY.MM.DD') AS STORAGE_EXP, 
+       t.IMG_VALUE, 
+       TO_CHAR(d.STORAGE_REGDATE, 'YYYY.MM.DD') AS STORAGE_REGDATE, 
+       d.STORAGE_CONTENT
+FROM STORAGE d
+LEFT JOIN EMP e ON d.EMP_NO = e.EMP_NO
+LEFT JOIN TEMPLATE t ON d.TEMP_ID = t.TEMP_ID
+WHERE e.EMP_NO = #{emp_no} AND d.STORAGE_DELFLAG = 'N'
+</select>
+
+<delete id="deleteStorageDocument">
+	UPDATE STORAGE
+    SET STORAGE_DELFLAG = 'Y'
+    WHERE STORAGE_DELFLAG = 'N'
+    AND EMP_NO = #{emp_no}
+    AND STORAGE_NO = #{storage_no, jdbcType=VARCHAR}
+</delete>
 
 </mapper>

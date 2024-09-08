@@ -86,7 +86,7 @@
 							<textarea id="editor" name="doc_content"></textarea>
 							<div class="form-actions">
 								<input type="submit" value="작성하기" class="btn btn-primary">
-								<input type="button" value="임시저장" class="btn btn-primary">
+								<input type="button" value="임시저장" onclick="storageButton()" class="btn btn-primary">
 								<input type="button" value="취소" class="btn btn-primary">
 							</div>
 						</div>
@@ -292,6 +292,35 @@ $("#endEvent").flatpickr({
 	  }
 	 });
 	
+function storageButton() {
+    var formData = new FormData();
+    
+    formData.append('emp_no', '<%=loginDto.getEmp_no()%>');
+    formData.append('temp_id', document.querySelector('input[name="tempId"]').value);
+    formData.append('doc_regdate', document.getElementById('currentYear').value);
+    formData.append('doc_content', CKEDITOR.instances.editor.getData());
+    formData.append('doc_exp', document.getElementById('choiceDeadline').value);
+    formData.append('doc_evton', document.getElementById('startEvent').value);
+    formData.append('doc_evtoff', document.getElementById('endEvent').value);
+    formData.append('doc_name', document.querySelector('input[name="doc_name"]').value);
+    
+    $.ajax({
+        url: './writeStorage.do',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function() {
+            alert('임시 저장되었습니다.');
+            location.href="./temporaryDocumentList.do";
+        },
+        error: function() {
+            alert('임시 저장 실패했습니다.');
+        }
+    });
+}
+
+
 </script>
 <script type="text/javascript" src="./js/jstreeApprovalLine.js"></script>
 

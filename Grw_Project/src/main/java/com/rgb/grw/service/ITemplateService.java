@@ -14,4 +14,6 @@ public interface ITemplateService {
 	public int deleteTemplate(String temp_id);
 	
 	public int modifyTemplate(TemplateDto dto);
+	
+	public TemplateDto selectDetailBoard(String temp_id);
 }

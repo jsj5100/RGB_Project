@@ -22,5 +22,6 @@ public class DocumentListDto {
 	private String doc_exp;
 	private String img_value;
 	private String doc_content;
-	
+	private String emp_no;
+	private String approve;
 }

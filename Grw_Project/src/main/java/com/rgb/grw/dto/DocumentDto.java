@@ -27,4 +27,5 @@ public class DocumentDto {
 	private String sign_id;
 	private String doc_evton;
 	private String doc_evtoff;
+	
 }
