@@ -60,7 +60,7 @@
 				<div class="card-header pt-8">
 					<!--begin::Card title-->
 					<div class="card-title">
-						<h2>부서관리자 등록</h2>
+						<h2>부서관리 [부서관리자 등록 및 수정]</h2>
 					</div>
 					<!--end::Card title-->
 				</div>

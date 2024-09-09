@@ -87,7 +87,7 @@
 								<select class="form-control form-control-solid mb-3 mb-lg-0"
 									name="deptName">
 									<c:forEach var="deptMg" items="${depEdit}">
-										<option>${deptMg.dep_name}</option>
+										<option value="${deptMg.dep_no}">${deptMg.dep_name}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -95,6 +95,8 @@
 						</div>
 						<!--end::Input group-->
 						<!--begin::Input group-->
+						
+						
 						<div class="fv-row row mb-15">
 							<!--begin::Col-->
 							<div class="col-md-3">
@@ -106,6 +108,8 @@
 								<!--end::Label-->
 							</div>
 							<!--end::Col-->
+							
+							
 							<!--begin::Col-->
 							<div class="col-md-9">
 								<select class="form-control form-control-solid mb-3 mb-lg-0"
