@@ -165,7 +165,9 @@
 					<!--begin::Modal body-->
 					<div class="modal-body">
 						<div class="container-approvalLine">
-							<div class="top-div">검색기능</div>
+							<div class="top-div">
+								<input type="text" id="search_input" placeholder="검색어 입력">
+							</div>
 
 							<!-- Bottom Divs -->
 							<div class="bottom-divs">
@@ -265,32 +267,39 @@ const formattedToday = today.toISOString().split('T')[0];
 var currentYear = document.getElementById('currentYear');
 currentYear.value = formattedToday;
 
-$("#choiceDeadline").flatpickr({
-	  dateFormat: "Y-m-d",
-	  minDate: formattedToday,
-	  onChange: function(selectedDates, dateStr, instance) {
-	  	selectedStartDate1 = dateStr
-	  	console.log('선택한 마감 날짜: ', dateStr);
-	  }
-	 });
 
-$("#startEvent").flatpickr({
-	  dateFormat: "Y-m-d",
-	  minDate: formattedToday,
-	  onChange: function(selectedDates, dateStr, instance) {
-	  	selectedStartDate1 = dateStr
-	  	console.log('선택한 이벤트 시작 날짜: ', dateStr);
-	  }
-	 });
-	 
-$("#endEvent").flatpickr({
-	  dateFormat: "Y-m-d",
-	  minDate: formattedToday,
-	  onChange: function(selectedDates, dateStr, instance) {
-	  	selectedStartDate1 = dateStr
-	  	console.log('선택한 이벤트 마감 날짜: ', dateStr);
-	  }
-	 });
+const choiceDeadlinePicker = $("#choiceDeadline").flatpickr({
+  dateFormat: "Y-m-d",
+  minDate: formattedToday,
+  onChange: function(selectedDates, dateStr, instance) {
+    console.log('선택한 마감 날짜: ', dateStr);
+
+   
+    startEventPicker.set('minDate', dateStr);
+  }
+});
+
+
+const startEventPicker = $("#startEvent").flatpickr({
+  dateFormat: "Y-m-d",
+  minDate: formattedToday,
+  onChange: function(selectedDates, dateStr, instance) {
+    console.log('선택한 이벤트 시작 날짜: ', dateStr);
+
+  
+    endEventPicker.set('minDate', dateStr);
+  }
+});
+
+
+const endEventPicker = $("#endEvent").flatpickr({
+  dateFormat: "Y-m-d",
+  minDate: formattedToday,
+  onChange: function(selectedDates, dateStr, instance) {
+    console.log('선택한 이벤트 마감 날짜: ', dateStr);
+  }
+});
+
 	
 function storageButton() {
     var formData = new FormData();

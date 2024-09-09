@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DocumentDto;
+import com.rgb.grw.dto.DocumentListDto;
 import com.rgb.grw.dto.FileDocumentDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.ReferrerDto;
@@ -39,4 +40,7 @@ public interface ITemplatePreviewDao {
 	
 	//문서 파일 업로드 
 	public boolean insertFile(FileDocumentDto dto);
+	
+	//서명이 필요한 문서 리스트 조회
+	public List<DocumentListDto> selectApprovalSignList(Map<String, Object> map);
 }

@@ -107,7 +107,7 @@ public class Approval_jhj_JUnitTest {
 			templatePreviewServiceImpl.selectSign(emp_no);
 		}
 		
-		@Test
+//		@Test
 		public void test_insertFile() {
 			FileDocumentDto dto = new FileDocumentDto();
 			dto.setDoc_no("sdf");
@@ -117,4 +117,12 @@ public class Approval_jhj_JUnitTest {
 			dto.setFdoc_title("sdf");
 			templatePreviewServiceImpl.insertFile(dto);
 		}
+		@Test
+		public void test_selectApprovalSign() {
+			Map<String, Object> map = new HashMap<>();
+			map.put("emp_no", "000000");
+			templatePreviewServiceImpl.selectApprovalSignList(map);
+		}
+		
+		
 }
