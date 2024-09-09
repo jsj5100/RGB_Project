@@ -4,6 +4,8 @@ $(document).ready(function() {
     let selectedDep = "";
     let selectedTierName = "";
     let selectTierNo = "";
+    let selectdata = [];
+    
 
     // 서버에서 트리 데이터를 가져옵니다
     fetch('http://localhost:8080/Grw_Project/choiceApprovalLine.do') // 서버에서 트리 데이터를 가져오는 URL
@@ -15,6 +17,8 @@ $(document).ready(function() {
         })
         .then(data => {
             console.log(data);
+           selectdata = data;
+
 
             // jsTree를 초기화합니다
             $('#jstree').jstree({
@@ -41,6 +45,7 @@ $(document).ready(function() {
                     console.log('Selected Department:', selectedDep);
                     console.log('Selected Tier Name:', selectedTierName);
                     console.log('Selected Tier No:', selectTierNo);
+                    
                 }
             });
         })
@@ -126,8 +131,44 @@ $(document).ready(function() {
                 	console.log(node.children);
             	});
 			}
+			
+//			console.log("selectdata", selectdata)
+			findSiblings(selectdata);
+			
         }
     });
+    
+   
+function findSiblings(selectdata) {
+
+    if (selectTierNo !== undefined) {
+	
+        selectdata.forEach(tier => {
+            if (tier.tier_no >= selectTierNo) {
+                console.log('선택된 값보다 큰 tier:', tier.tier_no);
+                $('#jstree').jstree('disable_node', tier.id);
+            }
+        });
+    } else {
+        console.log('선택된 값의 tier_no가 정의되어 있지 않습니다.');
+    }
+}
+    
+function refind(nodeId, selectdata){
+	let nodeTier_no;
+	selectdata.foreach(data => {
+		if(data.id === nodeId){
+			nodeTier_no = data.tier_no;
+		}
+	})
+	
+	selectdata.foreach(data => {
+		if(data.tier_no<nodeTier_no){
+			$('#jstree').jstree('enable_node', selectedId);
+		}
+	})
+	
+}
 	
 	//참조자 지정 버튼
 	document.getElementById('ccLineButton').addEventListener('click', function(){
@@ -191,7 +232,9 @@ $(document).ready(function() {
                 // 삭제된 노드 ID를 다시 활성화
                 if (nodeId) {
                     $('#jstree').jstree('enable_node', nodeId);
+                    refind(nodeId, selectdata);
                 }
+                
 
                 // 순서 업데이트
                 updateRowOrder();
