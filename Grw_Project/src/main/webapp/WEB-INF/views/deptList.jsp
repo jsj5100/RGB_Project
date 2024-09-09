@@ -75,7 +75,7 @@
 							<!-- 							end::Content -->
 							<!-- 						</div> -->
 							
-							<input type="button" class="btn btn-light-primary me-3" onclick="location.href='deptEdit.do'" value="부서삭제"
+							<input type="button" class="btn btn-light-primary me-3" onclick="location.href='deptEdit.do'" value="부서수정"
 							style="margin-right:30px; width:122.25px;">
 
 
@@ -338,7 +338,7 @@
 											
 											
 											<div class="menu-item px-3">
-												<a href="./deptAuth.do" class="menu-link px-3">관리자 등록</a>
+												<a href="./deptAuth.do" class="menu-link px-3">수정</a>
 											</div>
 
 <!-- 											<div class="menu-item px-3"> -->
