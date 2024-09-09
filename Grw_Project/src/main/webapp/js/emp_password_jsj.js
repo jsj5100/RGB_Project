@@ -4,11 +4,13 @@ document.addEventListener("DOMContentLoaded", function() {
 	const passwordConfirmField = document.getElementById('emp_password_confirm');
 	const phoneField = document.querySelector('input[name="emp_phone"]');
 	const emailField = document.querySelector('input[name="emp_email"]');
+	const stateField = document.querySelector('select[name="emp_state"]');
 
 	const passwordError = document.getElementById('passwordError');
 	const passwordConfirmError = document.getElementById('passwordConfirmError');
 	const phoneError = document.getElementById('phoneError');
 	const emailError = document.getElementById('emailError');
+	const stateError = document.getElementById('stateError');
 
 	form.addEventListener('submit', function(event) {
 		let isValid = true;
@@ -49,6 +51,16 @@ document.addEventListener("DOMContentLoaded", function() {
 		} else {
 			emailError.innerHTML = ''; // 오류 메시지 제거
 			emailError.classList.add('d-none'); // 숨기기
+		}
+
+		// 재직 여부 유효성 검사 (Y or N)
+		if (stateField.value.trim() !== 'Y' && stateField.value.trim() !== 'N') {
+			stateError.innerHTML = '재직여부는 Y 또는 N으로 입력해 주세요.';
+			stateError.classList.remove('d-none'); // 에러 메시지 표시
+			isValid = false;
+		} else {
+			stateError.innerHTML = ''; // 오류 메시지 제거
+			stateError.classList.add('d-none'); // 숨기기
 		}
 
 		// 폼 제출 방지 및 오류 메시지 표시
