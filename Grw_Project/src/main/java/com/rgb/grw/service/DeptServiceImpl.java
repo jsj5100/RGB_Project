@@ -30,5 +30,10 @@ public class DeptServiceImpl implements IDeptService {
 		return dao.deptEdit();
 	}
 	
+	@Override
+	public int deptDel(Map<String, Object> map) {
+		return dao.deptDel(map);
+	}
+	
 }
 

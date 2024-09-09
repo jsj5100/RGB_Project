@@ -12,6 +12,8 @@ public interface IDeptService {
 	public int insertDept(Map<String, Object> map);
 	
 	public List<DeptDto> deptEdit();
+	
+	public int  deptDel(Map<String, Object> map);
 }
 
 

@@ -25,5 +25,8 @@ public class DeptDto {
 	private TierDto tierDto;
 	private String tier_no;
 	
+	private String auth_no;
+	private String auth_name;
+	
 	
 }
