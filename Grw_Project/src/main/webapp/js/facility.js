@@ -120,8 +120,10 @@ $(document).ready(function() {
 			"dataSrc" : ""
 		},
 		"columns":[
+			//번호
 			{"data" : "bk_no"},
-			//신청자산
+			
+			//신청자산이름
 			{"data" :"bk_title"},
 			
 			{ // 사용기간
@@ -140,6 +142,7 @@ $(document).ready(function() {
 					return startDate +' ' + startTime + ' ~ ' + endDate +' ' + endTime;
                 }
             },
+            
             //신청자
              {"data" : null,
              	"render": function(data){
@@ -147,6 +150,7 @@ $(document).ready(function() {
 //						return data.bk_name
              		}
              },
+             
 			// 진행상태
              { "data": null, 
                 "render": function (data, type, row) {
@@ -164,7 +168,8 @@ $(document).ready(function() {
 //					return state;
                 }
             },
-				
+			
+			//신청일	
 			{"data": null,
                 "render": function (data) {
 					
@@ -179,7 +184,8 @@ $(document).ready(function() {
                     return regdate;
                 }
             },
-            //신청자산
+            
+            //신청사유
 			{"data" :"bk_content"},
             
 		],
@@ -733,100 +739,3 @@ function cancel(bk_no) {
        		
 };
 
-
-
-//aview 누르면 모달창 열기
-//function openModal(bk_no){
-//	 console.log('모달을 열 값:', bk_no);
-//	var infoModal = new bootstrap.Modal(document.getElementById('kt_modal_view_schedule'), {
-//    });
-//	infoModal.show();
-//}
-
-//이벤트 추가 수정 창 스위칭하기
-//document.addEventListener('DOMContentLoaded', function () {
-//    // 모달 요소 선택
-//    let addEditModel = document.getElementById('kt_modal_add_schedule');
-//    let registerButton = document.getElementById('kt_modal_top_add');
-//    let editButton = document.getElementById('kt_modal_add_schedule_edit');
-//    
-//    // 모달이 열릴 때 실행될 이벤트 리스너
-//    addEditModel.addEventListener('show.bs.modal', function (event) {
-//		console.log(calendarData);
-//	    
-//        // 클릭된 버튼을 참조
-//        let button = event.relatedTarget;
-//
-//        // data-bs-whatever의 값을 참조
-//        let recipient;
-//        if (button) { //일정추가 버튼을 누르고 추가하는경우
-//            recipient = button.getAttribute('data-bs-whatever');
-//        } else { //이벤트 클릭 or 데이트 클릭
-//            recipient = null;
-//        }
-//
-//        // 모달 제목 요소 선택
-//        let modalHead = addEditModel.querySelector('#kt_modal_head');
-//        let modalTitle = addEditModel.querySelector('#kt_calendar_event_name');
-//		let modalDescription = addEditModel.querySelector('#kt_calendar_event_description');
-//		let modalAllday = addEditModel.querySelector('#kt_calendar_datepicker_allday');
-//		let modalStartDate = addEditModel.querySelector('#kt_calendar_datepicker_start_date');
-//		let modalStartTime = addEditModel.querySelector('#kt_calendar_datepicker_start_time');
-//		let modalEndDate = addEditModel.querySelector('#kt_calendar_datepicker_end_date');
-//		let modalEndTime = addEditModel.querySelector('#kt_calendar_datepicker_end_time');
-//		let modalGroupId = addEditModel.querySelector('#kt_calendar_event_location');
-//		
-//		let editSubmit = document.getElementById('kt_modal_add_event_submit'); //이벤트 스위칭용
-//		
-//        // recipient 값에 따라 모달 제목을 변경
-//        if (recipient === 'edit_event') {
-//            modalHead.textContent = '일정 수정';
-//            modalTitle.value = calendarData.sd_title;
-//            modalDescription.value = calendarData.sd_content;
-//            modalAllday.checked = calendarData.sd_allday;
-//            
-//            
-//            //날짜와 시간으로 값 나누기
-//            let startDate = calendarData.sd_start.split(' ');
-//            let endDate = calendarData.sd_end.split(' ');
-//            
-//            let [startDatePart, startTimePart] = startDate;
-//            let [endDatePart, endTimePart] = endDate;
-//            
-//            if(calendarData.sd_allday) {
-//				//allday
-//				modalStartDate.value=startDatePart;
-//				modalStartTime.value='';
-//				modalEndDate.value=endDatePart;
-//				modalEndTime.value=endTimePart='';
-//				
-//			} else {
-//				
-//				modalStartDate.value=startDatePart;
-//				modalStartTime.value=startTimePart.slice(0,5);
-//				modalEndDate.value=endDatePart;
-//				modalEndTime.value=endTimePart.slice(0,5);;
-//				
-//			}
-//            
-//            //그룹 코드값
-//            for(let i=1; i<modalGroupId.options.length; i++) {
-//				if(modalGroupId.options[i].value === calendarData.sd_code) {
-//					modalGroupId.selectedIndex = i;
-//					break;
-//			}
-//			console.log(selectedIndex);
-//			
-//			//등록버튼 -> 수정버튼
-//       		registerButton.style.display = 'none';
-//            editButton.style.display = 'block';
-//		}
-//            
-//        } else {
-//			//수정버튼 -> 등록버튼
-//            modalHead.textContent = '일정 추가';
-//			registerButton.style.display = 'block';
-//            editButton.style.display = 'none';
-//        }
-//    });
-//});

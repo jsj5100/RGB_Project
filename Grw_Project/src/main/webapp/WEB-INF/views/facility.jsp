@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>자산관리</title>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css'>
 <link href='https://cdn.datatables.net/2.1.5/css/dataTables.bootstrap5.css'>
 <script src='https://code.jquery.com/jquery-3.7.1.js'></script>
@@ -62,8 +62,6 @@
 
 				<!--begin::Card footer-->
 				<div class="card-footer pt-0">
-				    <button type="button" class="btn btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">예약신청</button>
-				    <button type="button" class="btn btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">추가(관리자용)</button>
 				</div>
 				<!--end::Card footer-->
 				</div>
@@ -121,28 +119,12 @@
 							<h2 class="mb-1">예약신청현황</h2>
 						</div>
 					<!--end::Card title-->
-<!-- 					begin::Card toolbar -->
-<!-- 						<div class="card-toolbar" data-control="select2"> -->
-<!-- 							<select class="form-select form-select-solid" aria-label="Default select example"> -->
-<!-- 								<option selected>신청현황</option> -->
-<!-- 								<option value="1">신청대기</option> -->
-<!-- 								<option value="2">승인</option> -->
-<!-- 								<option value="3">반려</option> -->
-<!-- 							</select> -->
-<!-- 						</div> -->
-					<!-- end::Card toolbar -->
 					</div>
 					<!--end::Card header-->
 
 					<!-- 카드 바디 -->
 					<!-- 예약신청리스트 목록 보여주기 -->
 <!-- 					begin::Card body -->
-<!-- 					<div class="card-body d-flex flex-column" id="reservation_state_all"> -->
-<!-- 						<div class="d-flex align-items-center position-relative mb-7" id="reservation_state_all">  -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				end::Task menu -->
-
 				<!-- 데이터 테이블스 -->
 				<div class="card-body p-0">
 					<div class="table-responsive">
@@ -173,24 +155,6 @@
 						</table>
 					</div>
 				</div>
-				
-
-
-
-
-
-
-
-
-
-
-
-
-				<div class="fs-6 fw-semibold text-gray-700">
-					<!--begin::Pages-->
-					<ul class="pagination">
-					</ul>
-					<!--end::Pages-->
 				</div>						
 				<!--end::Menu-->
 			</div>
@@ -202,14 +166,6 @@
 	</div>
 
 </div>
-	</div>
-	
-	
-	
-	
-	
-	
-	
 	
 	<!-- 모달 이미지 영역 -->
 	<div class="modal fade" id="kt_modal_add_schedule" tabindex="-1" style="display: none;" aria-hidden="true">
