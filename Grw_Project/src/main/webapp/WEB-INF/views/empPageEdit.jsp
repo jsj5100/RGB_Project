@@ -37,7 +37,7 @@ if (myPageDto != null) {
 			style="padding-top: 15px">
 			<div class="card">
 				<div class="card-body">
-					<form id="updateForm" action="updateMyPage.do" method="post"
+					<form id="updateForm" action="updateEmpMyPage.do" method="post"
 						enctype="multipart/form-data">
 						<input type="hidden" name="emp_no"
 							value="<%=myPageDto != null ? myPageDto.getEmp_no() : ""%>">
@@ -118,12 +118,12 @@ if (myPageDto != null) {
 								<div class="d-flex flex-wrap mt-5">
 									<!-- 사원번호 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">사원번호:</div>
+										<div class="fw-bold">사원번호</div>
 										<div class="text-gray-600">${myPageDto.emp_no}</div>
 									</div>
 									<!-- 부서 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">부서:</div>
+										<div class="fw-bold">부서</div>
 										<select name="dep_no"
 											class="custom-select-wrapper form-select custom-select form-control form-control-solid mb-3 mb-lg-0"
 											style="background-color: white; color: black; border: 1px solid #ccc; width: 100%; max-width: 200px;">
@@ -142,7 +142,7 @@ if (myPageDto != null) {
 									</div>
 									<!-- 권한 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">권한:</div>
+										<div class="fw-bold">권한</div>
 										<select name="auth_no"
 											class="custom-select-wrapper form-select custom-select form-control form-control-solid mb-3 mb-lg-0"
 											style="background-color: white; color: black; border: 1px solid #ccc; width: 100%; max-width: 200px;">
@@ -171,22 +171,25 @@ if (myPageDto != null) {
 										style="width: 300px;" placeholder="새 비밀번호" autocomplete="off">
 									<div class="text-muted">비밀번호는 영문 대/소문자 및 숫자 조합으로 8~16자리로
 										설정하세요.</div>
+									<div id="passwordError" class="alert alert-danger d-none mt-2"></div>
 									<div class="fw-bold mt-5">비밀번호 확인</div>
 									<input type="password" id="emp_password_confirm"
 										name="emp_password_confirm"
 										class="border border-2 rounded py-2 px-3 form-control"
 										style="width: 300px;" placeholder="비밀번호 확인">
+									<div id="passwordConfirmError"
+										class="alert alert-danger d-none mt-2"></div>
 								</div>
 								<!-- 주민등록번호, 입사일 한 줄에 배치 -->
 								<div class="d-flex flex-wrap mt-5">
 									<!-- 주민등록번호 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">주민등록번호:</div>
+										<div class="fw-bold">주민등록번호</div>
 										<div class="text-gray-600">${myPageDto.emp_idnum}******</div>
 									</div>
 									<!-- 입사일 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">입사일:</div>
+										<div class="fw-bold">입사일</div>
 										<div class="text-gray-600"><%=formattedDate%></div>
 									</div>
 								</div>
@@ -194,25 +197,33 @@ if (myPageDto != null) {
 								<div class="d-flex flex-wrap mt-5">
 									<!-- 전화번호 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">전화번호:</div>
+										<div class="fw-bold">전화번호</div>
 										<input type="text" name="emp_phone"
 											value="<%=myPageDto != null ? myPageDto.getEmp_phone() : ""%>"
 											class="form-control form-control-solid" style="width: 300px;">
+										<div id="phoneError" class="alert alert-danger d-none mt-2"></div>
 									</div>
 									<!-- 이메일 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">이메일:</div>
+										<div class="fw-bold">이메일</div>
 										<input type="email" name="emp_email"
 											value="<%=myPageDto != null ? myPageDto.getEmp_email() : ""%>"
 											class="form-control form-control-solid" style="width: 300px;">
+										<div id="emailError" class="alert alert-danger d-none mt-2"></div>
 									</div>
 									<!-- 재직여부 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">재직여부:</div>
-										<input type="text" name="emp_state"
-											value="<%=myPageDto != null ? myPageDto.getEmp_state() : ""%>"
-											class="form-control form-control-solid min-w-50px py-3 px-4 mx-2 mb-3"
+										<div class="fw-bold">재직여부</div>
+										<select name="emp_state"
+											class="form-select form-select-solid min-w-50px py-3 px-4 mx-2 mb-3"
 											style="width: 300px;">
+											<option value="" disabled selected>선택해 주세요</option>
+											<option value="Y"
+												<%=myPageDto != null && "Y".equals(myPageDto.getEmp_state()) ? "selected" : ""%>>재직</option>
+											<option value="N"
+												<%=myPageDto != null && "N".equals(myPageDto.getEmp_state()) ? "selected" : ""%>>퇴사</option>
+										</select>
+										<div id="stateError" class="alert alert-danger d-none mt-2"></div>
 									</div>
 								</div>
 								<div class="text-center pt-10">
@@ -233,7 +244,7 @@ if (myPageDto != null) {
 		</div>
 	</div>
 	<script src="./js/photoUpload.js"></script>
-	<script src="./js/my_password_jsj.js"></script>
+	<script src="./js/emp_password_jsj.js"></script>
 </body>
 <%@ include file="./footer.jsp"%>
 </html>

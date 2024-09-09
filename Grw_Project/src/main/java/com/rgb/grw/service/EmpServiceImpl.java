@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rgb.grw.dao.IEmpDao;
@@ -17,6 +18,9 @@ public class EmpServiceImpl implements IEmpService {
 	
 	@Autowired
 	private IEmpDao dao;	
+	
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 	
 	//1. 사원리스트
 	@Override
@@ -45,7 +49,14 @@ public class EmpServiceImpl implements IEmpService {
 	
 	@Override
 	public int insertEmp(Map<String, Object> map) {
-		return dao.insertEmp(map);
+		// 비밀번호 암호화
+        String rawPassword = (String) map.get("empPw");
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+        
+        // 암호화된 비밀번호로 map 업데이트
+        map.put("empPw", encodedPassword);
+
+        return dao.insertEmp(map);
 	}
 	
 	

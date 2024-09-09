@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,28 +79,35 @@ public class EmpController {
 //		}
 //	}
 	
-	@PostMapping(value="addEmp.do")
-	public String insertDept(HttpSession session, @RequestParam Map<String, Object> map) {
-		log.info("사원등록 완료");
-		
-		Map<String, Object> dtoMap = new HashMap<String, Object>();
-		
-		dtoMap.put("empName", map.get("userName"));
-		dtoMap.put("empNo", map.get("userNo"));
-		dtoMap.put("empPw", map.get("userPw"));
-		dtoMap.put("empEmail", map.get("userEmail"));
-		dtoMap.put("depName", map.get("deptSelect"));
-		dtoMap.put("empIdno", map.get("userIdnum"));
-		dtoMap.put("empGender", map.get("userGender"));
-		dtoMap.put("empJoin", map.get("userJoin"));
-		dtoMap.put("empTier", map.get("userTier"));
-		dtoMap.put("empAuth", map.get("userAuth"));
-		dtoMap.put("empState", map.get("userState"));
-		
-		int n = service.insertEmp(dtoMap);
-		
-		return "redirect:empList.do";
-		}
+	@Autowired
+    private PasswordEncoder passwordEncoder;
+	
+	@PostMapping(value = "addEmp.do")
+    public String insertDept(HttpSession session, @RequestParam Map<String, Object> map) {
+        log.info("사원등록 완료");
+
+        Map<String, Object> dtoMap = new HashMap<String, Object>();
+
+        // 비밀번호 암호화
+        String rawPassword = (String) map.get("userPw");
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+
+        dtoMap.put("empName", map.get("userName"));
+        dtoMap.put("empNo", map.get("userNo"));
+        dtoMap.put("empPw", encodedPassword); // 암호화된 비밀번호 저장
+        dtoMap.put("empEmail", map.get("userEmail"));
+        dtoMap.put("depName", map.get("deptSelect"));
+        dtoMap.put("empIdno", map.get("userIdnum"));
+        dtoMap.put("empGender", map.get("userGender"));
+        dtoMap.put("empJoin", map.get("userJoin"));
+        dtoMap.put("empTier", map.get("userTier"));
+        dtoMap.put("empAuth", map.get("userAuth"));
+        dtoMap.put("empState", map.get("userState"));
+
+        int n = service.insertEmp(dtoMap);
+
+        return "redirect:empList.do";
+    }
 	
 	
 	

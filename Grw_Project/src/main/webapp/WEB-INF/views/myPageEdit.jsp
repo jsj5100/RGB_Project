@@ -145,12 +145,12 @@ if (myPageDto != null) {
 								<div class="d-flex flex-wrap mt-5">
 									<!-- 사원번호 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">사원번호:</div>
+										<div class="fw-bold">사원번호</div>
 										<div class="text-gray-600">${myPageDto.emp_no}</div>
 									</div>
 									<!-- 부서 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">부서:</div>
+										<div class="fw-bold">부서</div>
 										<div class="border border-dashed rounded min-w-50px py-3 px-4">
 											<div>부서코드:</div>
 											<div class="text-gray-600">${myPageDto.dep_no}</div>
@@ -164,7 +164,7 @@ if (myPageDto != null) {
 									</div>
 									<!-- 권한 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">권한:</div>
+										<div class="fw-bold">권한</div>
 										<div class="border border-dashed rounded min-w-50px py-3 px-4">
 											<div>권한코드:</div>
 											<div class="text-gray-600">${myPageDto.auth_no}</div>
@@ -188,42 +188,47 @@ if (myPageDto != null) {
 										style="width: 300px;" placeholder="새 비밀번호" autocomplete="off">
 									<div class="text-muted">비밀번호는 영문 대/소문자 및 숫자 조합으로 8~16자리로
 										설정하세요.</div>
+									<div id="passwordError" class="alert alert-danger d-none mt-2"></div>
 									<div class="fw-bold mt-5">비밀번호 확인</div>
 									<input type="password" id="emp_password_confirm"
 										name="emp_password_confirm"
 										class="border border-2 rounded py-2 px-3 form-control"
 										style="width: 300px;" placeholder="비밀번호 확인" autocomplete="off">
+									<div id="passwordConfirmError"
+										class="alert alert-danger d-none mt-2"></div>
 								</div>
 								<div class="d-flex flex-wrap mt-5">
 									<!-- 주민등록번호 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">주민등록번호:</div>
+										<div class="fw-bold">주민등록번호</div>
 										<div class="text-gray-600">${myPageDto.emp_idnum}******</div>
 									</div>
 									<!-- 입사일 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">입사일:</div>
+										<div class="fw-bold">입사일</div>
 										<div class="text-gray-600"><%=formattedDate%></div>
 									</div>
 								</div>
 								<div class="d-flex flex-wrap mt-5">
 									<!-- 전화번호 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">전화번호:</div>
+										<div class="fw-bold">전화번호</div>
 										<input type="text" name="emp_phone"
 											value="<%=myPageDto != null ? myPageDto.getEmp_phone() : ""%>"
 											class="form-control form-control-solid" style="width: 300px;">
+										<div id="phoneError" class="alert alert-danger d-none mt-2"></div>
 									</div>
 									<!-- 이메일 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">이메일:</div>
+										<div class="fw-bold">이메일</div>
 										<input type="email" name="emp_email"
 											value="<%=myPageDto != null ? myPageDto.getEmp_email() : ""%>"
 											class="form-control form-control-solid" style="width: 300px;">
+										<div id="emailError" class="alert alert-danger d-none mt-2"></div>
 									</div>
 									<!-- 재직여부 -->
 									<div class="me-20 mb-3">
-										<div class="fw-bold">재직여부:</div>
+										<div class="fw-bold">재직여부</div>
 										<div class="text-gray-600"><%=myPageDto.getEmp_state()%></div>
 										<input type="hidden" name="emp_state"
 											value="<%=myPageDto.getEmp_state()%>"
