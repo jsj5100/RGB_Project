@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rgb.grw.dao.MyPageDaoImpl">
 
-	<resultMap id="optionMap" type="com.rgb.grw.dto.MyPageDto">
+	<resultMap id="optionMap" type="MyPageDto">
 		<result property="value" column="VALUE" />
 		<result property="type" column="TYPE" />
 	</resultMap>
 
 	<!-- 사원 정보 조회 쿼리 -->
 	<select id="MyPage" parameterType="java.lang.String"
-		resultType="com.rgb.grw.dto.MyPageDto">
+		resultType="MyPageDto">
 		SELECT
 		EMP.EMP_PHOTO AS emp_photo,
 		EMP.EMP_NAME AS emp_name,
@@ -52,7 +52,7 @@
 
 
 	<!-- 사원 정보 업데이트 쿼리 -->
-	<update id="updateEmp" parameterType="com.rgb.grw.dto.MyPageDto">
+	<update id="updateEmp" parameterType="MyPageDto">
 		UPDATE EMP
 		SET
 		EMP_PHOTO =
@@ -75,26 +75,29 @@
 	</update>
 
 	<!-- 옵션 조회 쿼리 -->
-	<select id="getOptions"
-		parameterType="com.rgb.grw.dto.MyPageDto" resultMap="optionMap">
+	<select id="getOptions" parameterType="MyPageDto"
+		resultMap="optionMap">
 		SELECT DISTINCT
-		DEP_NAME AS NAME, DEP_NO AS VALUE, '부서' AS TYPE
+		DEP_NAME AS NAME, DEP_NO AS VALUE, '부서' AS
+		TYPE
 		FROM DEP
 		UNION ALL
-		SELECT DISTINCT AUTH_NAME AS NAME, AUTH_NO AS VALUE, '권한' AS TYPE
+		SELECT DISTINCT AUTH_NAME AS NAME, AUTH_NO AS
+		VALUE, '권한' AS TYPE
 		FROM
 		AUTH
 		UNION ALL
-		SELECT DISTINCT TIER_NAME AS NAME, TIER_NO AS VALUE, '직위'
+		SELECT DISTINCT TIER_NAME AS NAME,
+		TIER_NO AS VALUE, '직위'
 		AS TYPE
 		FROM TIER
 	</select>
 
 	<!-- 사용자 프로필 업데이트 쿼리 -->
-	<update id="updateUserProfile"
-		parameterType="com.rgb.grw.dto.UserInfoDto">
+	<update id="updateUserProfile" parameterType="UserInfoDto">
 		UPDATE EMP
-		SET EMP_PHOTO = #{emp_photo}
+		SET
+		EMP_PHOTO = #{emp_photo}
 		WHERE EMP_NO =
 		#{emp_no}
 	</update>
@@ -103,7 +106,7 @@
 
 	<!-- 필요없어진 부분 -->
 	<!-- 부서 정보 업데이트 쿼리 -->
-	<update id="updateDep" parameterType="com.rgb.grw.dto.MyPageDto">
+	<update id="updateDep" parameterType="MyPageDto">
 		UPDATE DEP
 		SET
 		DEP_NAME =
@@ -112,20 +115,22 @@
 		jdbcType=VARCHAR}
 	</update>
 	<!-- 권한 정보 업데이트 쿼리 -->
-	<update id="updateAuth"
-		parameterType="com.rgb.grw.dto.MyPageDto">
+	<update id="updateAuth" parameterType="MyPageDto">
 		UPDATE AUTH
 		SET
-		AUTH_NAME = #{auth_name, jdbcType=VARCHAR}
-		WHERE AUTH_NO = #{auth_no, jdbcType=VARCHAR}
+		AUTH_NAME =
+		#{auth_name, jdbcType=VARCHAR}
+		WHERE AUTH_NO = #{auth_no,
+		jdbcType=VARCHAR}
 	</update>
 	<!-- 직위 정보 업데이트 쿼리 -->
-	<update id="updateTier"
-		parameterType="com.rgb.grw.dto.MyPageDto">
+	<update id="updateTier" parameterType="MyPageDto">
 		UPDATE TIER
 		SET
-		TIER_NAME = #{tier_name, jdbcType=VARCHAR}
-		WHERE TIER_NO = #{tier_no, jdbcType=VARCHAR}
+		TIER_NAME =
+		#{tier_name, jdbcType=VARCHAR}
+		WHERE TIER_NO = #{tier_no,
+		jdbcType=VARCHAR}
 	</update>
 	<!-- 필요없어진 부분 -->
 

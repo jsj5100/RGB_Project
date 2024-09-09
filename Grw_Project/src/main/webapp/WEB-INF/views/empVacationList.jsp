@@ -9,9 +9,7 @@
 </head>
 <body>
 	<div id="kt_app_content" class="app-content flex-column-fluid">
-		<!--begin::Content container-->
 		<div id="kt_app_content_container" class="app-container container-xxl">
-			<!--begin::Card-->
 			<div class="card">
 				<h2>휴가 예정페이지</h2>
 			</div>

@@ -16,17 +16,30 @@ public class UserInfoServiceImpl implements IUserInfoService {
 
 	@Autowired
 	private IUserInfoDao dao;
-	
+
 	@Override
-	public UserInfoDto login(Map<String, Object> map) {
-		log.info("로그인 서비스 : {}", map);
-		return dao.login(map);
+	public UserInfoDto login(String userid) {
+		log.info("UserInfoServiceImpl test");
+		return dao.login(userid);
 	}
-	
+
 	@Override
 	public UserInfoDto validateUser(Map<String, Object> map) {
 		log.info("사용자 검증 서비스 : {}", map);
 		return dao.validateUser(map);
 	}
+
+	@Override
+	public int updatePw(Map<String, Object> map) {
+		log.info("사용자 검증 서비스 : {}", map);
+		return dao.updatePw(map);
+	}
+
+	// 세션로그인(사용안함)
+//	@Override
+//	public UserInfoDto login(Map<String, Object> map) {
+//		log.info("로그인 서비스 : {}", map);
+//		return dao.login(map);
+//	}
 
 }

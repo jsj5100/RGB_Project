@@ -17,7 +17,7 @@ public interface IMyPageService {
 	public List<MyPageDto> getOptions();
 
 	// 사용자 프로필 업데이트
-	boolean updateUserProfile(MyPageDto myPageDto);
+	public boolean updateUserProfile(MyPageDto myPageDto);
 
 	// DB 정규화로 인해 필요없어진 기능
 	// public int updateDep(MyPageDto myPageDto);

@@ -3,6 +3,7 @@ package com.rgb.grw.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rgb.grw.dao.IMyPageDao;
@@ -18,6 +19,9 @@ public class MyPageServiceImpl implements IMyPageService {
 	@Autowired
 	private IMyPageDao myPageDao;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	// 사원 조회
 	@Override
 	public MyPageDto getMyPageInfo(String emp_no) {
@@ -30,10 +34,15 @@ public class MyPageServiceImpl implements IMyPageService {
 		if (myPageDto != null) {
 			// 사원 정보 조회
 			MyPageDto existingEmployee = myPageDao.getMyPageInfo(myPageDto.getEmp_no());
+//
+//			if (myPageDto.getEmp_password() == null || myPageDto.getEmp_password().isEmpty()) {
+//	            // 비밀번호 입력이 없는 경우 기존 비밀번호 유지 -> 암호화 기능 유지
+//	            myPageDto.setEmp_password(passwordEncoder.encode(existingEmployee.getEmp_password()));
+//	        }
 
-			if (myPageDto.getEmp_password() == null || myPageDto.getEmp_password().isEmpty()) {
-				// 비밀번호 입력이 없는 경우 기존 비밀번호 유지
-				myPageDto.setEmp_password(existingEmployee.getEmp_password());
+			// 프로필 사진이 없을 경우 기존 프로필 사진 유지
+			if (myPageDto.getEmp_photo() == null || myPageDto.getEmp_photo().length == 0) {
+				myPageDto.setEmp_photo(existingEmployee.getEmp_photo());
 			}
 
 			int result = myPageDao.updateEmp(myPageDto);
@@ -52,7 +61,7 @@ public class MyPageServiceImpl implements IMyPageService {
 		return myPageDao.getOptions();
 	}
 
-	// 프로필 업데이트
+	// 프로필 업데이트 테스트
 	@Override
 	public boolean updateUserProfile(MyPageDto myPageDto) {
 		log.info("사용자 프로필 업데이트 : {}", myPageDto);

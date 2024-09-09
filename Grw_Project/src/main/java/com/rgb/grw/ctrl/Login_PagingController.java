@@ -2,9 +2,17 @@ package com.rgb.grw.ctrl;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class Login_PagingController {
+
+	// 서버 시작 페이지
+	@RequestMapping("/")
+	public ModelAndView start() {
+		return new ModelAndView("home");
+	}
 
 	// 메인화면으로 이동
 	@GetMapping(value = "/home.do")

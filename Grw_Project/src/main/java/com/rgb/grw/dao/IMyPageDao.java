@@ -3,7 +3,6 @@ package com.rgb.grw.dao;
 import java.util.List;
 
 import com.rgb.grw.dto.MyPageDto;
-import com.rgb.grw.dto.UserInfoDto;
 
 public interface IMyPageDao {
 
@@ -17,7 +16,7 @@ public interface IMyPageDao {
 	public List<MyPageDto> getOptions();
 
 	// 사용자 프로필 업데이트
-	boolean updateUserProfile(MyPageDto myPageDto);
+	public boolean updateUserProfile(MyPageDto myPageDto);
 
 	// DB 정규화로 인해 필요없어진 기능
 	// 부서 정보 업데이트
