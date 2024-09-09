@@ -1,3 +1,4 @@
+//프로필 이미지 js
 window.onload = function() {
 	const previewImage = document.getElementById("previewImage");
 	const buttonContainer = document.getElementById("buttonContainer");
@@ -57,7 +58,7 @@ function imageSubmit() {
 	const formData = new FormData();
 
 	if (fileInput.length === 0) {
-		alert("업로드할 파일을 선택해주세요.");
+		alert("변경할 이미지 파일을 선택해주세요.");
 		return;
 	}
 
@@ -74,9 +75,9 @@ function imageSubmit() {
 		dataType: "json",
 		success: function(msg) {
 			if (msg.isc === "true") {
-				alert("업로드 완료");
+				alert("프로필 사진이 변경되었습니다.");
 			} else {
-				alert("업로드 실패");
+				alert("프로필 사진 변경이 실패하였습니다.");
 			}
 		},
 		error: function(xhr, status, error) {

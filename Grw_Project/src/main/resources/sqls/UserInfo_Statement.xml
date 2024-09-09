@@ -2,30 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rgb.grw.dao.UserInfoDaoImpl">
 
-	<select id="login" parameterType="java.util.Map"
+	<!-- 시큐리티 로그인 -->
+	<select id="login" parameterType="java.lang.String"
 		resultType="UserInfoDto">
-		SELECT
-		EMP.EMP_NO, EMP.EMP_PASSWORD, EMP.EMP_PHONE,
-		EMP.EMP_NAME, EMP.EMP_EMAIL, EMP.EMP_GENDER,
-		EMP.EMP_IDNUM, EMP.EMP_JOINDATE, EMP.EMP_OUTDATE,
-		EMP.EMP_PHOTO, EMP.EMP_STATE, EMP.EMP_FULLOFF,
-		EMP.EMP_RESTOFF, EMP.EMP_USEOFF, EMP.DEP_NO,
-		EMP.AUTH_NO, EMP.TIER_NO,
-		DEP.DEP_NAME AS dep_name,
-		AUTH.AUTH_NAME AS auth_name,
-		TIER.TIER_NAME AS tier_name
-		FROM
-		EMP
-		LEFT JOIN DEP ON EMP.DEP_NO = DEP.DEP_NO
-		LEFT JOIN AUTH ON EMP.AUTH_NO
-		= AUTH.AUTH_NO
-		LEFT JOIN TIER ON EMP.TIER_NO = TIER.TIER_NO
-		WHERE
-		EMP.EMP_NO = #{emp_no, jdbcType=VARCHAR}
-		AND EMP.EMP_PASSWORD = #{emp_password, jdbcType=VARCHAR}
-		AND EMP.EMP_STATE = 'Y'
+	SELECT
+	EMP.EMP_NO, EMP.EMP_PASSWORD, EMP.EMP_PHONE,
+	EMP.EMP_NAME, EMP.EMP_EMAIL, EMP.EMP_GENDER,
+	EMP.EMP_IDNUM,
+	EMP.EMP_JOINDATE, EMP.EMP_OUTDATE,
+	EMP.EMP_PHOTO, EMP.EMP_STATE,
+	EMP.EMP_FULLOFF,
+	EMP.EMP_RESTOFF, EMP.EMP_USEOFF, EMP.DEP_NO,
+	EMP.AUTH_NO, EMP.TIER_NO,
+	DEP.DEP_NAME AS dep_name,
+	AUTH.AUTH_NAME AS
+	auth_name,
+	TIER.TIER_NAME AS tier_name
+	FROM
+	EMP
+	LEFT JOIN DEP ON
+	EMP.DEP_NO = DEP.DEP_NO
+	LEFT JOIN AUTH ON EMP.AUTH_NO
+	= AUTH.AUTH_NO
+	LEFT JOIN TIER ON EMP.TIER_NO = TIER.TIER_NO
+	WHERE
+	EMP.EMP_NO =
+	#{emp_no, jdbcType=VARCHAR}
+	AND EMP.EMP_STATE = 'Y'
 	</select>
-	
+
+	<!-- 로그인전 비밀번호 인증이메일 -->
 	<select id="validateUser" parameterType="java.util.Map"
 		resultType="UserInfoDto">
 		SELECT
@@ -33,9 +39,51 @@
 		FROM EMP
 		WHERE
 		EMP.EMP_NO = #{emp_no, jdbcType=VARCHAR}
-		AND EMP.EMP_NAME = #{name, jdbcType=VARCHAR}
-		AND EMP.EMP_EMAIL = #{email, jdbcType=VARCHAR}
-		AND EMP.EMP_STATE = 'Y'
+		AND EMP.EMP_NAME = #{emp_name,
+		jdbcType=VARCHAR}
+		AND EMP.EMP_EMAIL = #{emp_email, jdbcType=VARCHAR}
+		AND
+		EMP.EMP_STATE = 'Y'
 	</select>
+	
+	<!-- 로그인전 비밀번호 변경 -->
+	<update id="updatePw" parameterType="java.util.Map">
+		UPDATE EMP
+		SET
+		EMP_PASSWORD = #{emp_password, jdbcType=VARCHAR}
+		WHERE EMP_NO = #{emp_no,
+		jdbcType=VARCHAR}
+	</update>
+
+	<!-- 이전 세션 로그인 -->
+	<!-- <select id="login" parameterType="java.util.Map" -->
+	<!-- resultType="UserInfoDto"> -->
+	<!-- SELECT -->
+	<!-- EMP.EMP_NO, EMP.EMP_PASSWORD, EMP.EMP_PHONE, -->
+	<!-- EMP.EMP_NAME, EMP.EMP_EMAIL, EMP.EMP_GENDER, -->
+	<!-- EMP.EMP_IDNUM, -->
+	<!-- EMP.EMP_JOINDATE, EMP.EMP_OUTDATE, -->
+	<!-- EMP.EMP_PHOTO, EMP.EMP_STATE, -->
+	<!-- EMP.EMP_FULLOFF, -->
+	<!-- EMP.EMP_RESTOFF, EMP.EMP_USEOFF, EMP.DEP_NO, -->
+	<!-- EMP.AUTH_NO, EMP.TIER_NO, -->
+	<!-- DEP.DEP_NAME AS dep_name, -->
+	<!-- AUTH.AUTH_NAME AS -->
+	<!-- auth_name, -->
+	<!-- TIER.TIER_NAME AS tier_name -->
+	<!-- FROM -->
+	<!-- EMP -->
+	<!-- LEFT JOIN DEP ON -->
+	<!-- EMP.DEP_NO = DEP.DEP_NO -->
+	<!-- LEFT JOIN AUTH ON EMP.AUTH_NO -->
+	<!-- = AUTH.AUTH_NO -->
+	<!-- LEFT JOIN TIER ON EMP.TIER_NO = TIER.TIER_NO -->
+	<!-- WHERE -->
+	<!-- EMP.EMP_NO = -->
+	<!-- #{emp_no, jdbcType=VARCHAR} -->
+	<!-- AND EMP.EMP_PASSWORD = #{emp_password, -->
+	<!-- jdbcType=VARCHAR} -->
+	<!-- AND EMP.EMP_STATE = 'Y' -->
+	<!-- </select> -->
 
 </mapper>

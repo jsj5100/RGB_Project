@@ -1,0 +1,69 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-5.8.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Spring Security 설정 -->
+    <!-- 사용자 정보 DAO 처리 시 필요함 -->
+    <context:component-scan base-package="com.rgb.grw" />
+
+    <!-- 접근 권한 미달 시 처리 로직 Handler -->
+    <bean id="customAccessDenied" class="com.rgb.grw.security.CustomAccessDeniedHandler"/>
+
+    <!-- 로그인 성공 시 처리 로직 Handler -->
+    <bean id="customLoginSuccess" class="com.rgb.grw.security.CustomLoginSuccessHandler" />
+
+    <!-- Spring Security API 제공 암호화 -->
+    <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+
+    <!-- 로그인 처리 서비스 -->
+    <bean id="loginService" class="com.rgb.grw.security.LoginService" />
+
+    <!-- Spring MVC Configuration 접근 허용 -->
+    <bean id="handlerMappingIntrospector" class="org.springframework.web.servlet.handler.HandlerMappingIntrospector"/>
+
+    <!-- 필터 설정 -->
+    <security:http use-expressions="true">
+        <!-- Custom CSRF 필터 추가 -->
+        <security:custom-filter ref="csrfBypassFilter" before="CSRF_FILTER"/>
+
+        <!-- CSRF 비활성화 -->
+        <security:csrf disabled="true"/>
+<!--         <security:csrf disabled="false"/> -->
+
+        <!-- 특정 URL에 대한 접근 허용 -->
+        <security:intercept-url pattern="/loginServlet.do" access="permitAll"/>
+        <security:intercept-url pattern="/passwordFind.do" access="permitAll"/>
+        <security:intercept-url pattern="/passwordChange.do" access="permitAll"/>
+
+        <!-- 모든 사용자 접근 권한 -->
+        <security:intercept-url pattern="/all.do" access="permitAll"/>
+
+        <!-- 로그인 성공 시 처리 -->
+        <security:form-login login-page="/loginForm.do"
+                             authentication-success-handler-ref="customLoginSuccess" />
+        <security:access-denied-handler ref="customAccessDenied" />
+
+        <!-- 로그아웃 설정 -->
+        <security:logout logout-url="/logout.do"
+                         logout-success-url="/loginForm.do"
+                         invalidate-session="true"/>
+    </security:http>
+
+    <!-- Custom CSRF 필터 빈 등록 -->
+    <bean id="csrfBypassFilter" class="com.rgb.grw.security.CsrfBypassFilter"/>
+
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="loginService">
+            <security:password-encoder ref="bcryptPasswordEncoder"/>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>

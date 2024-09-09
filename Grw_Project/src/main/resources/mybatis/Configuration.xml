@@ -22,6 +22,7 @@
 	<typeAlias type="com.rgb.grw.dto.SignDto" alias="SignDto"/>
 	<typeAlias type="com.rgb.grw.dto.StroageDto" alias="StroageDto"/>
 	<typeAlias type="com.rgb.grw.dto.FileDocumentDto" alias="com.rgb.grw.dto.FileDocumentDto"/>
+	<typeAlias type="com.rgb.grw.dto.AttendanceDto" alias="AttendanceDto"/>
   
 </typeAliases>
 
@@ -36,5 +37,6 @@
 	<mapper resource="sqls/Facility_Statement.xml"/>
 	<mapper resource="sqls/Reservation_Statement.xml"/>
 	<mapper resource="sqls/MyPage_Statement.xml"/>
+	<mapper resource="sqls/Attendance_Statement.xml"/>
 </mappers>
 </configuration>

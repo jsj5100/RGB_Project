@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,9 @@ public class MyPageController {
 
 	@Autowired
 	private IMyPageService myPageService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	// 마이페이지로 이동
 	@GetMapping("/myPage.do")
@@ -124,8 +128,8 @@ public class MyPageController {
 			@RequestParam("dep_no") String dep_no, @RequestParam("auth_no") String auth_no,
 			@RequestParam("emp_password") String emp_password, @RequestParam("emp_phone") String emp_phone,
 			@RequestParam("emp_email") String emp_email, @RequestParam("emp_state") String emp_state,
-			@RequestParam(value = "emp_photo", required = false) MultipartFile emp_photo, // 파일 업로드 추가
-			HttpServletRequest request, Model model) {
+			@RequestParam(value = "emp_photo", required = false) MultipartFile emp_photo, HttpServletRequest request,
+			Model model) {
 
 		// 사용자 정보 업데이트
 		MyPageDto myPageDto = new MyPageDto();
@@ -133,7 +137,7 @@ public class MyPageController {
 		myPageDto.setTier_no(tier_no);
 		myPageDto.setDep_no(dep_no);
 		myPageDto.setAuth_no(auth_no);
-		myPageDto.setEmp_password(emp_password);
+		myPageDto.setEmp_password(passwordEncoder.encode(emp_password)); // 비밀번호 암호화
 		myPageDto.setEmp_phone(emp_phone);
 		myPageDto.setEmp_email(emp_email);
 		myPageDto.setEmp_state(emp_state);
@@ -146,20 +150,20 @@ public class MyPageController {
 			model.addAttribute("error", "정보 업데이트에 실패했습니다.");
 		}
 
-		// 파일이 업로드된 경우 처리
+		// 파일이 업로드된 경우
 		if (emp_photo != null && !emp_photo.isEmpty()) {
 			try {
+				// 새 이미지가 있는 경우 이미지 저장 처리
 				byte[] imageBytes = emp_photo.getBytes();
-				myPageDto.setEmp_photo(imageBytes); // DTO에 이미지 데이터 설정
-
-				// 데이터베이스에 사용자 정보 업데이트
-				myPageService.updateUserProfile(myPageDto);
-
-				model.addAttribute("success", "프로필 사진이 성공적으로 업데이트되었습니다.");
+				myPageDto.setEmp_photo(imageBytes); // 새로운 이미지 설정
 			} catch (IOException e) {
 				e.printStackTrace();
 				model.addAttribute("error", "프로필 사진 업로드에 실패했습니다.");
+				return "redirect:/myPage"; // 오류 발생 시 리다이렉트 처리
 			}
+		} else {
+			// 이미지가 업로드되지 않은 경우 기존 이미지 유지
+			myPageDto.setEmp_photo(myPageDto.getEmp_photo());
 		}
 
 		// 사용자 정보를 다시 불러와서 모델에 추가
@@ -192,7 +196,7 @@ public class MyPageController {
 		myPageDto.setTier_no(tier_no);
 		myPageDto.setDep_no(dep_no);
 		myPageDto.setAuth_no(auth_no);
-		myPageDto.setEmp_password(emp_password);
+		myPageDto.setEmp_password(passwordEncoder.encode(emp_password)); // 비밀번호 암호화
 		myPageDto.setEmp_phone(emp_phone);
 		myPageDto.setEmp_email(emp_email);
 		myPageDto.setEmp_state(emp_state);
@@ -205,20 +209,20 @@ public class MyPageController {
 			model.addAttribute("error", "정보 업데이트에 실패했습니다.");
 		}
 
-		// 파일이 업로드된 경우 처리
+		// 파일이 업로드된 경우
 		if (emp_photo != null && !emp_photo.isEmpty()) {
 			try {
+				// 새 이미지가 있는 경우 이미지 저장 처리
 				byte[] imageBytes = emp_photo.getBytes();
-				myPageDto.setEmp_photo(imageBytes); // DTO에 이미지 데이터 설정
-
-				// 데이터베이스에 사용자 정보 업데이트
-				myPageService.updateUserProfile(myPageDto);
-
-				model.addAttribute("success", "프로필 사진이 성공적으로 업데이트되었습니다.");
+				myPageDto.setEmp_photo(imageBytes); // 새로운 이미지 설정
 			} catch (IOException e) {
 				e.printStackTrace();
 				model.addAttribute("error", "프로필 사진 업로드에 실패했습니다.");
+				return "redirect:/myPage"; // 오류 발생 시 리다이렉트 처리
 			}
+		} else {
+			// 이미지가 업로드되지 않은 경우 기존 이미지 유지
+			myPageDto.setEmp_photo(myPageDto.getEmp_photo());
 		}
 
 		// 사용자 정보를 다시 불러와서 모델에 추가
@@ -233,7 +237,6 @@ public class MyPageController {
 		model.addAttribute("myPageDto", updatedDto);
 		model.addAttribute("optionsList", optionsList);
 
-		return "redirect:/myPage.do"; // 업데이트 후 마이페이지로 리다이렉트
+		return "redirect:/myPage.do";
 	}
-
 }
