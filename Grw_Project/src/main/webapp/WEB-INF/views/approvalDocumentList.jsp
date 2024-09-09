@@ -73,7 +73,6 @@
 								</thead>
 								<tbody>
 									<c:forEach var="list" items="${lists}">
-										<c:if test="${list.approve != 'Y'}">
 											<tr>
 												<td>
 													<div class="d-flex align-items-center">
@@ -118,21 +117,6 @@
 													onclick="toggleRejectionContainer(this)" value="반려">
 												</td>
 											</tr>
-											<tr class="rejection-row hidden">
-												<td colspan="6">
-													<div class="rejection-container">
-														<form id="form1_${list.doc_no}" action="./rejection.do" method="post">
-														<input class="rejection-comment" name="rejectComment"
-															type="text" placeholder="반려 멘트를 입력하세요"
-															style="width: 1100px;">
-															<input type="hidden" name="doc_no" value="${list.doc_no}" />
-															<input class="btn btn-primary" type="button" value="제출"
-																onclick="submitForm1('form1_${list.doc_no}')">
-														</form>
-													</div>
-												</td>
-											</tr>
-										</c:if>
 									</c:forEach>
 								</tbody>
 							</table>
