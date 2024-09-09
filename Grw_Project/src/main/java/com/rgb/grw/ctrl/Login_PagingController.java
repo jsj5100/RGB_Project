@@ -11,7 +11,7 @@ public class Login_PagingController {
 	// 서버 시작 페이지
 	@RequestMapping("/")
 	public ModelAndView start() {
-		return new ModelAndView("home");
+		return new ModelAndView("login/login");
 	}
 
 	// 메인화면으로 이동

@@ -17,6 +17,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -235,6 +237,36 @@ public class MailController {
 		}
 
 		return response;
+	}
+
+	// 관리자에게 이메일 보내기 문의
+	@GetMapping(value = "/mailForm.do")
+	public String mailForm() {
+		return "login/mailForm";
+	}
+
+	// 관리자에게 이메일 보내기 문의내용 작성
+	@PostMapping(value = "/fmailSender.do")
+	public String mailSender(@RequestParam Map<String, String> mailMap, Model model) {
+		log.info("fmailSender.do 요청 값 : {}", mailMap);
+
+		String setForm = "springjsj@naver.com";
+		MimeMessage message = mailSender.createMimeMessage();
+
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+			helper.setFrom(setForm);
+			helper.setTo(mailMap.get("email"));
+			helper.setSubject(mailMap.get("title"));
+			helper.setEncodeFilenames(true);
+			helper.setText(mailMap.get("content"), true);
+
+			mailSender.send(message);
+			return "redirect:/mailForm.do?status=success";
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			return "redirect:/mailForm.do?status=error";
+		}
 	}
 
 }

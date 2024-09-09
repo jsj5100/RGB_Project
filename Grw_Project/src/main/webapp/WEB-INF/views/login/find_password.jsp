@@ -52,7 +52,6 @@
                                 <span class="indicator-progress">잠시만 기다려주세요... <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
                             <a href="./loginServlet.do" class="btn btn-light">취소</a> 
-                            <a href="./passwordChange.do" class="btn btn-light">임시 다음페이지</a>
                         </div>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                     </form>
