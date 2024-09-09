@@ -124,7 +124,7 @@ $(document).ready(function() {
 			{"data" : "bk_no"},
 			
 			//신청자산이름
-			{"data" :"bk_title"},
+			{"data" : "bk_title"},
 			
 			{ // 사용기간
                 "data": null,
@@ -193,7 +193,7 @@ $(document).ready(function() {
 		
         "columnDefs":[
             {"orderable": false, "targets": 0}, // 첫 번째 열은 정렬 불가
-            {"target" : 0, "visible":false , "searchable": false}
+            {"targets" : 0, "visible":false , "searchable": false}
         ],
         
     	"responsive": {	
@@ -222,21 +222,6 @@ $(document).ready(function() {
 	        classList.add('selected');
 	    }
 	});
-	  
-//		document.querySelector('#cancelbtn').addEventListener('click', function () {
-//    let rowData = table.row('.selected').data();
-//    console.log(rowData);
-//    if (rowData) {
-//        console.log(rowData.bk_no);
-//        cancel(rowData.bk_no, function(success) {
-//            if (success) {
-//                table.row('.selected').remove().draw();
-//            }
-//        });
-//    } else {
-//        console.log('선택된 행이 없습니다.');
-//    }
-//});  
 
 		//취소버튼
 	    let cancelbtn = document.getElementById('cancelbtn');
@@ -340,16 +325,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			
 		});
 		
-
-		//처음 로드 될때 당일 예약일정 보여주기
-//		let firstTab = document.querySelector('#reservation_day_container .nav-link');
-//   			if (firstTab) {
-//        		firstTab.classList.add('active');
-//       			let firstPane = document.querySelector(`#kt_schedule_day_0`);
-//        		if (firstPane) {
-//            		firstPane.classList.add('active');
-//        	}
-//   		}
 	})
 	.catch(error=> {
 		console.error('Error', error);
@@ -572,12 +547,12 @@ function insertReservation() {
 				
 		})	
     .then(data => {
-//        console.log('true면 성공', data);
         
 		table.clear();
 		  data.forEach(item => {
        
 	        table.row.add({
+				"bk_no" : item.bk_no,
 	            "bk_title": item.bk_title,       // 제목
 	            "bk_stday": item.bk_stday,       // 시작일
 	            "bk_edday": item.bk_edday,       // 종료일
@@ -587,10 +562,6 @@ function insertReservation() {
 	            "bk_regdate": item.bk_regdate    // 등록일
 	        }).draw();
     	 });
-        // 모달 숨기기
-//        let modal = bootstrap.Modal.getInstance(document.getElementById('kt_modal_add_schedule'));
-//        modal.hide();
-//		$('#kt_modal_add_schedule').modal('hide');
     })
     .catch(error => {
         console.error('insertfetch error', error);
@@ -658,6 +629,9 @@ function approve(bk_no){
 	            "bk_content": item.bk_content,   // 내용
 	            "bk_regdate": item.bk_regdate    // 등록일
 	        }).draw();
+	        
+	        
+		
     	 });
 //		$('#kt_modal_add_schedule').modal('hide');
 	})
@@ -695,6 +669,7 @@ function deny(bk_no) {
 	            "bk_regdate": item.bk_regdate    // 등록일
 	        }).draw();
     	 });
+    	 
 	})
 	.catch(error => {
 		console.log('error 반려')
