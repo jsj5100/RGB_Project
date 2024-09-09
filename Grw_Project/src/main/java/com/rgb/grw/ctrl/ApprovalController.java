@@ -12,22 +12,18 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.rgb.grw.dto.ApproverDto;
+import com.rgb.grw.dto.DocSignImgDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.DocumentListDto;
 import com.rgb.grw.dto.FileDocumentDto;
-import com.rgb.grw.dto.ReferrerDto;
-import com.rgb.grw.dto.SignDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
 import com.rgb.grw.dto.UserInfoDto;
 import com.rgb.grw.service.TemplatePreviewServiceImpl;
@@ -40,6 +36,41 @@ public class ApprovalController {
 	
 	@Autowired
 	private TemplatePreviewServiceImpl serviceImpl;
+	//문서의 제목 클릭시 미리보기 화면 확인
+	@GetMapping(value = "/detailApprovalDocument.do")
+	public String detailApprovalDocument(HttpSession session, Model model, String doc_no) {
+		UserInfoDto loginDto =  (UserInfoDto)session.getAttribute("loginDto");
+		if(loginDto == null) {
+			return "redirect:/loginServlet.do";
+		}
+		session.setAttribute("doc_no", doc_no);
+		Map<String, Object> appDocMap = new HashMap<String, Object>();
+		appDocMap.put("emp_no", loginDto.getEmp_no());
+		appDocMap.put("doc_no", doc_no);
+		DocumentListDto appDocOne = serviceImpl.detailApprovalDocument(appDocMap);
+		
+		Map<String, Object> imgDocMap = new HashMap<String, Object>();
+		imgDocMap.put("doc_no", doc_no);
+		List<DocSignImgDto> appDocImgs = serviceImpl.comDocSignImg(imgDocMap);
+		model.addAttribute("appDocOne", appDocOne);	
+		model.addAttribute("appDocImgs", appDocImgs);	
+		return "detailApprovalDocument";
+	}
+	
+	
+	//사인이 전부 완료된 문서 조회 화면
+	@GetMapping(value = "/comApprovalDocumentList.do")
+	public String comApprovalDocumentList(HttpSession session, Model model) {
+		UserInfoDto loginDto =  (UserInfoDto)session.getAttribute("loginDto");
+		if(loginDto == null) {
+			return "redirect:/loginServlet.do";
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("emp_no", loginDto.getEmp_no());
+		List<DocumentListDto> lists = serviceImpl.completeApprovalDocument(map);
+		model.addAttribute("lists",lists);	
+		return "comApprovalDocumentList";
+	}
 	
 	//사인이 필요한 문서 조회 화면
 	@GetMapping(value = "/approvalDocument.do")

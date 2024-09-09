@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DeptDto;
+import com.rgb.grw.dto.DocSignImgDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.DocumentListDto;
 import com.rgb.grw.dto.EmpDto;
@@ -37,4 +38,10 @@ public interface ITemplatePreviewService {
 	public boolean insertFile(FileDocumentDto dto);
 	
 	public List<DocumentListDto> selectApprovalSignList(Map<String, Object> map);
+	
+	public List<DocumentListDto> completeApprovalDocument(Map<String, Object> map);
+	
+	public DocumentListDto detailApprovalDocument(Map<String, Object> map);
+	
+	public List<DocSignImgDto> comDocSignImg(Map<String, Object> map);
 }

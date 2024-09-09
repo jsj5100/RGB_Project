@@ -1,7 +1,5 @@
 package com.rgb.grw.ctrl;
 
-import java.util.ArrayList;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rgb.grw.dto.DeptDto;
+import com.rgb.grw.dto.DocSignImgDto;
 import com.rgb.grw.dto.EmpDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.TemplatePreviewDto;
@@ -31,12 +30,24 @@ public class ApprovalRestController {
 	@Autowired
 	private TemplatePreviewServiceImpl serviceImpl;
 	
+	@GetMapping("/docSignImg.do")
+	public List<DocSignImgDto> signImg(HttpSession session){
+		DocSignImgDto doc_no = (DocSignImgDto)session.getAttribute("doc_no");
+		System.out.println("문서 넘버 : " + doc_no);
+		Map<String, Object> imgDocMap = new HashMap<String, Object>();
+		imgDocMap.put("doc_no", "D155");
+		List<DocSignImgDto> lists = serviceImpl.comDocSignImg(imgDocMap);
+		return lists;
+	}
+	
+	//양식 리스트 
 	@GetMapping("/api/data.do")
 	public List<TemplatePreviewDto> previewContent() {
 		List<TemplatePreviewDto> lists = serviceImpl.selectTemplate();
 		return lists;
 	}
 	
+	//문서 작성 화면의 결재자 지정 jstree
 	@GetMapping("/choiceApprovalLine.do")
 	public List<JsTreeResponseDto> getJsTree(){
 		List<JsTreeResponseDto> deptJstreeList = serviceImpl.jsTree();
@@ -51,6 +62,7 @@ public class ApprovalRestController {
 		return deptJstreeList;
 	}
 	
+	//사인 저장
 	@PostMapping("/saveSignatureSign.do")
 	public Map<String, Object> saveSignatureSign(@RequestBody Map<String, String> request, HttpSession session){
 		UserInfoDto loginDto = (UserInfoDto) session.getAttribute("loginDto");

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.rgb.grw.dto.ApproverDto;
+import com.rgb.grw.dto.DocSignImgDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.DocumentListDto;
 import com.rgb.grw.dto.FileDocumentDto;
@@ -88,6 +89,23 @@ public class TemplatePreviewDaoImpl implements ITemplatePreviewDao {
 	public List<DocumentListDto> selectApprovalSignList(Map<String, Object> map) {
 		return template.selectList(NS+ "selectApprovalSignList", map);
 	}
+
+	@Override
+	public List<DocumentListDto> completeApprovalDocument(Map<String, Object> map) {
+		return template.selectList(NS+ "completeApprovalDocument", map);
+	}
+
+	@Override
+	public DocumentListDto detailApprovalDocument(Map<String, Object> map) {
+		return template.selectOne(NS + "detailApprovalDocument", map);
+	}
+
+	@Override
+	public List<DocSignImgDto> comDocSignImg(Map<String, Object> map) {
+		return template.selectList(NS + "comDocSignImg", map);
+	}
+
+	
 
 	
 	

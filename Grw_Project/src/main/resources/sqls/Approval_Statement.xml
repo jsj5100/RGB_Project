@@ -95,8 +95,37 @@
 			JOIN APPROVER a ON d.DOC_NO = a.DOC_NO
 			JOIN EMP e ON d.EMP_NO = e.EMP_NO
 			WHERE a.APP_PROCEDURE IN ('1', '2', '3', '4')
-			AND d.EMP_NO = #{emp_no}
 			AND a.EMP_NO = #{emp_no}
 			AND d.STA_CODE IN('1', '2')
+	</select>
+	
+	<select id="completeApprovalDocument" resultType="DocumentListDto">
+		SELECT d.DOC_NO, e.EMP_NO, d.DOC_CONTENT, d.DOC_NAME, e.EMP_NAME, a.APP_PROCEDURE, d.DOC_REGDATE, d.DOC_EXP
+			FROM DOCUMENT d
+			JOIN APPROVER a ON d.DOC_NO = a.DOC_NO
+			JOIN EMP e ON d.EMP_NO = e.EMP_NO
+			WHERE d.STA_CODE = '3' 
+  			AND a.EMP_NO = #{emp_no}
+  			AND a.APPROVE = 'Y'
+	</select>
+	
+	<select id="detailApprovalDocument" resultType="DocumentListDto">
+		 SELECT d.DOC_NO, e.EMP_NO, d.DOC_CONTENT, d.DOC_NAME, e.EMP_NAME, a.APP_PROCEDURE, d.DOC_REGDATE, d.DOC_EXP
+			FROM DOCUMENT d
+			JOIN APPROVER a ON d.DOC_NO = a.DOC_NO
+			JOIN EMP e ON d.EMP_NO = e.EMP_NO
+			WHERE d.STA_CODE = '3' 
+			  AND a.DOC_NO = #{doc_no}
+			  AND a.EMP_NO = #{emp_no}
+			  AND a.APPROVE = 'Y'
+	</select>
+	
+	<select id="comDocSignImg" resultType="DocSignImgDto">
+		SELECT s.SIGN_IMG, a.APP_PROCEDURE, e.EMP_NAME 
+			FROM SIGN s
+			JOIN APPROVER a ON s.EMP_NO = a.EMP_NO
+			JOIN EMP e ON s.EMP_NO = e.EMP_NO 
+			WHERE a.DOC_NO = #{doc_no}
+			AND a.APPROVE = 'Y'
 	</select>
 </mapper>

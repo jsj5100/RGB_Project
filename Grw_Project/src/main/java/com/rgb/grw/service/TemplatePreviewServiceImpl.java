@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.rgb.grw.dao.TemplatePreviewDaoImpl;
 import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DeptDto;
+import com.rgb.grw.dto.DocSignImgDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.DocumentListDto;
 import com.rgb.grw.dto.EmpDto;
@@ -100,6 +101,21 @@ public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
 	@Override
 	public List<DocumentListDto> selectApprovalSignList(Map<String, Object> map) {
 		return previewDaoImpl.selectApprovalSignList(map);
+	}
+
+	@Override
+	public List<DocumentListDto> completeApprovalDocument(Map<String, Object> map) {
+		return previewDaoImpl.completeApprovalDocument(map);
+	}
+
+	@Override
+	public DocumentListDto detailApprovalDocument(Map<String, Object> map) {
+		return previewDaoImpl.detailApprovalDocument(map);
+	}
+
+	@Override
+	public List<DocSignImgDto> comDocSignImg(Map<String, Object> map) {
+		return previewDaoImpl.comDocSignImg(map);
 	}
 
 	

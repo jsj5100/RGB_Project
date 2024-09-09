@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.rgb.grw.dto.ApproverDto;
+import com.rgb.grw.dto.DocSignImgDto;
 import com.rgb.grw.dto.DocumentDto;
 import com.rgb.grw.dto.DocumentListDto;
 import com.rgb.grw.dto.FileDocumentDto;
@@ -43,4 +44,11 @@ public interface ITemplatePreviewDao {
 	
 	//서명이 필요한 문서 리스트 조회
 	public List<DocumentListDto> selectApprovalSignList(Map<String, Object> map);
+	
+	//서명이 전부 완료된 문서 조회
+	public List<DocumentListDto> completeApprovalDocument(Map<String, Object> map);
+	
+	public DocumentListDto detailApprovalDocument(Map<String, Object> map);
+	
+	public List<DocSignImgDto> comDocSignImg(Map<String, Object> map);
 }
