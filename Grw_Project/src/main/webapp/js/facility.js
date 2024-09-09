@@ -331,7 +331,53 @@ document.addEventListener('DOMContentLoaded', function() {
 	})
 });
 
+function updateCreateContent() {
+	 // 현재 활성화된 탭을 찾습니다.
+    let activeTab = document.querySelector('.tab-pane.active');
+    let activeTabId = activeTab ? activeTab.id : null;  // 활성화된 탭의 ID 저장
 
+    // 현재 날짜
+    let today = new Date();
+    
+    // 12일 후의 날짜
+    let endday = new Date();
+    endday.setDate(today.getDate() + 12);
+
+    // 필요한 날짜(YYYY-MM-DD) 변환
+    let startDate = today.toISOString().split('T')[0];
+    let endDate = endday.toISOString().split('T')[0];
+
+    fetch('./bookalllist/facility.do?' + new URLSearchParams({
+        startDate: startDate,
+        endDate: endDate
+    }))
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); 
+    })
+    .then(data => {
+        let contentContainer = document.getElementById('reservation_content-container');
+        contentContainer.innerHTML = '';  // 기존 내용을 초기화
+        
+        data.forEach(item => {
+            createContents(item);  // 데이터에 따라 새로운 콘텐츠 생성
+        });
+
+        // 기존 활성화된 탭을 다시 활성화
+        if (activeTabId) {
+            let newlyActiveTab = document.getElementById(activeTabId);
+            if (newlyActiveTab) {
+                // 기존 탭을 다시 활성화
+                newlyActiveTab.classList.add('active', 'show');
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error', error);
+    });
+}
 
 
 //자산예약현황 날짜별 일정 콘텐츠 영역
@@ -549,6 +595,7 @@ function insertReservation() {
     .then(data => {
         
 		table.clear();
+		updateCreateContent();
 		  data.forEach(item => {
        
 	        table.row.add({
@@ -617,6 +664,7 @@ function approve(bk_no){
 		
 		console.log('1111 값넘어옴',data);
 		table.clear();
+		updateCreateContent();
 		  data.forEach(item => {
        
 	        table.row.add({
@@ -630,14 +678,14 @@ function approve(bk_no){
 	            "bk_regdate": item.bk_regdate    // 등록일
 	        }).draw();
 	        
-	        
-		
     	 });
 //		$('#kt_modal_add_schedule').modal('hide');
 	})
 	.catch(error => {
 		console.log('error 승인')
 	})
+	
+	
 }
 
 //반려하기
@@ -656,6 +704,7 @@ function deny(bk_no) {
 		console.log('1111 값넘어옴',data);
 		
 		table.clear();
+		updateCreateContent();
 		  data.forEach(item => {
        
 	        table.row.add({
@@ -693,7 +742,7 @@ function cancel(bk_no) {
 //		console.log('1111 값넘어옴',data);
 		
 		table.clear()
-		
+		updateCreateContent();
 		data.forEach(item => {
        		console.log('2222 성공실행')
 	        table.row.add({
