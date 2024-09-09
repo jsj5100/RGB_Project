@@ -78,7 +78,7 @@
 								</button>
 							</div>
 							<div class="text-gray-500 text-center fw-semibold fs-6">
-								사원이 아니신가요? <a href="#" class="link-primary">Email</a>
+								사원이 아니신가요? <a href="./mailForm.do" class="link-primary">Email</a>
 							</div>
 							<!-- 	                            CSRF 토큰을 JSP 페이지에 명시적으로 삽입 -->
 							<input type="hidden" name="${_csrf.parameterName}"

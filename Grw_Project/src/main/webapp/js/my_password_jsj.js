@@ -54,6 +54,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		// 폼 제출 방지 및 오류 메시지 표시
 		if (!isValid) {
 			event.preventDefault(); // 폼 제출 방지
+		} else {
+			// 폼 제출 후 성공 메시지 표시
+			alert('프로필 수정이 완료되었습니다.');
 		}
 	});
 });
