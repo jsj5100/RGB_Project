@@ -73,5 +73,16 @@ public class DeptController {
 		log.info("부서수정 이동");
 		return "deptEdit";
 	}
+	
+	
+	@GetMapping(value="deptAuth.do")
+	public String deptAuth(Model model) {
+		List<DeptDto> depList = service.deptList();
+		List<DeptDto> depEdit = service.deptEdit();
+		model.addAttribute("deptList", depList);
+		model.addAttribute("depEdit", depEdit);
+		log.info("부서수정 이동");
+		return "deptAuth";
+	}
 }
 

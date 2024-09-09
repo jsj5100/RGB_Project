@@ -47,9 +47,20 @@
 </select>
 
 
-<!-- <delete id="deptDel"> -->
-<!-- </delete> -->
+<update id="deptDel">
+    UPDATE DEP
+    SET DEP_STATE = 'N'
+    WHERE DEP_STATE = 'Y' AND DEP_NO = #{depNo}
+</update>
 
+
+<update id="deptModify">
+UPDATE DEP
+SET DEP_NAME = #{depName},
+    EMP_NAME = #{empName}
+WHERE DEP_NO = #{depNo}
+  AND AUTH_NO IN ('T001', 'T002', 'T003', 'T004');
+</update>
 
 <!-- <update id="deptUpdate"> -->
 <!-- </update> -->

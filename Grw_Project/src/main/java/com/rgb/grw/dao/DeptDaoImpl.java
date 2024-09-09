@@ -33,7 +33,13 @@ public class DeptDaoImpl implements IDeptDao {
 	public List<DeptDto> deptEdit() {
 		return sessionTemplate.selectList(NS+"deptEdit");
 	}
-
+	
+	@Override
+	public int deptDel(Map<String, Object> map) {
+		return sessionTemplate.update(NS+"deptDel", map);
+	}
+	
+	
 }
 
 
