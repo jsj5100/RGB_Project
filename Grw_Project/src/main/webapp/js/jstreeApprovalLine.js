@@ -133,42 +133,53 @@ $(document).ready(function() {
 			}
 			
 //			console.log("selectdata", selectdata)
-			findSiblings(selectdata);
+//			findSiblings(selectdata);
 			
         }
     });
     
    
-function findSiblings(selectdata) {
-
-    if (selectTierNo !== undefined) {
-	
-        selectdata.forEach(tier => {
-            if (tier.tier_no >= selectTierNo) {
-                console.log('선택된 값보다 큰 tier:', tier.tier_no);
-                $('#jstree').jstree('disable_node', tier.id);
-            }
-        });
-    } else {
-        console.log('선택된 값의 tier_no가 정의되어 있지 않습니다.');
-    }
-}
-    
-function refind(nodeId, selectdata){
-	let nodeTier_no;
-	selectdata.foreach(data => {
-		if(data.id === nodeId){
-			nodeTier_no = data.tier_no;
-		}
-	})
-	
-	selectdata.foreach(data => {
-		if(data.tier_no<nodeTier_no){
-			$('#jstree').jstree('enable_node', selectedId);
-		}
-	})
-	
-}
+//function findSiblings(selectdata) {
+//	
+//    if (selectTierNo !== undefined) {
+//	
+//        selectdata.forEach(tier => {
+//            if (tier.tier_no >= selectTierNo) {
+//                console.log('선택된 값보다 큰 tier:', tier.tier_no);
+//                $('#jstree').jstree('disable_node', tier.id);
+//            }
+//        });
+//    } else {
+//        console.log('선택된 값의 tier_no가 정의되어 있지 않습니다.');
+//    }
+//}
+//    
+//function refind(nodeId, selectdata){
+//	let nodeTier_no;
+//	selectdata.forEach(data => {
+//		if(data.id === nodeId){
+//			nodeTier_no = data.tier_no;
+//		}
+//	})
+//	
+//	 selectdata.forEach(data => {
+//        // tier_no를 숫자로 변환
+//        const dataTier_no = parseInt(data.tier_no, 10);
+//
+//        console.log('Processing node:', data); // 디버깅을 위해 추가
+//
+//        if (dataTier_no <= nodeTier_no) {
+//            console.log('Activating node with tier_no:', dataTier_no, 'ID:', data.id);
+//            
+//            // 노드가 비활성화되어 있는 경우만 활성화
+//            const node = $('#jstree').jstree('get_node', data.id);
+//            if (node && node.state.disabled) {
+//                $('#jstree').jstree('enable_node', data.id);
+//            }
+//        }
+//    });
+//	
+//}
 	
 	//참조자 지정 버튼
 	document.getElementById('ccLineButton').addEventListener('click', function(){
@@ -232,10 +243,9 @@ function refind(nodeId, selectdata){
                 // 삭제된 노드 ID를 다시 활성화
                 if (nodeId) {
                     $('#jstree').jstree('enable_node', nodeId);
-                    refind(nodeId, selectdata);
+//                    refind(nodeId, selectdata);
                 }
                 
-
                 // 순서 업데이트
                 updateRowOrder();
             }

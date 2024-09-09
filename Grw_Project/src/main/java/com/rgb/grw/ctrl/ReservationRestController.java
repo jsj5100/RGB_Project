@@ -190,7 +190,7 @@ public class ReservationRestController {
 //			result.put("bk_title", dto.getBk_content());
 //			result.put("bk_title", dto.getBk_regdate());
 			
-			if(auth == "FC00A") {
+			if(auth.equals("FC00A")) {
 				booklist = service.getBook(bookmap);
 			} else {
 				booklist = service.getBookUser(bookmap);
