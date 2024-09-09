@@ -137,7 +137,7 @@ public class ReservationRestController {
 	 * @return 성공하면 true 실패하면 false
 	 */
 	@PostMapping(value="/addreservation/facility.do")
-	public ResponseEntity<Map<String, Object>> insertReservation(HttpSession session, @RequestBody Map<String, Object>map) {
+	public ResponseEntity<List<ReservationDto>> insertReservation(HttpSession session, @RequestBody Map<String, Object>map) {
 		
 		Calendar today = Calendar.getInstance();
 		//오늘 날짜
@@ -179,25 +179,25 @@ public class ReservationRestController {
 			bookmap.put("endDate", endDate);
 			bookmap.put("bk_auth", auth);
 			
-			ReservationDto dto = service.getBookInfo(bookmap);
-			Map<String, Object> result = new HashMap<String, Object>();
+//			ReservationDto dto = service.getBookInfo(bookmap);
+//			Map<String, Object> result = new HashMap<String, Object>();
 			
-			result.put("bk_title", dto.getBk_title());
-			result.put("bk_title", dto.getBk_stday());
-			result.put("bk_title", dto.getBk_edday());
-			result.put("bk_title", dto.getBk_name());
-			result.put("bk_title", dto.getBk_state());
-			result.put("bk_title", dto.getBk_content());
-			result.put("bk_title", dto.getBk_regdate());
+//			result.put("bk_title", dto.getBk_title());
+//			result.put("bk_title", dto.getBk_stday());
+//			result.put("bk_title", dto.getBk_edday());
+//			result.put("bk_title", dto.getBk_name());
+//			result.put("bk_title", dto.getBk_state());
+//			result.put("bk_title", dto.getBk_content());
+//			result.put("bk_title", dto.getBk_regdate());
 			
-//			if(auth == "FC00A") {
-//				booklist = service.getBook(bookmap);
-//			} else {
-//				booklist = service.getBookUser(bookmap);
-//			}
+			if(auth == "FC00A") {
+				booklist = service.getBook(bookmap);
+			} else {
+				booklist = service.getBookUser(bookmap);
+			}
 			
-			log.info("booklist:{}", result);
-			return ResponseEntity.ok(result);
+			log.info("booklist:{}", booklist);
+			return ResponseEntity.ok(booklist);
 			
 		}
 		

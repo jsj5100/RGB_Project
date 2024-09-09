@@ -611,6 +611,7 @@ window.onload = function(){
 //취소하기
 function cancel(bk_no) {
 	
+	table.clear();
 	fetch('./cancel/facility.do?'+ new URLSearchParams({
 		bk_no :bk_no
 	}))
