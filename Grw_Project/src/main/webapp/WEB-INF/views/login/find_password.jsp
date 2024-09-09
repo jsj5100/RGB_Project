@@ -19,8 +19,21 @@
 <%@ include file="./lo_header.jsp"%>
 <body id="kt_body" class="app-blank app-blank">
 <script>var defaultThemeMode = "light"; var themeMode; if ( document.documentElement ) { if ( document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if ( localStorage.getItem("data-bs-theme") !== null ) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+
+<!-- 왼쪽 레이아웃 추가 -->
 <div class="d-flex flex-column flex-root" id="kt_app_root">
     <div class="d-flex flex-column flex-lg-row flex-column-fluid">
+        <!-- 왼쪽 영역 추가 -->
+        <div
+            class="d-flex flex-lg-row-fluid w-lg-50 bgi-size-cover bgi-position-center"
+            style="background-image: url(./img/jsj1.jpg)">
+            <!-- Content -->
+            <div class="d-flex flex-column flex-center p-6 p-lg-10 w-100">
+                <h1 class="d-none d-lg-block text-white fs-2qx fw-bold text-center mb-7">GDJ_81 RGB PROJECT</h1>
+                <div class="d-none d-lg-block text-white fs-base text-center">조홍준, 명대홍, 양승, 김유진, 전성진</div>
+            </div>
+        </div>
+        <!-- 오른쪽 영역 -->
         <div class="d-flex flex-column flex-lg-row-fluid w-lg-50 p-10">
             <div class="d-flex flex-center flex-column flex-lg-row-fluid">
                 <div class="w-lg-500px p-10">
@@ -29,7 +42,6 @@
                             <h1 class="text-gray-900 fw-bolder mb-3">암호를 잊으셨습니까 ?</h1>
                             <div class="text-gray-500 fw-semibold fs-6">비밀번호를 재설정하려면 요구하는 정보를 입력해주세요.</div>
                         </div>
-
                         <div class="fv-row mb-8">
                             <input type="text" placeholder="이름" name="emp_name" autocomplete="off" class="form-control bg-transparent custom-input" />
                         </div>
@@ -60,6 +72,7 @@
         </div>
     </div>
 </div>
+
 <script src="./js/reset-password_jsj.js"></script>
 <%@ include file="./lo_footer.jsp"%>
 </body>
