@@ -117,12 +117,28 @@ public class Approval_jhj_JUnitTest {
 			dto.setFdoc_title("sdf");
 			templatePreviewServiceImpl.insertFile(dto);
 		}
-		@Test
+		
+//		@Test
 		public void test_selectApprovalSign() {
 			Map<String, Object> map = new HashMap<>();
 			map.put("emp_no", "000000");
 			templatePreviewServiceImpl.selectApprovalSignList(map);
 		}
+		
+//		@Test
+		public void test_comApprovalDocument() {
+			Map<String, Object> map = new HashMap<>();
+			map.put("emp_no", "000000");
+			templatePreviewServiceImpl.completeApprovalDocument(map);
+		}
+		
+		@Test
+		public void test_signImg() {
+			Map<String, Object> map = new HashMap<>();
+			map.put("doc_no", "D155");
+			templatePreviewServiceImpl.comDocSignImg(map);
+		}
+		
 		
 		
 }
