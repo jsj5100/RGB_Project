@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DocumentDto;
+import com.rgb.grw.dto.DocumentListDto;
 import com.rgb.grw.dto.FileDocumentDto;
 import com.rgb.grw.dto.ReferrerDto;
 import com.rgb.grw.dto.SignDto;
@@ -39,6 +40,23 @@ public class ApprovalController {
 	
 	@Autowired
 	private TemplatePreviewServiceImpl serviceImpl;
+	
+	//사인이 필요한 문서 조회 화면
+	@GetMapping(value = "/approvalDocument.do")
+	public String signDocumentList(HttpSession session, Model model) {
+		UserInfoDto loginDto =  (UserInfoDto)session.getAttribute("loginDto");
+		if(loginDto == null) {
+			return "redirect:/loginServlet.do";
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("emp_no", loginDto.getEmp_no());
+		List<DocumentListDto> lists = serviceImpl.selectApprovalSignList(map);
+		
+		model.addAttribute("lists", lists);
+		
+		return "approvalDocumentList";
+	}
+	
 	
 	//문서 작성화면
 	@GetMapping(value = "/writeDocument.do")

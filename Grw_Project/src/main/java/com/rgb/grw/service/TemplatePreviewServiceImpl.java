@@ -11,6 +11,7 @@ import com.rgb.grw.dao.TemplatePreviewDaoImpl;
 import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DeptDto;
 import com.rgb.grw.dto.DocumentDto;
+import com.rgb.grw.dto.DocumentListDto;
 import com.rgb.grw.dto.EmpDto;
 import com.rgb.grw.dto.FileDocumentDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
@@ -94,6 +95,11 @@ public class TemplatePreviewServiceImpl implements ITemplatePreviewService {
 	@Override
 	public boolean insertFile(FileDocumentDto dto) {
 		return previewDaoImpl.insertFile(dto);
+	}
+
+	@Override
+	public List<DocumentListDto> selectApprovalSignList(Map<String, Object> map) {
+		return previewDaoImpl.selectApprovalSignList(map);
 	}
 
 	

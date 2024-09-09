@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rgb.grw.dto.ApproverDto;
 import com.rgb.grw.dto.DocumentDto;
+import com.rgb.grw.dto.DocumentListDto;
 import com.rgb.grw.dto.FileDocumentDto;
 import com.rgb.grw.dto.JsTreeResponseDto;
 import com.rgb.grw.dto.ReferrerDto;
@@ -81,6 +82,11 @@ public class TemplatePreviewDaoImpl implements ITemplatePreviewDao {
 	public boolean insertFile(FileDocumentDto dto) {
 		int n = template.insert(NS + "insertFile", dto);
 		return (n==1)?true:false;
+	}
+
+	@Override
+	public List<DocumentListDto> selectApprovalSignList(Map<String, Object> map) {
+		return template.selectList(NS+ "selectApprovalSignList", map);
 	}
 
 	

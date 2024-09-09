@@ -470,4 +470,14 @@ CREATE SEQUENCE	FODC_NO_SEQ
     NOCYCLE          -- 최대값에 도달하면 다시 1로 돌아가지 않도록 설정
     NOCACHE;         -- 캐시 사용 안함
 
+--STA_CODE가 1이면 기안 2면 진행중 3이면 완료 4면 반려
+SELECT d.DOC_NO, e.EMP_NO, d.DOC_CONTENT, d.DOC_NAME, e.EMP_NAME, a.APP_PROCEDURE 
+FROM DOCUMENT d
+JOIN APPROVER a ON d.DOC_NO = a.DOC_NO
+JOIN EMP e ON d.EMP_NO = e.EMP_NO
+WHERE a.APP_PROCEDURE IN ('1', '2', '3', '4')
+AND d.EMP_NO = '000000'
+AND d.STA_CODE IN('1', '2');
 
+
+	

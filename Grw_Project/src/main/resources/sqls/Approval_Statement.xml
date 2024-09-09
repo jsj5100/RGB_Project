@@ -88,4 +88,14 @@
 			(FDOC_NO, DOC_NO, FDOC_SIZE, FDOC_TITLE, FDOC_PATH, FDOC_STNAME)
 			VALUES('FD' || LPAD(TO_CHAR(DOC_NO_SEQ.NEXTVAL), 3, '0'), #{doc_no}, #{fdoc_size}, #{fdoc_title}, #{fdoc_path}, #{fdoc_stname})
 	</insert>
+	
+	<select id="selectApprovalSignList" resultType="DocumentListDto">
+		SELECT d.DOC_NO, e.EMP_NO, d.DOC_CONTENT, d.DOC_NAME, e.EMP_NAME, a.APP_PROCEDURE 
+			FROM DOCUMENT d
+			JOIN APPROVER a ON d.DOC_NO = a.DOC_NO
+			JOIN EMP e ON d.EMP_NO = e.EMP_NO
+			WHERE a.APP_PROCEDURE IN ('1', '2', '3', '4')
+			AND d.EMP_NO = #{emp_no}
+			AND d.STA_CODE IN('1', '2')
+	</select>
 </mapper>

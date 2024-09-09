@@ -20,7 +20,8 @@ $(document).ready(function() {
             $('#jstree').jstree({
                 'core': {
                     'data': data
-                }
+                },
+                "plugins" : ["search"]
             }).on('select_node.jstree', function(e, data) {
                 if (data.node.parent === '#') {
                     selectedName = "";
@@ -53,7 +54,13 @@ $(document).ready(function() {
             row.querySelector('.order-cell').textContent = index + 2;
         });
     }
-
+	
+	//jstree 검색 기능
+	$('#search_input').on('keyup', function () {
+  	var searchString = $(this).val();
+ 	 $('#jstree').jstree('search', searchString);
+	});
+	
     // 'approvalLineButton' 버튼 클릭 시 동작
     document.getElementById('approvalLineButton').addEventListener('click', function() {
         // 테이블의 행 수를 계산합니다 (헤더를 제외한 행 수)
