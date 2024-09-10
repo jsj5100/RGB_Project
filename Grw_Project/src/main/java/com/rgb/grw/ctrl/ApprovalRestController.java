@@ -1,5 +1,6 @@
 package com.rgb.grw.ctrl;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,17 +31,34 @@ public class ApprovalRestController {
 	@Autowired
 	private TemplatePreviewServiceImpl serviceImpl;
 	
+	//이미지 뿌려주는거
 	@GetMapping("/docSignImg.do")
 	public List<DocSignImgDto> signImg(HttpSession session){
-		DocSignImgDto doc_no = (DocSignImgDto)session.getAttribute("doc_no");
+		String doc_no = (String)session.getAttribute("doc_no");
 		System.out.println("문서 넘버 : " + doc_no);
 		Map<String, Object> imgDocMap = new HashMap<String, Object>();
-		imgDocMap.put("doc_no", "D155");
+		imgDocMap.put("doc_no", doc_no);
 		List<DocSignImgDto> lists = serviceImpl.comDocSignImg(imgDocMap);
+		
+		Byte[] signImgByteArray= null;
+		byte[] signImg = null;
+		for(DocSignImgDto dto : lists) {
+			signImgByteArray = dto.getSign_img();
+			signImg = new byte[signImgByteArray.length];
+			
+			for(int i = 0; i < signImgByteArray.length; i++) {
+				signImg[i] = signImgByteArray[i];
+			}
+			String base64SignImg = Base64.getEncoder().encodeToString(signImg);
+			dto.setBase64_img(base64SignImg);
+		}
+		
+		
+	
 		return lists;
 	}
 	
-	//양식 리스트 
+	//양식 리스트 52
 	@GetMapping("/api/data.do")
 	public List<TemplatePreviewDto> previewContent() {
 		List<TemplatePreviewDto> lists = serviceImpl.selectTemplate();

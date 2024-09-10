@@ -180,7 +180,7 @@
 											</a>
 										</div>
 										<div class="menu-item">
-											<a class="menu-link" href="./completeDocument.do">&nbsp;&nbsp;&nbsp;
+											<a class="menu-link" href="./comApprovalDocumentList.do">&nbsp;&nbsp;&nbsp;
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
