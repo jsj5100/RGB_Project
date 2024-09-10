@@ -15,18 +15,31 @@ document.addEventListener("DOMContentLoaded", function() {
 	form.addEventListener('submit', function(event) {
 		let isValid = true;
 
-		// 비밀번호 확인
-		if (!passwordField.value.trim() || !passwordConfirmField.value.trim()) {
-			passwordError.innerHTML = '비밀번호와 비밀번호 확인을 입력해 주세요.';
+		// 비밀번호 유효성 검사 (영문, 숫자, 특수문자 조합, 8자리 이상)
+		const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+		if (!passwordField.value.trim()) {
+			passwordError.innerHTML = '비밀번호를 입력해 주세요.';
 			passwordError.classList.remove('d-none'); // 에러 메시지 표시
+			isValid = false;
+		} else if (!passwordRegex.test(passwordField.value.trim())) {
+			passwordError.innerHTML = '비밀번호는 영문, 숫자, 특수문자를 포함하여 8자리 이상이어야 합니다.';
+			passwordError.classList.remove('d-none'); // 에러 메시지 표시
+			isValid = false;
+		} else {
+			passwordError.innerHTML = ''; // 오류 메시지 제거
+			passwordError.classList.add('d-none'); // 숨기기
+		}
+
+		// 비밀번호 확인
+		if (!passwordConfirmField.value.trim()) {
+			passwordConfirmError.innerHTML = '비밀번호 확인을 입력해 주세요.';
+			passwordConfirmError.classList.remove('d-none'); // 에러 메시지 표시
 			isValid = false;
 		} else if (passwordField.value !== passwordConfirmField.value) {
 			passwordConfirmError.innerHTML = '비밀번호와 비밀번호 확인이 일치하지 않습니다.';
 			passwordConfirmError.classList.remove('d-none'); // 에러 메시지 표시
 			isValid = false;
 		} else {
-			passwordError.innerHTML = ''; // 오류 메시지 제거
-			passwordError.classList.add('d-none'); // 숨기기
 			passwordConfirmError.innerHTML = ''; // 오류 메시지 제거
 			passwordConfirmError.classList.add('d-none'); // 숨기기
 		}

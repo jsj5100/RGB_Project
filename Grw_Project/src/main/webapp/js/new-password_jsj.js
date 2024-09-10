@@ -1,4 +1,3 @@
-// 비밀번호 변경 js
 $(document).ready(function() {
 	let formValidator;
 
@@ -14,6 +13,10 @@ $(document).ready(function() {
 							notEmpty: {
 								message: '비밀번호는 필수입니다.'
 							},
+							regexp: {
+								regexp: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+								message: '비밀번호는 영문, 숫자, 특수문자를 포함하여 8자리 이상이어야 합니다.'
+							}
 						}
 					},
 					confirm_password: {

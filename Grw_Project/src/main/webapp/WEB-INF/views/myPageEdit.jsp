@@ -186,8 +186,8 @@ if (myPageDto != null) {
 									<input type="password" id="emp_password" name="emp_password"
 										class="border border-2 rounded py-2 px-3 form-control"
 										style="width: 300px;" placeholder="새 비밀번호" autocomplete="off">
-									<div class="text-muted">비밀번호는 영문 대/소문자 및 숫자 조합으로 8~16자리로
-										설정하세요.</div>
+									<div class="text-muted">비밀번호는 영문, 숫자, 특수문자를 포함하여 8자리
+										이상이어야 합니다.</div>
 									<div id="passwordError" class="alert alert-danger d-none mt-2"></div>
 									<div class="fw-bold mt-5">비밀번호 확인</div>
 									<input type="password" id="emp_password_confirm"
