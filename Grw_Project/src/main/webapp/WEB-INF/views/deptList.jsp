@@ -168,18 +168,13 @@
 										data-kt-scroll-offset="300px" style="max-height: 645px;">
 
 										<div class="fv-row mb-7 fv-plugins-icon-container">
-											<!--begin::Label-->
 											<label class="required fw-semibold fs-6 mb-2">부서명</label>
-											<!--end::Label-->
-											<!--begin::Input-->
 											<input type="text" name="depName"
 												class="form-control form-control-solid mb-3 mb-lg-0"
 												placeholder="ex) 기술지원팀" value="">
-											<!--end::Input-->
 											<div
 												class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
 										</div>
-										<!--end::Input group-->
 
 										<!--begin::Input group-->
 										<div class="fv-row mb-7 fv-plugins-icon-container">
@@ -325,7 +320,7 @@
 											${vs.count}
 										</td>
 										
-										<td>${vo.dep_name}</td>
+										<td><a href="./deptDetail.do?dep_no=${vo.dep_no}" style="color : #78829D;">${vo.dep_name}</a></td>
 										<td>${vo.dep_no}</td>
 										<td>${vo.emp_name}</td>
 										<td>${vo.dep_state}</td>

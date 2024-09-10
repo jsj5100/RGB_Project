@@ -15,5 +15,9 @@ public interface IDeptDao {
 	public List<DeptDto> deptEdit();
 	
 	public int  deptDel(Map<String, Object> map);
+	
+	public DeptDto deptDetail(String Depno);
+	
+	
 }
 

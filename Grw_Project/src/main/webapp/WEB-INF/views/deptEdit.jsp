@@ -121,31 +121,40 @@
 							</div>
 							<!--end::Col-->
 						</div>
+						
+<!-- 						<div class="fv-row row mb-15"> -->
+<!-- 							<div class="col-md-3"> -->
+<!-- 								<label class="fs-6 fw-semibold mt-2">부서상태</label> -->
+<!-- 							</div> -->
+<!-- 							<div class="col-md-9"> -->
+<!-- 								<select class="form-control form-control-solid mb-3 mb-lg-0" -->
+<!-- 									name="deptMg"> -->
+<%-- 									<c:forEach var="deptMg" items="${depEdit}"> --%>
+<%-- 										<option>${deptMg.emp_name}</option> --%>
+<%-- 									</c:forEach> --%>
+<!-- 								</select> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+						
 						<div class="fv-row row mb-15">
 							<!--begin::Col-->
 							<div class="col-md-3">
 								<!--begin::Label-->
-								<label class="fs-6 fw-semibold mt-2">부서관리자</label>
+								<label class="fs-6 fw-semibold mt-2">부서상태</label>
 								<!-- 														<div class="text-muted fs-7">Default file compression type when downloading folders</div> -->
 								<!--end::Label-->
 							</div>
 							<!--end::Col-->
 							<!--begin::Col-->
 							<div class="col-md-9">
-								<select class="form-control form-control-solid mb-3 mb-lg-0"
-									name="deptMg">
-									<c:forEach var="deptMg" items="${depEdit}">
-										<option>${deptMg.emp_name}</option>
-									</c:forEach>
+								<select class="form-control form-control-solid mb-3 mb-lg-0">
+										<option>Y</option>
+										<option>N</option>
 								</select>
 							</div>
-							<!--end::Col-->
 						</div>
-						<!--end::Input group-->
-						<!--begin::Input group-->
-
-						<!--end::Input group-->
-						<!--begin::Action buttons-->
+						
+						
 						<div class="row mt-12">
 							<div class="col-md-9 offset-md-3">
 								<!--begin::Cancel-->

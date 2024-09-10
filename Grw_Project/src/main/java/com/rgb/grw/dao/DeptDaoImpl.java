@@ -39,6 +39,10 @@ public class DeptDaoImpl implements IDeptDao {
 		return sessionTemplate.update(NS+"deptDel", map);
 	}
 	
+	@Override
+	public DeptDto deptDetail(String Depno) {
+		return sessionTemplate.selectOne(NS+"deptDetail", Depno);
+	}
 	
 }
 

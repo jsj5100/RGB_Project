@@ -31,14 +31,27 @@ public class DeptController {
 //		return "deptList";
 //	}
 	
+	
+	
+	//화면리스트
 	@GetMapping(value="deptList.do")
 	public String DeptList(Model model) {
 		List<DeptDto> DeptList = service.deptList();
 		model.addAttribute("DeptList", DeptList);
 		log.info("Dept 리스트받기");
 		return "deptList";
-		
 	}
+	
+	
+	//수정리스트
+//	@GetMapping(value="deptDetail.do")
+//	public String deptDetail(Model model) {
+//		List<DeptDto> DeptList = service.deptList();
+//		model.addAttribute("DeptList", DeptList);
+//		log.info("Dept 리스트받기");
+//		return "deptDetail";
+//	}
+	
 	
 	@PostMapping(value="addDept.do")
 	public String insertDept(HttpSession session, @RequestParam Map<String, Object> map) {
@@ -84,5 +97,42 @@ public class DeptController {
 		log.info("부서수정 이동");
 		return "deptAuth";
 	}
+	
+	
+	//상세 수정모드 Detail
+	@GetMapping(value="deptDetail.do")
+	public String deptDetail(Model model, String dep_no) {
+		List<DeptDto> depList = service.deptList();
+		List<DeptDto> depEdit = service.deptEdit();
+		DeptDto depDetaile = service.deptDetail(dep_no);
+		model.addAttribute("deptList", depList);
+		model.addAttribute("depEdit", depEdit);
+		model.addAttribute("deptDetaile", depDetaile);
+		log.info("부서수정 이동");
+		return "deptDetail";
+	}
+	
+	
+//	수정 및 삭제
+	@PostMapping(value="deptDel.do")
+	public String deptDel(HttpSession session, @RequestParam Map<String, Object> map) {
+		log.info("부서수정 완료");
+		
+		Map<String, Object> dtoMap = new HashMap<String, Object>();
+		
+		dtoMap.put("depName", map.get("depName"));
+		dtoMap.put("depNo", map.get("depNo"));
+		dtoMap.put("depSta", map.get("depSta"));
+		
+		int n = service.deptDel(dtoMap);
+		if (n > 0) {
+	        log.info("부서수정 성공");
+	    } else {
+	        log.error("부서수정 실패");
+	    }
+	    return "redirect:deptList.do";
+	}
+	
+	
 }
 
