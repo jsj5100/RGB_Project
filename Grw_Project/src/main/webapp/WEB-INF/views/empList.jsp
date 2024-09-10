@@ -618,7 +618,6 @@
 	        })
 	        .then(data => {
 	            console.log(data);
-	            
 	            var company = new Array();
 	            
 	            company[0] = {
