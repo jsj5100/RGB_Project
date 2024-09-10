@@ -200,10 +200,10 @@
 														<%=loginDto.getEmp_name()%>
 													</td>
 													<td class="approval-td-body">
-														<%=loginDto.getDep_name()%>
+														<%=loginDto.getTier_name()%>
 													</td>
 													<td class="approval-td-body">
-														<%=loginDto.getTier_name()%>
+														<%=loginDto.getDep_name()%>
 													</td>
 													<td class="approval-td-body">1</td>
 													<td class="approval-td-body" style="display: none;">

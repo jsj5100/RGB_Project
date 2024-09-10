@@ -19,4 +19,6 @@ public class DocSignImgDto {
 	public int app_procedure;
 	public String emp_name;
 	
+	public String base64_img;
+	
 }
