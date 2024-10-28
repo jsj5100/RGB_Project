@@ -1,14 +1,20 @@
 # FINAL PROJECT_그룹웨어 시스템
 
 <div align="center">
+	
 <img width="329" alt="image" src="https://raw.githubusercontent.com/jsj5100/RGB_Project/main/Grw_Project/src/main/webapp/img/jsj1.jpg">
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fjsj5100%2FRGB_Project%2Ftree%2Fmain&count_bg=%23FF9999&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 </div>
 
+
+
+
 # Grw_Project
+
 > **구디아카데미 Spring 기반 프로젝트** <br/> **개발기간: 2024.08.18 ~ 2024.09.08**
+
 
 ## 개발팀 소개
 
@@ -17,57 +23,86 @@
 |   <img width="160px" src="https://avatars.githubusercontent.com/u/144213397?v=4" />    | <img width="160px" src="https://avatars.githubusercontent.com/u/173423276?v=4" /> | <img width="160px" src="https://avatars.githubusercontent.com/u/173789619?v=4"/> | <img width="160px" src="https://avatars.githubusercontent.com/u/110274414?v=4"/> | <img width="160px" src="https://avatars.githubusercontent.com/u/119272401?v=4"/> |
 |   [@Goodgaring](https://github.com/Goodgaring)   |    [@SnowGlobe827](https://github.com/SnowGlobe827)  | [@da2hong](https://github.com/da2hong)  | [@SeongE1](https://github.com/SeongE1) | [@jsj5100](https://github.com/jsj5100) |
 
+
 ## 프로젝트 소개
+
 - **이름**: "RGB"
+
 - **기간**: 2024.08.18 ~ 2024.09.08
+
 - **인원**: 5명
+
 - **목표**: 서버에서 기업의 업무 지원 프로세스를 자동화할 수 있는 ERD 그룹웨어 기능 구현 (전자결재, 일정 관리, 근태 관리, 인사 관리)
 
+
 ## 개발 환경
+
 - **언어**: Java, HTML5, CSS3, JavaScript, JSP
+
 - **라이브러리**: jQuery, JSTL, Spring Security, jstree...
+
 - **프레임워크**: Spring Framework, MyBatis, Bootstrap
+
 - **데이터베이스**: Oracle DB
+
 - **운영체제**: Windows 11
+
 - **IDE**: Eclipse
+
 - **버전 관리**: Git & GitHub
 
+
 #### Project Overview
+
 - **Name**: "RGB"
+
 - **Duration**: 2024.08.18 ~ 2024.09.08
+
 - **Team Size**: 4 members
+
 - **Objective**: Implement groupware features to automate business support processes on the server, including electronic approval, schedule management, attendance management, and human resource management.
 
 #### Development Environment
+
 - **Languages**: Java, HTML5, CSS3, JavaScript, JSP
+
 - **Libraries**: jQuery, JSTL, Spring Security, jstree...
+
 - **Frameworks**: Spring Framework, MyBatis, Bootstrap
+
 - **Database**: Oracle DB
+
 - **Operating System**: Windows 11
+
 - **IDE**: Eclipse
+
 - **Version Control**: Git & GitHub
 
+
 ## 시작 가이드
-### Requirements
+
+#### Requirements
 For building and running the application you need:
 
 - [Eclipse IDE 2022-03](https://www.eclipse.org/downloads/packages/release/2022-03/r)
+
 - [Tomcat 10.0.27](https://tomcat.apache.org/tomcat-10.0-doc/changelog.html)
 
-### Installation
+#### Installation
+
 ``` bash
 $ git clone https://github.com/jsj5100/RGB_Project.git
 $ cd RGB_Project
 ```
 #### Oracle DB
+
 ```
 spring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe
 spring.datasource.username=RGB
 spring.datasource.password=RGB
 ```
-
-
 ---
+
 
 ## Stacks 🐈
 
@@ -93,24 +128,35 @@ spring.datasource.password=RGB
 
 ---
 
+
 # 프로젝트 담당 부분
+
 ## 인사 관리, 근태 관리
+
 1. **요구사항 정의 및 문서 작업**: 
    - 요구사항 정의, WBS(Work Breakdown Structure) 작성, 테이블 설계 등 프로젝트 기초 확립
+
 2. **데이터베이스 설계**: 
    - Oracle DB를 사용해 인사 정보, 근태 정보(출퇴근 시간 기록), 직위, 권한, 부서 관리를 위한 테이블 설계. 정규화 및 데이터 무결성 고려
+
 3. **UI/UX 설계**: 
    - HTML/CSS, Bootstrap, XML, AJAX 등 사용하여 사용자 인터페이스 설계
+   
 
 #### Responsibilities: [HR Management, Attendance Management]
+
 1. **Requirement Definition and Documentation**: 
    - Defined requirements, created WBS (Work Breakdown Structure), designed tables, and established the project's foundation.
+
 2. **Database Design**: 
    - Designed tables in Oracle DB for managing employee information, attendance records (clock-in/clock-out), job titles, permissions, and departments, considering normalization and data integrity.
+
 3. **UI/UX Design**: 
    - Designed the user interface using HTML/CSS.
+   
 
 ## 화면 구성 📺
+
 | 로그인 페이지  |  메인 페이지   | 
 | :-------------------------------------------: | :------------: |
 |  <img width="329" src="https://github.com/jsj5100/RGB_Project/blob/main/JSJ/%EB%A1%9C%EA%B7%B8%EC%9D%B8.png?raw=true"/> |  <img width="329" src="https://github.com/jsj5100/RGB_Project/blob/main/JSJ/%EB%A9%94%EC%9D%B8.png?raw=true"/>|  
@@ -121,13 +167,19 @@ spring.datasource.password=RGB
 [![Demo Video](https://img.youtube.com/vi/aKF6aAuev_c/0.jpg)](https://www.youtube.com/watch?v=aKF6aAuev_c)
 
 ---
+
+
 ## 주요 기능 📦
 
 ### ⭐️ 로그인 페이지
 - Spring Security를 이용한 PasswordEncoder/CSRF 로그인 기능
+
 - 관리자에게 문의 기능
+
 - 암호 찾기 기능
+
 - 이메일 인증 기능
+
 
 ### ⭐️ 메인 페이지
 - 로그인한 사용자의 근태현황 확인 가능 및 출퇴근 기능
@@ -140,11 +192,15 @@ spring.datasource.password=RGB
 
 ---
 
+
 ## 관련 문서
 (https://drive.google.com/drive/folders/1EW1GfvHb2es4RgsL38OtzPcP4zzaPgEC?usp=drive_link)
 
+
 ## 사용 아키텍쳐
+
 ### POM.XML 참고
+
 ```bash
 <!-- 전자정부 표준 프레임웍 4.2.0의 기본 버전 -->
 <org.springframework-version>5.3.27</org.springframework-version>
