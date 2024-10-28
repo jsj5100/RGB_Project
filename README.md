@@ -137,7 +137,7 @@ spring.datasource.password=RGB
 
 # 프로젝트 담당 부분
 
-## 인사 관리, 근태 관리
+#### 인사 관리, 근태 관리
 
 1. **요구사항 정의 및 문서 작업**: 
    - 요구사항 정의, WBS(Work Breakdown Structure) 작성, 테이블 설계 등 프로젝트 기초 확립
