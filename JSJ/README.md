@@ -73,11 +73,13 @@ spring.datasource.password=RGB
 
 ### Environment
 ![Eclipse IDE](https://img.shields.io/badge/Eclipse%20IDE-2C2255?style=for-the-badge&logo=Eclipse&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)
+
+### Config
 ![DBeaver](https://img.shields.io/badge/DBeaver-1F8ACB?style=for-the-badge&logo=DBeaver&logoColor=white)
 ![Oracle DB](https://img.shields.io/badge/Oracle%20DB-F80000?style=for-the-badge&logo=Oracle&logoColor=white)
 ![Tomcat](https://img.shields.io/badge/Apache%20Tomcat-F8DC75?style=for-the-badge&logo=Apache%20Tomcat&logoColor=white)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)             
 
 ### Development
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=Javascript&logoColor=white)
@@ -111,22 +113,30 @@ spring.datasource.password=RGB
 ## 화면 구성 📺
 | 로그인 페이지  |  메인 페이지   | 
 | :-------------------------------------------: | :------------: |
-|  <img width="329" src="https://user-images.githubusercontent.com/50205887/208036155-a57900f7-c68a-470d-923c-ff3c296ea635.png"/> |  <img width="329" src="https://user-images.githubusercontent.com/50205887/208036645-a76cf400-85bc-4fa2-af72-86d2abf61366.png"/>|  
+|  <img width="329" src="https://github.com/jsj5100/RGB_Project/blob/main/JSJ/%EB%A1%9C%EA%B7%B8%EC%9D%B8.png?raw=true"/> |  <img width="329" src="https://github.com/jsj5100/RGB_Project/blob/main/JSJ/%EB%A9%94%EC%9D%B8.png?raw=true"/>|  
 | 마이 페이지   |  근태 페이지   |  
-| <img width="329" src="https://user-images.githubusercontent.com/50205887/208038737-2b32b7d2-25f4-4949-baf5-83b5c02915a3.png"/>   |  <img width="329" src="https://user-images.githubusercontent.com/50205887/208038965-43a6318a-7b05-44bb-97c8-b08b0495fba7.png"/>     |
+| <img width="329" src="https://github.com/jsj5100/RGB_Project/blob/main/JSJ/%EB%A7%88%EC%9D%B4.png?raw=true"/>   |  <img width="329" src="https://github.com/jsj5100/RGB_Project/blob/main/JSJ/%EA%B7%BC%ED%83%9C.png?raw=true"/>     |
+
+# 시행 영상 📺
+(https://img.youtube.com/vi/aKF6aAuev_c/0.jpg)](https://www.youtube.com/watch?v=aKF6aAuev_c)
 
 ---
 ## 주요 기능 📦
 
-### ⭐️ 강좌 선택 및 강의 영상 시청 기능
-- Scratch, Python 2개 강좌 및 각 강좌마다 10개 가량의 강의 영상 제공
-- 추후 지속적으로 강좌 추가 및 업로드 예정
+### ⭐️ 로그인 페이지
+- Spring Security를 이용한 PasswordEncoder/CSRF 로그인 기능
+- 관리자에게 문의 기능
+- 암호 찾기 기능
+- 이메일 인증 기능
 
-### ⭐️ 강의 관련 및 단체에 대한 자유로운 댓글 작성 가능
-- Disqus를 이용하여 강의 관련 질문이나 단체에 대한 질문 작성 가능
+### ⭐️ 메인 페이지
+- 로그인한 사용자의 근태현황 확인 가능 및 출퇴근 기능
 
-### ⭐️ 이어 학습하기 기능
-- Cookie 기능을 이용하여 이전에 학습했던 내용 이후부터 바로 학습 가능
+### ⭐️ 마이 페이지
+- 개인정보 확인 및 수정 / 관리자가 사용자의 개인정보 확인 및 수정
+
+### ⭐️ 근태 페이지
+- 개인 출퇴 확인 및 수정 / 관리자가 사용자의 출퇴 확인 및 수정
 
 ---
 ## 아키텍쳐
