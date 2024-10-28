@@ -200,7 +200,7 @@ spring.datasource.password=RGB
 
 
 ## 관련 문서
-(https://drive.google.com/drive/folders/1EW1GfvHb2es4RgsL38OtzPcP4zzaPgEC?usp=drive_link)
+[![Google Drive]https://drive.google.com/drive/folders/1EW1GfvHb2es4RgsL38OtzPcP4zzaPgEC?usp=drive_link
 
 
 ## 사용 아키텍쳐
