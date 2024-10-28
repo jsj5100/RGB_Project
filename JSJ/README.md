@@ -118,7 +118,7 @@ spring.datasource.password=RGB
 | <img width="329" src="https://github.com/jsj5100/RGB_Project/blob/main/JSJ/%EB%A7%88%EC%9D%B4.png?raw=true"/>   |  <img width="329" src="https://github.com/jsj5100/RGB_Project/blob/main/JSJ/%EA%B7%BC%ED%83%9C.png?raw=true"/>     |
 
 # 시행 영상 📺
-(https://img.youtube.com/vi/aKF6aAuev_c/0.jpg)](https://www.youtube.com/watch?v=aKF6aAuev_c)
+[![Demo Video](https://img.youtube.com/vi/aKF6aAuev_c/0.jpg)](https://www.youtube.com/watch?v=aKF6aAuev_c)
 
 ---
 ## 주요 기능 📦
@@ -139,133 +139,91 @@ spring.datasource.password=RGB
 - 개인 출퇴 확인 및 수정 / 관리자가 사용자의 출퇴 확인 및 수정
 
 ---
-## 아키텍쳐
 
-### 디렉토리 구조
+## 관련 문서
+(https://drive.google.com/drive/folders/1EW1GfvHb2es4RgsL38OtzPcP4zzaPgEC?usp=drive_link)
+
+## 사용 아키텍쳐
+### POM.XML 참고
 ```bash
-├── README.md
-├── package-lock.json
-├── package.json
-├── strapi-backend : 
-│   ├── README.md
-│   ├── api : db model, api 관련 정보 폴더
-│   │   ├── about
-│   │   ├── course
-│   │   └── lecture
-│   ├── config : 서버, 데이터베이스 관련 정보 폴더
-│   │   ├── database.js
-│   │   ├── env : 배포 환경(NODE_ENV = production) 일 때 설정 정보 폴더
-│   │   ├── functions : 프로젝트에서 실행되는 함수 관련 정보 폴더
-│   │   └── server.js
-│   ├── extensions
-│   │   └── users-permissions : 권한 정보
-│   ├── favicon.ico
-│   ├── package-lock.json
-│   ├── package.json
-│   └── public
-│       ├── robots.txt
-│       └── uploads : 강의 별 사진
-└── voluntain-app : 프론트엔드
-    ├── README.md
-    ├── components
-    │   ├── CourseCard.js
-    │   ├── Footer.js
-    │   ├── LectureCards.js
-    │   ├── MainBanner.js : 메인 페이지에 있는 남색 배너 컴포넌트, 커뮤니티 이름과 슬로건을 포함.
-    │   ├── MainCard.js
-    │   ├── MainCookieCard.js
-    │   ├── NavigationBar.js : 네비게이션 바 컴포넌트, _app.js에서 공통으로 전체 페이지에 포함됨.
-    │   ├── RecentLecture.js
-    │   └── useWindowSize.js
-    ├── config
-    │   └── next.config.js
-    ├── lib
-    │   ├── context.js
-    │   └── ga
-    ├── next.config.js
-    ├── package-lock.json
-    ├── package.json
-    ├── pages
-    │   ├── _app.js
-    │   ├── _document.js
-    │   ├── about.js
-    │   ├── course
-    │   ├── index.js
-    │   ├── lecture
-    │   ├── newcourse
-    │   ├── question.js
-    │   └── setting.js
-    ├── public
-    │   ├── favicon.ico
-    │   └── logo_about.png
-    └── styles
-        └── Home.module.css
+<!-- 전자정부 표준 프레임웍 4.2.0의 기본 버전 -->
+<org.springframework-version>5.3.27</org.springframework-version>
 
-```
+<!-- SPring AOP 관점 지향 프로그램 -->
+<org.aspectj-version>1.9.9.1</org.aspectj-version>
 
-<!--
-```bash
-├── README.md : 리드미 파일
-│
-├── strapi-backend/ : 백엔드
-│   ├── api/ : db model, api 관련 정보 폴더
-│   │   └── [table 이름] : database table 별로 분리되는 api 폴더 (table 구조, 해당 table 관련 api 정보 저장)
-│   │       ├── Config/routes.json : api 설정 파일 (api request에 따른 handler 지정)
-│   │       ├── Controllers/ [table 이름].js : api controller 커스텀 파일
-│   │       ├── Models : db model 관련 정보 폴더
-│   │       │   ├── [table 이름].js : (사용 X) api 커스텀 파일
-│   │       │   └── [table 이름].settings.json : model 정보 파일 (field 정보)
-│   │       └─── Services/ course.js : (사용 X) api 커스텀 파일
-│   │ 
-│   ├── config/ : 서버, 데이터베이스 관련 정보 폴더
-│   │   ├── Env/production : 배포 환경(NODE_ENV = production) 일 때 설정 정보 폴더
-│   │   │   └── database.js : production 환경에서 database 설정 파일
-│   │   ├── Functions : 프로젝트에서 실행되는 함수 관련 정보 폴더
-│   │   │   │   ├── responses : (사용 X) 커스텀한 응답 저장 폴더
-│   │   │   │   ├── bootstrap.js : 어플리케이션 시작 시 실행되는 코드 파일
-│   │   │   │   └── cron.js : (사용 X) cron task 관련 파일
-│   │   ├── database.js : 기본 개발 환경(NODE_ENV = development)에서 database 설정 파일
-│   │   └── server.js : 서버 설정 정보 파일
-│   │  
-│   ├── extensions/
-│   │   └── users-permissions/config/ : 권한 정보
-│   │ 
-│   └── public/
-│       └── uploads/ : 강의 별 사진
-│
-└── voluntain-app/ : 프론트엔드
-    ├── components/
-    │   ├── NavigationBar.js : 네비게이션 바 컴포넌트, _app.js에서 공통으로 전체 페이지에 포함됨.
-    │   ├── MainBanner.js : 메인 페이지에 있는 남색 배너 컴포넌트, 커뮤니티 이름과 슬로건을 포함.
-    │   ├── RecentLecture.js : 사용자가 시청 정보(쿠키)에 따라, 현재/다음 강의를 나타내는 컴포넌트 [호출: MainCookieCard]
-    │   ├── MainCookieCard.js : 상위 RecentLecture 컴포넌트에서 전달받은 props를 나타내는 레이아웃 컴포넌트.
-    │   ├── MainCard.js : 현재 등록된 course 정보를 백엔드에서 받아서 카드로 나타내는 컴포넌트 [호출: CourseCard]
-    │   └── CourseCard.js : 상위 MainCard 컴포넌트에서 전달받은 props를 나타내는 레이아웃 컴포넌트
-    │
-    ├── config/
-    │   └── next.config.js
-    │
-    ├── lib/
-    │   └── ga/
-    │   │   └── index.js
-    │   └── context.js
-    │
-    ├── pages/
-    │   ├── courses/
-    │   │   └── [id].js : 강의 페이지
-    │   ├── _app.js : Next.js에서 전체 컴포넌트 구조를 결정, 공통 컴포넌트(navbar, footer)가 선언되도록 customizing 됨.
-    │   ├── _document.js : Next.js에서 전체 html 문서의 구조를 결정, lang 속성과 meta tag가 customizing 됨.
-    │   ├── about.js : 단체 소개 페이지
-    │   ├── index.js : 메인 페이지
-    │   ├── question.js : Q&A 페이지
-    │   └── setting.js : 쿠키, 구글 애널리틱스 정보 수집 정책 페이지
-    │
-    ├── public/
-    │   ├── favicon.ico : 네비게이션바 이미지
-    │   └── logo_about.png : about 페이지 로고 이미지
-    │
-    └── styles/
-        └── Home.module.css
+<!-- LOG -->
+<org.slf4j-version>2.0.7</org.slf4j-version>
+		
+<!-- 시큐리티 API - 5.3.27 -->
+<org.springsecurity>5.8.3</org.springsecurity>
 
+<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j-version}</version>
+<artifactId>logback-classic</artifactId>
+			<version>1.5.6</version>
+<artifactId>logback-core</artifactId>
+			<version>1.5.6</version>
+<artifactId>spring-context</artifactId>
+			<version>${org.springframework-version}</version>
+<artifactId>commons-logging</artifactId>
+<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework-version}</version>
+<artifactId>javax.inject</artifactId>
+			<version>1</version>
+<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+<artifactId>jstl</artifactId>
+			<version>1.2</version>
+<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectj-version}</version>
+<artifactId>ojdbc11</artifactId>
+			<version>23.3.0.23.09</version>
+<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+<artifactId>mybatis-spring</artifactId>
+			<version>3.0.3</version>
+<artifactId>spring-orm</artifactId>
+			<version>${org.springframework-version}</version>
+<artifactId>junit</artifactId>
+			<version>4.12</version>
+<artifactId>spring-test</artifactId>
+			<version>${org.springframework-version}</version>
+<artifactId>lombok</artifactId>
+			<version>1.18.32</version>
+<artifactId>jackson-core</artifactId>
+			<version>2.15.0</version> <!-- 가장 최신 안정 버전 -->
+<artifactId>jackson-databind</artifactId>
+			<version>2.15.0</version> <!-- 가장 최신 안정 버전 -->
+<artifactId>jackson-annotations</artifactId>
+			<version>2.15.0</version> <!-- 가장 최신 안정 버전 -->
+<artifactId>commons-io</artifactId>
+		    <version>2.11.0</version>
+<artifactId>jackson-databind</artifactId>
+		    <version>2.13.0</version>
+<artifactId>commons-codec</artifactId>
+		    <version>1.15</version>
+<artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+<artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
+<artifactId>spring-security-core</artifactId>
+			<version>${org.springsecurity}</version>
+<artifactId>spring-security-web</artifactId>
+			<version>${org.springsecurity}</version>
+<artifactId>spring-security-config</artifactId>
+			<version>${org.springsecurity}</version>
+<artifactId>spring-security-taglibs</artifactId>
+			<version>${org.springsecurity}</version>
+<artifactId>HikariCP</artifactId>
+			<version>4.0.3</version>
+<artifactId>javax.persistence-api</artifactId>
+		    <version>2.2</version>
+<artifactId>hibernate-core</artifactId>
+		    <version>5.4.32.Final</version>
+<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.2</version>
 ```
 -->
