@@ -1,24 +1,19 @@
 
-# 구디아카데미_팀프로젝트
+# FINAL PROJECT_그룹웨어 시스템
 
 <div align="center">
 <img width="329" alt="image" src="https://raw.githubusercontent.com/jsj5100/RGB_Project/main/Grw_Project/src/main/webapp/img/jsj1.jpg">
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fjsj5100%2FRGB_Project%2Ftree%2Fmain&count_bg=%23FF9999&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+
 </div>
 
 # Grw_Project
-> **성균관대학교 소프트웨어학과 온라인 해외봉사 단체** <br/> **개발기간: 2022.03 ~ 2022.10**
+> **구디아카데미 프로젝트** <br/> **개발기간: 2024.08.18 ~ 2024.09.08**
 
-## 배포 주소
+## 개발팀 소개
 
-> **개발 버전** : [http://voluntain.cs.skku.edu/](http://voluntain.cs.skku.edu/) <br>
-> **프론트 서버** : [http://voluntain.cs.skku.edu:33307/](http://voluntain.cs.skku.edu:33307/)<br>
-> **백엔드 서버** : [http://voluntain.cs.skku.edu:2223/](http://voluntain.cs.skku.edu:2223/)<br>
-
-## 웹개발팀 소개
-
-|      박지예       |          서채연         |       이현정         |                                                                                                               
+|      조홍준       |          양승         |       전성진         |       명대홍         |       김유진         |                                                                                                               
 | :------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | 
 |   <img width="160px" src="https://user-images.githubusercontent.com/50205887/205326013-af001243-a77d-4601-8bfc-aa713931cf95.png" />    |                      <img width="160px" src="https://user-images.githubusercontent.com/50205887/207570536-f5a82e48-99a1-4399-91d3-75fc5f8f3349.png" />    |                   <img width="160px" src="https://user-images.githubusercontent.com/50205887/207570634-247c3715-a54e-4f63-8c08-9b266f8a35f7.png"/>   |
 |   [@parkjiye](https://github.com/parkjiye)   |    [@ChaeyeonSeo](https://github.com/ChaeyeonSeo)  | [@hyunjeong408](https://github.com/hyunjeong408)  |
